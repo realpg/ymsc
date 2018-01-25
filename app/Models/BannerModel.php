@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2017/12/21
- * Time: 15:10
+ * Date: 2018/1/25
+ * Time: 15:00
  */
 
 namespace App\Models;
@@ -11,11 +11,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
-class BannerDetail extends Model
+class BannerModel extends Model
 {
     use SoftDeletes;
-    protected $table = 'banner_details';
+    protected $table = 'banner_info';
     public $timestamps = true;
     protected $dates=['deleted_at'];
 }

@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/1/9
- * Time: 10:43
+ * Date: 2018/1/25
+ * Time: 15:04
  */
 
 namespace App\Models;
@@ -11,10 +11,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class IntegralRecord extends Model
+class GoodsTestingAttributeModel extends Model
 {
     use SoftDeletes;
-    protected $table = 'integral_records';
+    protected $table = 'goods_testing_attribute_info';
     public $timestamps = true;
     protected $dates=['deleted_at'];
 }

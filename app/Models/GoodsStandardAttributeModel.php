@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2017/12/24
- * Time: 11:58
+ * Date: 2018/1/25
+ * Time: 15:03
  */
 
 namespace App\Models;
@@ -11,10 +11,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CommentConsent extends Model
+class GoodsStandardAttributeModel extends Model
 {
     use SoftDeletes;
-    protected $table = 'comment_consents';
+    protected $table = 'goods_standard_attribute_info';
     public $timestamps = true;
     protected $dates=['deleted_at'];
 }

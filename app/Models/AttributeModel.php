@@ -1,21 +1,20 @@
 <?php
-
 /**
  * Created by PhpStorm.
- * User: HappyQi
- * Date: 2017/9/28
- * Time: 10:19
+ * User: Administrator
+ * Date: 2018/1/25
+ * Time: 15:00
  */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class AttributeModel extends Model
 {
     use SoftDeletes;
-    protected $table = 'users';
+    protected $table = 'attribute_info';
     public $timestamps = true;
     protected $dates=['deleted_at'];
-
 }

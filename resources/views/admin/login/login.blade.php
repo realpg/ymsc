@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>辽宁南洋风情小程序 | 管理后台</title>
+    <title>优迈商城 | 管理后台</title>
     <link href="{{ URL::asset('img/favor.ico') }}" rel="shortcut icon" type="image/x-icon"/>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -37,14 +37,14 @@
 </head>
 <body>
 <div class="login">
-    <div class="message font-size-22 text-white">辽宁南洋风情小程序-后台登录</div>
+    <div class="message font-size-22 text-white">优迈商城-后台登录</div>
     <div id="darkbannerwrap"></div>
 
-    <form action="" method="post" onsubmit="return checkValid()">
+    <form action="" method="post" onsubmit="return checkValid()" >
         {{csrf_field()}}
-        <input id="telephone" name="telephone" placeholder="手机号" required="" type="text">
+        <input id="phonenum" name="phonenum" placeholder="手机号" required="" type="text" >
         <hr class="hr15">
-        <input id="password" name="password" placeholder="密码" required="" type="password">
+        <input id="password" name="password" placeholder="密码" required="" type="password" >
         <hr class="hr15">
         <input value="登录" style="width:100%;" type="submit">
         <hr class="hr20">
@@ -59,7 +59,7 @@
 
 <div class="copyright">© 2018-2019 by
     <a href="#" target="_blank" style=" color: rgba(255, 255, 255, 0.85);">
-        辽宁南洋风情</a>
+        优迈商城</a>
 </div>
 
 </body>
@@ -74,9 +74,9 @@
     //进行表单校验
     function checkValid() {
         //手机号合规校验
-        var telephone = $("#telephone").val();
-        if (judgeIsNullStr(telephone) || !isPoneAvailable(telephone)) {
-            $("#telephone").focus();
+        var phonenum = $("#phonenum").val();
+        if (judgeIsNullStr(phonenum) || !isPoneAvailable(phonenum)) {
+            $("#phonenum").focus();
             return false;
         }
         var password = $("#password").val();
