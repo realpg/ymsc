@@ -28,24 +28,6 @@ class UserManager
         return $user;
     }
 
-    /*
-     * 根据id获取用户信息
-     *
-     * By TerryQi
-     *
-     * 2017-09-28
-     */
-    public static function getUserInfoById($id)
-    {
-        $user = self::getUserInfoByIdWithToken($id);
-        if ($user) {
-            unset($user['token']);
-//            unset($user['remember_token']);
-            unset($user['password']);
-
-        }
-        return $user;
-    }
 
     /*
      * 根据user_code和token校验合法性，全部插入、更新、删除类操作需要使用中间件

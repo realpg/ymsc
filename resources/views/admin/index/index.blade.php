@@ -5,19 +5,19 @@
     <header class="navbar-wrapper">
         <div class="navbar navbar-fixed-top">
             <div class="container-fluid cl"><a class="logo navbar-logo f-l mr-10 hidden-xs"
-                                               href="/aboutHui.shtml">辽宁南洋风情</a>
+                                               href="/aboutHui.shtml">优迈商城</a>
                 <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="#"></a>
                 <span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.3</span>
                 <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
                 <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                     <ul class="cl">
-                        @if($admin['nick_name']==1)
+                        @if($admin['type']==1)
                             <li>超级管理员</li>
                         @else
                             <li>普通管理员</li>
                         @endif
                         <li class="dropDown dropDown_hover">
-                            <a href="#" class="dropDown_A">{{$admin['nick_name']}}<i class="Hui-iconfont">&#xe6d5;</i></a>
+                            <a href="#" class="dropDown_A">{{$admin['name']}}<i class="Hui-iconfont">&#xe6d5;</i></a>
                             <ul class="dropDown-menu menu radius box-shadow">
                                 <li><a  href="javascript:;" onclick="mysqlf_edit('修改个人信息','{{ route('editMySelf') }}')">个人信息</a></li>
                                 <li><a href="{{ URL::asset('/admin/loginout') }}">退出</a></li>

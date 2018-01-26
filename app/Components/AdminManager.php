@@ -37,6 +37,9 @@ class AdminManager
         if (array_key_exists('avatar', $data)) {
             $admin->avatar = array_get($data, 'avatar');
         }
+        if (array_key_exists('type', $data)) {
+            $admin->type = array_get($data, 'type');
+        }
         return $admin;
     }
 
@@ -64,6 +67,35 @@ class AdminManager
         if($admin){
             unset($admin['password']);
         }
+        return $admin;
+    }
+
+    /*
+     * 根据id获取用户信息（屏蔽掉隐私信息）
+     *
+     * By zm
+     *
+     * 2018-01-26
+     */
+    public static function getAdminInfoById($id)
+    {
+        $admin = AdminModel::find($id);
+        if ($admin) {
+            unset($admin['password']);
+        }
+        return $admin;
+    }
+
+    /*
+     * 根据id获取用户信息（输出完整信息）
+     *
+     * By zm
+     *
+     * 2018-01-26
+     */
+    public static function getAdminAllInfoById($id)
+    {
+        $admin = AdminModel::find($id);
         return $admin;
     }
 }

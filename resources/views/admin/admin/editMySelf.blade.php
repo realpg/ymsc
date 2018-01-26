@@ -20,15 +20,15 @@
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>管理员：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="nick_name" name="nick_name" type="text" class="input-text"
-                                   value="{{ isset($data['nick_name']) ? $data['nick_name'] : '' }}" placeholder="请输入管理员姓名">
+                            <input id="name" name="name" type="text" class="input-text"
+                                   value="{{ isset($data['name']) ? $data['name'] : '' }}" placeholder="请输入管理员姓名">
                         </div>
                     </div>
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系电话：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="telephone" name="telephone" type="text" class="input-text"
-                                   value="{{ isset($data['telephone']) ? $data['telephone'] : '' }}" placeholder="请输入联系电话">
+                            <input id="phonenum" name="phonenum" type="text" class="input-text"
+                                   value="{{ isset($data['phonenum']) ? $data['phonenum'] : '' }}" placeholder="请输入联系电话">
                         </div>
                     </div>
                 </div>
@@ -78,10 +78,10 @@
         var md5_status=true; //防止二次加密
         $("#form-admin-edit").validate({
             rules:{
-                nick_name:{
+                name:{
                     required:true,
                 },
-                telephone:{
+                phonenum:{
                     required:true,
                     number:true,
                     maxlength:11,
