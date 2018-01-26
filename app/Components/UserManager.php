@@ -215,23 +215,6 @@ class UserManager
     }
 
     /*
-     * 查找管理员
-     *
-     * By zm
-     *
-     * 2018-01-15
-     */
-    public static function getAllAdminByName($search)
-    {
-        $users = User::where('type',2)->where(function ($users) use ($search) {
-            $users->where('nick_name'  , 'like', '%'.$search.'%')
-                ->orwhere('telephone', 'like', '%'.$search.'%');
-        })->orderBy('id','asc')->get();
-
-        return $users;
-    }
-
-    /*
      * 根据旅行社id查找旅行社的管理员
      *
      * By zm

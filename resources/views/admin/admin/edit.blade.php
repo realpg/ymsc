@@ -14,25 +14,37 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>管理员：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input id="nick_name" name="nick_name" type="text" class="input-text"
-                           value="{{ isset($data['nick_name']) ? $data['nick_name'] : '' }}" placeholder="请输入管理员姓名">
+                    <input id="name" name="name" type="text" class="input-text"
+                           value="{{ isset($data['name']) ? $data['name'] : '' }}" placeholder="请输入管理员姓名">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系电话：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input id="telephone" name="telephone" type="text" class="input-text"
-                           value="{{ isset($data['telephone']) ? $data['telephone'] : '' }}" placeholder="请输入联系电话">
+                    @if(isset($data['id']))
+                        @if($admin['type']==1)
+                            @if($admin['id']==1||$admin['id']==$data['id'])
+                                <input id="phonenum" name="phonenum" type="text" class="input-text"
+                               value="{{ isset($data['phonenum']) ? $data['phonenum'] : '' }}" placeholder="请输入联系电话">
+                            @else
+                                <input id="phonenum" name="phonenum" type="text" class="input-text no_click" value="{{ isset($data['phonenum']) ? $data['phonenum'] : '' }}" readonly>
+                            @endif
+                        @else
+                            <input id="phonenum" name="phonenum" type="text" class="input-text no_click" value="{{ isset($data['phonenum']) ? $data['phonenum'] : '' }}" readonly>
+                        @endif
+                    @else
+                        <input id="phonenum" name="phonenum" type="text" class="input-text" placeholder="请输入联系电话">
+                    @endif
                 </div>
             </div>
-            @if($data['id']!=1&&$admin['admin']==1)
+            @if($data['id']!=1)
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>角色：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box">
-                        <select id="admin" name="admin" class="select">
-                            <option value="0" {{$data['admin'] == "0"? "selected":""}}>普通管理员</option>
-                            <option value="1" {{$data['admin'] == "1"? "selected":""}}>超级管理员</option>
+                        <select id="type" name="type" class="select">
+                            <option value="0" {{$data['type'] == "0"? "selected":""}}>普通管理员</option>
+                            <option value="1" {{$data['type'] == "1"? "selected":""}}>超级管理员</option>
                         </select>
                     </span>
                 </div>
@@ -62,10 +74,10 @@
         $(function () {
             $("#form-admin-edit").validate({
                 rules:{
-                    nick_name:{
+                    name:{
                         required:true,
                     },
-                    telephone:{
+                    phonenum:{
                         required:true,
                         number:true,
                         maxlength:11,

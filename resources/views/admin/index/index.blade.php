@@ -12,7 +12,11 @@
                 <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                     <ul class="cl">
                         @if($admin['type']==1)
-                            <li>超级管理员</li>
+                            @if($admin['id']==1)
+                                <li>根级管理员</li>
+                            @else
+                                <li>超级管理员</li>
+                            @endif
                         @else
                             <li>普通管理员</li>
                         @endif

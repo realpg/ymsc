@@ -98,4 +98,21 @@ class AdminManager
         $admin = AdminModel::find($id);
         return $admin;
     }
+
+    /*
+     * 查找管理员
+     *
+     * By zm
+     *
+     * 2018-01-26
+     */
+    public static function getAllAdminByNameOrPhonenum($search)
+    {
+        $admin_infos = AdminModel::where(function ($admin_infos) use ($search) {
+            $admin_infos->where('name'  , 'like', '%'.$search.'%')
+                ->orwhere('phonenum', 'like', '%'.$search.'%');
+        })->orderBy('id','asc')->get();
+
+        return $admin_infos;
+    }
 }

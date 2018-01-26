@@ -6,20 +6,19 @@
                 class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r btn-refresh"
                                                        style="line-height:1.6em;margin-top:3px"
                                                        href="javascript:location.replace(location.href);" title="刷新"
-                                                       onclick="location.replace('{{URL::asset('/admin/admin/index')}}');"><i
-                    class="Hui-iconfont">&#xe68f;</i></a></nav>
+                                                       onclick="location.replace('{{URL::asset('/admin/admin/index')}}');">
+            <i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="page-container">
         <div class="text-c">
             <form action="{{URL::asset('/admin/admin/index')}}" method="post" class="form-horizontal">
                 {{csrf_field()}}
-                <input id="search" name="search" type="text" class="input-text" style="width:450px"
-                       placeholder="管理员名称\手机号码">
-                <button type="submit" class="btn btn-success" id="" name="">
+                <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="管理员名称\手机号码">
+                <button type="submit" class="btn btn-success">
                     <i class="Hui-iconfont">&#xe665;</i> 搜索
                 </button>
             </form>
         </div>
-        @if($admin['admin']==1)
+        @if($admin['type']==1)
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
                  <a href="javascript:;" onclick="admin_add('添加管理员','{{URL::asset('/admin/admin/edit')}}')"
@@ -27,15 +26,11 @@
                      <i class="Hui-iconfont">&#xe600;</i> 添加管理员
                  </a>
             </span>
-            {{--<span class="r">共有数据：<strong>{{$datas->count()}}</strong> 条</span>--}}
         </div>
         @endif
         <div class="mt-20">
             <table class="table table-border table-bordered table-bg">
             <thead>
-            {{--<tr>--}}
-                {{--<th scope="col" colspan="9">管理员列表</th>--}}
-            {{--</tr>--}}
             <tr class="text-c">
                 <th width="40">ID</th>
                 {{--<th width="50">头像</th>--}}
@@ -43,7 +38,7 @@
                 <th width="90">手机</th>
                 <th width="50">角色</th>
                 <th width="130">加入时间</th>
-                @if($admin['admin']==1)
+                @if($admin['type']==1)
                 <th width="100">操作</th>
                 @endif
             </tr>
@@ -56,16 +51,26 @@
                         {{--<img src="{{ $data['avatar'] ? $data['avatar'].'?imageView2/1/w/200/h/200/interlace/1/q/75|imageslim' : URL::asset('/img/default_headicon.png')}}"--}}
                              {{--class="img-rect-30 radius-5">--}}
                     {{--</td>--}}
-                    <td>{{$data['nick_name']}}</td>
-                    <td>{{$data['telephone']}}</td>
-                    <td>{{$data->admin == "0" ? "普通管理员" : "超级管理员"}}</td>
-                    <td>{{$data->created_at}}</td>
-                    @if($admin['admin']==1)
+                    <td>{{$data['name']}}</td>
+                    <td>{{$data['phonenum']}}</td>
+                    <td>
+                        @if($data['type'] == "0" )
+                            普通管理员
+                        @else
+                            @if($data['id']==1)
+                                根级管理员
+                            @else
+                                超级管理员
+                            @endif
+                        @endif
+                    </td>
+                    <td>{{$data['created_at']}}</td>
+                    @if($admin['type']==1)
                     <td class="td-manage">
                         <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','{{URL::asset('/admin/admin/edit')}}?id={{$data['id']}}',{{$data['id']}})"  class="ml-5" style="text-decoration:none">
                             <i class="Hui-iconfont">&#xe6df;</i>
                         </a>
-                        @if($data['admin']==0)
+                        @if($data['type']==0)
                             <a title="删除" href="javascript:;" onclick="admin_del(this,'{{$data['id']}}')" class="ml-5" style="text-decoration:none">
                                 <i class="Hui-iconfont">&#xe6e2;</i>
                             </a>

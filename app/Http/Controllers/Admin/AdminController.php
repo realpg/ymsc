@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin;
 use App\Components\AdminManager;
 use App\Components\UserManager;
 use App\Http\Controllers\ApiResponse;
+use App\Models\AdminModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Libs\ServerUtils;
@@ -32,10 +33,10 @@ class AdminController
         else{
             $search='';
         }
-        $datas = UserManager::getAllAdminByName($search);
+        $admin_infos = AdminManager::getAllAdminByNameOrPhonenum($search);
         $param=array(
             'admin'=>$admin,
-            'datas'=>$datas
+            'datas'=>$admin_infos
         );
         return view('admin.admin.index', $param);
     }
@@ -73,24 +74,19 @@ class AdminController
     public function edit(Request $request)
     {
         $data = $request->all();
-        $admin_info = new User();
-        if (array_key_exists('id', $data)) {
-            $admin_info = UserManager::getUserInfoById($data['id']);
-        }
         $admin = $request->session()->get('admin');
+        $admin_info = new AdminModel();
+        if (array_key_exists('id', $data)) {
+            $admin_info = AdminManager::getAdminInfoById($data['id']);
+        }
         //只有根管理员有修改权限
-        if (($admin['type'] == '2')&&($admin['admin'] == '1')) {
 //        //生成七牛token
 //        $upload_token = QNManager::uploadToken();
-            $param=array(
-                'admin'=>$admin,
-                'data'=>$admin_info
-            );
-            return view('admin.admin.edit', $param);
-        }
-        else{
-            return redirect()->action('\App\Http\Controllers\Admin\IndexController@error', ['msg' => '合规校验失败，只有管理员有修改权限']);
-        }
+        $param=array(
+            'admin'=>$admin,
+            'data'=>$admin_info
+        );
+        return view('admin.admin.edit', $param);
     }
 
     //新建或编辑管理员-post
@@ -101,12 +97,11 @@ class AdminController
         $return=null;
         //存在id是保存
         if (empty($data['id'])) {
-            $admin_info = new User();
+            $admin_info = new AdminModel();
             //如果不存在id代表新建，则默认设置密码
             $data['password']='afdd0b4ad2ec172c586e2150770fbf9e';  //Aa123456
-            $data['type']=2;
             //查询电话号码是否唯一
-            $admin_chenck=UserManager::getUserInfoByTel($data['phonenum']);
+            $admin_chenck=AdminManager::getAdminByTel($data['phonenum']);
             if($admin_chenck){
                 $return['result']=false;
                 $return['msg']='添加管理员失败,此电话号码已被注册';
@@ -125,7 +120,7 @@ class AdminController
             }
         }
         else{
-            $admin_info = UserManager::getUserInfoById($data['id']);
+            $admin_info = AdminManager::getAdminInfoById($data['id']);
             //查询电话号码是否唯一
             $result=AdminManager::getAdminByTel($data['phonenum']);
             if($data['phonenum']!=$admin_info['phonenum']&&$result){
