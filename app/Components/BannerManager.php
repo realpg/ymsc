@@ -8,9 +8,7 @@
 
 namespace App\Components;
 
-
-use App\Models\Banner;
-use App\Models\BannerDetail;
+use App\Models\BannerModel;
 
 class BannerManager
 {
@@ -20,33 +18,33 @@ class BannerManager
      *
      * By zm
      *
-     * 2018-01-19
+     * 2018-01-26
      *
      */
     public static function getAllBannerLists($search)
     {
-        $banners = Banner::where('title'  , 'like', '%'.$search.'%')->orderBy('sort','desc')->get();
+        $banners = BannerModel::where('name'  , 'like', '%'.$search.'%')->orderBy('sort','desc')->get();
+        foreach ($banners as $banner){
+            $menu=MenuManager::getMenuById($banner['id']);
+            $banner['menu_name']=$menu['name'];
+        }
         return $banners;
     }
-
 
     /*
      * 配置Banner的参数
      *
      * By zm
      *
-     * 2018-01-19
+     * 2018-01-26
      *
      */
     public static function setBanner($banner, $data){
-        if (array_key_exists('title', $data)) {
-            $banner->title = array_get($data, 'title');
+        if (array_key_exists('name', $data)) {
+            $banner->name = array_get($data, 'name');
         }
-        if (array_key_exists('type', $data)) {
-            $banner->type = array_get($data, 'type');
-        }
-        if (array_key_exists('image', $data)) {
-            $banner->image = array_get($data, 'image');
+        if (array_key_exists('picture', $data)) {
+            $banner->picture = array_get($data, 'picture');
         }
         if (array_key_exists('sort', $data)) {
             $banner->sort = array_get($data, 'sort');
@@ -54,61 +52,26 @@ class BannerManager
         if (array_key_exists('link', $data)) {
             $banner->link = array_get($data, 'link');
         }
+        if (array_key_exists('menu_id', $data)) {
+            $banner->menu_id = array_get($data, 'menu_id');
+        }
+        if (array_key_exists('status', $data)) {
+            $banner->status = array_get($data, 'status');
+        }
         return $banner;
     }
-
 
     /*
      * 通过id获得Banner
      *
      * By zm
      *
-     * 2018-01-19
+     * 2018-01-26
      *
      */
     public static function getBannerById($id){
-        $banner=Banner::where('id',$id)->first();
+        $banner=BannerModel::where('id',$id)->first();
         return $banner;
     }
-
-
-    /*
-     * 通过id获得BannerDetail
-     *
-     * By zm
-     *
-     * 2018-01-22
-     *
-     */
-    public static function getBannerDetailById($id){
-        $banner_detail=BannerDetail::where('id',$id)->first();
-        return $banner_detail;
-    }
-
-
-
-
-    /*
-     * 配置BannerDetail的参数
-     *
-     * By zm
-     *
-     * 2018-01-22
-     *
-     */
-    public static function setBannerDetail($banner_detail, $data){
-        if (array_key_exists('banner_id', $data)) {
-            $banner_detail->banner_id = array_get($data, 'banner_id');
-        }
-        if (array_key_exists('content', $data)) {
-            $banner_detail->content = array_get($data, 'content');
-        }
-        if (array_key_exists('type', $data)) {
-            $banner_detail->type = array_get($data, 'type');
-        }
-        if (array_key_exists('sort', $data)) {
-            $banner_detail->sort = array_get($data, 'sort');
-        }
-        return $banner_detail;
-    }
+    
 }

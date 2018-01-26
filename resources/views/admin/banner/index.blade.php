@@ -14,21 +14,21 @@
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a class="btn btn-primary radius" onclick="banner_add('添加Banner','{{URL::asset('/admin/banner/add')}}')" href="javascript:;">
+            <a class="btn btn-primary radius" onclick="banner_edit('添加Banner','{{URL::asset('/admin/banner/edit')}}')" href="javascript:;">
                 <i class="Hui-iconfont">&#xe600;</i> 添加Banner
             </a>
         </span>
-        {{--<span class="r">共有数据：<strong>{{count($datas)}}</strong> 条</span> --}}
     </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort" id="table-sort">
             <thead>
             <tr class="text-c">
                 <th width="80">ID</th>
+                <th width="100">栏目</th>
                 <th width="100">图片</th>
                 <th>标题</th>
+                <th width="100">状态</th>
                 <th width="150">更新时间</th>
-                <th width="60">类型</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -36,14 +36,17 @@
             @foreach($datas as $data)
                 <tr class="text-c">
                     <td>{{$data['id']}}</td>
-                    <td><img width="210" class="picture-thumb" src="{{$data['image']}}"></td>
-                    <td class="text-l">{{$data['title']}}</td>
+                    <td>{{$data['menu_name']}}</td>
+                    <td><img width="210" class="picture-thumb" src="{{$data['picture']}}"></td>
+                    <td class="text-l">{{$data['name']}}</td>
+                    <td>
+                        @if($data['status'])
+                            <span class="label label-success radius">显示</span>
+                        @else
+                            <span class="label label-danger radius">隐藏</span>
+                        @endif
+                    </td>
                     <td>{{$data['updated_at']}}</td>
-                    @if($data['type']==0)
-                        <td>详情页</td>
-                    @else
-                        <td>链接</td>
-                    @endif
                     <td class="td-manage">
                         <a title="编辑" href="javascript:;" onclick="banner_edit('Banner编辑','{{URL::asset('/admin/banner/edit')}}?id={{$data['id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
                             <i class="Hui-iconfont">&#xe6df;</i>
@@ -71,12 +74,12 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,1,5]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,2,6]}// 不参与排序的列
         ]
     });
 
     /*Banner-添加*/
-    function banner_add(title,url){
+    function banner_edit(title,url){
         var index = layer.open({
             type: 2,
             title: title,

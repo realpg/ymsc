@@ -10,10 +10,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Components\AdminManager;
-use App\Components\UserManager;
 use App\Http\Controllers\ApiResponse;
 use App\Models\AdminModel;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Libs\ServerUtils;
 use App\Components\RequestValidator;
@@ -41,17 +39,16 @@ class AdminController
         return view('admin.admin.index', $param);
     }
 
-
     //删除管理员
     public function del(Request $request, $id)
     {
         if (is_numeric($id) !== true) {
-            return redirect()->action('\App\Http\Controllers\Admin\IndexController@error', ['msg' => '合规校验失败，请检查参数管理员id$id']);
+            return redirect()->action('\App\Http\Controllers\Admin\IndexController@error', ['msg' => '合规校验失败，缺少参数']);
         }
-        $admin_info = User::find($id);
+        $admin_info = AdminModel::find($id);
         $return=null;
-        //非根管理员
-        if ($admin_info['admin'] == '0') {
+        //非超级管理员
+        if ($admin_info['type'] == '0') {
             $result=$admin_info->delete();
             if($result){
                 $return['result']=true;
@@ -59,7 +56,7 @@ class AdminController
             }
             else{
                 $return['result']=false;
-                $return['msg']='删除失败，高级管理员无法删除';
+                $return['msg']='删除失败，超级管理员不能删除';
             }
         }
         else{
@@ -68,7 +65,6 @@ class AdminController
         }
         return $return;
     }
-
 
     //新建或编辑管理员-get
     public function edit(Request $request)
