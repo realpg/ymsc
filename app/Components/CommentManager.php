@@ -8,13 +8,10 @@
 
 namespace App\Components;
 
-use App\Http\Controllers\ApiResponse;
-use App\Models\CarGoods;
 use App\Models\Comment;
 use App\Models\CommentConsent;
 use App\Models\CommentImage;
 use App\Models\CommentReplie;
-use App\Models\TourGoods;
 
 class CommentManager
 {

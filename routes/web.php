@@ -49,18 +49,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/baseAbout/edit', 'Admin\BaseController@baseAboutDo');  //编辑关于我们
     Route::post('/baseSeo/edit', 'Admin\BaseController@baseSeoDo');  //编辑SEO
 
-    //旅行社管理
-    Route::get('/organization/index', 'Admin\OrganizationController@index');  //旅行社管理首页
-    Route::post('/organization/index', 'Admin\OrganizationController@index');  //搜索旅行社
-    Route::get('/organization/edit', 'Admin\OrganizationController@edit');  //新建或编辑旅行社
-    Route::post('/organization/edit', 'Admin\OrganizationController@editDo');  //新建或编辑旅行社
-    Route::get('/organization/del/{id}', 'Admin\OrganizationController@del');  //删除旅行社
-    Route::get('/organization/admin', 'Admin\OrganizationController@admin');  //旅行社管理员管理首页
-    Route::get('/organization/adminSearch', 'Admin\OrganizationController@admin');  //搜索旅行社管理员
-    Route::get('/organization/delAdmin/{id}', 'Admin\OrganizationController@delAdmin');  //删除旅行社管理员
-    Route::get('/organization/editAdmin', 'Admin\OrganizationController@editAdmin');  //新建或编辑旅行社管理员
-    Route::get('/organization/editAdminSearch', 'Admin\OrganizationController@editAdmin');  //搜索旅行社备选管理员
-    Route::post('/organization/editAdmin', 'Admin\OrganizationController@editAdminDo');  //新建或编辑旅行社管理员
+    //加盟信息管理
+    Route::get('/league/index', 'Admin\LeagueController@index');  //加盟管理首页
+    Route::post('/league/index', 'Admin\LeagueController@index');  //搜索加盟管理信息
+    Route::get('/league/edit', 'Admin\LeagueController@edit');  //查看加盟信息详情
+    Route::post('/league/stamp', 'Admin\LeagueController@stamp');  //标记已联系
+    Route::get('/league/del/{id}', 'Admin\LeagueController@del');  //删除信息
 
     //会员管理
     Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页

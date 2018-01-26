@@ -81,32 +81,4 @@ class BaseController
         }
         return $return;
     }
-//    public function baseInfoDo(Request $request){
-//        $data = $request->all();
-//        $admin = $request->session()->get('admin');
-//        $return=null;
-//        if(empty($data['picture'])){
-//            $return['result']=false;
-//            $return['msg']='编辑Banner失败,请上传图片';
-//        }
-//        else{
-//            if(empty($data['id'])){
-//                $base=new BannerModel();
-//            }
-//            else{
-//                $base = BaseManager::getBannerById($data['id']);
-//            }
-//            $base = BaseManager::setBanner($base,$data);
-//            $result=$base->save();
-//            if($result){
-//                $return['result']=true;
-//                $return['msg']='编辑Banner成功';
-//            }
-//            else{
-//                $return['result']=false;
-//                $return['msg']='编辑Banner失败';
-//            }
-//        }
-//        return $return;
-//    }
 }

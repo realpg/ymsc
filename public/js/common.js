@@ -32,37 +32,13 @@ function delAdmin(url, param, callBack) {
 function delBanner(url, param, callBack) {
     ajaxRequest(url + "admin/banner/del/" + param.id, param, "GET", callBack);
 }
-//删除Banner详情
-function delBannerDetail(url, param, callBack) {
-    ajaxRequest(url + "admin/bannerdetail/del/" + param.id, param, "GET", callBack);
-}
-//修改Banner详情
-function editBannerDetail(url, param, callBack) {
-    $.post(url + "admin/bannerdetail/edit",param,callBack);
-}
-//删除旅行社
-function delOrganization(url, param, callBack) {
-    ajaxRequest(url + "admin/organization/del/" + param.id, param, "GET", callBack);
-}
-//删除旅行社管理员
-function delOrganizationAdmin(url, param, callBack) {
-    ajaxRequest(url + "admin/organization/delAdmin/" + param.id, param, "GET", callBack);
-}
-//添加旅行社管理员
-function editOrganizationAdmin(url, param, callBack) {
-    ajaxRequest(url + "admin/organization/editAdmin/", param, "GET", callBack);
-}
-//设置旅行社管理员
-function setUpOrganizationAdmin(url, param, callBack) {
-    $.post(url + "admin/organization/editAdmin",param,callBack);
-}
-//审核评论
-function examineComment(url, param, callBack) {
-    $.post(url + "admin/comment/examine",param,callBack);
+//加盟信息标记已联系
+function stampLeague(url, param, callBack) {
+    $.post(url + "admin/league/stamp",param,callBack);
 }
 //删除评论
-function delComment(url, param, callBack) {
-    ajaxRequest(url + "admin/comment/del/" + param.id, param, "GET", callBack);
+function delLeague(url, param, callBack) {
+    ajaxRequest(url + "admin/league/del/" + param.id, param, "GET", callBack);
 }
 
 
