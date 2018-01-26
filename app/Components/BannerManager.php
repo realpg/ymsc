@@ -25,7 +25,7 @@ class BannerManager
     {
         $banners = BannerModel::where('name'  , 'like', '%'.$search.'%')->orderBy('sort','desc')->get();
         foreach ($banners as $banner){
-            $menu=MenuManager::getMenuById($banner['id']);
+            $menu=MenuManager::getMenuById($banner['menu_id']);
             $banner['menu_name']=$menu['name'];
         }
         return $banners;

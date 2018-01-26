@@ -38,16 +38,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
 
     //Banner管理
     Route::get('/banner/index', 'Admin\BannerController@index');  //Banner管理首页
-    Route::post('/banner/index', 'Admin\BannerController@index');  //搜索管理员
+    Route::post('/banner/index', 'Admin\BannerController@index');  //搜索Banner
+    Route::get('/banner/del/{id}', 'Admin\BannerController@del');  //删除Banner
     Route::get('/banner/edit', 'Admin\BannerController@edit');  //创建或编辑Banner
     Route::post('/banner/edit', 'Admin\BannerController@editDo');  //创建或编辑Banner
-//    Route::get('/banner/add', 'Admin\BannerController@add');  //新建Banner
-//    Route::post('/banner/add', 'Admin\BannerController@addDo');  //新建Banner
-//    Route::get('/banner/del/{id}', 'Admin\BannerController@del');  //删除Banner
-//    Route::get('/banner/edit', 'Admin\BannerController@edit');  //编辑Banner
-//    Route::post('/banner/edit', 'Admin\BannerController@editDo');  //编辑Banner
-//    Route::get('/bannerdetail/del/{id}', 'Admin\BannerController@delDetail');  //删除Banner详情信息
-//    Route::post('/bannerdetail/edit', 'Admin\BannerController@editDoDetail');  //编辑Banner详情信息
 
     //旅行社管理
     Route::get('/organization/index', 'Admin\OrganizationController@index');  //旅行社管理首页
