@@ -65,6 +65,15 @@
                 </dd>
             </dl>
             <dl id="menu-picture">
+                <dt><i class="Hui-iconfont">&#xe62e;</i> 网站基本设置<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="{{ URL::asset('/admin/base/edit') }}" data-title="网站基本设置" href="javascript:void(0)">网站基本设置</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-picture">
                 <dt><i class="Hui-iconfont">&#xe613;</i> Banner管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
                 </dt>
                 <dd>

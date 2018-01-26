@@ -43,6 +43,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/banner/edit', 'Admin\BannerController@edit');  //创建或编辑Banner
     Route::post('/banner/edit', 'Admin\BannerController@editDo');  //创建或编辑Banner
 
+    //网站基本设置
+    Route::get('/base/edit', 'Admin\BaseController@edit');  //编辑网站基本设置
+    Route::post('/baseInfo/edit', 'Admin\BaseController@baseInfoDo');  //编辑网站基本设置
+    Route::post('/baseAbout/edit', 'Admin\BaseController@baseAboutDo');  //编辑关于我们
+    Route::post('/baseSeo/edit', 'Admin\BaseController@baseSeoDo');  //编辑SEO
+
     //旅行社管理
     Route::get('/organization/index', 'Admin\OrganizationController@index');  //旅行社管理首页
     Route::post('/organization/index', 'Admin\OrganizationController@index');  //搜索旅行社
