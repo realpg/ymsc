@@ -1,21 +1,21 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 加盟信息管理 <span class="c-gray en">&gt;</span>加盟信息列表 <a class="btn btn-success radius btn-refresh r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" onclick="location.replace('{{URL::asset('/admin/league/index')}}');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 找货信息管理 <span class="c-gray en">&gt;</span>找货信息列表 <a class="btn btn-success radius btn-refresh r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" onclick="location.replace('{{URL::asset('/admin/searching/index')}}');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="text-c">
-        <form action="{{URL::asset('/admin/league/index')}}" method="post" class="form-horizontal">
+        <form action="{{URL::asset('/admin/searching/index')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
-            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="姓名\手机号码">
+            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="货物\联系人姓名\联系人手机号码">
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
         </form>
     </div>
-    <from action="{{URL::asset('/admin/league/delMore')}}" method="post"  class="form-horizontal">
+    <from action="{{URL::asset('/admin/searching/delMore')}}" method="post"  class="form-horizontal">
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
-                <a href="javascript:;" onclick="league_delMore()" class="btn btn-danger radius"><i class="Hui-iconfont"></i> 批量删除</a>
+                <a href="javascript:;" onclick="searching_delMore()" class="btn btn-danger radius"><i class="Hui-iconfont"></i> 批量删除</a>
             </span>
         </div>
         <div class="mt-20">
@@ -26,9 +26,9 @@
                         <input type="checkbox" id="checkbox-1">
                     </th>
                     <th width="80">ID</th>
-                    <th>姓名</th>
-                    <th>电话</th>
-                    <th>电子邮箱</th>
+                    <th>货物</th>
+                    <th>联系人姓名</th>
+                    <th>联系人电话</th>
                     <th width="150">状态</th>
                     <th width="150">留言时间</th>
                     <th width="100">操作</th>
@@ -41,9 +41,9 @@
                             <input type="checkbox" name="id_array" value="{{$data['id']}}" id="checkbox-1">
                         </td>
                         <td>{{$data['id']}}</td>
+                        <td class="text-l">{{$data['goods']}}</td>
                         <td class="text-l">{{$data['name']}}</td>
                         <td>{{$data['phonenum']}}</td>
-                        <td class="text-l">{{$data['email']}}</td>
                         <td width="150">
                             @if($data['status'])
                                 <span class="label label-success radius">已联系</span>
@@ -53,10 +53,10 @@
                         </td>
                         <td>{{$data['created_at']}}</td>
                         <td class="td-manage">
-                            <a title="查看详情" href="javascript:;" onclick="league_edit('查看详情','{{URL::asset('/admin/league/edit')}}?id={{$data['id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
+                            <a title="查看详情" href="javascript:;" onclick="searching_edit('查看详情','{{URL::asset('/admin/searching/edit')}}?id={{$data['id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
                                 <i class="Hui-iconfont">&#xe695;</i>
                             </a>
-                            <a title="删除" href="javascript:;" onclick="league_del(this,'{{$data['id']}}')" class="ml-5" style="text-decoration:none">
+                            <a title="删除" href="javascript:;" onclick="searching_del(this,'{{$data['id']}}')" class="ml-5" style="text-decoration:none">
                                 <i class="Hui-iconfont">&#xe6e2;</i>
                             </a>
                         </td>
@@ -85,8 +85,8 @@
     });
 
     /*查看加盟信息详情*/
-    function league_edit(title, url, id) {
-        // console.log("league_edit url:" + url);
+    function searching_edit(title, url, id) {
+        // console.log("searching_edit url:" + url);
         var index = layer.open({
             type: 2,
             title: title,
@@ -96,14 +96,14 @@
     }
 
     /*加盟信息-删除*/
-    function league_del(obj,id){
+    function searching_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //进行后台删除
             var param = {
                 id: id,
                 _token: "{{ csrf_token() }}"
             }
-            delLeague('{{URL::asset('')}}', param, function (ret) {
+            delSearching('{{URL::asset('')}}', param, function (ret) {
                 if (ret.result == true) {
                     $(obj).parents("tr").remove();
                     layer.msg(ret.msg, {icon: 1, time: 1000});
@@ -113,7 +113,7 @@
             })
         });
     }
-    function league_delMore(){
+    function searching_delMore(){
         var id_array=''
         $("input:checkbox[name='id_array']:checked").each(function() { // 遍历name=test的多选框
             id_array=id_array+$(this).val()+',';  // 每一个被选中项的值
@@ -123,7 +123,7 @@
             id_array: id_array,
             _token: "{{ csrf_token() }}"
         }
-        delMoreLeague('{{URL::asset('')}}', param, function (ret) {
+        delMoreSearching('{{URL::asset('')}}', param, function (ret) {
             if (ret.result == true) {
                 // $(obj).parents("tr").remove();
                 layer.msg(ret.msg, {icon: 1, time: 1000});

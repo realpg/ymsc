@@ -26,19 +26,47 @@ function setAdminStatus(url, param, callBack) {
 }
 //删除管理员
 function delAdmin(url, param, callBack) {
-    ajaxRequest(url + "admin/admin/del/" + param.id, param, "GET", callBack);
+    ajaxRequest(url + "admin/admin/del", param, "GET", callBack);
 }
 //删除Banner
 function delBanner(url, param, callBack) {
-    ajaxRequest(url + "admin/banner/del/" + param.id, param, "GET", callBack);
+    ajaxRequest(url + "admin/banner/del", param, "GET", callBack);
 }
 //加盟信息标记已联系
 function stampLeague(url, param, callBack) {
     $.post(url + "admin/league/stamp",param,callBack);
 }
-//删除评论
+//删除加盟信息
 function delLeague(url, param, callBack) {
-    ajaxRequest(url + "admin/league/del/" + param.id, param, "GET", callBack);
+    ajaxRequest(url + "admin/league/del", param, "GET", callBack);
+}
+//批量删除加盟信息
+function delMoreLeague(url, param, callBack) {
+    ajaxRequest(url + "admin/league/delMore", param, "GET", callBack);
+}
+//投诉信息标记已联系
+function stampAdvice(url, param, callBack) {
+    $.post(url + "admin/advice/stamp",param,callBack);
+}
+//删除投诉信息
+function delAdvice(url, param, callBack) {
+    ajaxRequest(url + "admin/advice/del", param, "GET", callBack);
+}
+//批量删除投诉信息
+function delMoreAdvice(url, param, callBack) {
+    ajaxRequest(url + "admin/advice/delMore", param, "GET", callBack);
+}
+//找货信息标记已联系
+function stampSearching(url, param, callBack) {
+    $.post(url + "admin/searching/stamp",param,callBack);
+}
+//删除找货信息
+function delSearching(url, param, callBack) {
+    ajaxRequest(url + "admin/searching/del", param, "GET", callBack);
+}
+//批量删除找货信息
+function delMoreSearching(url, param, callBack) {
+    ajaxRequest(url + "admin/searching/delMore", param, "GET", callBack);
 }
 
 

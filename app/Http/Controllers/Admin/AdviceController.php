@@ -2,17 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/1/26
- * Time: 16:47
+ * Date: 2018/1/27
+ * Time: 13:58
  */
 
 namespace App\Http\Controllers\Admin;
 
-use App\Components\LeagueManager;
-use App\Models\LeagueModel;
+use App\Components\AdviceManager;
+use App\Models\AdviceModel;
 use Illuminate\Http\Request;
 
-class LeagueController
+class AdviceController
 {
     //首页
     public function index(Request $request)
@@ -22,12 +22,12 @@ class LeagueController
         if(!array_key_exists('search',$data)){
             $data['search']="";
         }
-        $leagues = LeagueManager::getAllLeagueLists($data['search']);
+        $advices = AdviceManager::getAllAdviceLists($data['search']);
         $param=array(
             'admin'=>$admin,
-            'datas'=>$leagues
+            'datas'=>$advices
         );
-        return view('admin.league.index', $param);
+        return view('admin.advice.index', $param);
     }
     //删除
     public function del(Request $request)
@@ -40,9 +40,9 @@ class LeagueController
                 $return['msg']='合规校验失败，参数类型不正确';
             }
             else{
-                $league = LeagueModel::find($id);
+                $advice = AdviceModel::find($id);
                 $return=null;
-                $result=$league->delete();
+                $result=$advice->delete();
                 if($result){
                     $return['result']=true;
                     $return['msg']='删除成功';
@@ -65,16 +65,16 @@ class LeagueController
         $data=$request->all();
         if(array_key_exists('id_array',$data)){
             $id_array=explode(',',$data['id_array']);
-            $leagues = LeagueManager::getLeagueByMoreId($id_array);
+            $advices = AdviceManager::getAdviceByMoreId($id_array);
             $count=0;
-            foreach ($leagues as $league){
-                $result=$league->delete();
+            foreach ($advices as $advice){
+                $result=$advice->delete();
                 if($result){
                     $count++;
                 }
             }
             $return=null;
-            if($count==count($leagues)){
+            if($count==count($advices)){
                 $return['result']=true;
                 $return['msg']='删除成功';
             }
@@ -95,12 +95,12 @@ class LeagueController
         $data = $request->all();
         if(array_key_exists('id',$data)){
             $admin = $request->session()->get('admin');
-            $league = LeagueManager::getLeagueInfoById($data['id']);
+            $advice = AdviceManager::getAdviceInfoById($data['id']);
             $param=array(
                 'admin'=>$admin,
-                'data'=>$league
+                'data'=>$advice
             );
-            return view('admin.league.edit', $param);
+            return view('admin.advice.edit', $param);
         }
         else{
             $param=array(
@@ -116,8 +116,8 @@ class LeagueController
         if(array_key_exists('id',$data)){
             $admin = $request->session()->get('admin');
             $return=null;
-            $league = LeagueManager::stampLeagueInfoStatus($data);
-            if($league){
+            $advice = AdviceManager::stampAdviceInfoStatus($data);
+            if($advice){
                 $return['result']=true;
                 $return['msg']='标记成功';
             }

@@ -35,21 +35,32 @@ class BannerController
         return view('admin.banner.index', $param);
     }
     //删除
-    public function del(Request $request, $id)
+    public function del(Request $request)
     {
-        if (is_numeric($id) !== true) {
-            return redirect()->action('\App\Http\Controllers\Admin\IndexController@error', ['msg' => '合规校验失败，请检查参数管理员id$id']);
-        }
-        $banner = BannerModel::find($id);
-        $return=null;
-        $result=$banner->delete();
-        if($result){
-            $return['result']=true;
-            $return['msg']='删除成功';
+        $data=$request->all();
+        if(array_key_exists('id',$data)){
+            $id=$data['id'];
+            if (is_numeric($id) !== true) {
+                $return['result']=false;
+                $return['msg']='合规校验失败，参数类型不正确';
+            }
+            else{
+                $banner = BannerModel::find($id);
+                $return=null;
+                $result=$banner->delete();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='删除成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='删除失败';
+                }
+            }
         }
         else{
             $return['result']=false;
-            $return['msg']='删除失败';
+            $return['msg']='合规校验失败，缺少参数';
         }
         return $return;
     }

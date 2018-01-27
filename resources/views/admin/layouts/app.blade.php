@@ -51,7 +51,6 @@
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery.validation/1.14.0/jquery.validate.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery.validation/1.14.0/validate-methods.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery.validation/1.14.0/messages_zh.js') }}"></script>
-
 {{--common.js--}}
 <script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
 

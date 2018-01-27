@@ -40,28 +40,39 @@ class AdminController
     }
 
     //删除管理员
-    public function del(Request $request, $id)
+    public function del(Request $request)
     {
-        if (is_numeric($id) !== true) {
-            return redirect()->action('\App\Http\Controllers\Admin\IndexController@error', ['msg' => '合规校验失败，缺少参数']);
-        }
-        $admin_info = AdminModel::find($id);
-        $return=null;
-        //非超级管理员
-        if ($admin_info['type'] == '0') {
-            $result=$admin_info->delete();
-            if($result){
-                $return['result']=true;
-                $return['msg']='删除成功';
+        $data=$request->all();
+        if(array_key_exists('id',$data)){
+            $id=$data['id'];
+            if (is_numeric($id) !== true) {
+                $return['result']=false;
+                $return['msg']='合规校验失败，参数类型不正确';
             }
             else{
-                $return['result']=false;
-                $return['msg']='删除失败，超级管理员不能删除';
+                $admin_info = AdminModel::find($id);
+                $return=null;
+                //非超级管理员
+                if ($admin_info['type'] == '0') {
+                    $result=$admin_info->delete();
+                    if($result){
+                        $return['result']=true;
+                        $return['msg']='删除成功';
+                    }
+                    else{
+                        $return['result']=false;
+                        $return['msg']='删除失败，超级管理员不能删除';
+                    }
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='删除失败';
+                }
             }
         }
         else{
             $return['result']=false;
-            $return['msg']='删除失败';
+            $return['msg']='合规校验失败，缺少参数';
         }
         return $return;
     }
@@ -203,7 +214,6 @@ class AdminController
                 }
             }
         }
-
         return $return;
     }
 }

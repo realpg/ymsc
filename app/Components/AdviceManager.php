@@ -2,30 +2,29 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/1/26
- * Time: 16:49
+ * Date: 2018/1/27
+ * Time: 13:58
  */
 
 namespace App\Components;
 
-use App\Models\LeagueModel;
+use App\Models\AdviceModel;
 
-class LeagueManager
+class AdviceManager
 {
     /*
      * 根据条件搜索信息
      *
      * by zm
      *
-     * 2018-01-26
+     * 2018-01-27
      */
-    public static function getAllLeagueLists($search){
-//        $leagues = LeagueModel::where('name','like','%'.$search.'%')->orderBy('id','desc')->get();
-        $leagues = LeagueModel::where(function ($leagues) use ($search) {
-            $leagues->where('name'  , 'like', '%'.$search.'%')
+    public static function getAllAdviceLists($search){
+        $advices = AdviceModel::where(function ($advices) use ($search) {
+            $advices->where('name'  , 'like', '%'.$search.'%')
                 ->orwhere('phonenum', 'like', '%'.$search.'%');
         })->orderBy('id','asc')->get();
-        return $leagues;
+        return $advices;
     }
 
     /*
@@ -33,11 +32,11 @@ class LeagueManager
      *
      * by zm
      *
-     * 2018-01-26
+     * 2018-01-27
      */
-    public static function getLeagueInfoById($id){
-        $league = LeagueModel::find($id);
-        return $league;
+    public static function getAdviceInfoById($id){
+        $advice = AdviceModel::find($id);
+        return $advice;
     }
 
     /*
@@ -45,25 +44,25 @@ class LeagueManager
      *
      * by zm
      *
-     * 2018-01-26
+     * 2018-01-27
      */
-    public static function stampLeagueInfoStatus($data){
-        $league=LeagueModel::find($data['id']);
+    public static function stampAdviceInfoStatus($data){
+        $advice=AdviceModel::find($data['id']);
         $data['status']=1;
-        $league=self::setLeague($league,$data);
-        $result=$league->save();
+        $advice=self::setAdvice($advice,$data);
+        $result=$advice->save();
         return $result;
     }
 
     /*
-     * 配置加盟信息的参数
+     * 配置投诉信息的参数
      *
      * By zm
      *
-     * 2018-01-26
+     * 2018-01-27
      *
      */
-    public static function setLeague($banner, $data){
+    public static function setAdvice($banner, $data){
         if (array_key_exists('name', $data)) {
             $banner->name = array_get($data, 'name');
         }
@@ -90,8 +89,8 @@ class LeagueManager
      * 2018-01-27
      *
      */
-    public static function getLeagueByMoreId($data){
-        $leagues=LeagueModel::whereIn('id',$data)->get();
-        return $leagues;
+    public static function getAdviceByMoreId($data){
+        $advices=AdviceModel::whereIn('id',$data)->get();
+        return $advices;
     }
 }

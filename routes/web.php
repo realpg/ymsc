@@ -21,15 +21,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/index', 'Admin\IndexController@index');  //首页
     Route::get('/welcome', 'Admin\IndexController@welcome');  //欢迎页
 
-    Route::get('/dashboard/index', 'Admin\IndexController@index');    //首页
-
     //错误页面
     Route::get('/error/500', 'Admin\IndexController@error');  //错误页面
 
     //管理员管理
     Route::get('/admin/index', 'Admin\AdminController@index');  //管理员管理首页
     Route::post('/admin/index', 'Admin\AdminController@index');  //搜索管理员
-    Route::get('/admin/del/{id}', 'Admin\AdminController@del');  //删除管理员
+    Route::get('/admin/del', 'Admin\AdminController@del');  //删除管理员
     Route::get('/admin/edit', 'Admin\AdminController@edit');  //新建或编辑管理员
     Route::post('/admin/edit', 'Admin\AdminController@editDo');  //新建或编辑管理员
     Route::get('/admin/editMySelf', ['as' => 'editMySelf', 'uses' => 'Admin\AdminController@editMySelf']);  //新建或编辑管理员
@@ -39,7 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     //Banner管理
     Route::get('/banner/index', 'Admin\BannerController@index');  //Banner管理首页
     Route::post('/banner/index', 'Admin\BannerController@index');  //搜索Banner
-    Route::get('/banner/del/{id}', 'Admin\BannerController@del');  //删除Banner
+    Route::get('/banner/del', 'Admin\BannerController@del');  //删除Banner
     Route::get('/banner/edit', 'Admin\BannerController@edit');  //创建或编辑Banner
     Route::post('/banner/edit', 'Admin\BannerController@editDo');  //创建或编辑Banner
 
@@ -54,7 +52,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/league/index', 'Admin\LeagueController@index');  //搜索加盟管理信息
     Route::get('/league/edit', 'Admin\LeagueController@edit');  //查看加盟信息详情
     Route::post('/league/stamp', 'Admin\LeagueController@stamp');  //标记已联系
-    Route::get('/league/del/{id}', 'Admin\LeagueController@del');  //删除信息
+    Route::get('/league/del', 'Admin\LeagueController@del');  //删除加盟信息
+    Route::get('/league/delMore', 'Admin\LeagueController@delMore');  //批量删除加盟信息
+
+    //投诉信息管理
+    Route::get('/advice/index', 'Admin\AdviceController@index');  //投诉管理首页
+    Route::post('/advice/index', 'Admin\AdviceController@index');  //搜索投诉管理信息
+    Route::get('/advice/edit', 'Admin\AdviceController@edit');  //查看投诉信息详情
+    Route::post('/advice/stamp', 'Admin\AdviceController@stamp');  //标记已联系
+    Route::get('/advice/del', 'Admin\AdviceController@del');  //删除投诉信息
+    Route::get('/advice/delMore', 'Admin\AdviceController@delMore');  //批量删除投诉信息
+
+    //找货信息管理
+    Route::get('/searching/index', 'Admin\SearchingController@index');  //找货管理首页
+    Route::post('/searching/index', 'Admin\SearchingController@index');  //搜索找货管理信息
+    Route::get('/searching/edit', 'Admin\SearchingController@edit');  //查看找货信息详情
+    Route::post('/searching/stamp', 'Admin\SearchingController@stamp');  //标记已联系
+    Route::get('/searching/del', 'Admin\SearchingController@del');  //删除找货信息
+    Route::get('/searching/delMore', 'Admin\SearchingController@delMore');  //批量删除找货信息
 
     //会员管理
     Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页
