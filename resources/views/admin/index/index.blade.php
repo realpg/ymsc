@@ -93,6 +93,15 @@
                     </ul>
                 </dd>
             </dl>
+            <dl id="menu-picture">
+                <dt><i class="Hui-iconfont">&#xe6d0;</i> 客服模块管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="{{ URL::asset('/admin/service/index') }}" data-title="客服管理" href="javascript:void(0)">客服管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
             {{--<dl id="menu-member">--}}
                 {{--<dt><i class="Hui-iconfont">&#xe62b;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>--}}
                 {{--</dt>--}}

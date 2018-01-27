@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/admin/edit', 'Admin\AdminController@editDo');  //新建或编辑管理员
     Route::get('/admin/editMySelf', ['as' => 'editMySelf', 'uses' => 'Admin\AdminController@editMySelf']);  //新建或编辑管理员
     Route::post('/admin/editMySelf', 'Admin\AdminController@editMySelfDo');  //新建或编辑管理员
-    Route::post('/admin/testPassword', 'Admin\AdminController@testPassword');  //新建或编辑管理员
+//    Route::post('/admin/testPassword', 'Admin\AdminController@testPassword');  //新建或编辑管理员
 
     //Banner管理
     Route::get('/banner/index', 'Admin\BannerController@index');  //Banner管理首页
@@ -70,6 +70,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/searching/stamp', 'Admin\SearchingController@stamp');  //标记已联系
     Route::get('/searching/del', 'Admin\SearchingController@del');  //删除找货信息
     Route::get('/searching/delMore', 'Admin\SearchingController@delMore');  //批量删除找货信息
+
+    //客服管理
+    Route::get('/service/index', 'Admin\ServiceController@index');  //客服管理首页
+    Route::get('/service/edit', 'Admin\ServiceController@edit');  //编辑客服
+    Route::post('/service/edit', 'Admin\ServiceController@editDo');  //编辑客服
 
     //会员管理
     Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页
