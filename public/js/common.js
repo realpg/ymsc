@@ -68,6 +68,14 @@ function delSearching(url, param, callBack) {
 function delMoreSearching(url, param, callBack) {
     ajaxRequest(url + "admin/searching/delMore", param, "GET", callBack);
 }
+//删除栏目
+function delMenu(url, param, callBack) {
+    ajaxRequest(url + "admin/menu/del", param, "GET", callBack);
+}
+//删除搜索属性
+function delAttribute(url, param, callBack) {
+    ajaxRequest(url + "admin/attribute/del", param, "GET", callBack);
+}
 
 
 

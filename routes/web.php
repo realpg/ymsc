@@ -76,15 +76,29 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/service/edit', 'Admin\ServiceController@edit');  //编辑客服
     Route::post('/service/edit', 'Admin\ServiceController@editDo');  //编辑客服
 
-    //会员管理
-    Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页
-    Route::get('/member/edit', 'Admin\MemberController@edit');  //查看会员详情
+    //栏目管理
+    Route::get('/menu/index', 'Admin\MenuController@index');  //栏目管理首页
+    Route::post('/menu/index', 'Admin\MenuController@index');  //搜索栏目
+    Route::get('/menu/del', 'Admin\MenuController@del');  //删除栏目
+    Route::get('/menu/edit', 'Admin\MenuController@edit');  //创建或编辑栏目
+    Route::post('/menu/edit', 'Admin\MenuController@editDo');  //创建或编辑栏目
 
-    //评论管理
-    Route::get('/comment/index', 'Admin\CommentController@index');  //评论管理首页
-    Route::get('/comment/edit', 'Admin\CommentController@edit');  //查看评论详情
-    Route::post('/comment/examine', 'Admin\CommentController@examine');  //审核评论
-    Route::get('/comment/del/{id}', 'Admin\CommentController@del');  //删除评论
+    //搜索属性管理
+    Route::get('/attribute/index', 'Admin\AttributeController@index');  //搜索属性管理首页
+    Route::post('/attribute/index', 'Admin\AttributeController@index');  //搜索属性
+    Route::get('/attribute/del', 'Admin\AttributeController@del');  //删除搜索属性
+    Route::get('/attribute/edit', 'Admin\AttributeController@edit');  //创建或编辑搜索属性
+    Route::post('/attribute/edit', 'Admin\AttributeController@editDo');  //创建或编辑搜索属性
+
+//    //会员管理
+//    Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页
+//    Route::get('/member/edit', 'Admin\MemberController@edit');  //查看会员详情
+//
+//    //评论管理
+//    Route::get('/comment/index', 'Admin\CommentController@index');  //评论管理首页
+//    Route::get('/comment/edit', 'Admin\CommentController@edit');  //查看评论详情
+//    Route::post('/comment/examine', 'Admin\CommentController@examine');  //审核评论
+//    Route::get('/comment/del/{id}', 'Admin\CommentController@del');  //删除评论
 });
 Auth::routes();
 

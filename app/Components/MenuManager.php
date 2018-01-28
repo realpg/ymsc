@@ -17,12 +17,12 @@ class MenuManager
      *
      * By zm
      *
-     * 2018-01-26
+     * 2018-01-28
      *
      */
     public static function getClassAMenuLists()
     {
-        $menus = MenuModel::where('menu_id',0)->orderBy('sort','asc')->get();
+        $menus = MenuModel::where('menu_id',0)->orderBy('sort','desc')->get();
         return $menus;
     }
 
@@ -31,13 +31,59 @@ class MenuManager
      *
      * By zm
      *
-     * 2018-01-26
+     * 2018-01-28
      *
      */
     public static function getMenuById($id)
     {
         $menu = MenuModel::find($id);
         return $menu;
+    }
+
+    /*
+     * 根据menu_id所有栏目
+     *
+     * By zm
+     *
+     * 2018-01-28
+     *
+     */
+    public static function getAllMenuByMenuId($search,$menu_id)
+    {
+        $menus=self::getMenuById($menu_id);
+        $menu_lists=MenuModel::where('menu_id',$menu_id)->where('name','like','%'.$search.'%')->orderBy('sort','desc')->get();
+        $menus['menus']=$menu_lists;
+        return $menus;
+    }
+
+    /*
+     * 配置栏目的参数
+     *
+     * By zm
+     *
+     * 2018-01-28
+     *
+     */
+    public static function setMenu($banner, $data){
+        if (array_key_exists('name', $data)) {
+            $banner->name = array_get($data, 'name');
+        }
+        if (array_key_exists('menu_id', $data)) {
+            $banner->menu_id = array_get($data, 'menu_id');
+        }
+        if (array_key_exists('sort', $data)) {
+            $banner->sort = array_get($data, 'sort');
+        }
+        if (array_key_exists('seo_title', $data)) {
+            $banner->seo_title = array_get($data, 'seo_title');
+        }
+        if (array_key_exists('seo_keywords', $data)) {
+            $banner->seo_keywords = array_get($data, 'seo_keywords');
+        }
+        if (array_key_exists('seo_description', $data)) {
+            $banner->seo_description = array_get($data, 'seo_description');
+        }
+        return $banner;
     }
 
 }

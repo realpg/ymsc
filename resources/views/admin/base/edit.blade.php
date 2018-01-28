@@ -6,7 +6,7 @@
             <div class="tabBar clearfix">
                 <span>网站基本信息</span>
                 <span>关于我们设置</span>
-                <span>默认SEO设置</span>
+                <span>首页SEO设置</span>
             </div>
             <div class="tabCon">
                 <form class="form form-horizontal" method="post" id="form-baseInfo-edit">

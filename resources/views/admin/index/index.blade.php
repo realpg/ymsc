@@ -82,7 +82,29 @@
                     </ul>
                 </dd>
             </dl>
-            <dl id="menu-picture">
+            {{--<dl id="menu-goods">--}}
+                {{--<dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>--}}
+                {{--</dt>--}}
+                {{--<dd>--}}
+                    {{--<ul>--}}
+                        {{--<li><a data-href="{{ URL::asset('/admin/chem/index') }}" data-title="试剂耗材管理" href="javascript:void(0)">试剂耗材管理</a></li>--}}
+                        {{--<li><a data-href="{{ URL::asset('/admin/testing/index') }}" data-title="第三方检测管理" href="javascript:void(0)">第三方检测管理</a></li>--}}
+                        {{--<li><a data-href="{{ URL::asset('/admin/machining/index') }}" data-title="机加工管理" href="javascript:void(0)">机加工管理</a></li>--}}
+                    {{--</ul>--}}
+                {{--</dd>--}}
+            {{--</dl>--}}
+            <dl id="menu-goods">
+                <dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="{{ URL::asset('/admin/menu/index') }}" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/attribute/index') }}" data-title="搜索属性管理" href="javascript:void(0)">搜索属性管理</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/goods/index') }}" data-title="商品管理" href="javascript:void(0)">商品管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl id="menu-contact">
                 <dt><i class="Hui-iconfont">&#xe63b;</i> 互动模块管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
                 </dt>
                 <dd>
@@ -93,7 +115,7 @@
                     </ul>
                 </dd>
             </dl>
-            <dl id="menu-picture">
+            <dl id="menu-sevice">
                 <dt><i class="Hui-iconfont">&#xe6d0;</i> 客服模块管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
                 </dt>
                 <dd>

@@ -12,7 +12,6 @@ use App\Models\BannerModel;
 
 class BannerManager
 {
-
     /*
      * 模糊查询Banner列表
      *
