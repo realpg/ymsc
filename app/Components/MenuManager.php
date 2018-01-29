@@ -27,6 +27,24 @@ class MenuManager
     }
 
     /*
+     * 获取一级栏目以及对应的二级栏目
+     *
+     * By zm
+     *
+     * 2018-01-28
+     *
+     */
+    public static function getMenuLists()
+    {
+        $menus = MenuModel::where('menu_id',0)->orderBy('sort','desc')->get();
+        foreach ($menus as $menu){
+            $menu_id=$menu['id'];
+            $menu['menus']=MenuModel::where('menu_id',$menu_id)->orderBy('sort','desc')->get();
+        }
+        return $menus;
+    }
+
+    /*
      * 根据id获得栏目的详细信息
      *
      * By zm
@@ -41,7 +59,7 @@ class MenuManager
     }
 
     /*
-     * 根据menu_id所有栏目
+     * 根据menu_id所有栏目（模糊查询）
      *
      * By zm
      *
@@ -53,6 +71,20 @@ class MenuManager
         $menus=self::getMenuById($menu_id);
         $menu_lists=MenuModel::where('menu_id',$menu_id)->where('name','like','%'.$search.'%')->orderBy('sort','desc')->get();
         $menus['menus']=$menu_lists;
+        return $menus;
+    }
+
+    /*
+     * 根据menu_id所有栏目
+     *
+     * By zm
+     *
+     * 2018-01-28
+     *
+     */
+    public static function getAllMenuListsByMenuId($menu_id)
+    {
+        $menus=MenuModel::where('menu_id',$menu_id)->orderBy('sort','desc')->get();
         return $menus;
     }
 

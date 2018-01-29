@@ -64,7 +64,7 @@ class AttributeManager
     }
 
     /*
-     * 配置栏目的参数
+     * 配置搜索属性的参数
      *
      * By zm
      *
@@ -85,5 +85,19 @@ class AttributeManager
             $attribute->sort = array_get($data, 'sort');
         }
         return $attribute;
+    }
+
+    /*
+     * 根据attribute_id获取二级搜索属性
+     *
+     * By zm
+     *
+     * 2018-01-28
+     *
+     */
+    public static function getAttributeByAttributeId($attribute_id)
+    {
+        $attributes=AttributeModel::where('attribute_id',$attribute_id)->orderBy('sort','desc')->get();
+        return $attributes;
     }
 }

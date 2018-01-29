@@ -76,6 +76,47 @@ function delMenu(url, param, callBack) {
 function delAttribute(url, param, callBack) {
     ajaxRequest(url + "admin/attribute/del", param, "GET", callBack);
 }
+//删除商品
+function delGoods(url, param, callBack) {
+    ajaxRequest(url + "admin/goods/del", param, "GET", callBack);
+}
+//批量删除商品
+function delMoreGoods(url, param, callBack) {
+    ajaxRequest(url + "admin/goods/delMore", param, "GET", callBack);
+}
+
+//删除化学商品
+function delChem(url, param, callBack) {
+    ajaxRequest(url + "admin/chem/del", param, "GET", callBack);
+}
+//批量删除化学商品
+function delMoreChem(url, param, callBack) {
+    ajaxRequest(url + "admin/chem/delMore", param, "GET", callBack);
+}
+//删除第三方检测商品
+function delTesting(url, param, callBack) {
+    ajaxRequest(url + "admin/testing/del", param, "GET", callBack);
+}
+//批量删除第三方检测商品
+function delMoreTesting(url, param, callBack) {
+    ajaxRequest(url + "admin/testing/delMore", param, "GET", callBack);
+}
+//删除第三方检测商品详情
+function delTestingDetail(url, param, callBack) {
+    ajaxRequest(url + "admin/testingdetail/del", param, "GET", callBack);
+}
+//修改第三方检测商品详情
+function editTestingDetail(url, param, callBack) {
+    $.post(url + "admin/testingdetail/edit",param,callBack);
+}
+//删除机加工商品
+function delMachining(url, param, callBack) {
+    ajaxRequest(url + "admin/machining/del", param, "GET", callBack);
+}
+//批量删除机加工商品
+function delMoreMachining(url, param, callBack) {
+    ajaxRequest(url + "admin/machining/delMore", param, "GET", callBack);
+}
 
 
 

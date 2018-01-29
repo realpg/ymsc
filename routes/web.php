@@ -90,6 +90,38 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/attribute/edit', 'Admin\AttributeController@edit');  //创建或编辑搜索属性
     Route::post('/attribute/edit', 'Admin\AttributeController@editDo');  //创建或编辑搜索属性
 
+    //商品管理
+    Route::get('/goods/index', 'Admin\GoodsController@index');  //商品管理首页
+    Route::post('/goods/index', 'Admin\GoodsController@index');  //搜索商品
+    Route::get('/goods/del', 'Admin\GoodsController@del');  //删除商品
+    Route::get('/goods/delMore', 'Admin\GoodsController@delMore');  //批量删除商品
+
+    //化学商品
+    Route::get('/chem/index', 'Admin\ChemController@index');  //化学商品管理首页
+    Route::post('/chem/index', 'Admin\ChemController@index');  //搜索化学商品
+    Route::get('/chem/del', 'Admin\ChemController@del');  //删除化学商品
+    Route::get('/chem/delMore', 'Admin\ChemController@delMore');  //批量删除化学商品
+    Route::get('/chem/edit', 'Admin\ChemController@edit');  //创建或编辑化学商品
+    Route::post('/chem/edit', 'Admin\ChemController@editDo');  //创建或编辑化学商品
+
+    //第三方检测商品
+    Route::get('/testing/index', 'Admin\TestingController@index');  //第三方检测商品管理首页
+    Route::post('/testing/index', 'Admin\TestingController@index');  //搜索第三方检测商品
+    Route::get('/testing/del', 'Admin\TestingController@del');  //删除第三方检测商品
+    Route::get('/testing/delMore', 'Admin\TestingController@delMore');  //批量删除第三方检测商品
+    Route::get('/testing/edit', 'Admin\TestingController@edit');  //创建或编辑第三方检测商品
+    Route::post('/testing/edit', 'Admin\TestingController@editDo');  //创建或编辑第三方检测商品
+    Route::get('/testingdetail/del', 'Admin\TestingController@delDetail');  //删除第三方检测商品详情信息
+    Route::post('/testingdetail/edit', 'Admin\TestingController@editDoDetail');  //编辑第三方检测商品详情信息
+
+    //机加工商品
+    Route::get('/machining/index', 'Admin\MachiningController@index');  //机加工商品管理首页
+    Route::post('/machining/index', 'Admin\MachiningController@index');  //搜索机加工商品
+    Route::get('/machining/del', 'Admin\MachiningController@del');  //删除机加工商品
+    Route::get('/machining/delMore', 'Admin\MachiningController@delMore');  //批量删除机加工商品
+    Route::get('/machining/edit', 'Admin\MachiningController@edit');  //创建或编辑机加工商品
+    Route::post('/machining/edit', 'Admin\MachiningController@editDo');  //创建或编辑机加工商品
+
 //    //会员管理
 //    Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页
 //    Route::get('/member/edit', 'Admin\MemberController@edit');  //查看会员详情

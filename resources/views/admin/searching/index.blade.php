@@ -123,15 +123,20 @@
             id_array: id_array,
             _token: "{{ csrf_token() }}"
         }
-        delMoreSearching('{{URL::asset('')}}', param, function (ret) {
-            if (ret.result == true) {
-                // $(obj).parents("tr").remove();
-                layer.msg(ret.msg, {icon: 1, time: 1000});
-                $('.btn-refresh').click();
-            } else {
-                layer.msg(ret.msg, {icon: 2, time: 1000})
-            }
-        })
+        if(id_array){
+            delMoreSearching('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    // $(obj).parents("tr").remove();
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    $('.btn-refresh').click();
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 2000})
+                }
+            })
+        }
+        else{
+            layer.msg('请选择要删除的信息', {icon: 2, time: 2000})
+        }
     }
 </script>
 @endsection

@@ -100,7 +100,10 @@
                     <ul>
                         <li><a data-href="{{ URL::asset('/admin/menu/index') }}" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
                         <li><a data-href="{{ URL::asset('/admin/attribute/index') }}" data-title="搜索属性管理" href="javascript:void(0)">搜索属性管理</a></li>
-                        <li><a data-href="{{ URL::asset('/admin/goods/index') }}" data-title="商品管理" href="javascript:void(0)">商品管理</a></li>
+                        {{--<li><a data-href="{{ URL::asset('/admin/goods/index') }}" data-title="商品管理" href="javascript:void(0)">商品管理</a></li>--}}
+                        <li><a data-href="{{ URL::asset('/admin/chem/index') }}" data-title="试剂耗材商品管理" href="javascript:void(0)">试剂耗材商品管理</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/testing/index') }}" data-title="第三方检测商品管理" href="javascript:void(0)">第三方检测商品管理</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/machining/index') }}" data-title="机加工商品管理" href="javascript:void(0)">机加工商品管理</a></li>
                     </ul>
                 </dd>
             </dl>

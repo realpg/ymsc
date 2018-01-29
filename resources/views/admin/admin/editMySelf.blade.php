@@ -176,7 +176,7 @@
                             $('.btn-primary').html('<i class="Hui-iconfont">&#xe632;</i> 保存')
                         },
                         error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('保存失败', {icon: 1, time: 2000});
+                            layer.msg('保存失败', {icon: 2, time: 2000});
                             console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
                             console.log("textStatus:" + textStatus);
                             console.log("errorThrown:" + errorThrown);

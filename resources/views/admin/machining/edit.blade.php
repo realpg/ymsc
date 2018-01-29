@@ -12,42 +12,36 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>栏目名称：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>搜索属性的名称：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input id="name" name="name" type="text" class="input-text" value="{{ isset($data['name']) ? $data['name'] : '' }}" placeholder="请输入栏目名称">
+                    <input id="name" name="name" type="text" class="input-text" value="{{ isset($data['name']) ? $data['name'] : '' }}" placeholder="请输入搜索属性的名称">
                 </div>
             </div>
-            @if(!isset($data['name'])||$data['menu_id']!=0)
-                <div class="row cl">
-                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>栏目：</label>
-                    <div class="formControls col-xs-8 col-sm-9">
-                        <input type="text" class="input-text no_click" value="{{ $menuClassA['name'] }}" readonly />
-                        <input id="menu_id" name="menu_id" type="hidden" class="input-text" value="{{ $menuClassA['id'] }}" />
-                    </div>
-                </div>
-            @endif
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>排序：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="sort" name="sort" type="text" class="input-text" value="{{ isset($data['sort']) ? $data['sort'] : '' }}" placeholder="请输入排序，越大越靠前">
                 </div>
             </div>
+            @if(!isset($data['attribute_id'])||$data['attribute_id']!=0)
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">SEO_标题：</label>
+                <label class="form-label col-xs-4 col-sm-2">一级搜索属性：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <textarea  id="seo_title" name="seo_title" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_标题" dragonfly="true" nullmsg="SEO_标题不能为空！">{{ isset($data['seo_title']) ? $data['seo_title'] : '' }}</textarea>
+                    <span class="select-box">
+                        <select id="attribute_id" name="attribute_id" class="select">
+                            @foreach($ClassAAttributes as $ClassAAttribute)
+                                <option value="{{$ClassAAttribute['id']}}" {{$data['attribute_id'] == $ClassAAttribute['id']? "selected":""}} >{{$ClassAAttribute['name']}}</option>
+                            @endforeach
+                        </select>
+                    </span>
                 </div>
             </div>
+            @endif
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">SEO_关键字：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>栏目名称：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <textarea  id="seo_keywords" name="seo_keywords" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_关键字" dragonfly="true" nullmsg="SEO_关键字不能为空！">{{ isset($data['seo_keywords']) ? $data['seo_keywords'] : '' }}</textarea>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">SEO_描述：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <textarea  id="seo_description" name="seo_description" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_描述" dragonfly="true" nullmsg="SEO_描述不能为空！">{{ isset($data['seo_description']) ? $data['seo_description'] : '' }}</textarea>
+                    <input type="text" class="input-text no_click" value="{{ isset($menu['name']) ? $menu['name'] : '' }}" readonly />
+                    <input type="hidden" name="menu_id" id="menu_id" class="input-text" value="{{ isset($menu['id']) ? $menu['id'] : '' }}" />
                 </div>
             </div>
             <div class="row cl">
@@ -79,7 +73,7 @@
                 submitHandler: function (form) {
                     $(form).ajaxSubmit({
                         type: 'POST',
-                        url: "{{ URL::asset('/admin/menu/edit')}}",
+                        url: "{{ URL::asset('/admin/attribute/edit')}}",
                         success: function (ret) {
                             console.log(JSON.stringify(ret));
                             if (ret.result) {
