@@ -86,11 +86,11 @@
                         <div class="formControls col-xs-8 col-sm-9">
                             <span class="select-box">
                                 <select id="f_attribute_id" name="f_attribute_id" class="select">
-                                    @foreach($brands as $brand)
-                                        @if($brand['id']==$data['f_attribute_id'])
-                                            <option value="{{$brand['id']}}" selected >{{$brand['name']}}</option>
+                                    @foreach($fields as $field)
+                                        @if($field['id']==$data['f_attribute_id'])
+                                            <option value="{{$field['id']}}" selected >{{$field['name']}}</option>
                                         @else
-                                            <option value="{{$brand['id']}}" >{{$brand['name']}}</option>
+                                            <option value="{{$field['id']}}" >{{$field['name']}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -102,11 +102,11 @@
                         <div class="formControls col-xs-8 col-sm-9">
                             <span class="select-box">
                                 <select id="s_attribute_id" name="s_attribute_id" class="select">
-                                    @foreach($purities as $purity)
-                                        @if($purity['id']==$data['s_attribute_id'])
-                                            <option value="{{$purity['id']}}" selected >{{$purity['name']}}</option>
+                                    @foreach($instruments as $instrument)
+                                        @if($instrument['id']==$data['s_attribute_id'])
+                                            <option value="{{$instrument['id']}}" selected >{{$instrument['name']}}</option>
                                         @else
-                                            <option value="{{$purity['id']}}" >{{$purity['name']}}</option>
+                                            <option value="{{$instrument['id']}}" >{{$instrument['name']}}</option>
                                         @endif
                                     @endforeach
                                 </select>

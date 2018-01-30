@@ -322,6 +322,8 @@ class GoodsManager
             'goods_info.menu_id as menu_id',
             'goods_info.name as name',
             'goods_info.number as number',
+            'goods_info.price as price',
+            'goods_info.unit as unit',
             'f_attribute.name as brand',
             's_attribute.name as purity',
             'goods_chem_attribute_info.chem_class_id as chem_class_id',

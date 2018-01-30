@@ -37,7 +37,7 @@
                 <th width="150">品牌</th>
                 <th width="100">纯度</th>
                 <th width="100">规格</th>
-                <th width="100">货期</th>
+                <th width="100">价格</th>
                 <th width="150">栏目</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
@@ -55,7 +55,7 @@
                     <td>{{$data['brand']}}</td>
                     <td>{{$data['purity']}}</td>
                     <td>{{$data['spec']}}</td>
-                    <td>{{$data['delivery']}}</td>
+                    <td>￥{{$data['price']}}&nbsp;/{{$data['unit']}}</td>
                     <td>{{$data['menu']}}</td>
                     <td>{{$data['updated_at']}}</td>
                     <td class="td-manage">

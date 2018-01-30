@@ -126,8 +126,8 @@ class TestingController
         $admin = $request->session()->get('admin');
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
-        $brands=AttributeManager::getAttributeByAttributeId(self::F_ATTRIBUTE_ID);
-        $purities=AttributeManager::getAttributeByAttributeId(self::S_ATTRIBUTE_ID);
+        $fields=AttributeManager::getAttributeByAttributeId(self::F_ATTRIBUTE_ID);
+        $instruments=AttributeManager::getAttributeByAttributeId(self::S_ATTRIBUTE_ID);
         if (array_key_exists('id', $data)) {
             $goods = GoodsManager::getGoodsById($data['id']);
             //获取商品详情
@@ -148,8 +148,8 @@ class TestingController
             'admin'=>$admin,
             'data'=>$goods,
             'menus'=>$menus,
-            'brands'=>$brands,
-            'purities'=>$purities,
+            'fields'=>$fields,
+            'instruments'=>$instruments,
             'upload_token'=>$upload_token
         );
         return view('admin.testing.edit', $param);

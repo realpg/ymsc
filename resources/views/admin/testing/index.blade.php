@@ -43,8 +43,9 @@
                 </th>
                 <th width="80">ID</th>
                 <th width="100">图片</th>
-                <th>名称</th>
+                <th width="150">名称</th>
                 <th width="150">货号</th>
+                <th width="150">价钱</th>
                 <th width="150">栏目</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
@@ -60,6 +61,7 @@
                     <td><img width="100%" class="picture-thumb" src="{{$data['picture']}}"></td>
                     <td class="text-l">{{$data['name']}}</td>
                     <td>{{$data['number']}}</td>
+                    <td>￥{{$data['price']}}&nbsp;/{{$data['unit']}}</td>
                     <td>{{$data['menu']['name']}}</td>
                     <td>{{$data['updated_at']}}</td>
                     <td class="td-manage">
@@ -89,7 +91,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,2,7]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,2,8]}// 不参与排序的列
         ]
     });
 
