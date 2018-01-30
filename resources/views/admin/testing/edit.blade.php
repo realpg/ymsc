@@ -11,6 +11,13 @@
                            value="{{ isset($data['id']) ? $data['id'] : '' }}" placeholder="id">
                 </div>
             </div>
+            <div class="row cl hidden">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>id：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="goods_id" name="goods_id" type="text" class="input-text"
+                           value="{{ isset($data['id']) ? $data['id'] : '' }}" placeholder="goods_id">
+                </div>
+            </div>
             <div id="tab-system" class="HuiTab">
                 <div class="tabBar clearfix">
                     <span>基本信息</span>
@@ -101,6 +108,24 @@
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>排序：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <input id="sort" name="sort" type="text" class="input-text" value="{{ isset($data['sort']) ? $data['sort'] : '' }}" placeholder="请输入排序，越大越靠前">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2">SEO_标题：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea  id="seo_title" name="seo_title" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_标题" dragonfly="true" nullmsg="SEO_标题不能为空！">{{ isset($data['seo_title']) ? $data['seo_title'] : '' }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2">SEO_关键字：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea  id="seo_keywords" name="seo_keywords" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_关键字" dragonfly="true" nullmsg="SEO_关键字不能为空！">{{ isset($data['seo_keywords']) ? $data['seo_keywords'] : '' }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2">SEO_描述：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea  id="seo_description" name="seo_description" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_描述" dragonfly="true" nullmsg="SEO_描述不能为空！">{{ isset($data['seo_description']) ? $data['seo_description'] : '' }}</textarea>
                         </div>
                     </div>
                     <div class="row cl">
@@ -263,6 +288,24 @@
                 </div>
                 <div class="tabCon">
                     <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>实验室：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="lab" name="lab" type="text" class="input-text" value="{{ isset($data['attribute']['lab']) ? $data['attribute']['lab'] : '' }}" placeholder="请输入实验室">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系人信息：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="contacts" name="contacts" type="text" class="input-text" value="{{ isset($data['attribute']['contacts']) ? $data['attribute']['contacts'] : '' }}" placeholder="请输入联系人信息">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地址：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="address" name="address" type="text" class="input-text" value="{{ isset($data['attribute']['address']) ? $data['attribute']['address'] : '' }}" placeholder="请输入地址">
+                        </div>
+                    </div>
+                    <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
                             <button onClick="layer_close();" class="btn btn-default radius" type="button">取消</button>
@@ -345,7 +388,16 @@
                     sort: {
                         required: true,
                         digits:true,
-                    }
+                    },
+                    lab: {
+                        required: true,
+                    },
+                    contacts: {
+                        required: true,
+                    },
+                    address: {
+                        required: true,
+                    },
                 },
                 onkeyup: false,
                 focusCleanup: false,

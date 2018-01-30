@@ -10,6 +10,7 @@ namespace App\Components;
 
 use App\Models\GoodsDetailModel;
 use App\Models\GoodsModel;
+use App\Models\GoodsTestingAttributeModel;
 
 class GoodsManager
 {
@@ -40,7 +41,11 @@ class GoodsManager
         //判断menu_id是否为一级栏目
         $menu=MenuManager::getMenuById($menu_id);
         if($menu['menu_id']){
-            $goodses=GoodsModel::where('menu_id',$menu_id)->where('name','like','%'.$search.'%')->orderBy('sort','desc')->get();
+//            $goodses=GoodsModel::where('menu_id',$menu_id)->where('name','like','%'.$search.'%')->orderBy('sort','desc')->get();
+            $goodses = GoodsModel::where('menu_id',$menu_id)->where(function ($goodses) use ($search) {
+                $goodses->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('number', 'like', '%'.$search.'%');
+            })->orderBy('sort','desc')->get();
         }
         else{
             $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
@@ -48,7 +53,11 @@ class GoodsManager
             foreach ($menus as $k=>$menu){
                 $menu_id_array[$k]=$menu['id'];
             }
-            $goodses=GoodsModel::whereIn('menu_id',$menu_id_array)->where('name','like','%'.$search.'%')->get();
+//            $goodses=GoodsModel::whereIn('menu_id',$menu_id_array)->where('name','like','%'.$search.'%')->get();
+            $goodses = GoodsModel::whereIn('menu_id',$menu_id_array)->where(function ($goodses) use ($search) {
+                $goodses->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('number', 'like', '%'.$search.'%');
+            })->orderBy('sort','desc')->get();
         }
         foreach ($goodses as $goods){
             $menu_id=$goods['menu_id'];
@@ -96,7 +105,7 @@ class GoodsManager
             $goods->menu_id = array_get($data, 'menu_id');
         }
         if (array_key_exists('number', $data)) {
-            $goods->name = array_get($data, 'name');
+            $goods->number = array_get($data, 'number');
         }
         if (array_key_exists('name', $data)) {
             $goods->name = array_get($data, 'name');
@@ -185,5 +194,55 @@ class GoodsManager
             $goods_detail->sort = array_get($data, 'sort');
         }
         return $goods_detail;
+    }
+
+    /*
+     * 配置第三方检测商品属性的参数
+     *
+     * By zm
+     *
+     * 2018-01-29
+     *
+     */
+    public static function setGoodsTestingAttribute($goods_testing_attribute, $data){
+        if (array_key_exists('goods_id', $data)) {
+            $goods_testing_attribute->goods_id = array_get($data, 'goods_id');
+        }
+        if (array_key_exists('lab', $data)) {
+            $goods_testing_attribute->lab = array_get($data, 'lab');
+        }
+        if (array_key_exists('contacts', $data)) {
+            $goods_testing_attribute->contacts = array_get($data, 'contacts');
+        }
+        if (array_key_exists('address', $data)) {
+            $goods_testing_attribute->address = array_get($data, 'address');
+        }
+        return $goods_testing_attribute;
+    }
+
+    /*
+     * 根据id获取第三方检测商品属性
+     *
+     * By zm
+     *
+     * 2018-01-29
+     *
+     */
+    public static function getGoodsTestingAttributeById($id){
+        $goods_testing_attribute=GoodsTestingAttributeModel::where('id',$id)->first();
+        return $goods_testing_attribute;
+    }
+
+    /*
+     * 根据goods_id获取第三方检测商品属性
+     *
+     * By zm
+     *
+     * 2018-01-29
+     *
+     */
+    public static function getGoodsTestingAttributeByGoodsId($goods_id){
+        $goods_testing_attribute=GoodsTestingAttributeModel::where('goods_id',$goods_id)->first();
+        return $goods_testing_attribute;
     }
 }

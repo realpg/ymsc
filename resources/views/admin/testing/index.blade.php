@@ -8,6 +8,7 @@
             {{csrf_field()}}
             <span class="select-box" style="width:200px;">
               <select class="select" size="1" name="menu_id">
+                  <option value=""  >全部</option>
                   @foreach($menu_lists as $menu_list)
                       @if($menu_id==$menu_list['id'])
                           <option value="{{$menu_list['id']}}" selected >{{$menu_list['name']}}</option>
@@ -17,7 +18,7 @@
                   @endforeach
               </select>
             </span>
-            <input id="search" name="search" type="text" class="input-text" style="width:250px" placeholder="{{$menu_info['name']}}商品名称">
+            <input id="search" name="search" type="text" class="input-text" style="width:250px" placeholder="商品名称/商品货号">
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -42,6 +43,7 @@
                 </th>
                 <th width="80">ID</th>
                 <th>名称</th>
+                <th width="150">货号</th>
                 <th width="150">栏目</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
@@ -55,6 +57,7 @@
                     </td>
                     <td>{{$data['id']}}</td>
                     <td class="text-l">{{$data['name']}}</td>
+                    <td>{{$data['number']}}</td>
                     <td class="text-l">{{$data['menu']['name']}}</td>
                     <td>{{$data['updated_at']}}</td>
                     <td class="td-manage">
@@ -84,7 +87,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,5]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
         ]
     });
 

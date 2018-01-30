@@ -14,6 +14,7 @@ use App\Components\MenuManager;
 use App\Components\QNManager;
 use App\Models\GoodsDetailModel;
 use App\Models\GoodsModel;
+use App\Models\GoodsTestingAttributeModel;
 use Illuminate\Http\Request;
 
 class TestingController
@@ -21,6 +22,7 @@ class TestingController
     const MENU_ID = 2;  //一级栏目
     const F_ATTRIBUTE_ID = 1;  //第一搜索属性
     const S_ATTRIBUTE_ID = 2;  //第二搜索属性
+    const TESTING_PREFIX = 'TS';  //商品号开头字母
     //首页
     public function index(Request $request){
         $data=$request->all();
@@ -30,7 +32,12 @@ class TestingController
         $menu_lists=MenuManager::getAllMenuListsByMenuId($menu_default);
         //判断是否有menu_id，如果没有默认第一条数据
         if(array_key_exists('menu_id',$data)){
-            $menu_id=$data['menu_id'];
+            if(empty($data['menu_id'])){
+                $menu_id=$menu_default;
+            }
+            else{
+                $menu_id=$data['menu_id'];
+            }
         }
         else{
             $menu_id=$menu_default;
@@ -124,8 +131,14 @@ class TestingController
         $purities=AttributeManager::getAttributeByAttributeId(self::S_ATTRIBUTE_ID);
         if (array_key_exists('id', $data)) {
             $goods = GoodsManager::getGoodsById($data['id']);
+            //获取商品详情
             $goods_details=GoodsManager::getGoodsDetailByGoodsId($data['id']);
             $goods['details']=$goods_details;
+            //获取商品的属性
+            $goods_attribute=GoodsManager::getGoodsTestingAttributeByGoodsId($data['id']);
+            if($goods_attribute){
+                $goods['attribute']=$goods_attribute;
+            }
         }
         else{
             $goods=new GoodsModel();
@@ -145,14 +158,12 @@ class TestingController
     //创建或编辑
     public function editDo(Request $request){
         $data = $request->all();
-//        var_dump($data);
-//        $return['result']=true;
-//        return $return;
         $admin = $request->session()->get('admin');
         $return=null;
         if(empty($data['id'])){
             if(array_key_exists('menu_id',$data)){
                 $goods=new GoodsModel();
+                $data['number']=self::ProduceCommodityNumber();
             }
             else{
                 $return['result']=false;
@@ -162,6 +173,17 @@ class TestingController
         }
         else{
             $goods = GoodsManager::getGoodsById($data['id']);
+            //获取商品的属性
+            $goods_attribute=GoodsManager::getGoodsTestingAttributeByGoodsId($data['id']);
+            $data_attribute['goods_id']=$data['id'];
+            $data_attribute['lab']=$data['lab'];
+            $data_attribute['contacts']=$data['contacts'];
+            $data_attribute['address']=$data['address'];
+            if(!$goods_attribute){
+                $goods_attribute=new GoodsTestingAttributeModel();
+            }
+            $goods_attribute=GoodsManager::setGoodsTestingAttribute($goods_attribute,$data_attribute);
+            $goods_attribute->save();
         }
         $goods = GoodsManager::setGoods($goods,$data);
         $result=$goods->save();
@@ -228,5 +250,11 @@ class TestingController
             $return['msg']='编辑商品详情失败';
         }
         return $return;
+    }
+
+    //生成商品号
+    public function ProduceCommodityNumber(){
+        $number=self::TESTING_PREFIX.time().rand(100,1000);
+        return $number;
     }
 }
