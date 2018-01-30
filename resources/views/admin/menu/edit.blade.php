@@ -17,6 +17,12 @@
                     <input id="name" name="name" type="text" class="input-text" value="{{ isset($data['name']) ? $data['name'] : '' }}" placeholder="请输入栏目名称">
                 </div>
             </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>货号字母前缀：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="prefix" name="prefix" type="text" class="input-text" value="{{ isset($data['prefix']) ? $data['prefix'] : '' }}" placeholder="请输入此栏目下的货号字母前缀">
+                </div>
+            </div>
             @if(!isset($data['name'])||$data['menu_id']!=0)
                 <div class="row cl">
                     <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>栏目：</label>
@@ -71,7 +77,10 @@
                     sort: {
                         required: true,
                         digits:true,
-                    }
+                    },
+                    prefix: {
+                        required: true,
+                    },
                 },
                 onkeyup: false,
                 focusCleanup: false,

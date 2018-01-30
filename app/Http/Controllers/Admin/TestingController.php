@@ -20,9 +20,8 @@ use Illuminate\Http\Request;
 class TestingController
 {
     const MENU_ID = 2;  //一级栏目
-    const F_ATTRIBUTE_ID = 1;  //第一搜索属性
-    const S_ATTRIBUTE_ID = 2;  //第二搜索属性
-    const TESTING_PREFIX = 'TS';  //商品号开头字母
+    const F_ATTRIBUTE_ID = 3;  //第一搜索属性
+    const S_ATTRIBUTE_ID = 4;  //第二搜索属性
     //首页
     public function index(Request $request){
         $data=$request->all();
@@ -163,7 +162,7 @@ class TestingController
         if(empty($data['id'])){
             if(array_key_exists('menu_id',$data)){
                 $goods=new GoodsModel();
-                $data['number']=self::ProduceCommodityNumber();
+                $data['number']=self::ProduceCommodityNumber($data['menu_id']);
             }
             else{
                 $return['result']=false;
@@ -253,8 +252,10 @@ class TestingController
     }
 
     //生成商品号
-    public function ProduceCommodityNumber(){
-        $number=self::TESTING_PREFIX.time().rand(100,1000);
+    public function ProduceCommodityNumber($menu_id){
+        $menu=MenuManager::getMenuById($menu_id);
+        $prefix=$menu['prefix'];
+        $number=$prefix.time().rand(100,1000);
         return $number;
     }
 }

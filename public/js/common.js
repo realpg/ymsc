@@ -85,6 +85,10 @@ function delMoreGoods(url, param, callBack) {
     ajaxRequest(url + "admin/goods/delMore", param, "GET", callBack);
 }
 
+//删除化学商品大类
+function delChemClass(url, param, callBack) {
+    ajaxRequest(url + "admin/chem/delClass", param, "GET", callBack);
+}
 //删除化学商品
 function delChem(url, param, callBack) {
     ajaxRequest(url + "admin/chem/del", param, "GET", callBack);

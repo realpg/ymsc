@@ -2,19 +2,128 @@
 
 @section('content')
     <div class="page-container">
-        <form class="form form-horizontal" method="post" id="form-menu-edit">
+        <form class="form form-horizontal" method="post" id="form-testing-edit">
             {{csrf_field()}}
             <div class="row cl hidden">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>id：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="id" name="id" type="text" class="input-text"
-                           value="{{ isset($data['id']) ? $data['id'] : '' }}" placeholder="Menu_id">
+                           value="{{ isset($data['id']) ? $data['id'] : '' }}" placeholder="id">
+                </div>
+            </div>
+            <div class="row cl hidden">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>goods_id：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="goods_id" name="goods_id" type="text" class="input-text"
+                           value="{{ isset($data['id']) ? $data['id'] : '' }}" placeholder="goods_id">
+                </div>
+            </div>
+            <div class="row cl hidden">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>menu_id：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="menu_id" name="menu_id" type="text" class="input-text"
+                           value="{{ isset($menu_id) ? $menu_id : '' }}" placeholder="menu_id">
+                </div>
+            </div>
+            <div class="row cl hidden">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>chem_class_id：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="chem_class_id" name="chem_class_id" type="text" class="input-text"
+                           value="{{ isset($chem_class_id) ? $chem_class_id : '' }}" placeholder="chem_class_id">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>搜索属性的名称：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品名称：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input id="name" name="name" type="text" class="input-text" value="{{ isset($data['name']) ? $data['name'] : '' }}" placeholder="请输入搜索属性的名称">
+                    <input id="name" name="name" type="text" class="input-text no_click" readonly value="{{ isset($chem_class['name']) ? $chem_class['name'] : '' }}" placeholder="请输入商品名称">
+                </div>
+            </div>
+            @if(isset($data['id']))
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品货号：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" class="input-text no_click" readonly value="{{ isset($data['number']) ? $data['number'] : '' }}">
+                    </div>
+                </div>
+            @endif
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>售价（元）：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="price" name="price" type="text" class="input-text" value="{{ isset($data['price']) ? $data['price'] : '' }}" placeholder="请输入售价,以“元”为单位，精确到“分”">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>价格单位：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="unit" name="unit" type="text" class="input-text" value="{{ isset($data['unit']) ? $data['unit'] : '' }}" placeholder="请输入价格单位">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>品牌分类：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                        <span class="select-box">
+                            <select id="f_attribute_id" name="f_attribute_id" class="select">
+                                @foreach($brands as $brand)
+                                    @if($brand['id']==$data['f_attribute_id'])
+                                        <option value="{{$brand['id']}}" selected >{{$brand['name']}}</option>
+                                    @else
+                                        <option value="{{$brand['id']}}" >{{$brand['name']}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>纯度：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                        <span class="select-box">
+                            <select id="s_attribute_id" name="s_attribute_id" class="select">
+                                @foreach($purities as $purity)
+                                    @if($purity['id']==$data['s_attribute_id'])
+                                        <option value="{{$purity['id']}}" selected >{{$purity['name']}}</option>
+                                    @else
+                                        <option value="{{$purity['id']}}" >{{$purity['name']}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>规格：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="spec" name="spec" type="text" class="input-text"  value="{{ isset($data['attribute']['spec']) ? $data['attribute']['spec'] : '' }}" placeholder="请输入商品规格">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>货期：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="delivery" name="delivery" type="text" class="input-text"  value="{{ isset($data['attribute']['delivery']) ? $data['attribute']['delivery'] : '' }}" placeholder="请输入货期">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>仓库：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="depot" name="depot" type="text" class="input-text"  value="{{ isset($data['attribute']['depot']) ? $data['attribute']['depot'] : '' }}" placeholder="请输入仓库">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>品牌商户号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="merchant" name="merchant" type="text" class="input-text"  value="{{ isset($data['attribute']['merchant']) ? $data['attribute']['merchant'] : '' }}" placeholder="请输入品牌商户号">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分子量：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="molecular" name="molecular" type="text" class="input-text"  value="{{ isset($data['attribute']['molecular']) ? $data['attribute']['molecular'] : '' }}" placeholder="请输入分子量">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>精确量：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input id="accurate" name="accurate" type="text" class="input-text"  value="{{ isset($data['attribute']['accurate']) ? $data['attribute']['accurate'] : '' }}" placeholder="请输入精确量">
                 </div>
             </div>
             <div class="row cl">
@@ -23,25 +132,22 @@
                     <input id="sort" name="sort" type="text" class="input-text" value="{{ isset($data['sort']) ? $data['sort'] : '' }}" placeholder="请输入排序，越大越靠前">
                 </div>
             </div>
-            @if(!isset($data['attribute_id'])||$data['attribute_id']!=0)
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">一级搜索属性：</label>
+                <label class="form-label col-xs-4 col-sm-2">SEO_标题：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <span class="select-box">
-                        <select id="attribute_id" name="attribute_id" class="select">
-                            @foreach($ClassAAttributes as $ClassAAttribute)
-                                <option value="{{$ClassAAttribute['id']}}" {{$data['attribute_id'] == $ClassAAttribute['id']? "selected":""}} >{{$ClassAAttribute['name']}}</option>
-                            @endforeach
-                        </select>
-                    </span>
+                    <textarea  id="seo_title" name="seo_title" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_标题" dragonfly="true" nullmsg="SEO_标题不能为空！">{{ isset($data['seo_title']) ? $data['seo_title'] : '' }}</textarea>
                 </div>
             </div>
-            @endif
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>栏目名称：</label>
+                <label class="form-label col-xs-4 col-sm-2">SEO_关键字：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text no_click" value="{{ isset($menu['name']) ? $menu['name'] : '' }}" readonly />
-                    <input type="hidden" name="menu_id" id="menu_id" class="input-text" value="{{ isset($menu['id']) ? $menu['id'] : '' }}" />
+                    <textarea  id="seo_keywords" name="seo_keywords" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_关键字" dragonfly="true" nullmsg="SEO_关键字不能为空！">{{ isset($data['seo_keywords']) ? $data['seo_keywords'] : '' }}</textarea>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">SEO_描述：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea  id="seo_description" name="seo_description" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_描述" dragonfly="true" nullmsg="SEO_描述不能为空！">{{ isset($data['seo_description']) ? $data['seo_description'] : '' }}</textarea>
                 </div>
             </div>
             <div class="row cl">
@@ -57,15 +163,40 @@
 @section('script')
     <script type="text/javascript">
         $(function () {
-            $("#form-menu-edit").validate({
+            $("#form-testing-edit").validate({
                 rules: {
                     name: {
+                        required: true,
+                    },
+                    price: {
+                        required: true,
+                        number:true,
+                    },
+                    unit: {
                         required: true,
                     },
                     sort: {
                         required: true,
                         digits:true,
-                    }
+                    },
+                    spec: {
+                        required: true,
+                    },
+                    delivery: {
+                        required: true,
+                    },
+                    depot: {
+                        required: true,
+                    },
+                    merchant: {
+                        required: true,
+                    },
+                    molecular: {
+                        required: true,
+                    },
+                    accurate: {
+                        required: true,
+                    },
                 },
                 onkeyup: false,
                 focusCleanup: false,
@@ -73,7 +204,7 @@
                 submitHandler: function (form) {
                     $(form).ajaxSubmit({
                         type: 'POST',
-                        url: "{{ URL::asset('/admin/attribute/edit')}}",
+                        url: "{{ URL::asset('/admin/chem/edit')}}",
                         success: function (ret) {
                             console.log(JSON.stringify(ret));
                             if (ret.result) {

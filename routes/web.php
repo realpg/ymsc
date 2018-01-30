@@ -98,7 +98,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
 
     //化学商品
     Route::get('/chem/index', 'Admin\ChemController@index');  //化学商品管理首页
-    Route::post('/chem/index', 'Admin\ChemController@index');  //搜索化学商品
+    Route::post('/chem/index', 'Admin\ChemController@index');  //搜索化学商品大类
+    Route::get('/chem/delClass', 'Admin\ChemController@delClass');  //删除化学商品大类
+    Route::get('/chem/editClass', 'Admin\ChemController@editClass');  //创建或编辑化学商品大类
+    Route::post('/chem/editClass', 'Admin\ChemController@editDoClass');  //创建或编辑化学商品大类
+    Route::get('/chem/select', 'Admin\ChemController@select');  //化学商品首页
+    Route::post('/chem/select', 'Admin\ChemController@select');  //搜索化学商品
     Route::get('/chem/del', 'Admin\ChemController@del');  //删除化学商品
     Route::get('/chem/delMore', 'Admin\ChemController@delMore');  //批量删除化学商品
     Route::get('/chem/edit', 'Admin\ChemController@edit');  //创建或编辑化学商品

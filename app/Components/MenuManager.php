@@ -103,6 +103,9 @@ class MenuManager
         if (array_key_exists('menu_id', $data)) {
             $banner->menu_id = array_get($data, 'menu_id');
         }
+        if (array_key_exists('prefix', $data)) {
+            $banner->prefix = array_get($data, 'prefix');
+        }
         if (array_key_exists('sort', $data)) {
             $banner->sort = array_get($data, 'sort');
         }
