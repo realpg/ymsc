@@ -121,6 +121,22 @@ function delMachining(url, param, callBack) {
 function delMoreMachining(url, param, callBack) {
     ajaxRequest(url + "admin/machining/delMore", param, "GET", callBack);
 }
+//删除加工商品详情
+function delMachiningDetail(url, param, callBack) {
+    ajaxRequest(url + "admin/machiningdetail/del", param, "GET", callBack);
+}
+//修改加工商品详情
+function editMachiningDetail(url, param, callBack) {
+    $.post(url + "admin/machiningdetail/edit",param,callBack);
+}
+//删除加工商品案例
+function delMachiningCase(url, param, callBack) {
+    ajaxRequest(url + "admin/machiningcase/del", param, "GET", callBack);
+}
+//修改加工商品案例
+function editMachiningCase(url, param, callBack) {
+    $.post(url + "admin/machiningcase/edit",param,callBack);
+}
 
 
 

@@ -45,7 +45,7 @@
                 <th width="100">图片</th>
                 <th width="150">名称</th>
                 <th width="150">货号</th>
-                <th width="150">价钱</th>
+                <th width="150">价格</th>
                 <th width="150">栏目</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
@@ -58,7 +58,7 @@
                         <input type="checkbox" name="id_array" value="{{$data['id']}}" id="checkbox-1">
                     </td>
                     <td>{{$data['id']}}</td>
-                    <td><img width="100%" class="picture-thumb" src="{{$data['picture']}}"></td>
+                    <td><img width="100%" class="picture-thumb" src="{{$data['picture']}}?imageView2/2/w/200"></td>
                     <td class="text-l">{{$data['name']}}</td>
                     <td>{{$data['number']}}</td>
                     <td>￥{{$data['price']}}&nbsp;/{{$data['unit']}}</td>

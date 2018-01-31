@@ -8,6 +8,7 @@
             {{csrf_field()}}
             <span class="select-box" style="width:200px;">
               <select class="select" size="1" name="menu_id">
+                  <option value=""  >全部</option>
                   @foreach($menu_lists as $menu_list)
                       @if($menu_id==$menu_list['id'])
                           <option value="{{$menu_list['id']}}" selected >{{$menu_list['name']}}</option>
@@ -17,7 +18,7 @@
                   @endforeach
               </select>
             </span>
-            <input id="search" name="search" type="text" class="input-text" style="width:250px" placeholder="{{$menu_info['name']}}商品名称">
+            <input id="search" name="search" type="text" class="input-text" style="width:250px" placeholder="商品名称/商品货号">
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -25,7 +26,7 @@
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20">
         <span class="l">
-            <a class="btn btn-primary radius" onclick="machining_edit('添加商品','{{URL::asset('/admin/machining/edit')}}?menu_id={{$menu_id}}')" href="javascript:;">
+            <a class="btn btn-primary radius" onclick="machining_edit('添加商品','{{URL::asset('/admin/machining/add')}}?menu_id={{$menu_id}}')" href="javascript:;">
                 <i class="Hui-iconfont">&#xe600;</i> 添加商品
             </a>
         </span>
@@ -41,7 +42,11 @@
                     <input type="checkbox" id="checkbox-1">
                 </th>
                 <th width="80">ID</th>
-                <th>名称</th>
+                <th width="100">图片</th>
+                <th width="150">名称</th>
+                <th width="150">货号</th>
+                <th width="100">价格</th>
+                <th width="100">类型</th>
                 <th width="150">栏目</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
@@ -54,13 +59,27 @@
                         <input type="checkbox" name="id_array" value="{{$data['id']}}" id="checkbox-1">
                     </td>
                     <td>{{$data['id']}}</td>
+                    <td><img width="100%" class="picture-thumb" src="{{$data['picture']}}?imageView2/2/w/200"></td>
                     <td class="text-l">{{$data['name']}}</td>
-                    <td class="text-l">{{$data['menu']['name']}}</td>
+                    <td>{{$data['number']}}</td>
+                    <td>￥{{$data['price']}}&nbsp;/{{$data['unit']}}</td>
+                    @if($data['type']==0)
+                        <td>机器</td>
+                    @else
+                        <td>样品</td>
+                    @endif
+                    <td>{{$data['menu']['name']}}</td>
                     <td>{{$data['updated_at']}}</td>
                     <td class="td-manage">
-                        <a title="编辑" href="javascript:;" onclick="machining_edit('编辑','{{URL::asset('/admin/machining/edit')}}?id={{$data['id']}}&menu_id={{$data['menu_id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
-                            <i class="Hui-iconfont">&#xe6df;</i>
-                        </a>
+                        @if($data['type']==0)
+                            <a title="编辑" href="javascript:;" onclick="machining_edit('编辑','{{URL::asset('/admin/machining/editMachining')}}?id={{$data['id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
+                                <i class="Hui-iconfont">&#xe6df;</i>
+                            </a>
+                        @else
+                            <a title="编辑" href="javascript:;" onclick="machining_edit('编辑','{{URL::asset('/admin/machining/editStandard')}}?id={{$data['id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
+                                <i class="Hui-iconfont">&#xe6df;</i>
+                            </a>
+                        @endif
                         <a title="删除" href="javascript:;" onclick="machining_del(this,'{{$data['id']}}')" class="ml-5" style="text-decoration:none">
                             <i class="Hui-iconfont">&#xe6e2;</i>
                         </a>
@@ -84,7 +103,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,5]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,2,9]}// 不参与排序的列
         ]
     });
 

@@ -37,7 +37,7 @@
                 <tr class="text-c">
                     <td>{{$data['id']}}</td>
                     <td>{{$data['menu_name']}}</td>
-                    <td><img width="210" class="picture-thumb" src="{{$data['picture']}}"></td>
+                    <td><img width="210" class="picture-thumb" src="{{$data['picture']}}?imageView2/2/h/200"></td>
                     <td class="text-l">{{$data['name']}}</td>
                     <td>
                         @if($data['status'])

@@ -124,8 +124,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/machining/index', 'Admin\MachiningController@index');  //搜索机加工商品
     Route::get('/machining/del', 'Admin\MachiningController@del');  //删除机加工商品
     Route::get('/machining/delMore', 'Admin\MachiningController@delMore');  //批量删除机加工商品
-    Route::get('/machining/edit', 'Admin\MachiningController@edit');  //创建或编辑机加工商品
-    Route::post('/machining/edit', 'Admin\MachiningController@editDo');  //创建或编辑机加工商品
+    Route::get('/machining/add', 'Admin\MachiningController@add');  //创建机加工商品
+    Route::post('/machining/add', 'Admin\MachiningController@addDo');  //创建机加工商品
+    Route::get('/machining/editMachining', 'Admin\MachiningController@editMachining');  //编辑机加工商品
+    Route::post('/machining/editMachining', 'Admin\MachiningController@editDoMachining');  //编辑机加工商品
+    Route::get('/machining/editStandard', 'Admin\MachiningController@editStandard');  //编辑国标商品
+    Route::post('/machining/editStandard', 'Admin\MachiningController@editDoStandard');  //编辑国标商品
+    Route::get('/machiningdetail/del', 'Admin\MachiningController@delDetail');  //删除机加工商品商品详情信息（机加工一级栏目下的商品公用）
+    Route::post('/machiningdetail/edit', 'Admin\MachiningController@editDoDetail');  //编辑机加工商品商品详情信息（机加工一级栏目下的商品公用）
+    Route::get('/machiningcase/del', 'Admin\MachiningController@delCase');  //删除机加工商品案例信息
+    Route::post('/machiningcase/edit', 'Admin\MachiningController@editDoCase');  //编辑机加工商品案例信息
 
 //    //会员管理
 //    Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页

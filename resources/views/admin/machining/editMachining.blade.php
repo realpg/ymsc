@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-container">
-        <form class="form form-horizontal" method="post" id="form-testing-edit">
+        <form class="form form-horizontal" method="post" id="form-machining-editMachining">
             {{csrf_field()}}
             <div class="row cl hidden">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>id：</label>
@@ -21,10 +21,9 @@
             <div id="tab-system" class="HuiTab">
                 <div class="tabBar clearfix">
                     <span>基本信息</span>
-                    @if(isset($data['id']))
-                        <span>详细信息</span>
-                        <span>属性配置</span>
-                    @endif
+                    <span>详细信息</span>
+                    <span>属性配置</span>
+                    <span>案例编辑</span>
                 </div>
                 <div class="tabCon">
                     <div class="row cl">
@@ -68,6 +67,12 @@
                                 <input type="text" class="input-text no_click" readonly value="{{ isset($data['number']) ? $data['number'] : '' }}">
                             </div>
                         </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>类型：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text no_click" readonly value="机器">
+                            </div>
+                        </div>
                     @endif
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>售价（元）：</label>
@@ -82,31 +87,15 @@
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>应用领域分类：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>制造工业分类：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <span class="select-box">
                                 <select id="f_attribute_id" name="f_attribute_id" class="select">
-                                    @foreach($fields as $field)
-                                        @if($field['id']==$data['f_attribute_id'])
-                                            <option value="{{$field['id']}}" selected >{{$field['name']}}</option>
+                                    @foreach($manufactures as $manufacture)
+                                        @if($manufacture['id']==$data['f_attribute_id'])
+                                            <option value="{{$manufacture['id']}}" selected >{{$manufacture['name']}}</option>
                                         @else
-                                            <option value="{{$field['id']}}" >{{$field['name']}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>仪器分类：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <span class="select-box">
-                                <select id="s_attribute_id" name="s_attribute_id" class="select">
-                                    @foreach($instruments as $instrument)
-                                        @if($instrument['id']==$data['s_attribute_id'])
-                                            <option value="{{$instrument['id']}}" selected >{{$instrument['name']}}</option>
-                                        @else
-                                            <option value="{{$instrument['id']}}" >{{$instrument['name']}}</option>
+                                            <option value="{{$manufacture['id']}}" >{{$manufacture['name']}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -207,17 +196,17 @@
                         margin:0 auto;
                         border:3px solid #000;
                     }
-                    #testing_details_content_detail a div{
+                    #machining_details_content_detail a div{
                         margin:5px 0;
                         line-height: 25px;
                         text-align: center;
                         font-size: 19px;
                         border: 1px solid #ddd;
                     }
-                    #testing_details_content_detail a div:hover{
+                    #machining_details_content_detail a div:hover{
                         background: #ddd;
                     }
-                    #testing_details_content_detail a div:active{
+                    #machining_details_content_detail a div:active{
                         background: #666;
                     }
                     .teltphone_header{
@@ -256,28 +245,28 @@
                     </div>
                     <div class="row cl" id="container">
                         <div class="formControls col-xs-6 col-sm-6">
-                            <div id="testing_details_content"></div>
+                            <div id="machining_details_content"></div>
                             <div>
                                 <a href="javascript:" onclick="addDetailText()">
-                                    <div id="testing_details_content" class="formControls col-xs-4 col-sm-4 detail_add_text">添加文本</div>
+                                    <div id="machining_details_content" class="formControls col-xs-4 col-sm-4 detail_add_text">添加文本</div>
                                 </a>
                                 <a href="javascript:" onclick="addDetailImage()">
-                                    <div id="testing_details_content" class="formControls col-xs-4 col-sm-4 detail_add_image">添加图片</div>
+                                    <div id="machining_details_content" class="formControls col-xs-4 col-sm-4 detail_add_image">添加图片</div>
                                 </a>
                                 <a href="javascript:" onclick="addDetailVideo()">
-                                    <div id="testing_details_content" class="formControls col-xs-4 col-sm-4 detail_add_video">添加视频</div>
+                                    <div id="machining_details_content" class="formControls col-xs-4 col-sm-4 detail_add_video">添加视频</div>
                                 </a>
                                 <div id="add_detail_text" >
                                     <textarea name="" id="add_text" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写内容" dragonfly="true" nullmsg="内容不能为空！"></textarea>
                                     <a href="javascript:" onclick="submitDetailText()">
-                                        <div id="testing_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
+                                        <div id="machining_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
                                     </a>
                                 </div>
                                 <div id="add_detail_image" style="text-align: center;" hidden >
                                     <img id="imagePrv_image" src="{{ URL::asset('/img/add_image.png') }}" />
                                     <input id="add_image" type="hidden" />
                                     <a href="javascript:" onclick="submitDetailImage()">
-                                        <div id="testing_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
+                                        <div id="machining_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
                                     </a>
                                 </div>
                                 <div id="add_detail_video" style="text-align: center;" hidden >
@@ -288,7 +277,7 @@
                                     <div class="progress-bar"><span class="sr-only"></span></div>
                                     <input id="add_video" type="hidden" />
                                     <a href="javascript:" onclick="submitDetailVideo()">
-                                        <div id="testing_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
+                                        <div id="machining_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
                                     </a>
                                 </div>
                             </div>
@@ -298,7 +287,7 @@
                             <div class="teltphone_header">
                                 {{--<div class="teltphone_logo">TelePhone</div>--}}
                             </div>
-                            <div id="testing_details_show_content" class="details_show"></div>
+                            <div id="machining_details_show_content" class="details_show"></div>
                             <div class="teltphone_footer">
                                 {{--<div class="telephone_button"></div>--}}
                             </div>
@@ -308,21 +297,27 @@
                 </div>
                 <div class="tabCon">
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>实验室：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>精度：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="lab" name="lab" type="text" class="input-text" value="{{ isset($data['attribute']['lab']) ? $data['attribute']['lab'] : '' }}" placeholder="请输入实验室">
+                            <input id="accuracy" name="accuracy" type="text" class="input-text" value="{{ isset($data['attribute']['accuracy']) ? $data['attribute']['accuracy'] : '' }}" placeholder="请输入精度">
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系人信息：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>服务商：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="contacts" name="contacts" type="text" class="input-text" value="{{ isset($data['attribute']['contacts']) ? $data['attribute']['contacts'] : '' }}" placeholder="请输入联系人信息">
+                            <input id="service" name="service" type="text" class="input-text" value="{{ isset($data['attribute']['service']) ? $data['attribute']['service'] : '' }}" placeholder="请输入服务商">
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地址：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>材料：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="address" name="address" type="text" class="input-text" value="{{ isset($data['attribute']['address']) ? $data['attribute']['address'] : '' }}" placeholder="请输入地址">
+                            <input id="material" name="material" type="text" class="input-text" value="{{ isset($data['attribute']['material']) ? $data['attribute']['material'] : '' }}" placeholder="请输入材料">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开发和收费情况：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea  id="explain" name="explain" wrap="\n" class="textarea" style="resize:vertical;" placeholder="开发和收费情况" dragonfly="true" nullmsg="开发和收费情况！">{{ isset($data['attribute']['explain']) ? $data['attribute']['explain'] : '' }}</textarea>
                         </div>
                     </div>
                     <div class="row cl">
@@ -332,11 +327,118 @@
                         </div>
                     </div>
                 </div>
+                <style>
+                    #cases_black img,video{
+                        width:100%;
+                    }
+                    #cases_black .cases_black_label{
+                        text-align: center;
+                        font-weight: bold;
+                    }
+                    #cases_black .case_add_image{
+                        line-height:30px;
+                        background: #dd514c;
+                        text-align: center;
+                        color:#fff;
+                    }
+                    #cases_black .case_add_button{
+                        line-height:30px;
+                        background: #000;
+                        text-align: center;
+                        color:#fff;
+                    }
+                    #cases_black .imagePrv{
+                        width:100px;
+                        height:100px;
+                    }
+                    .cases_show{
+                        /*width:375px;*/
+                        height:500px;
+                        overflow-y: scroll;
+                        margin:0 auto;
+                        border:3px solid #000;
+                    }
+                    #machining_cases_content_detail a div{
+                        margin:5px 0;
+                        line-height: 25px;
+                        text-align: center;
+                        font-size: 19px;
+                        border: 1px solid #ddd;
+                    }
+                    #machining_cases_content_detail a div:hover{
+                        background: #ddd;
+                    }
+                    #machining_cases_content_detail a div:active{
+                        background: #666;
+                    }
+                    .teltphone_header{
+                        height:30px;
+                        background: #000;
+                        /*border-radius: 10px 10px 0 0;*/
+                    }
+                    .teltphone_logo{
+                        text-align: center;
+                        line-height: 30px;
+                        font-weight: bold;
+                        color: #ddd;
+                        font-size: 16px;
+                    }
+                    .teltphone_footer{
+                        height:30px;
+                        background: #000;
+                        /*border-radius: 0 0 10px 10px;*/
+                        padding-top:10px;
+                    }
+                    .telephone_button{
+                        width:50px;
+                        height:10px;
+                        margin:0px auto;
+                        border: #ddd 2px solid;
+                        background: #000;
+                        border-radius: 10px;
+                    }
+                </style>
+                <div class="tabCon" id="cases_black">
+                    <div class="row cl cases_black_label">
+                        <div class="formControls col-xs-6 col-sm-6">编辑区</div>
+                        <div class="formControls col-xs-1 col-sm-1"></div>
+                        <div class="formControls col-xs-4 col-sm-4">预览参考区</div>
+                        <div class="formControls col-xs-1 col-sm-1"></div>
+                    </div>
+                    <div class="row cl" id="container">
+                        <div class="formControls col-xs-6 col-sm-6">
+                            <div id="machining_cases_content"></div>
+                            <div>
+                                <a href="javascript:">
+                                    <div class="formControls col-xs-12 col-sm-12 case_add_image">添加图片</div>
+                                </a>
+                                <div id="add_case_image" style="text-align: center;" >
+                                    <img id="imagePrv_case" src="{{ URL::asset('/img/add_image.png') }}" />
+                                    <a href="javascript:" onclick="submitCaseImage()">
+                                        <div id="machining_case_content" class="formControls col-xs-12 col-sm-12 case_add_button">确认添加</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formControls col-xs-1 col-sm-1"></div>
+                        <div class="formControls col-xs-4 col-sm-4 padding-top-10 ">
+                            <div class="teltphone_header">
+                                {{--<div class="teltphone_logo">TelePhone</div>--}}
+                            </div>
+                            <div id="machining_cases_show_content" class="cases_show"></div>
+                            <div class="teltphone_footer">
+                                {{--<div class="telephone_button"></div>--}}
+                            </div>
+                        </div>
+                        <div class="formControls col-xs-1 col-sm-1"></div>
+                    </div>
+                </div>
             </div>
         </form>
     </div>
-    <script id="testing_details_content_template" type="text/x-dot-template">
-        <div id="testing_details_content_detail" class="formControls col-xs-12 col-sm-12">
+    {{--详情--}}
+    <script id="machining_details_content_template" type="text/x-dot-template">
+        <div id="machining_details_content_detail" class="formControls col-xs-12 col-sm-12">
             @{{? it.type==0 }}
             <textarea  id="text_detail_@{{=it.index}}" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写内容" dragonfly="true" nullmsg="内容不能为空！">@{{=it.content}}</textarea>
             @{{?? it.type==1 }}
@@ -372,7 +474,7 @@
             @{{? }}
         </div>
     </script>
-    <script id="testing_details_show_content_template" type="text/x-dot-template">
+    <script id="machining_details_show_content_template" type="text/x-dot-template">
         @{{? it.type==0 }}
         <div>@{{=it.content}}</div>
         @{{?? it.type==1 }}
@@ -382,6 +484,24 @@
             您的浏览器不支持 video 标签。
         </video>
         @{{? }}
+    </script>
+    {{--案例--}}
+    <script id="machining_cases_content_template" type="text/x-dot-template">
+        <div id="machining_details_content_detail" class="formControls col-xs-12 col-sm-12">
+            <img src="@{{=it.content}}" />
+            <a href="javascript:" onclick="sortUpCase(@{{=it.index}},@{{=it.id}})" title="上移">
+                <div class="formControls col-xs-4 col-sm-4 Hui-iconfont">&#xe6d6;</div>
+            </a>
+            <a href="javascript:" onclick="delCase(@{{=it.index}},@{{=it.id}})" title="删除">
+                <div class="formControls col-xs-4 col-sm-4 c-red Hui-iconfont">&#xe6a6;</div>
+            </a>
+            <a href="javascript:" onclick="sortDownCase(@{{=it.index}},@{{=it.id}})" title="下移">
+                <div class="formControls col-xs-4 col-sm-4 Hui-iconfont">&#xe6d5;</div>
+            </a>
+        </div>
+    </script>
+    <script id="machining_cases_show_content_template" type="text/x-dot-template">
+        <img src="@{{=it.content}}" />
     </script>
 @endsection
 
@@ -393,7 +513,7 @@
             });
             //获取七牛token
             initQNUploader();
-            $("#form-testing-edit").validate({
+            $("#form-machining-editMachining").validate({
                 rules: {
                     name: {
                         required: true,
@@ -409,13 +529,16 @@
                         required: true,
                         digits:true,
                     },
-                    lab: {
+                    accuracy: {
                         required: true,
                     },
-                    contacts: {
+                    service: {
                         required: true,
                     },
-                    address: {
+                    material: {
+                        required: true,
+                    },
+                    explain: {
                         required: true,
                     },
                 },
@@ -425,7 +548,7 @@
                 submitHandler: function (form) {
                     $(form).ajaxSubmit({
                         type: 'POST',
-                        url: "{{ URL::asset('/admin/testing/edit')}}",
+                        url: "{{ URL::asset('/admin/machining/editMachining')}}",
                         success: function (ret) {
                             console.log(JSON.stringify(ret));
                             if (ret.result) {
@@ -717,6 +840,96 @@
                     }
                 }
             });
+            //案例
+            var uploader_3 = Qiniu.uploader({
+                runtimes: 'html5,flash,html4',      // 上传模式，依次退化
+                browse_button: 'imagePrv_case',         // 上传选择的点选按钮，必需
+                container: 'container',//上传按钮的上级元素ID
+                // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
+                // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
+                // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
+                uptoken: "{{$upload_token}}", // uptoken是上传凭证，由其他程序生成
+                // uptoken_url: '/uptoken',         // Ajax请求uptoken的Url，强烈建议设置（服务端提供）
+                // uptoken_func: function(file){    // 在需要获取uptoken时，该方法会被调用
+                //    // do something
+                //    return uptoken;
+                // },
+                get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的uptoken
+                // downtoken_url: '/downtoken',
+                // Ajax请求downToken的Url，私有空间时使用，JS-SDK将向该地址POST文件的key和domain，服务端返回的JSON必须包含url字段，url值为该文件的下载地址
+                unique_names: true,              // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+                // save_key: true,                  // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+                domain: 'http://dsyy.isart.me/',     // bucket域名，下载资源时用到，必需
+                max_file_size: '100mb',             // 最大文件体积限制
+                flash_swf_url: 'path/of/plupload/Moxie.swf',  //引入flash，相对路径
+                max_retries: 3,                     // 上传失败最大重试次数
+                dragdrop: true,                     // 开启可拖曳上传
+                drop_element: 'container',          // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+                chunk_size: '4mb',                  // 分块上传时，每块的体积
+                auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+                //x_vars : {
+                //    查看自定义变量
+                //    'time' : function(up,file) {
+                //        var time = (new Date()).getTime();
+                // do something with 'time'
+                //        return time;
+                //    },
+                //    'size' : function(up,file) {
+                //        var size = file.size;
+                // do something with 'size'
+                //        return size;
+                //    }
+                //},
+                init: {
+                    'FilesAdded': function (up, files) {
+                        plupload.each(files, function (file) {
+                            // 文件添加进队列后，处理相关的事情
+//                                            alert(alert(JSON.stringify(file)));
+                        });
+                    },
+                    'BeforeUpload': function (up, file) {
+                        // 每个文件上传前，处理相关的事情
+//                        console.log("BeforeUpload up:" + up + " file:" + JSON.stringify(file));
+                    },
+                    'UploadProgress': function (up, file) {
+                        // 每个文件上传时，处理相关的事情
+                        $('.sr-only').css('width',file.percent+'%');
+                        $('.sr-only').css('float','left');
+                        console.log("UploadProgress up:" + up + " file:" + JSON.stringify(file));
+                    },
+                    'FileUploaded': function (up, file, info) {
+                        // 每个文件上传成功后，处理相关的事情
+                        // 其中info是文件上传成功后，服务端返回的json，形式如：
+                        // {
+                        //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                        //    "key": "gogopher.jpg"
+                        //  }
+                        console.log(JSON.stringify(info));
+                        var domain = up.getOption('domain');
+                        var res = JSON.parse(info);
+                        //获取上传成功后的文件的Url
+                        var sourceLink = domain + res.key;
+                        $("#imagePrv_case").attr('src', sourceLink);
+                        $('#add_case_image').val(sourceLink)
+                        // console.log($("#pickfiles").attr('src'));
+                    },
+                    'Error': function (up, err, errTip) {
+                        //上传出错时，处理相关的事情
+                        console.log(err + errTip);
+                    },
+                    'UploadComplete': function () {
+                        //队列文件处理完毕后，处理相关的事情
+                    },
+                    'Key': function (up, file) {
+                        // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                        // 该配置必须要在unique_names: false，save_key: false时才生效
+
+                        var key = "";
+                        // do something with key here
+                        return key
+                    }
+                }
+            });
         }
 
         //对详情进行编辑
@@ -734,11 +947,11 @@
                 data[i]['index']=i
                 // console.log('LoadDetailsHtml data['+i+'] is : ' + JSON.stringify((data[i])))
                 //编辑
-                var interText = doT.template($("#testing_details_content_template").text())
-                $("#testing_details_content").append(interText(data[i]))
+                var interText = doT.template($("#machining_details_content_template").text())
+                $("#machining_details_content").append(interText(data[i]))
                 //展示
-                var interText = doT.template($("#testing_details_show_content_template").text())
-                $("#testing_details_show_content").append(interText(data[i]))
+                var interText = doT.template($("#machining_details_show_content_template").text())
+                $("#machining_details_show_content").append(interText(data[i]))
             }
         }
         //点击排序-上升
@@ -754,7 +967,7 @@
                     jsonObj[i]['sort']=i
                 }
                 for(var i=0;i<jsonObj.length;i++){
-                    editTestingDetailList(jsonObj[i])
+                    editMachiningDetailList(jsonObj[i])
                 }
                 //重新展示
                 refresh(jsonObj)
@@ -775,7 +988,7 @@
                     jsonObj[i]['sort']=i
                 }
                 for(var i=0;i<jsonObj.length;i++){
-                    editTestingDetailList(jsonObj[i])
+                    editMachiningDetailList(jsonObj[i])
                 }
                 //重新展示
                 refresh(jsonObj)
@@ -789,7 +1002,7 @@
                     id: id,
                     _token: "{{ csrf_token() }}"
                 }
-                delTestingDetail('{{URL::asset('')}}', param, function (ret) {
+                delMachiningDetail('{{URL::asset('')}}', param, function (ret) {
                     if (ret.result == true) {
                         layer.msg(ret.msg, {icon: 1, time: 1000});
                         console.log('sortDown index is : ' + JSON.stringify((jsonObj[index])))
@@ -811,7 +1024,7 @@
             var content=$('#text_detail_'+index).val();
             jsonObj[index]['content']=content;
             for(var i=0;i<jsonObj.length;i++){
-                editTestingDetailList(jsonObj[i])
+                editMachiningDetailList(jsonObj[i])
             }
             //重新展示
             refresh(jsonObj)
@@ -835,7 +1048,7 @@
                 detail['type']=0;
                 detail['sort']=jsonObj.length;
                 jsonObj.push(detail);
-                addTestingDetailList(detail,function(ret){
+                addMachiningDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#add_text').val('')
@@ -865,7 +1078,7 @@
                 detail['type']=1;
                 detail['sort']=jsonObj.length;
                 jsonObj.push(detail);
-                addTestingDetailList(detail,function(ret){
+                addMachiningDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#add_image').val('')
@@ -896,7 +1109,7 @@
                 detail['type']=2;
                 detail['sort']=jsonObj.length;
                 jsonObj.push(detail);
-                addTestingDetailList(detail,function(ret){
+                addMachiningDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#add_video').val('')
@@ -913,20 +1126,20 @@
         }
         //刷新页面
         function refresh(jsonObj){
-            $("#testing_details_content").html('')
-            $("#testing_details_show_content").html('')
+            $("#machining_details_content").html('')
+            $("#machining_details_show_content").html('')
             LoadDetailsHtml(jsonObj)
         }
         //提交后台编辑数据
-        function editTestingDetailList(jsonObj){
+        function editMachiningDetailList(jsonObj){
             var param = {
                 sort:jsonObj['sort'],
                 content:jsonObj['content'],
                 id: jsonObj['id'],
                 _token: "{{ csrf_token() }}"
             }
-            editTestingDetail('{{URL::asset('')}}', param, function (ret) {
-                // console.log("editTestingDetail ret is ： "+JSON.stringify(ret))
+            editMachiningDetail('{{URL::asset('')}}', param, function (ret) {
+                // console.log("editMachiningDetail ret is ： "+JSON.stringify(ret))
                 if (ret.result == true) {
                     return ret.result;
                 } else {
@@ -936,7 +1149,7 @@
             })
         }
         //提交后台添加数据
-        function addTestingDetailList(detail,callBack){
+        function addMachiningDetailList(detail,callBack){
             var param={
                 _token: "{{ csrf_token() }}",
                 goods_id:detail['goods_id'],
@@ -944,7 +1157,152 @@
                 type:detail['type'],
                 sort:detail['sort']
             }
-            editTestingDetail('{{URL::asset('')}}', param, callBack)
+            editMachiningDetail('{{URL::asset('')}}', param, callBack)
+        }
+
+        //对案例进行编辑
+        //json转数组
+        var strCase='{{$data['cases']}}'
+        var jsonStrCase=strCase.replace(/&quot;/ig, '"')
+        var jsonObjCase =  JSON.parse(jsonStrCase)
+        // console.log(jsonObjCase)
+        LoadCasesHtml(jsonObjCase)
+        // 案例编辑
+        function LoadCasesHtml(data){
+            // console.log("data is : "+JSON.stringify(data))
+            for(var i=0;i<data.length;i++){
+                data[i]['index']=i
+                console.log('LoadCasesHtml data['+i+'] is : ' + JSON.stringify((data[i])))
+                //编辑
+                var interText = doT.template($("#machining_cases_content_template").text())
+                $("#machining_cases_content").append(interText(data[i]))
+                //展示
+                var interText = doT.template($("#machining_cases_show_content_template").text())
+                $("#machining_cases_show_content").append(interText(data[i]))
+            }
+        }
+        //点击排序-上升
+        function sortUpCase(index,id){
+            // console.log('sortUp index is : ' + JSON.stringify((jsonObj[index])))
+            //判断如果不是最上面的内容，执行向上操作
+            if(index!=0){
+                //再交换jsonObj中的位置
+                var pack=jsonObjCase[index-1]
+                jsonObjCase[index-1]=jsonObjCase[index]
+                jsonObjCase[index]=pack
+                for(var i=0;i<jsonObjCase.length;i++){
+                    jsonObjCase[i]['sort']=i
+                }
+                for(var i=0;i<jsonObjCase.length;i++){
+                    editMachiningCaseList(jsonObjCase[i])
+                }
+                //重新展示
+                refreshCase(jsonObjCase)
+            }
+        }
+        //点击排序-下降
+        function sortDownCase(index){
+            // console.log('sortDown index is : ' + JSON.stringify((jsonObj[index])))
+            //判断如果不是最上面的内容，执行向上操作
+            if(index!=jsonObjCase.length-1){
+                //再交换jsonObjCase中的位置
+                var pack=jsonObjCase[index+1]
+                jsonObjCase[index+1]=jsonObjCase[index]
+                jsonObjCase[index+1]['sort']=index+1
+                jsonObjCase[index]=pack
+                jsonObjCase[index]['sort']=index
+                for(var i=0;i<jsonObjCase.length;i++){
+                    jsonObjCase[i]['sort']=i
+                }
+                for(var i=0;i<jsonObjCase.length;i++){
+                    editMachiningCaseList(jsonObjCase[i])
+                }
+                //重新展示
+                refreshCase(jsonObjCase)
+            }
+        }
+        //删除这条数据
+        function delCase(index,id){
+            layer.confirm('确认要删除这条数据吗？',function(index){
+                //进行后台删除
+                var param = {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                }
+                delMachiningCase('{{URL::asset('')}}', param, function (ret) {
+                    if (ret.result == true) {
+                        layer.msg(ret.msg, {icon: 1, time: 1000});
+                        // console.log('sortDown index is : ' + JSON.stringify((jsonObjCase[index])))
+                        for(var i=0;i<jsonObjCase.length;i++){
+                            if(id==jsonObjCase[i]['id']){
+                                jsonObjCase.splice(i,1);//从下标为i的元素开始，连续删除1个元素
+                            }
+                        }
+                        //重新展示
+                        refreshCase(jsonObjCase)
+                    } else {
+                        layer.msg(ret.msg, {icon: 2, time: 1000})
+                    }
+                })
+            });
+        }
+        //确认添加图片
+        function submitCaseImage() {
+            var add_case_image=$("#add_case_image").val();
+            if(add_case_image==''){
+                layer.msg('添加失败，请上传图片', {icon: 2, time: 2000});
+            }
+            else{
+                var detail={};
+                detail['goods_id']='{{$data['id']}}';
+                detail['content']=add_case_image;
+                detail['sort']=jsonObjCase.length?jsonObjCase.length:0;
+                jsonObjCase.push(detail);
+                addMachiningCaseList(detail,function(ret){
+                    if (ret.result == true) {
+                        //重新展示
+                        $('#add_case_image').val('')
+                        $("#imagePrv_case").attr('src', '{{ URL::asset('/img/add_image.png') }}')
+                        refreshCase(jsonObjCase)
+                    } else {
+                        layer.msg(ret.msg, {icon: 2, time: 1000})
+                    }
+                })
+            }
+        }
+        //刷新页面
+        function refreshCase(jsonObjCase){
+            $("#machining_cases_content").html('')
+            $("#machining_cases_show_content").html('')
+            LoadCasesHtml(jsonObjCase)
+        }
+        //提交后台编辑数据
+        function editMachiningCaseList(jsonObjCase){
+            var param = {
+                sort:jsonObjCase['sort'],
+                content:jsonObjCase['content'],
+                id: jsonObjCase['id'],
+                _token: "{{ csrf_token() }}"
+            }
+            editMachiningCase('{{URL::asset('')}}', param, function (ret) {
+                // console.log("editMachiningDetail ret is ： "+JSON.stringify(ret))
+                if (ret.result == true) {
+                    return ret.result;
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                    return ret.result;
+                }
+            })
+        }
+        //提交后台添加数据
+        function addMachiningCaseList(detail,callBack){
+            var param={
+                _token: "{{ csrf_token() }}",
+                goods_id:detail['goods_id'],
+                content:detail['content'],
+                sort:detail['sort']
+            }
+            editMachiningCase('{{URL::asset('')}}', param, callBack)
         }
     </script>
 @endsection

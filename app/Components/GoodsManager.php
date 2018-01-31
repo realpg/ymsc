@@ -9,9 +9,12 @@
 namespace App\Components;
 
 use App\Models\ChemClassModel;
+use App\Models\GoodsCaseModel;
 use App\Models\GoodsChemAttributeModel;
 use App\Models\GoodsDetailModel;
+use App\Models\GoodsMachiningAttributeModel;
 use App\Models\GoodsModel;
+use App\Models\GoodsStandardAttributeModel;
 use App\Models\GoodsTestingAttributeModel;
 
 class GoodsManager
@@ -454,5 +457,131 @@ class GoodsManager
             $goods_chem_attribute->chem_class_id = array_get($data, 'chem_class_id');
         }
         return $goods_chem_attribute;
+    }
+
+    /*
+     * 配置机加工商品（购买方式为咨询客服的商品）属性的参数
+     *
+     * By zm
+     *
+     * 2018-01-31
+     *
+     */
+    public static function setGoodsMachiningAttribute($goods_machining_attribute, $data){
+        if (array_key_exists('goods_id', $data)) {
+            $goods_machining_attribute->goods_id = array_get($data, 'goods_id');
+        }
+        if (array_key_exists('accuracy', $data)) {
+            $goods_machining_attribute->accuracy = array_get($data, 'accuracy');
+        }
+        if (array_key_exists('service', $data)) {
+            $goods_machining_attribute->service = array_get($data, 'service');
+        }
+        if (array_key_exists('material', $data)) {
+            $goods_machining_attribute->material = array_get($data, 'material');
+        }
+        if (array_key_exists('explain', $data)) {
+            $goods_machining_attribute->explain = array_get($data, 'explain');
+        }
+        return $goods_machining_attribute;
+    }
+
+    /*
+     * 配置国标商品（购买方式为直接购买的商品）属性的参数
+     *
+     * By zm
+     *
+     * 2018-01-31
+     *
+     */
+    public static function setGoodsStandardAttribute($goods_standard_attribute, $data){
+        if (array_key_exists('goods_id', $data)) {
+            $goods_standard_attribute->goods_id = array_get($data, 'goods_id');
+        }
+        if (array_key_exists('accuracy', $data)) {
+            $goods_standard_attribute->accuracy = array_get($data, 'accuracy');
+        }
+        if (array_key_exists('size', $data)) {
+            $goods_standard_attribute->size = array_get($data, 'size');
+        }
+        if (array_key_exists('component', $data)) {
+            $goods_standard_attribute->component = array_get($data, 'component');
+        }
+        return $goods_standard_attribute;
+    }
+
+    /*
+     * 根据goods_id获取机加工商品属性
+     *
+     * By zm
+     *
+     * 2018-01-31
+     *
+     */
+    public static function getGoodsMachiningAttributeByGoodsId($goods_id){
+        $goods_machining_attribute=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+        return $goods_machining_attribute;
+    }
+
+    /*
+     * 根据goods_id获取国标商品属性
+     *
+     * By zm
+     *
+     * 2018-01-31
+     *
+     */
+    public static function getGoodsStandardAttributeByGoodsId($goods_id){
+        $goods_standard_attribute=GoodsStandardAttributeModel::where('goods_id',$goods_id)->first();
+        return $goods_standard_attribute;
+    }
+
+    /*
+     * 根据goods_id获取商品案例
+     *
+     * By zm
+     *
+     * 2018-01-31
+     *
+     */
+    public static function getGoodsCaseByGoodsId($goods_id){
+        $cases=GoodsCaseModel::where('goods_id',$goods_id)->orderBy('sort','asc')->get();
+        return $cases;
+    }
+
+
+
+    /*
+     * 根据id获取商品案例
+     *
+     * By zm
+     *
+     * 2018-01-31
+     *
+     */
+    public static function getGoodsCaseById($id){
+        $case=GoodsCaseModel::where('id',$id)->first();
+        return $case;
+    }
+
+    /*
+     * 配置商品案例的参数
+     *
+     * By zm
+     *
+     * 2018-01-31
+     *
+     */
+    public static function setGoodsCase($goods_case, $data){
+        if (array_key_exists('goods_id', $data)) {
+            $goods_case->goods_id = array_get($data, 'goods_id');
+        }
+        if (array_key_exists('content', $data)) {
+            $goods_case->content = array_get($data, 'content');
+        }
+        if (array_key_exists('sort', $data)) {
+            $goods_case->sort = array_get($data, 'sort');
+        }
+        return $goods_case;
     }
 }

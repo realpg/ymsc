@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-container">
-        <form class="form form-horizontal" method="post" id="form-testing-edit">
+        <form class="form form-horizontal" method="post" id="form-standard-editStandard">
             {{csrf_field()}}
             <div class="row cl hidden">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>id：</label>
@@ -21,10 +21,8 @@
             <div id="tab-system" class="HuiTab">
                 <div class="tabBar clearfix">
                     <span>基本信息</span>
-                    @if(isset($data['id']))
-                        <span>详细信息</span>
-                        <span>属性配置</span>
-                    @endif
+                    <span>详细信息</span>
+                    <span>属性配置</span>
                 </div>
                 <div class="tabCon">
                     <div class="row cl">
@@ -68,6 +66,12 @@
                                 <input type="text" class="input-text no_click" readonly value="{{ isset($data['number']) ? $data['number'] : '' }}">
                             </div>
                         </div>
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>类型：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <input type="text" class="input-text no_click" readonly value="样品">
+                            </div>
+                        </div>
                     @endif
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>售价（元）：</label>
@@ -82,31 +86,15 @@
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>应用领域分类：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>制造工业分类：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <span class="select-box">
                                 <select id="f_attribute_id" name="f_attribute_id" class="select">
-                                    @foreach($fields as $field)
-                                        @if($field['id']==$data['f_attribute_id'])
-                                            <option value="{{$field['id']}}" selected >{{$field['name']}}</option>
+                                    @foreach($manufactures as $manufacture)
+                                        @if($manufacture['id']==$data['f_attribute_id'])
+                                            <option value="{{$manufacture['id']}}" selected >{{$manufacture['name']}}</option>
                                         @else
-                                            <option value="{{$field['id']}}" >{{$field['name']}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>仪器分类：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <span class="select-box">
-                                <select id="s_attribute_id" name="s_attribute_id" class="select">
-                                    @foreach($instruments as $instrument)
-                                        @if($instrument['id']==$data['s_attribute_id'])
-                                            <option value="{{$instrument['id']}}" selected >{{$instrument['name']}}</option>
-                                        @else
-                                            <option value="{{$instrument['id']}}" >{{$instrument['name']}}</option>
+                                            <option value="{{$manufacture['id']}}" >{{$manufacture['name']}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -207,17 +195,17 @@
                         margin:0 auto;
                         border:3px solid #000;
                     }
-                    #testing_details_content_detail a div{
+                    #standard_details_content_detail a div{
                         margin:5px 0;
                         line-height: 25px;
                         text-align: center;
                         font-size: 19px;
                         border: 1px solid #ddd;
                     }
-                    #testing_details_content_detail a div:hover{
+                    #standard_details_content_detail a div:hover{
                         background: #ddd;
                     }
-                    #testing_details_content_detail a div:active{
+                    #standard_details_content_detail a div:active{
                         background: #666;
                     }
                     .teltphone_header{
@@ -256,28 +244,28 @@
                     </div>
                     <div class="row cl" id="container">
                         <div class="formControls col-xs-6 col-sm-6">
-                            <div id="testing_details_content"></div>
+                            <div id="standard_details_content"></div>
                             <div>
                                 <a href="javascript:" onclick="addDetailText()">
-                                    <div id="testing_details_content" class="formControls col-xs-4 col-sm-4 detail_add_text">添加文本</div>
+                                    <div id="standard_details_content" class="formControls col-xs-4 col-sm-4 detail_add_text">添加文本</div>
                                 </a>
                                 <a href="javascript:" onclick="addDetailImage()">
-                                    <div id="testing_details_content" class="formControls col-xs-4 col-sm-4 detail_add_image">添加图片</div>
+                                    <div id="standard_details_content" class="formControls col-xs-4 col-sm-4 detail_add_image">添加图片</div>
                                 </a>
                                 <a href="javascript:" onclick="addDetailVideo()">
-                                    <div id="testing_details_content" class="formControls col-xs-4 col-sm-4 detail_add_video">添加视频</div>
+                                    <div id="standard_details_content" class="formControls col-xs-4 col-sm-4 detail_add_video">添加视频</div>
                                 </a>
                                 <div id="add_detail_text" >
                                     <textarea name="" id="add_text" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写内容" dragonfly="true" nullmsg="内容不能为空！"></textarea>
                                     <a href="javascript:" onclick="submitDetailText()">
-                                        <div id="testing_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
+                                        <div id="standard_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
                                     </a>
                                 </div>
                                 <div id="add_detail_image" style="text-align: center;" hidden >
                                     <img id="imagePrv_image" src="{{ URL::asset('/img/add_image.png') }}" />
                                     <input id="add_image" type="hidden" />
                                     <a href="javascript:" onclick="submitDetailImage()">
-                                        <div id="testing_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
+                                        <div id="standard_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
                                     </a>
                                 </div>
                                 <div id="add_detail_video" style="text-align: center;" hidden >
@@ -288,7 +276,7 @@
                                     <div class="progress-bar"><span class="sr-only"></span></div>
                                     <input id="add_video" type="hidden" />
                                     <a href="javascript:" onclick="submitDetailVideo()">
-                                        <div id="testing_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
+                                        <div id="standard_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
                                     </a>
                                 </div>
                             </div>
@@ -298,7 +286,7 @@
                             <div class="teltphone_header">
                                 {{--<div class="teltphone_logo">TelePhone</div>--}}
                             </div>
-                            <div id="testing_details_show_content" class="details_show"></div>
+                            <div id="standard_details_show_content" class="details_show"></div>
                             <div class="teltphone_footer">
                                 {{--<div class="telephone_button"></div>--}}
                             </div>
@@ -308,21 +296,21 @@
                 </div>
                 <div class="tabCon">
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>实验室：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>精度：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="lab" name="lab" type="text" class="input-text" value="{{ isset($data['attribute']['lab']) ? $data['attribute']['lab'] : '' }}" placeholder="请输入实验室">
+                            <input id="accuracy" name="accuracy" type="text" class="input-text" value="{{ isset($data['attribute']['accuracy']) ? $data['attribute']['accuracy'] : '' }}" placeholder="请输入精度">
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>联系人信息：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>尺寸：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="contacts" name="contacts" type="text" class="input-text" value="{{ isset($data['attribute']['contacts']) ? $data['attribute']['contacts'] : '' }}" placeholder="请输入联系人信息">
+                            <input id="size" name="size" type="text" class="input-text" value="{{ isset($data['attribute']['size']) ? $data['attribute']['size'] : '' }}" placeholder="请输入尺寸">
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地址：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>成分：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="address" name="address" type="text" class="input-text" value="{{ isset($data['attribute']['address']) ? $data['attribute']['address'] : '' }}" placeholder="请输入地址">
+                            <input id="component" name="component" type="text" class="input-text" value="{{ isset($data['attribute']['component']) ? $data['attribute']['component'] : '' }}" placeholder="请输入成分">
                         </div>
                     </div>
                     <div class="row cl">
@@ -335,8 +323,8 @@
             </div>
         </form>
     </div>
-    <script id="testing_details_content_template" type="text/x-dot-template">
-        <div id="testing_details_content_detail" class="formControls col-xs-12 col-sm-12">
+    <script id="standard_details_content_template" type="text/x-dot-template">
+        <div id="standard_details_content_detail" class="formControls col-xs-12 col-sm-12">
             @{{? it.type==0 }}
             <textarea  id="text_detail_@{{=it.index}}" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写内容" dragonfly="true" nullmsg="内容不能为空！">@{{=it.content}}</textarea>
             @{{?? it.type==1 }}
@@ -372,7 +360,7 @@
             @{{? }}
         </div>
     </script>
-    <script id="testing_details_show_content_template" type="text/x-dot-template">
+    <script id="standard_details_show_content_template" type="text/x-dot-template">
         @{{? it.type==0 }}
         <div>@{{=it.content}}</div>
         @{{?? it.type==1 }}
@@ -393,7 +381,7 @@
             });
             //获取七牛token
             initQNUploader();
-            $("#form-testing-edit").validate({
+            $("#form-standard-editStandard").validate({
                 rules: {
                     name: {
                         required: true,
@@ -409,13 +397,13 @@
                         required: true,
                         digits:true,
                     },
-                    lab: {
+                    accuracy: {
                         required: true,
                     },
-                    contacts: {
+                    size: {
                         required: true,
                     },
-                    address: {
+                    component: {
                         required: true,
                     },
                 },
@@ -425,7 +413,7 @@
                 submitHandler: function (form) {
                     $(form).ajaxSubmit({
                         type: 'POST',
-                        url: "{{ URL::asset('/admin/testing/edit')}}",
+                        url: "{{ URL::asset('/admin/machining/editStandard')}}",
                         success: function (ret) {
                             console.log(JSON.stringify(ret));
                             if (ret.result) {
@@ -734,11 +722,11 @@
                 data[i]['index']=i
                 // console.log('LoadDetailsHtml data['+i+'] is : ' + JSON.stringify((data[i])))
                 //编辑
-                var interText = doT.template($("#testing_details_content_template").text())
-                $("#testing_details_content").append(interText(data[i]))
+                var interText = doT.template($("#standard_details_content_template").text())
+                $("#standard_details_content").append(interText(data[i]))
                 //展示
-                var interText = doT.template($("#testing_details_show_content_template").text())
-                $("#testing_details_show_content").append(interText(data[i]))
+                var interText = doT.template($("#standard_details_show_content_template").text())
+                $("#standard_details_show_content").append(interText(data[i]))
             }
         }
         //点击排序-上升
@@ -789,7 +777,7 @@
                     id: id,
                     _token: "{{ csrf_token() }}"
                 }
-                delTestingDetail('{{URL::asset('')}}', param, function (ret) {
+                delMachiningDetail('{{URL::asset('')}}', param, function (ret) {
                     if (ret.result == true) {
                         layer.msg(ret.msg, {icon: 1, time: 1000});
                         console.log('sortDown index is : ' + JSON.stringify((jsonObj[index])))
@@ -913,8 +901,8 @@
         }
         //刷新页面
         function refresh(jsonObj){
-            $("#testing_details_content").html('')
-            $("#testing_details_show_content").html('')
+            $("#standard_details_content").html('')
+            $("#standard_details_show_content").html('')
             LoadDetailsHtml(jsonObj)
         }
         //提交后台编辑数据
@@ -925,7 +913,7 @@
                 id: jsonObj['id'],
                 _token: "{{ csrf_token() }}"
             }
-            editTestingDetail('{{URL::asset('')}}', param, function (ret) {
+            editMachiningDetail('{{URL::asset('')}}', param, function (ret) {
                 // console.log("editTestingDetail ret is ： "+JSON.stringify(ret))
                 if (ret.result == true) {
                     return ret.result;
