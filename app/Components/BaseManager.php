@@ -38,8 +38,14 @@ class BaseManager
         if (array_key_exists('name', $data)) {
             $banner->name = array_get($data, 'name');
         }
+        if (array_key_exists('logo', $data)) {
+            $banner->logo = array_get($data, 'logo');
+        }
         if (array_key_exists('phonenum', $data)) {
             $banner->phonenum = array_get($data, 'phonenum');
+        }
+        if (array_key_exists('email', $data)) {
+            $banner->email = array_get($data, 'email');
         }
         if (array_key_exists('qq', $data)) {
             $banner->qq = array_get($data, 'qq');
@@ -49,6 +55,12 @@ class BaseManager
         }
         if (array_key_exists('time', $data)) {
             $banner->time = array_get($data, 'time');
+        }
+        if (array_key_exists('copyright', $data)) {
+            $banner->copyright = array_get($data, 'copyright');
+        }
+        if (array_key_exists('number', $data)) {
+            $banner->number = array_get($data, 'number');
         }
         if (array_key_exists('content', $data)) {
             $banner->content = array_get($data, 'content');

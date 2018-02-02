@@ -16,8 +16,6 @@ use Illuminate\Http\Request;
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
 //    return $request->user();
 //});
-
-
 //用户类路由
 Route::group(['prefix' => '', 'middleware' => ['BeforeRequest']], function () {
 

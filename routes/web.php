@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//后台
 //登录
 Route::get('/admin/login', 'Admin\LoginController@login');        //登录
 Route::post('/admin/login', 'Admin\LoginController@loginDo');   //post登录请求
@@ -145,6 +146,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
 //    Route::post('/comment/examine', 'Admin\CommentController@examine');  //审核评论
 //    Route::get('/comment/del/{id}', 'Admin\CommentController@del');  //删除评论
 });
+
+//前台
+Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
+    Route::get('/', 'Home\IndexController@index');        //首页
+    Route::get('index', 'Home\IndexController@index');        //首页
+    Route::get('league', 'Home\IndexController@league');        //合作与服务
+    Route::post('league', 'Home\IndexController@leagueSignUp');        //合作与服务报名
+    Route::get('about', 'Home\IndexController@about');        //关于我们
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

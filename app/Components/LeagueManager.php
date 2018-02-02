@@ -63,23 +63,23 @@ class LeagueManager
      * 2018-01-26
      *
      */
-    public static function setLeague($banner, $data){
+    public static function setLeague($league, $data){
         if (array_key_exists('name', $data)) {
-            $banner->name = array_get($data, 'name');
+            $league->name = array_get($data, 'name');
         }
         if (array_key_exists('phonenum', $data)) {
-            $banner->phonenum = array_get($data, 'phonenum');
+            $league->phonenum = array_get($data, 'phonenum');
         }
         if (array_key_exists('email', $data)) {
-            $banner->email = array_get($data, 'email');
+            $league->email = array_get($data, 'email');
         }
         if (array_key_exists('content', $data)) {
-            $banner->content = array_get($data, 'content');
+            $league->content = array_get($data, 'content');
         }
         if (array_key_exists('status', $data)) {
-            $banner->status = array_get($data, 'status');
+            $league->status = array_get($data, 'status');
         }
-        return $banner;
+        return $league;
     }
 
     /*
