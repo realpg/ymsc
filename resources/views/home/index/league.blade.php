@@ -30,7 +30,7 @@
                                         <textarea name="content" id="content" class="form-control" rows="5" style="resize: none;" placeholder="请输入内容"></textarea>
                                     </p>
                                     <p class="margin-top-20">
-                                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                                        <button class="btn btn-lg btn-primary btn-block" type="submit">提 交</button>
                                     </p>
                                 </form>
                             </div>
@@ -77,7 +77,7 @@
                         type: 'POST',
                         url: "{{ URL::asset('league')}}",
                         success: function (ret) {
-                            console.log(JSON.stringify(ret));
+                            // console.log(JSON.stringify(ret));
                             if (ret.result) {
                                 layer.msg(ret.msg, {icon: 1, time: 3000});
                                 window.location.reload();

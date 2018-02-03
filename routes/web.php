@@ -154,6 +154,15 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('league', 'Home\IndexController@league');        //合作与服务
     Route::post('league', 'Home\IndexController@leagueSignUp');        //合作与服务报名
     Route::get('about', 'Home\IndexController@about');        //关于我们
+
+    Route::get('signUp', 'Home\SignController@signUp');        //注册
+    Route::post('signUp', 'Home\SignController@signUpDo');      //通过手机注册
+    Route::get('signIn', 'Home\SignController@signIn');        //登录
+    Route::post('signIn', 'Home\SignController@signInDo');        //登录
+    Route::get('reset', 'Home\SignController@reset');        //找回密码
+
+    Route::get('code', 'Home\CodeController@captcha');        //图片验证码
+    Route::get('smscode', 'Home\CodeController@sendVertifyCode');        //短信验证码
 });
 
 Auth::routes();

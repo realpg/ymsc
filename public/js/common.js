@@ -139,6 +139,10 @@ function editMachiningCase(url, param, callBack) {
 }
 
 
+//下发短信验证码
+function sendSMSCode(url, param, callBack) {
+    ajaxRequest(url + "smscode", param, "GET", callBack);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
