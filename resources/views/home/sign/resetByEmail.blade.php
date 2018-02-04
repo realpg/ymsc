@@ -24,7 +24,7 @@
                                     </p>
                                     <p class="position-relative form-group margin-top-30">
                                         <input type="text" name="verificationCode" id="verificationCode" class="form-control width-55 float-left" placeholder="请输入验证码">
-                                        <input type="button" class="btn btn-warning width-40 float-right" value="获取验证码"  name="send" onclick="showtime(30)">
+                                        <input type="button" class="btn btn-warning width-40 float-right" value="获取验证码"  name="send" onclick="showtime()">
                                     </p>
                                     <p class="clear"></p>
                                     <p class="margin-top-30">
@@ -71,49 +71,66 @@
                     var verificationCode=$('#verificationCode').val();
                     var agree = $('#agree').prop('checked');
                     if(verificationCode==''){
-                        layer.msg('注册失败，请填写验证码', {icon: 2, time: 3000});
+                        layer.msg('修改密码失败，请填写验证码', {icon: 2, time: 2000});
                     }
                     else{
-                        if(agree==''){
-                            layer.msg('只有阅读并同意用户服务协议才可以注册', {icon: 2, time: 3000});
-                        }
-                        else{
-                            {{--$(form).ajaxSubmit({--}}
-                            {{--type: 'POST',--}}
-                            {{--url: "{{ URL::asset('signUp')}}",--}}
-                            {{--success: function (ret) {--}}
-                            {{--console.log(JSON.stringify(ret));--}}
-                            {{--if (ret.result) {--}}
-                            {{--layer.msg(ret.msg, {icon: 1, time: 3000});--}}
-                            {{--window.location.reload();--}}
-                            {{--} else {--}}
-                            {{--layer.msg(ret.msg, {icon: 2, time: 3000});--}}
-                            {{--}--}}
-                            {{--},--}}
-                            {{--error: function (XmlHttpRequest, textStatus, errorThrown) {--}}
-                            {{--layer.msg('操作失败', {icon: 2, time: 3000});--}}
-                            {{--console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));--}}
-                            {{--console.log("textStatus:" + textStatus);--}}
-                            {{--console.log("errorThrown:" + errorThrown);--}}
-                            {{--}--}}
-                            {{--});--}}
-                        }
+                        var password=$('#password').val();
+                        $("#password").val(hex_md5(password));
+                        $(form).ajaxSubmit({
+                            type: 'POST',
+                            url: "{{ URL::asset('reset')}}",
+                            success: function (ret) {
+                                console.log(JSON.stringify(ret));
+                                if (ret.result) {
+                                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                                    location.href="{{ URL::asset('signIn')}}"
+                                } else {
+                                    $("#password").val('');
+                                    layer.msg(ret.msg, {icon: 2, time: 2000});
+                                }
+                            },
+                            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                                layer.msg('操作失败', {icon: 2, time: 2000});
+                                console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                                console.log("textStatus:" + textStatus);
+                                console.log("errorThrown:" + errorThrown);
+                            }
+                        });
                     }
                 }
 
             });
         });
-        function showtime(t){
-            document.signUpByEmail.send.disabled=true;
-            for(i=1;i<=t;i++) {
-                window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+        function showtime(){
+            var email=$('#email').val();
+            if(email){
+                var param={
+                    _token: "{{ csrf_token() }}",
+                    email:email,
+                }
+                sendEmailCode('{{URL::asset('')}}', param, function(ret){
+                    if(ret.result){
+                        layer.msg(ret.msg, {icon: 1, time: 2000});
+                    }
+                    else{
+                        layer.msg(ret.msg, {icon: 2, time: 2000});
+                    }
+                })
+                //倒计时
+                document.signUpByEmail.send.disabled=true;
+                var t=60;
+                for(i=1;i<=t;i++) {
+                    window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+                }
             }
-
+            else{
+                layer.msg('请填写邮箱', {icon: 2, time: 2000});
+            }
         }
 
         function update_p(num,t) {
             if(num == t) {
-                document.myform.send.value =" 重新发送 ";
+                document.signUpByEmail.send.value =" 重新发送 ";
                 document.signUpByEmail.send.disabled=false;
             }
             else {

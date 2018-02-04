@@ -50,61 +50,70 @@ class SignController extends Controller
     public function signUpDo(Request $request){
         $data=$request->all();
         $return=null;
-        $check_return=self::checkParam($data,'signUpByPhonenum');
-        if($check_return['result']){
-            $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
-            if (!$vertify_result) {
-                $return['result']='false';
-                $return['msg']='验证码错误';
-            }
-            else{
+        if(array_key_exists('type',$data)){
+            $check_return=self::checkParam($data,$data['type']);
+            if($check_return['result']){
                 unset($data['base']);
-                unset($data['verificationCode']);
                 unset($data['agree']);
                 $data['nick_name']='未命名';
-//                $user=MemberController::register($data);
                 //判断此用户是否注册过
                 if(array_key_exists('phonenum',$data)){
-                    $user=MemberManager::getUserInfoByPhonenum($data['phonenum']);
-                    if($user){
+                    $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
+                    if (!$vertify_result) {
                         $return['result']='false';
-                        $return['msg']='此用户已注册';
+                        $return['msg']='验证码错误';
                     }
-                    else{
-                        //创建用户信息
-                        $user = new UserModel();
-                        $user = MemberManager::setUser($user, $data);
-                        $user->token = MemberManager::getGUID();
-                        $result=$user->save();
-                        if($result){
-                            $return['result']='true';
-                            $return['msg']='注册成功';
+                    else {
+                        unset($data['verificationCode']);
+                        $user=MemberManager::getUserInfoByPhonenum($data['phonenum']);
+                        if($user){
+                            $return['result']='false';
+                            $return['msg']='此用户已注册';
                         }
                         else{
-                            $return['result']='false';
-                            $return['msg']='注册失败';
+                            //创建用户信息
+                            $user = new UserModel();
+                            $user = MemberManager::setUser($user, $data);
+                            $user->token = MemberManager::getGUID();
+                            $result=$user->save();
+                            if($result){
+                                $return['result']='true';
+                                $return['msg']='注册成功';
+                            }
+                            else{
+                                $return['result']='false';
+                                $return['msg']='注册失败';
+                            }
                         }
                     }
                 }
                 else if(array_key_exists('email',$data)){
-                    $user=MemberManager::getUserInfoByEmail($data['email']);
-                    if($user){
+                    $vertify_result = VertifyManager::judgeVertifyCodeByEmail($data['email'], $data['verificationCode']);
+                    if(!$vertify_result){
                         $return['result']='false';
-                        $return['msg']='此用户已注册';
+                        $return['msg']='验证码错误';
                     }
                     else{
-                        //创建用户信息
-                        $user = new UserModel();
-                        $user = MemberManager::setUser($user, $data);
-                        $user->token = MemberManager::getGUID();
-                        $result=$user->save();
-                        if($result){
-                            $return['result']='true';
-                            $return['msg']='注册成功';
+                        unset($data['verificationCode']);
+                        $user=MemberManager::getUserInfoByEmail($data['email']);
+                        if($user){
+                            $return['result']='false';
+                            $return['msg']='此用户已注册';
                         }
                         else{
-                            $return['result']='false';
-                            $return['msg']='注册失败';
+                            //创建用户信息
+                            $user = new UserModel();
+                            $user = MemberManager::setUser($user, $data);
+                            $user->token = MemberManager::getGUID();
+                            $result=$user->save();
+                            if($result){
+                                $return['result']='true';
+                                $return['msg']='注册成功';
+                            }
+                            else{
+                                $return['result']='false';
+                                $return['msg']='注册失败';
+                            }
                         }
                     }
                 }
@@ -113,9 +122,13 @@ class SignController extends Controller
                     $return['msg']='非法操作';
                 }
             }
+            else{
+                $return=$check_return;
+            }
         }
         else{
-            $return=$check_return;
+            $return['result']='false';
+            $return['msg']='缺少参数';
         }
         return $return;
     }
@@ -215,20 +228,19 @@ class SignController extends Controller
         if(array_key_exists('type',$data)){
             $check_return=self::checkParam($data,$data['type']);
             if($check_return['result']){
-                $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
-                if (!$vertify_result) {
-                    $return['result']='false';
-                    $return['msg']='验证码错误';
-                }
-                else{
-                    unset($data['base']);
-                    unset($data['verificationCode']);
-                    unset($data['agree']);
-                    if(array_key_exists('phonenum',$data)){
+                unset($data['base']);
+                unset($data['agree']);
+                if(array_key_exists('phonenum',$data)){
+                    $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
+                    if (!$vertify_result) {
+                        $return['result']='false';
+                        $return['msg']='验证码错误';
+                    }
+                    else {
+                        unset($data['verificationCode']);
                         $user=MemberManager::getUserInfoByPhonenum($data['phonenum']);
                         if($user){
                             $user = MemberManager::setUser($user, $data);
-                            $user->token = MemberManager::getGUID();
                             $result=$user->save();
                             if($result){
                                 $return['result']='true';
@@ -244,11 +256,18 @@ class SignController extends Controller
                             $return['msg']='没有找到此用户';
                         }
                     }
-                    else if(array_key_exists('email',$data)){
+                }
+                else if(array_key_exists('email',$data)){
+                    $vertify_result = VertifyManager::judgeVertifyCodeByEmail($data['email'], $data['verificationCode']);
+                    if (!$vertify_result) {
+                        $return['result']='false';
+                        $return['msg']='验证码错误';
+                    }
+                    else {
                         $user=MemberManager::getUserInfoByEmail($data['email']);
                         if($user){
+                            unset($data['verificationCode']);
                             $user = MemberManager::setUser($user, $data);
-                            $user->token = MemberManager::getGUID();
                             $result=$user->save();
                             if($result){
                                 $return['result']='true';
@@ -264,10 +283,10 @@ class SignController extends Controller
                             $return['msg']='没有找到此用户';
                         }
                     }
-                    else{
-                        $return['result']='false';
-                        $return['msg']='非法操作';
-                    }
+                }
+                else{
+                    $return['result']='false';
+                    $return['msg']='非法操作';
                 }
             }
             else{
@@ -286,7 +305,8 @@ class SignController extends Controller
      */
     public function checkParam($data,$type){
         $return=null;
-        $tel = "/^1[34578]\d{9}$/";
+        $tel = "/^1[34578]\d{9}$/";  //手机
+        $email="/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/"; //邮箱
         if($type=='signUpByPhonenum'||$type=='resetByPhonenum'){
             if(!array_key_exists('phonenum',$data)){
                 $return['result']='false';
@@ -303,6 +323,28 @@ class SignController extends Controller
             else if(!preg_match($tel , $data['phonenum'])){
                 $return['result']='false';
                 $return['msg']='请填写正确的手机号';
+            }
+            else{
+                $return['result']='true';
+                $return['msg']='参数校验成功';
+            }
+        }
+        else if($type=='signUpByEmail'||$type=='resetByEmail'){
+            if(!array_key_exists('email',$data)){
+                $return['result']='false';
+                $return['msg']='请填写邮箱';
+            }
+            else if(!array_key_exists('password',$data)){
+                $return['result']='false';
+                $return['msg']='请填写密码';
+            }
+            else if(!array_key_exists('verificationCode',$data)){
+                $return['result']='false';
+                $return['msg']='请填写验证码';
+            }
+            else if(!preg_match($email , $data['email'])){
+                $return['result']='false';
+                $return['msg']='请填写正确的邮箱';
             }
             else{
                 $return['result']='true';

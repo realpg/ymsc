@@ -71,4 +71,40 @@ class CodeController extends Controller
         }
         return $return;
     }
+
+    /*
+    * 下发邮件验证码
+    *
+    * By zm
+    *
+    * 2018-02-04
+    *
+    */
+    public function sendVertifyCodeByEmail(Request $request)
+    {
+        $data=$request->all();
+        $return=null;
+        if(array_key_exists('email',$data)){
+            if(empty($data['email'])){
+                $return['result']=false;
+                $return['msg']='请填写邮箱';
+            }
+            else{
+                $result = VertifyManager::sendVertifyForEmail($data['email']);
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='验证码发送成功，请登录邮箱查收';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='验证码发送失败';
+                }
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='请填写手机号码';
+        }
+        return $return;
+    }
 }

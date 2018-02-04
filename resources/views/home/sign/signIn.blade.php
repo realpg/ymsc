@@ -79,16 +79,16 @@
                             success: function (ret) {
                                 console.log(JSON.stringify(ret));
                                 if (ret.result=='true') {
-                                    layer.msg(ret.msg, {icon: 1, time: 3000});
+                                    layer.msg(ret.msg, {icon: 1, time: 2000});
                                     window.location.reload();
                                 } else {
                                     $("#password").val('');
                                     $("#verifyimage").click();
-                                    layer.msg(ret.msg, {icon: 2, time: 3000});
+                                    layer.msg(ret.msg, {icon: 2, time: 2000});
                                 }
                             },
                             error: function (XmlHttpRequest, textStatus, errorThrown) {
-                                layer.msg('操作失败', {icon: 2, time: 3000});
+                                layer.msg('操作失败', {icon: 2, time: 2000});
                                 console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
                                 console.log("textStatus:" + textStatus);
                                 console.log("errorThrown:" + errorThrown);

@@ -143,7 +143,10 @@ function editMachiningCase(url, param, callBack) {
 function sendSMSCode(url, param, callBack) {
     ajaxRequest(url + "smscode", param, "GET", callBack);
 }
-
+//下发邮箱验证码
+function sendEmailCode(url, param, callBack) {
+    ajaxRequest(url + "emailcode", param, "GET", callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 

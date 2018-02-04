@@ -15,6 +15,7 @@
                                 </ul>
                                 <form method="post" id="form-signUp-phonenum" name="signUpByPhonenum">
                                     {{ csrf_field() }}
+                                    <input type="hidden" name="type" id="type" class="form-control" value="signUpByPhonenum" readonly>
                                     <p class="position-relative margin-top-30">
                                         <input type="text" name="phonenum" id="phonenum" class="form-control" placeholder="请输入手机号">
                                     </p>
@@ -91,11 +92,11 @@
                     var verificationCode=$('#verificationCode').val();
                     var agree = $('#agree').prop('checked');
                     if(verificationCode==''){
-                        layer.msg('注册失败，请填写验证码', {icon: 2, time: 3000});
+                        layer.msg('注册失败，请填写验证码', {icon: 2, time: 2000});
                     }
                     else{
                         if(agree==''){
-                            layer.msg('只有阅读并同意用户服务协议才可以注册', {icon: 2, time: 3000});
+                            layer.msg('只有阅读并同意用户服务协议才可以注册', {icon: 2, time: 2000});
                         }
                         else{
                             var password=$('#password').val();
@@ -110,11 +111,11 @@
                                         location.href="{{ URL::asset('signIn')}}"
                                     } else {
                                         $("#password").val('');
-                                        layer.msg(ret.msg, {icon: 2, time: 3000});
+                                        layer.msg(ret.msg, {icon: 2, time: 2000});
                                     }
                                 },
                                 error: function (XmlHttpRequest, textStatus, errorThrown) {
-                                    layer.msg('操作失败', {icon: 2, time: 3000});
+                                    layer.msg('操作失败', {icon: 2, time: 2000});
                                     console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
                                     console.log("textStatus:" + textStatus);
                                     console.log("errorThrown:" + errorThrown);

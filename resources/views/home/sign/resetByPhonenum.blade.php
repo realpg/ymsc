@@ -71,7 +71,7 @@
                 submitHandler: function (form) {
                     var verificationCode=$('#verificationCode').val();
                     if(verificationCode==''){
-                        layer.msg('注册失败，请填写验证码', {icon: 2, time: 3000});
+                        layer.msg('修改密码失败，请填写验证码', {icon: 2, time: 2000});
                     }
                     else{
                         var password=$('#password').val();
@@ -80,17 +80,17 @@
                             type: 'POST',
                             url: "{{ URL::asset('reset')}}",
                             success: function (ret) {
-                                console.log(JSON.stringify(ret));
+                                // console.log(JSON.stringify(ret));
                                 if (ret.result) {
                                     layer.msg(ret.msg, {icon: 1, time: 1000});
                                     location.href="{{ URL::asset('signIn')}}"
                                 } else {
                                     $("#password").val('');
-                                    layer.msg(ret.msg, {icon: 2, time: 3000});
+                                    layer.msg(ret.msg, {icon: 2, time: 2000});
                                 }
                             },
                             error: function (XmlHttpRequest, textStatus, errorThrown) {
-                                layer.msg('操作失败', {icon: 2, time: 3000});
+                                layer.msg('操作失败', {icon: 2, time: 2000});
                                 console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
                                 console.log("textStatus:" + textStatus);
                                 console.log("errorThrown:" + errorThrown);
@@ -130,7 +130,7 @@
 
         function update_p(num,t) {
             if(num == t) {
-                document.myform.send.value =" 重新发送 ";
+                document.signUpByEmail.send.value =" 重新发送 ";
                 document.resetByPhonenum.send.disabled=false;
             }
             else {

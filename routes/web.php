@@ -164,6 +164,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
 
     Route::get('code', 'Home\CodeController@captcha');        //图片验证码
     Route::get('smscode', 'Home\CodeController@sendVertifyCode');        //短信验证码
+    Route::get('emailcode', 'Home\CodeController@sendVertifyCodeByEmail');        //邮箱验证码
 });
 
 Auth::routes();
