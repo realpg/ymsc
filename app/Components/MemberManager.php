@@ -215,8 +215,8 @@ class MemberManager
      */
     public static function getUserInfoByPhonenum($phonenum)
     {
-        $users = UserModel::where('phonenum',$phonenum)->get();
-        return $users;
+        $user = UserModel::where('phonenum',$phonenum)->first();
+        return $user;
     }
 
     /*
@@ -228,8 +228,8 @@ class MemberManager
      */
     public static function getUserInfoByEmail($email)
     {
-        $users = UserModel::where('email',$email)->get();
-        return $users;
+        $user = UserModel::where('email',$email)->first();
+        return $user;
     }
 
     // 生成guid

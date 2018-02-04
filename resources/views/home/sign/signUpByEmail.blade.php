@@ -110,7 +110,7 @@
                             {{--}--}}
                             {{--},--}}
                             {{--error: function (XmlHttpRequest, textStatus, errorThrown) {--}}
-                            {{--layer.msg('保存失败', {icon: 2, time: 3000});--}}
+                            {{--layer.msg('操作失败', {icon: 2, time: 3000});--}}
                             {{--console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));--}}
                             {{--console.log("textStatus:" + textStatus);--}}
                             {{--console.log("errorThrown:" + errorThrown);--}}

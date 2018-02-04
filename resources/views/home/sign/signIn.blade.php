@@ -71,6 +71,7 @@
                         layer.msg('登录失败，请填写验证码', {icon: 2, time: 3000});
                     }
                     else{
+                        var password=$('#password').val();
                         $("#password").val(hex_md5(password));
                         $(form).ajaxSubmit({
                             type: 'POST',
@@ -82,11 +83,12 @@
                                     window.location.reload();
                                 } else {
                                     $("#password").val('');
+                                    $("#verifyimage").click();
                                     layer.msg(ret.msg, {icon: 2, time: 3000});
                                 }
                             },
                             error: function (XmlHttpRequest, textStatus, errorThrown) {
-                                layer.msg('保存失败', {icon: 2, time: 3000});
+                                layer.msg('操作失败', {icon: 2, time: 3000});
                                 console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
                                 console.log("textStatus:" + textStatus);
                                 console.log("errorThrown:" + errorThrown);

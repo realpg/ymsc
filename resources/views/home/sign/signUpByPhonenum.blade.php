@@ -98,6 +98,7 @@
                             layer.msg('只有阅读并同意用户服务协议才可以注册', {icon: 2, time: 3000});
                         }
                         else{
+                            var password=$('#password').val();
                             $("#password").val(hex_md5(password));
                             $(form).ajaxSubmit({
                                 type: 'POST',
@@ -113,7 +114,7 @@
                                     }
                                 },
                                 error: function (XmlHttpRequest, textStatus, errorThrown) {
-                                    layer.msg('保存失败', {icon: 2, time: 3000});
+                                    layer.msg('操作失败', {icon: 2, time: 3000});
                                     console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
                                     console.log("textStatus:" + textStatus);
                                     console.log("errorThrown:" + errorThrown);
@@ -126,7 +127,7 @@
             });
         });
 
-        function showtime(t){
+        function showtime(){
             var phonenum=$('#phonenum').val();
             if(phonenum){
                 var param={
@@ -143,7 +144,7 @@
                 })
                 //倒计时
                 document.signUpByPhonenum.send.disabled=true;
-                t=60;
+                var t=60;
                 for(i=1;i<=t;i++) {
                     window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
                 }

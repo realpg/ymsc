@@ -62,7 +62,7 @@
                     <td><img width="100%" class="picture-thumb" src="{{$data['picture']}}?imageView2/2/w/200"></td>
                     <td class="text-l">{{$data['name']}}</td>
                     <td>{{$data['number']}}</td>
-                    <td>￥{{$data['price']}}&nbsp;/{{$data['unit']}}</td>
+                    <td>￥{{$data['price']/100}}&nbsp;/{{$data['unit']}}</td>
                     @if($data['type']==0)
                         <td>机器</td>
                     @else

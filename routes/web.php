@@ -160,6 +160,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('signIn', 'Home\SignController@signIn');        //登录
     Route::post('signIn', 'Home\SignController@signInDo');        //登录
     Route::get('reset', 'Home\SignController@reset');        //找回密码
+    Route::post('reset', 'Home\SignController@resetDo');        //找回密码
 
     Route::get('code', 'Home\CodeController@captcha');        //图片验证码
     Route::get('smscode', 'Home\CodeController@sendVertifyCode');        //短信验证码

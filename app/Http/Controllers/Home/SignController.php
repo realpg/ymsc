@@ -65,8 +65,8 @@ class SignController extends Controller
 //                $user=MemberController::register($data);
                 //判断此用户是否注册过
                 if(array_key_exists('phonenum',$data)){
-                    $users=MemberManager::getUserInfoByPhonenum($data['phonenum']);
-                    if(count($users)>0){
+                    $user=MemberManager::getUserInfoByPhonenum($data['phonenum']);
+                    if($user){
                         $return['result']='false';
                         $return['msg']='此用户已注册';
                     }
@@ -87,8 +87,8 @@ class SignController extends Controller
                     }
                 }
                 else if(array_key_exists('email',$data)){
-                    $users=MemberManager::getUserInfoByEmail($data['email']);
-                    if(count($users)>0){
+                    $user=MemberManager::getUserInfoByEmail($data['email']);
+                    if($user){
                         $return['result']='false';
                         $return['msg']='此用户已注册';
                     }
@@ -207,12 +207,87 @@ class SignController extends Controller
     }
 
     /*
+     * 执行修改密码
+     */
+    public function resetDo(Request $request){
+        $data=$request->all();
+        $return=null;
+        if(array_key_exists('type',$data)){
+            $check_return=self::checkParam($data,$data['type']);
+            if($check_return['result']){
+                $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
+                if (!$vertify_result) {
+                    $return['result']='false';
+                    $return['msg']='验证码错误';
+                }
+                else{
+                    unset($data['base']);
+                    unset($data['verificationCode']);
+                    unset($data['agree']);
+                    if(array_key_exists('phonenum',$data)){
+                        $user=MemberManager::getUserInfoByPhonenum($data['phonenum']);
+                        if($user){
+                            $user = MemberManager::setUser($user, $data);
+                            $user->token = MemberManager::getGUID();
+                            $result=$user->save();
+                            if($result){
+                                $return['result']='true';
+                                $return['msg']='修改密码成功，请重新登录';
+                            }
+                            else{
+                                $return['result']='false';
+                                $return['msg']='修改密码失败';
+                            }
+                        }
+                        else{
+                            $return['result']='false';
+                            $return['msg']='没有找到此用户';
+                        }
+                    }
+                    else if(array_key_exists('email',$data)){
+                        $user=MemberManager::getUserInfoByEmail($data['email']);
+                        if($user){
+                            $user = MemberManager::setUser($user, $data);
+                            $user->token = MemberManager::getGUID();
+                            $result=$user->save();
+                            if($result){
+                                $return['result']='true';
+                                $return['msg']='修改密码成功，请重新登录';
+                            }
+                            else{
+                                $return['result']='false';
+                                $return['msg']='修改密码失败';
+                            }
+                        }
+                        else{
+                            $return['result']='false';
+                            $return['msg']='没有找到此用户';
+                        }
+                    }
+                    else{
+                        $return['result']='false';
+                        $return['msg']='非法操作';
+                    }
+                }
+            }
+            else{
+                $return=$check_return;
+            }
+        }
+        else{
+            $return['result']='false';
+            $return['msg']='缺少参数';
+        }
+        return $return;
+    }
+
+    /*
      * 参数验证
      */
     public function checkParam($data,$type){
         $return=null;
         $tel = "/^1[34578]\d{9}$/";
-        if($type=='signUpByPhonenum'){
+        if($type=='signUpByPhonenum'||$type=='resetByPhonenum'){
             if(!array_key_exists('phonenum',$data)){
                 $return['result']='false';
                 $return['msg']='请填写手机号';

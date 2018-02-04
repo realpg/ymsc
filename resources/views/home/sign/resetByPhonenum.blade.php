@@ -13,8 +13,9 @@
                                     <li role="presentation" class="active"><a href="{{ URL::asset('reset') }}?type=0">手机找回密码</a></li>
                                     <li role="presentation"><a href="{{ URL::asset('reset') }}?type=1">邮箱找回密码</a></li>
                                 </ul>
-                                <form method="post" id="form-signUp-phonenum" name="signUpByPhonenum">
+                                <form method="post" id="form-reset-phonenum" name="resetByPhonenum">
                                     {{ csrf_field() }}
+                                    <input type="hidden" name="type" id="type" class="form-control" value="resetByPhonenum" readonly>
                                     <p class="position-relative margin-top-40">
                                         <input type="text" name="phonenum" id="phonenum" class="form-control" placeholder="请输入绑定的手机号">
                                     </p>
@@ -51,7 +52,7 @@
             $('#sign-body').css('width',winWidth);
             $('#sign-body').css('height',winHeight-80);
             //编辑网站基本信息
-            $("#form-signUp-phonenum").validate({
+            $("#form-reset-phonenum").validate({
                 rules: {
                     phonenum:{
                         required:true,
@@ -69,56 +70,72 @@
                 success: "valid",
                 submitHandler: function (form) {
                     var verificationCode=$('#verificationCode').val();
-                    var agree = $('#agree').prop('checked');
                     if(verificationCode==''){
                         layer.msg('注册失败，请填写验证码', {icon: 2, time: 3000});
                     }
                     else{
-                        if(agree==''){
-                            layer.msg('只有阅读并同意用户服务协议才可以注册', {icon: 2, time: 3000});
-                        }
-                        else{
-                            {{--$(form).ajaxSubmit({--}}
-                            {{--type: 'POST',--}}
-                            {{--url: "{{ URL::asset('signUp')}}",--}}
-                            {{--success: function (ret) {--}}
-                            {{--console.log(JSON.stringify(ret));--}}
-                            {{--if (ret.result) {--}}
-                            {{--layer.msg(ret.msg, {icon: 1, time: 3000});--}}
-                            {{--window.location.reload();--}}
-                            {{--} else {--}}
-                            {{--layer.msg(ret.msg, {icon: 2, time: 3000});--}}
-                            {{--}--}}
-                            {{--},--}}
-                            {{--error: function (XmlHttpRequest, textStatus, errorThrown) {--}}
-                            {{--layer.msg('保存失败', {icon: 2, time: 3000});--}}
-                            {{--console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));--}}
-                            {{--console.log("textStatus:" + textStatus);--}}
-                            {{--console.log("errorThrown:" + errorThrown);--}}
-                            {{--}--}}
-                            {{--});--}}
-                        }
+                        var password=$('#password').val();
+                        $("#password").val(hex_md5(password));
+                        $(form).ajaxSubmit({
+                            type: 'POST',
+                            url: "{{ URL::asset('reset')}}",
+                            success: function (ret) {
+                                console.log(JSON.stringify(ret));
+                                if (ret.result) {
+                                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                                    location.href="{{ URL::asset('signIn')}}"
+                                } else {
+                                    $("#password").val('');
+                                    layer.msg(ret.msg, {icon: 2, time: 3000});
+                                }
+                            },
+                            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                                layer.msg('操作失败', {icon: 2, time: 3000});
+                                console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                                console.log("textStatus:" + textStatus);
+                                console.log("errorThrown:" + errorThrown);
+                            }
+                        });
                     }
                 }
 
             });
         });
-        function showtime(t){
-            document.signUpByPhonenum.send.disabled=true;
-            for(i=1;i<=t;i++) {
-                window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+        function showtime(){
+            var phonenum=$('#phonenum').val();
+            if(phonenum){
+                var param={
+                    _token: "{{ csrf_token() }}",
+                    phonenum:phonenum,
+                }
+                sendSMSCode('{{URL::asset('')}}', param, function(ret){
+                    if(ret.result){
+                        layer.msg(ret.msg, {icon: 1, time: 2000});
+                    }
+                    else{
+                        layer.msg(ret.msg, {icon: 2, time: 2000});
+                    }
+                })
+                //倒计时
+                document.resetByPhonenum.send.disabled=true;
+                var t=60;
+                for(i=1;i<=t;i++) {
+                    window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+                }
             }
-
+            else{
+                layer.msg('请填写手机号', {icon: 2, time: 2000});
+            }
         }
 
         function update_p(num,t) {
             if(num == t) {
                 document.myform.send.value =" 重新发送 ";
-                document.signUpByPhonenum.send.disabled=false;
+                document.resetByPhonenum.send.disabled=false;
             }
             else {
                 printnr = t-num;
-                document.signUpByPhonenum.send.value = " (" + printnr +")秒后重新发送";
+                document.resetByPhonenum.send.value = " (" + printnr +")秒后重新发送";
             }
         }
     </script>
