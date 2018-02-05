@@ -104,6 +104,7 @@ function cloaseChannel(){
     for(var j=0;j<4;j++){
         $("#rightArrow"+j).animate({right: '0px'},300);
         $("#floatDivBoxs"+j).animate({right: '-190px'},300);
+        $("#rightArrow"+j).find("a").css('background','#06131B');
     }
     flag=0;
 }
