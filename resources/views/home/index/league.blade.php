@@ -6,9 +6,9 @@
             <div class="row">
                 <div class="col-xs-12 col-md-8">
                     <div class="style-home-league-contact">
-                        <p><h4>{{$base['name']}}</h4></p>
-                        <p><h4>电话：{{$base['phonenum']}}</h4></p>
-                        <p><h4>邮箱：{{$base['email']}}</h4></p>
+                        <p><h4>{{$common['base']['name']}}</h4></p>
+                        <p><h4>电话：{{$common['base']['phonenum']}}</h4></p>
+                        <p><h4>邮箱：{{$common['base']['email']}}</h4></p>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-4">

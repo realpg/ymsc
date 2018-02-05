@@ -1,11 +1,11 @@
 /*浮动客服0*/
-#floatDivBoxs0{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+#floatDivBoxs0{width:195px;background:#fff;position:fixed;top:34px;right:-200px;z-index:999;border-left: #06131B 3px solid;}
 #rightArrow0{width:36px;height:50px;position:fixed;top:185px;right:0;z-index:999;}
 #rightArrow0 a{display:block;height:50px;color:#9d9d9d;text-decoration: none;background: #06131B;border-bottom: #374148 1px solid;border-radius: 4px 0 0 0;font-size: x-large;text-align: center;line-height: 50px;}
 #rightArrow0 a:hover{background: #182F41;color:#D1D2D4;}
 
 /*浮动客服1*/
-#floatDivBoxs1{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+#floatDivBoxs1{width:195px;background:#fff;position:fixed;top:34px;right:-200px;z-index:999;border-left: #06131B 3px solid;}
 /*#rightArrow1{width:36px;height:50px;background:url(../img/online_arrow.jpg) no-repeat;position:fixed;top:225px;right:0;z-index:999;}*/
 /*#rightArrow1 a{display:block;height:50px;}*/
 #rightArrow1{width:36px;height:50px;position:fixed;top:235px;right:0;z-index:999;}
@@ -13,7 +13,7 @@
 #rightArrow1 a:hover{background: #182F41;color:#D1D2D4;}
 
 /*浮动客服2*/
-#floatDivBoxs2{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+#floatDivBoxs2{width:195px;background:#fff;position:fixed;top:34px;right:-200px;z-index:999;border-left: #06131B 3px solid;}
 /*#rightArrow2{width:36px;height:50px;background:url(../img/online_arrow.jpg) no-repeat;position:fixed;top:270px;right:0;z-index:999;}*/
 /*#rightArrow2 a{display:block;height:50px;}*/
 #rightArrow2{width:36px;height:50px;position:fixed;top:285px;right:0;z-index:999;}
@@ -21,7 +21,7 @@
 #rightArrow2 a:hover{background: #182F41;color:#D1D2D4;}
 
 /*浮动客服3*/
-#floatDivBoxs3{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+#floatDivBoxs3{width:195px;background:#fff;position:fixed;top:34px;right:-200px;z-index:999;border-left: #06131B 3px solid;}
 /*#rightArrow3{width:36px;height:50px;background:url(../img/online_arrow.jpg) no-repeat;position:fixed;top:315px;right:0;z-index:999;}*/
 /*#rightArrow3 a{display:block;height:50px;}*/
 #rightArrow3{width:36px;height:50px;position:fixed;top:335px;right:0;z-index:999;}
@@ -33,6 +33,23 @@
     height:40px;
     line-height: 40px;
 }
-#style-home-right .content a{
+#style-home-right .style-home-right-content a{
     text-decoration: none;
+}
+
+.right-content-service-image{
+    width:100%;
+}
+.right-content-service-list{
+    height:60px;
+    border-bottom:1px #ECEAEB dashed;
+}
+.right-content-service-qq{
+    width:40px;
+    height:40px;
+}
+.right-content-service-time{
+    height:60px;
+    line-height: 30px;
+    color:#011931;
 }

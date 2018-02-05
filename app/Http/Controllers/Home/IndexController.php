@@ -22,11 +22,11 @@ class IndexController extends Controller
      */
     public function index(Request $request){
         $data=$request->all();
-        $base=$data['base'];
+        $common=$data['common'];
         $column='index';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
-            'base'=>$base,
+            'common'=>$common,
             'menus'=>$menus,
             'column'=>$column
         );
@@ -37,11 +37,11 @@ class IndexController extends Controller
      */
     public function league(Request $request){
         $data=$request->all();
-        $base=$data['base'];
+        $common=$data['common'];
         $column='league';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
-            'base'=>$base,
+            'common'=>$common,
             'menus'=>$menus,
             'column'=>$column
         );
@@ -52,7 +52,7 @@ class IndexController extends Controller
      */
     public function leagueSignUp (Request $request){
         $data=$request->all();
-        unset($data['base']);
+        unset($data['common']);
         $data = $request->all();
         $return=null;
         $league=new LeagueModel();
@@ -73,11 +73,11 @@ class IndexController extends Controller
      */
     public function about(Request $request){
         $data=$request->all();
-        $base=$data['base'];
+        $common=$data['common'];
         $column='about';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
-            'base'=>$base,
+            'common'=>$common,
             'menus'=>$menus,
             'column'=>$column
         );

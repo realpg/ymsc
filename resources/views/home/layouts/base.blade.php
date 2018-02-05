@@ -23,9 +23,9 @@
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
     @section('seo')
-        <title>{{$base['seo_title']}}</title>
-        <meta name="keywords" content="{{$base['seo_keywords']}}" />
-        <meta name="description" content="{{$base['seo_description']}}" />
+        <title>{{$common['base']['seo_title']}}</title>
+        <meta name="keywords" content="{{$common['base']['seo_keywords']}}" />
+        <meta name="description" content="{{$common['base']['seo_description']}}" />
     @show
 </head>
 <body>
@@ -70,8 +70,8 @@
 @yield('content')
 @section('footer')
     <footer class="style-home-footer">
-        <p>{{$base['copyright']}}</p>
-        <p>{{$base['number']}}</p>
+        <p>{{$common['base']['copyright']}}</p>
+        <p>{{$common['base']['number']}}</p>
     </footer>
 @show
 <div id='style-home-right'>
@@ -97,12 +97,12 @@
             </a>
         </div>
     </div>
-    <div class="content">
+    <div class="style-home-right-content">
         <div id="floatDivBoxs0">
             <div class="right-content-title padding-left-5 padding-right-5">
                 <div class="float-left">
                     <i class="iconfont icon-48 font-size-18"></i>
-                    我是购物车
+                    购物车
                 </div>
                 <div class="float-right">
                     <a href="javascript:" onclick="cloaseChannel()" />
@@ -115,7 +115,7 @@
             <div class="right-content-title padding-left-5 padding-right-5">
                 <div class="float-left">
                     <i class="iconfont icon-chazhao font-size-18"></i>
-                    我是帮你找货
+                    帮你找货
                 </div>
                 <div class="float-right">
                     <a href="javascript:" onclick="cloaseChannel()" />
@@ -128,7 +128,7 @@
             <div class="right-content-title padding-left-5 padding-right-5">
                 <div class="float-left">
                     <i class="iconfont icon-kefu-tianchong font-size-18"></i>
-                    我是帮你找货
+                    联系客服
                 </div>
                 <div class="float-right">
                     <a href="javascript:" onclick="cloaseChannel()" />
@@ -136,12 +136,32 @@
                     </a>
                 </div>
             </div>
+            <div class="right-content-content">
+                <img src="{{ URL::asset('img/contact.jpg') }}" class="right-content-service-image" />
+                @foreach($common['services'] as $service)
+                    <div class="margin-top-20 right-content-service-list">
+                        <div class="col-xs-0 col-sm-8">
+                            <p class="style-ellipsis-1">{{$service['name']}}</p>
+                            <p class="style-ellipsis-1">{{$service['phonenum']}}</p>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 common-text-align-center">
+                            <a href="tencent://message/?uin={{$service['qq']}}&Menu=yes" >
+                                <img src="{{ URL::asset('img/social-qq.png') }}" class="right-content-service-qq" />
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+                <div class="margin-top-20 common-text-align-center right-content-service-time">
+                    <p>在线服务时间</p>
+                    <p class="style-ellipsis-1">{{$common['base']['time']}}</p>
+                </div>
+            </div>
         </div>
         <div id="floatDivBoxs3">
             <div class="right-content-title padding-left-5 padding-right-5">
                 <div class="float-left">
                     <i class="iconfont icon-yijianfankui1xfuzhi font-size-18"></i>
-                    我是投诉建议
+                    意见反馈
                 </div>
                 <div class="float-right">
                     <a href="javascript:" onclick="cloaseChannel()" />

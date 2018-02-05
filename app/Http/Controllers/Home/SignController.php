@@ -22,11 +22,11 @@ class SignController extends Controller
      */
     public function signUp(Request $request){
         $data=$request->all();
-        $base=$data['base'];
+        $common=$data['common'];
         $column='signUp';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
-            'base'=>$base,
+            'common'=>$common,
             'menus'=>$menus,
             'column'=>$column
         );
@@ -53,7 +53,7 @@ class SignController extends Controller
         if(array_key_exists('type',$data)){
             $check_return=self::checkParam($data,$data['type']);
             if($check_return['result']){
-                unset($data['base']);
+                unset($data['common']);
                 unset($data['agree']);
                 $data['nick_name']='未命名';
                 //判断此用户是否注册过
@@ -138,11 +138,11 @@ class SignController extends Controller
      */
     public function signIn(Request $request){
         $data=$request->all();
-        $base=$data['base'];
+        $common=$data['common'];
         $column='signIn';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
-            'base'=>$base,
+            'common'=>$common,
             'menus'=>$menus,
             'column'=>$column
         );
@@ -174,7 +174,7 @@ class SignController extends Controller
                 $return['msg']='验证码错误';
             }
             else{
-                unset($data['base']);
+                unset($data['common']);
                 $user=MemberManager::login($data);
                 if($user){
                     $return['result']='true';
@@ -197,11 +197,11 @@ class SignController extends Controller
      */
     public function reset(Request $request){
         $data=$request->all();
-        $base=$data['base'];
+        $common=$data['common'];
         $column='signIn';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
-            'base'=>$base,
+            'common'=>$common,
             'menus'=>$menus,
             'column'=>$column
         );
@@ -228,7 +228,7 @@ class SignController extends Controller
         if(array_key_exists('type',$data)){
             $check_return=self::checkParam($data,$data['type']);
             if($check_return['result']){
-                unset($data['base']);
+                unset($data['common']);
                 unset($data['agree']);
                 if(array_key_exists('phonenum',$data)){
                     $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);

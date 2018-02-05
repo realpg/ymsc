@@ -6,7 +6,7 @@
     </style>
     <div id="mydiv">
         <div class="padding-top-150 text-center">
-            <img src="{{$base['logo']}}" />
+            <img src="{{$common['base']['logo']}}" />
         </div>
         <div class="style-home-index-search padding-top-50">
             <form class="form-signin">

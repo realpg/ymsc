@@ -9,6 +9,7 @@
 namespace app\Http\Middleware;
 
 use App\Components\BaseManager;
+use App\Components\ServiceManager;
 use App\Http\Controllers\ApiResponse;
 use Closure;
 
@@ -16,7 +17,11 @@ class WebBase
 {
     public function handle($request, Closure $next)
     {
-        $request['base']=BaseManager::getBaseInfo();
+        $base=BaseManager::getBaseInfo();
+        $services=ServiceManager::getAllServices();
+        $common['base']=$base;
+        $common['services']=$services;
+        $request['common']=$common;
         return $next($request);
     }
 }

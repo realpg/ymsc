@@ -62,4 +62,17 @@ class ServiceManager
         })->orderBy('id','asc')->get();
         return $services;
     }
+
+    /*
+     * 输出客服
+     *
+     * By zm
+     *
+     * 2018-01-27
+     */
+    public static function getAllServices()
+    {
+        $services = ServiceModel::orderBy('id','asc')->get();
+        return $services;
+    }
 }
