@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap/bootstrap-theme.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/iconfont/iconfont.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/common.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/right.css') }}"/>
     <!--[if IE 6]>
     <script type="text/javascript" src="{{ URL::asset('dist/lib/DD_belatedPNG_0.0.8a-min.js') }}"></script>
     <script>DD_belatedPNG.fix('*');</script>
@@ -73,7 +74,84 @@
         <p>{{$base['number']}}</p>
     </footer>
 @show
-
+<div id='style-home-right'>
+    <div class="tab">
+        <div id="rightArrow0" onclick="changeChannel(0)">
+            <a href="javascript:;" title="购物车">
+                <i class="iconfont icon-48 font-size-24"></i>
+            </a>
+        </div>
+        <div id="rightArrow1" onclick="changeChannel(1)">
+            <a href="javascript:;" title="帮你找货">
+                <i class="iconfont icon-chazhao font-size-24"></i>
+            </a>
+        </div>
+        <div id="rightArrow2" onclick="changeChannel(2)">
+            <a href="javascript:;" title="客服">
+                <i class="iconfont icon-kefu-tianchong font-size-24"></i>
+            </a>
+        </div>
+        <div id="rightArrow3" onclick="changeChannel(3)">
+            <a href="javascript:;" title="意见反馈">
+                <i class="iconfont icon-yijianfankui1xfuzhi font-size-24"></i>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <div id="floatDivBoxs0">
+            <div class="right-content-title padding-left-5 padding-right-5">
+                <div class="float-left">
+                    <i class="iconfont icon-48 font-size-18"></i>
+                    我是购物车
+                </div>
+                <div class="float-right">
+                    <a href="javascript:" onclick="cloaseChannel()" />
+                        <i class="iconfont icon-guanbi font-size-18"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="floatDivBoxs1">
+            <div class="right-content-title padding-left-5 padding-right-5">
+                <div class="float-left">
+                    <i class="iconfont icon-chazhao font-size-18"></i>
+                    我是帮你找货
+                </div>
+                <div class="float-right">
+                    <a href="javascript:" onclick="cloaseChannel()" />
+                    <i class="iconfont icon-guanbi font-size-18"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="floatDivBoxs2">
+            <div class="right-content-title padding-left-5 padding-right-5">
+                <div class="float-left">
+                    <i class="iconfont icon-kefu-tianchong font-size-18"></i>
+                    我是帮你找货
+                </div>
+                <div class="float-right">
+                    <a href="javascript:" onclick="cloaseChannel()" />
+                    <i class="iconfont icon-guanbi font-size-18"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="floatDivBoxs3">
+            <div class="right-content-title padding-left-5 padding-right-5">
+                <div class="float-left">
+                    <i class="iconfont icon-yijianfankui1xfuzhi font-size-18"></i>
+                    我是投诉建议
+                </div>
+                <div class="float-right">
+                    <a href="javascript:" onclick="cloaseChannel()" />
+                    <i class="iconfont icon-guanbi font-size-18"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery/1.9.1/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('dist/lib/layer/2.4/layer.js') }}"></script>
@@ -98,6 +176,7 @@
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery.validation/1.14.0/messages_zh.js') }}"></script>
 {{--common.js--}}
 <script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('/js/right.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/jquery.form.js') }}"></script>
 
 

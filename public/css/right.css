@@ -1,0 +1,38 @@
+/*浮动客服0*/
+#floatDivBoxs0{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+#rightArrow0{width:36px;height:50px;position:fixed;top:185px;right:0;z-index:999;}
+#rightArrow0 a{display:block;height:50px;color:#9d9d9d;text-decoration: none;background: #06131B;border-bottom: #374148 1px solid;border-radius: 4px 0 0 0;font-size: x-large;text-align: center;line-height: 50px;}
+#rightArrow0 a:hover{background: #182F41;color:#D1D2D4;}
+
+/*浮动客服1*/
+#floatDivBoxs1{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+/*#rightArrow1{width:36px;height:50px;background:url(../img/online_arrow.jpg) no-repeat;position:fixed;top:225px;right:0;z-index:999;}*/
+/*#rightArrow1 a{display:block;height:50px;}*/
+#rightArrow1{width:36px;height:50px;position:fixed;top:235px;right:0;z-index:999;}
+#rightArrow1 a{display:block;height:50px;color:#9d9d9d;text-decoration: none;background: #06131B;border-bottom: #374148 1px solid;font-size: x-large;text-align: center;line-height: 50px;}
+#rightArrow1 a:hover{background: #182F41;color:#D1D2D4;}
+
+/*浮动客服2*/
+#floatDivBoxs2{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+/*#rightArrow2{width:36px;height:50px;background:url(../img/online_arrow.jpg) no-repeat;position:fixed;top:270px;right:0;z-index:999;}*/
+/*#rightArrow2 a{display:block;height:50px;}*/
+#rightArrow2{width:36px;height:50px;position:fixed;top:285px;right:0;z-index:999;}
+#rightArrow2 a{display:block;height:50px;color:#9d9d9d;text-decoration: none;background: #06131B;border-bottom: #374148 1px solid;font-size: x-large;text-align: center;line-height: 50px;}
+#rightArrow2 a:hover{background: #182F41;color:#D1D2D4;}
+
+/*浮动客服3*/
+#floatDivBoxs3{width:185px;background:#fff;position:fixed;top:34px;right:-190px;z-index:999;}
+/*#rightArrow3{width:36px;height:50px;background:url(../img/online_arrow.jpg) no-repeat;position:fixed;top:315px;right:0;z-index:999;}*/
+/*#rightArrow3 a{display:block;height:50px;}*/
+#rightArrow3{width:36px;height:50px;position:fixed;top:335px;right:0;z-index:999;}
+#rightArrow3 a{display:block;height:50px;color:#9d9d9d;text-decoration: none;background: #06131B;border-radius: 0 0 0 4px;font-size: x-large;text-align: center;line-height: 50px;}
+#rightArrow3 a:hover{background: #182F41;color:#D1D2D4;}
+
+.right-content-title{
+    background: #ECEAEB;
+    height:40px;
+    line-height: 40px;
+}
+#style-home-right .content a{
+    text-decoration: none;
+}

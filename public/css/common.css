@@ -43,6 +43,10 @@
     font-size: 22px !important;
 }
 
+.font-size-24 {
+    font-size: 24px !important;
+}
+
 .font-weight {
     font-weight: bold;
 }
@@ -237,6 +241,10 @@
 
 .padding-right-0 {
     padding-right: 0px;
+}
+
+.padding-right-5 {
+    padding-right: 5px;
 }
 
 .padding-right-10 {
