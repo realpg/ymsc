@@ -8,11 +8,15 @@
 
 namespace app\Http\Controllers\Home;
 
+use App\Components\AdviceManager;
 use App\Components\HomeManager;
 use App\Components\LeagueManager;
 use App\Components\MenuManager;
+use App\Components\SearchingManager;
 use App\Http\Controllers\Controller;
+use App\Models\AdviceModel;
 use App\Models\LeagueModel;
+use App\Models\SearchingModel;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -82,5 +86,116 @@ class IndexController extends Controller
             'column'=>$column
         );
         return view('home.index.about',$param);
+    }
+    /*
+     * 提交意见反馈
+     */
+    public function advice(Request $request){
+        $data=$request->all();
+        unset($data['common']);
+        $return=null;
+        if(!array_key_exists('advice_type',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请选择咨询类型';
+        }
+        else if(!array_key_exists('advice_content',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写问题描述';
+        }
+        else if(!array_key_exists('advice_phonenum',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写联系电话';
+        }
+        else if(!array_key_exists('advice_name',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写联系人';
+        }
+        else{
+            $data_advice=array(
+                'type'=>$data['advice_type'],
+                'content'=>$data['advice_content'],
+                'phonenum'=>$data['advice_phonenum'],
+                'name'=>$data['advice_name']
+            );
+            $advice=new AdviceModel();
+            $advice=AdviceManager::setAdvice($advice,$data_advice);
+            $result=$advice->save();
+            if($result){
+                $return['result']=true;
+                $return['msg']='提交成功';
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='提交失败';
+            }
+        }
+        return $return;
+    }
+    /*
+     * 提交帮你找货
+     */
+    public function searching(Request $request){
+        $data=$request->all();
+        unset($data['common']);
+        $return=null;
+        if(!array_key_exists('searching_goods',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写需要采购的商品';
+        }
+        else if(!array_key_exists('searching_count',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写采购数量';
+        }
+        else if(!array_key_exists('searching_unit',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写单位';
+        }
+        else if(!array_key_exists('searching_phonenum',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写联系电话';
+        }
+        else if(!array_key_exists('searching_time',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请选择时效';
+        }
+        else if(!array_key_exists('searching_province',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请选择省';
+        }
+        else if(!array_key_exists('searching_city',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请选择市';
+        }
+        else if(!array_key_exists('searching_address',$data)){
+            $return['result']=false;
+            $return['msg']='提交失败，请填写公司/单位';
+        }
+        else{
+            $data_searching=array(
+                'goods'=>$data['searching_goods'],
+                'count'=>$data['searching_count'],
+                'unit'=>$data['searching_unit'],
+                'purity'=>$data['searching_purity'],
+                'name'=>$data['searching_name'],
+                'phonenum'=>$data['searching_phonenum'],
+                'time'=>$data['searching_time'],
+                'province'=>$data['searching_province'],
+                'city'=>$data['searching_city'],
+                'address'=>$data['searching_address'],
+                'content'=>$data['searching_content'],
+            );
+            $searching=new SearchingModel();
+            $searching=SearchingManager::setSearching($searching,$data_searching);
+            $result=$searching->save();
+            if($result){
+                $return['result']=true;
+                $return['msg']='提交成功';
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='提交失败';
+            }
+        }
+        return $return;
     }
 }

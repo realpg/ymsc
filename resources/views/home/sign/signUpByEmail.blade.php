@@ -105,7 +105,7 @@
                                 url: "{{ URL::asset('signUp')}}",
                                 success: function (ret) {
                                     console.log(JSON.stringify(ret));
-                                    if (ret.result=='true') {
+                                    if (ret.result) {
                                         layer.msg(ret.msg, {icon: 1, time: 1000});
                                         location.href="{{ URL::asset('signIn')}}"
                                     }

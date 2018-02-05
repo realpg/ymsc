@@ -62,23 +62,23 @@ class AdviceManager
      * 2018-01-27
      *
      */
-    public static function setAdvice($banner, $data){
+    public static function setAdvice($advice, $data){
+        if (array_key_exists('type', $data)) {
+            $advice->type = array_get($data, 'type');
+        }
         if (array_key_exists('name', $data)) {
-            $banner->name = array_get($data, 'name');
+            $advice->name = array_get($data, 'name');
         }
         if (array_key_exists('phonenum', $data)) {
-            $banner->phonenum = array_get($data, 'phonenum');
-        }
-        if (array_key_exists('email', $data)) {
-            $banner->email = array_get($data, 'email');
+            $advice->phonenum = array_get($data, 'phonenum');
         }
         if (array_key_exists('content', $data)) {
-            $banner->content = array_get($data, 'content');
+            $advice->content = array_get($data, 'content');
         }
         if (array_key_exists('status', $data)) {
-            $banner->status = array_get($data, 'status');
+            $advice->status = array_get($data, 'status');
         }
-        return $banner;
+        return $advice;
     }
 
     /*

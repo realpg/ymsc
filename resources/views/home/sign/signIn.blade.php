@@ -77,8 +77,8 @@
                             type: 'POST',
                             url: "{{ URL::asset('signIn')}}",
                             success: function (ret) {
-                                console.log(JSON.stringify(ret));
-                                if (ret.result=='true') {
+                                // console.log(JSON.stringify(ret));
+                                if (ret.result) {
                                     layer.msg(ret.msg, {icon: 1, time: 2000});
                                     window.location.reload();
                                 } else {

@@ -80,7 +80,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,1,7]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,7]}// 不参与排序的列
         ]
     });
 

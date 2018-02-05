@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div id="floatDivBoxs1">
+        <div id="floatDivBoxs1" style="overflow-y: scroll;">
             <div class="right-content-title padding-left-5 padding-right-5">
                 <div class="float-left">
                     <i class="iconfont icon-chazhao font-size-18"></i>
@@ -122,6 +122,100 @@
                     <i class="iconfont icon-guanbi font-size-18"></i>
                     </a>
                 </div>
+            </div>
+            <div class="right-content-content">
+                <form method="post" action="{{ URL::asset('searching') }}" id="form-searching">
+                    {{ csrf_field() }}
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        需要采购的商品<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" name="searching_goods" id="searching_goods" placeholder="请输入需要采购的商品">
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        <div class=" col-xs-6 col-sm-6 padding-left-0">
+                            采购数量<i>*</i>
+                        </div>
+                        <div class=" col-xs-6 col-sm-6 padding-left-0">
+                            单位<i>*</i>
+                        </div>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <div class=" col-xs-6 col-sm-6 padding-left-0">
+                            <input type="text" class="form-control" name="searching_count" id="searching_count" placeholder="采购数量">
+                        </div>
+                        <div class=" col-xs-6 col-sm-6 padding-left-0">
+                            <select name="searching_unit" class="form-control">
+                                <option value="g">g</option>
+                                <option value="ton">ton</option>
+                                <option value="kg">kg</option>
+                                <option value="mg">mg</option>
+                                <option value="L">L</option>
+                                <option value="ml">ml</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        纯度
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" name="searching_purity" id="searching_purity" placeholder="请输入纯度">
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        联系人
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" name="searching_name" id="searching_name" placeholder="请输入联系人">
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        联系人手机<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" name="searching_phonenum" id="searching_phonenum" placeholder="请输入联系人手机">
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        需求时效<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <select name="searching_time" class="form-control">
+                            <option value="3天">3天</option>
+                            <option value="1天以内">1天以内</option>
+                            <option value="7天">7天</option>
+                            <option value="1个月">1个月</option>
+                            <option value="3个月">3个月</option>
+                        </select>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        收货地址<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        <div class="col-xs-6 col-sm-6 padding-left-0">
+                            <select name="searching_province" id="searching_province"  class="form-control">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                        <div class=" col-xs-6 col-sm-6 padding-left-0">
+                            <select name="searching_city" id="searching_city"  class="form-control">
+                                <option value="">请选择</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        公司/单位<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" name="searching_address" id="searching_address" placeholder="请输入公司/单位">
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        备注
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <textarea class="form-control" rows="6" name="searching_content" id="searching_content" style="resize:none"  placeholder="请输入备注"></textarea>
+                    </div>
+                    <div class="margin-top-5 margin-bottom-40 col-xs-12 col-sm-12">
+                        <button type="submit" class="btn btn-danger width-100 border-ridus-0">立即提交</button>
+                    </div>
+                </form>
             </div>
         </div>
         <div id="floatDivBoxs2">
@@ -165,9 +259,50 @@
                 </div>
                 <div class="float-right">
                     <a href="javascript:" onclick="cloaseChannel()" />
-                    <i class="iconfont icon-guanbi font-size-18"></i>
+                        <i class="iconfont icon-guanbi font-size-18"></i>
                     </a>
                 </div>
+            </div>
+            <div class="right-content-content">
+                <form method="post" action="{{ URL::asset('advice') }}" id="form-advice">
+                    {{ csrf_field() }}
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        咨询类型<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <select name="advice_type" class="form-control">
+                            <option value="建议">建议</option>
+                            <option value="投诉">投诉</option>
+                            <option value="关于产品">关于产品</option>
+                            <option value="关于供应商">关于供应商</option>
+                            <option value="关于采购商">关于采购商</option>
+                            <option value="关于询盘">关于询盘</option>
+                            <option value="关于订单">关于订单</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        问题描述<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <textarea class="form-control" rows="6" name="advice_content" id="advice_content" style="resize:none"  placeholder="请输入问题描述"></textarea>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        联系人电话<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" name="advice_phonenum" id="advice_phonenum" placeholder="请输入联系人电话">
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12 ">
+                        联系人<i>*</i>
+                    </div>
+                    <div class="margin-top-5 col-xs-12 col-sm-12">
+                        <input type="text" class="form-control" name="advice_name" id="advice_name" placeholder="请输入联系人">
+                    </div>
+                    <div class="margin-top-40 col-xs-12 col-sm-12">
+                        <button type="submit" class="btn btn-danger width-100 border-ridus-0">立即提交</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -198,7 +333,112 @@
 <script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/right.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/jquery.form.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/area.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/searching-select.js') }}"></script>
+<script>
+    $("#form-advice").validate({
+        rules: {
+            advice_content:{
+                required:true,
+            },
+            advice_phonenum:{
+                required:true,
+                maxlength:11,
+                minlength:11,
+            },
+            advice_name:{
+                required:true,
+            },
+        },
+        onkeyup: false,
+        focusCleanup: false,
+        success: "valid",
+        submitHandler: function (form) {
+            var phonenum=$('#advice_phonenum').val();
+            if(isPoneAvailable(phonenum)){
+                $(form).ajaxSubmit({
+                    type: 'POST',
+                    url: "{{ URL::asset('advice')}}",
+                    success: function (ret) {
+                        // console.log(JSON.stringify(ret));
+                        if (ret.result) {
+                            layer.msg(ret.msg, {icon: 1, time: 2000});
+                            $('#form-advice')[0].reset();
+                        } else {
+                            layer.msg(ret.msg, {icon: 2, time: 2000});
+                        }
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        layer.msg('操作失败', {icon: 2, time: 2000});
+                        console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                        console.log("textStatus:" + textStatus);
+                        console.log("errorThrown:" + errorThrown);
+                    }
+                });
+            }
+            else{
+                layer.msg('请填写正确的手机号', {icon: 2, time: 2000});
+            }
+        }
 
+    });
+    $("#form-searching").validate({
+        rules: {
+            searching_goods:{
+                required:true,
+            },
+            searching_count:{
+                required:true,
+                number:true
+            },
+            searching_phonenum:{
+                required:true,
+                maxlength:11,
+                minlength:11,
+            },
+            searching_province:{
+                required:true,
+            },
+            searching_city:{
+                required:true,
+            },
+            searching_address:{
+                required:true,
+            },
+        },
+        onkeyup: false,
+        focusCleanup: false,
+        success: "valid",
+        submitHandler: function (form) {
+            var phonenum=$('#searching_phonenum').val();
+            if(isPoneAvailable(phonenum)){
+                $(form).ajaxSubmit({
+                    type: 'POST',
+                    url: "{{ URL::asset('searching')}}",
+                    success: function (ret) {
+                        // console.log(JSON.stringify(ret));
+                        if (ret.result) {
+                            layer.msg(ret.msg, {icon: 1, time: 2000});
+                            $('#form-searching')[0].reset();
+                        } else {
+                            layer.msg(ret.msg, {icon: 2, time: 2000});
+                        }
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        layer.msg('操作失败', {icon: 2, time: 2000});
+                        console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                        console.log("textStatus:" + textStatus);
+                        console.log("errorThrown:" + errorThrown);
+                    }
+                });
+            }
+            else{
+                layer.msg('请填写正确的手机号', {icon: 2, time: 2000});
+            }
+        }
+
+    });
+</script>
 
 </body>
 </html>

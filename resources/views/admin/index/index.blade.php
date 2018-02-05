@@ -114,7 +114,7 @@
                 <dd>
                     <ul>
                         <li><a data-href="{{ URL::asset('/admin/league/index') }}" data-title="加盟信息管理" href="javascript:void(0)">加盟信息管理</a></li>
-                        <li><a data-href="{{ URL::asset('/admin/advice/index') }}" data-title="投诉建议信息管理" href="javascript:void(0)">投诉建议信息管理</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/advice/index') }}" data-title="建议反馈信息管理" href="javascript:void(0)">投诉建议信息管理</a></li>
                         <li><a data-href="{{ URL::asset('/admin/searching/index') }}" data-title="帮你找货信息管理" href="javascript:void(0)">帮你找货信息管理</a></li>
                     </ul>
                 </dd>

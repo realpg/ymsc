@@ -73,6 +73,9 @@ class SearchingManager
         if (array_key_exists('count', $data)) {
             $banner->count = array_get($data, 'count');
         }
+        if (array_key_exists('unit', $data)) {
+            $banner->unit = array_get($data, 'unit');
+        }
         if (array_key_exists('purity', $data)) {
             $banner->purity = array_get($data, 'purity');
         }

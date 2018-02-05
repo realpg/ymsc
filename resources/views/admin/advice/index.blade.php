@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 投诉信息管理 <span class="c-gray en">&gt;</span>投诉信息列表 <a class="btn btn-success radius btn-refresh r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" onclick="location.replace('{{URL::asset('/admin/advice/index')}}');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 反馈信息管理 <span class="c-gray en">&gt;</span>反馈信息列表 <a class="btn btn-success radius btn-refresh r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" onclick="location.replace('{{URL::asset('/admin/advice/index')}}');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="text-c">
         <form action="{{URL::asset('/admin/advice/index')}}" method="post" class="form-horizontal">
@@ -26,6 +26,7 @@
                         <input type="checkbox" id="checkbox-1">
                     </th>
                     <th width="80">ID</th>
+                    <th>类型</th>
                     <th>姓名</th>
                     <th>电话</th>
                     <th>电子邮箱</th>
@@ -41,6 +42,7 @@
                             <input type="checkbox" name="id_array" value="{{$data['id']}}" id="checkbox-1">
                         </td>
                         <td>{{$data['id']}}</td>
+                        <td>{{$data['type']}}</td>
                         <td class="text-l">{{$data['name']}}</td>
                         <td>{{$data['phonenum']}}</td>
                         <td class="text-l">{{$data['email']}}</td>
@@ -80,7 +82,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,1,7]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,8]}// 不参与排序的列
         ]
     });
 

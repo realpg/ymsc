@@ -469,6 +469,10 @@
     clear:both;
 }
 
+.width-100{
+    width:100%;
+}
+
 .width-70{
     width:70%;
 }

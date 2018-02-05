@@ -20,7 +20,14 @@
                             </div>
                             <div style="clear: both;"></div>
                         </div>
-                        <div class="panel-body">{{$data['content']}}</div>
+                        <div class="panel-body">
+                            <p>
+                                反馈类型：{{$data['type']}}
+                            </p>
+                            <p>
+                                {{$data['content']}}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
