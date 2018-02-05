@@ -10,8 +10,8 @@
         </div>
         <div class="style-home-index-search padding-top-50">
             <form class="form-signin">
-                <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-10 col-md-11" placeholder="再次输入搜索内容" />
-                <button type="submit" class="btn btn-default col-xs-2 col-md-1 style-home-index-form-control-button glyphicon glyphicon-search"></button>
+                <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" placeholder="再次输入搜索内容" />
+                <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search"></button>
             </form>
             <h6 class="line-height-30 index-font padding-bottom-0 margin-bottom-0">
                 大家都在搜：新品6折

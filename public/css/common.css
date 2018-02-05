@@ -696,7 +696,7 @@ label.error {
 .nav-tabs > li > a:active{
     background: #ddd;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 1028px) {
     .style-home-index-search{
         width:25.5rem;
     }

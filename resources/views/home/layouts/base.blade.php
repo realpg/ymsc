@@ -30,7 +30,7 @@
 </head>
 <body>
 @section('header')
-    <div class="navbar navbar-inverse navbar-fixed-top style-home-nav-background">
+    <header class="navbar navbar-inverse navbar-fixed-top style-home-nav-background">
         <div class="container">
             <div class="navbar-header">
                 <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
@@ -65,7 +65,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </header>
 @show
 @yield('content')
 @section('footer')
