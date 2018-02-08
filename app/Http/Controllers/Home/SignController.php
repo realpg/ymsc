@@ -173,7 +173,7 @@ class SignController extends Controller
         $data=$request->all();
 //        $user=$request->cookie('user');
 
-        dd($data);
+//        dd($data);
         
         $return=null;
         $check_return=self::checkParam($data,'signIn');
