@@ -171,10 +171,7 @@ class SignController extends Controller
      */
     public function signInDo(Request $request){
         $data=$request->all();
-//        $user=$request->cookie('user');
 
-//        dd($data);
-        
         $return=null;
         $check_return=self::checkParam($data,'signIn');
         if($check_return['result']){
@@ -189,7 +186,7 @@ class SignController extends Controller
                 if($user){
                     unset($user['password']);
                     unset($user['token']);
-//                    Cookie::queue('user', $user, 10);
+                    Cookie::queue('user', $user, 10);
 
                     $return['result']=true;
                     $return['msg']='登录成功';
