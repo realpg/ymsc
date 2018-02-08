@@ -62,7 +62,6 @@ class IndexController extends Controller
      */
     public function leagueSignUp (Request $request){
         $data=$request->all();
-        $user=$request->cookie('user');
         unset($data['common']);
         $data = $request->all();
         $return=null;
@@ -91,7 +90,8 @@ class IndexController extends Controller
         $param=array(
             'common'=>$common,
             'menus'=>$menus,
-            'column'=>$column
+            'column'=>$column,
+            'user'=>$user
         );
         return view('home.index.about',$param);
     }
@@ -100,7 +100,6 @@ class IndexController extends Controller
      */
     public function advice(Request $request){
         $data=$request->all();
-        $user=$request->cookie('user');
         unset($data['common']);
         $return=null;
         if(!array_key_exists('advice_type',$data)){
@@ -145,7 +144,6 @@ class IndexController extends Controller
      */
     public function searching(Request $request){
         $data=$request->all();
-        $user=$request->cookie('user');
         unset($data['common']);
         $return=null;
         if(!array_key_exists('searching_goods',$data)){
