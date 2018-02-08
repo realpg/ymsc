@@ -56,15 +56,21 @@
                     {{--<li class=" {{$column=='center'?'style-home-nav-active':''}}">--}}
                         {{--<a href="{{ URL::asset('center') }}">我的优迈</a>--}}
                     {{--</li>--}}
-                    <li class=" {{$column=='center'?'style-home-nav-active':''}}">
-                        <a href="">我的优迈</a>
-                    </li>
-                    <li class=" {{$column=='signIn'?'style-home-nav-active':''}}">
-                        <a href="{{ URL::asset('signIn') }}">登录</a>
-                    </li>
-                    <li class=" {{$column=='signUp'?'style-home-nav-active':''}}">
-                        <a href="{{ URL::asset('signUp') }}">注册</a>
-                    </li>
+                    @if($user)
+                        <li class=" {{$column=='center'?'style-home-nav-active':''}}">
+                            <a href="">我的优迈</a>
+                        </li>
+                        <li>
+                            <a href="{{ URL::asset('signOut') }}">安全退出</a>
+                        </li>
+                    @else
+                        <li class=" {{$column=='signIn'?'style-home-nav-active':''}}">
+                            <a href="{{ URL::asset('signIn') }}">登录</a>
+                        </li>
+                        <li class=" {{$column=='signUp'?'style-home-nav-active':''}}">
+                            <a href="{{ URL::asset('signUp') }}">注册</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>

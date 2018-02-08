@@ -161,6 +161,10 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::post('signUp', 'Home\SignController@signUpDo');      //通过手机注册
     Route::get('signIn', 'Home\SignController@signIn');        //登录
     Route::post('signIn', 'Home\SignController@signInDo');        //登录
+    Route::get('signOut', 'Home\SignController@signOut');        //安全退出
+//    Route::get('signOut', function(){
+//        setcookie('user', '', -1, '/');
+//    });
     Route::get('reset', 'Home\SignController@reset');        //找回密码
     Route::post('reset', 'Home\SignController@resetDo');        //找回密码
 

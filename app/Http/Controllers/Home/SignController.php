@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Redirect;
 
 class SignController extends Controller
 {
@@ -310,6 +311,14 @@ class SignController extends Controller
             $return['msg']='缺少参数';
         }
         return $return;
+    }
+
+    /*
+    * 安全退出
+    */
+    public function signOut(Request $request){
+        setcookie('user', '', -1, '/');
+        return \redirect('/');
     }
 
     /*
