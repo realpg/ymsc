@@ -237,7 +237,6 @@ class SignController extends Controller
      */
     public function resetDo(Request $request){
         $data=$request->all();
-        $user=$request->cookie('user');
         $return=null;
         if(array_key_exists('type',$data)){
             $check_return=self::checkParam($data,$data['type']);
