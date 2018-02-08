@@ -22,7 +22,7 @@
                 <div class="page-header style-home-about-title">
                     <h3>联系我们</h3>
                 </div>
-                <div class="row style-home-about-contact-content style-home-about-contact-content">
+                <div class="row style-home-about-contact-content style-home-about-contact-content" style="min-height:95px;">
                     <div class="col-xs-12 col-md-3 ">
                         <i class="iconfont icon-gongsiyewu"></i>
                         {{$common['base']['name']}}
@@ -42,15 +42,15 @@
                 </div>
             </div>
         </div>
+        <div style="height:20px;background: #F2F2F2;"></div>
     </div>
-    <div style="height:20px;background: #F2F2F2;"></div>
 @endsection
 
 @section('script')
     <script type="text/javascript">
         $(function () {
             var winHeight=$(window).height();
-            $('#about-body').css('min-height',winHeight-80);
+            $('#about-body').css('min-height',winHeight-45);
             $('#about-body').css('background','#F2F2F2');
         });
     </script>

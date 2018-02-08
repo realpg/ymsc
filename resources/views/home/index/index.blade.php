@@ -38,7 +38,7 @@
             var winWidth=$(window).width();
             var winHeight=$(window).height();
             $('#mydiv').css('width',winWidth);
-            $('#mydiv').css('min-height',winHeight-80);
+            $('#mydiv').css('min-height',winHeight-45);
             var config = {
                 vx: 4,	//小球x轴速度,正为右，负为左
                 vy: 4,	//小球y轴速度

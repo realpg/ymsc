@@ -70,7 +70,7 @@
             var winWidth=$(window).width();
             var winHeight=$(window).height();
             $('#sign-body').css('width',winWidth);
-            $('#sign-body').css('height',winHeight-80);
+            $('#sign-body').css('height',winHeight-45);
             //编辑网站基本信息
             $("#form-signUp-phonenum").validate({
                 rules: {

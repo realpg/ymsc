@@ -53,8 +53,11 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-sm style-home-nav">
+                    {{--<li class=" {{$column=='center'?'style-home-nav-active':''}}">--}}
+                        {{--<a href="{{ URL::asset('center') }}">我的优迈</a>--}}
+                    {{--</li>--}}
                     <li class=" {{$column=='center'?'style-home-nav-active':''}}">
-                        <a href="{{ URL::asset('center') }}">我的优迈</a>
+                        <a href="">我的优迈</a>
                     </li>
                     <li class=" {{$column=='signIn'?'style-home-nav-active':''}}">
                         <a href="{{ URL::asset('signIn') }}">登录</a>
@@ -70,8 +73,8 @@
 @yield('content')
 @section('footer')
     <footer class="style-home-footer">
-        <p>{{$common['base']['copyright']}}</p>
-        <p>{{$common['base']['number']}}</p>
+        <p>{{$common['base']['copyright']}}&nbsp;{{$common['base']['number']}}&nbsp;技术支持：沈阳艺萨艺术有限公司</p>
+        {{--<p></p>--}}
     </footer>
 @show
 <div id='style-home-right'>
@@ -109,6 +112,17 @@
                         <i class="iconfont icon-guanbi font-size-18"></i>
                     </a>
                 </div>
+            </div>
+            <div class="right-content-content">
+                @if($user)
+                    购物车里没有商品
+                @else
+                    <a href="{{ URL::asset('signIn') }}">
+                        <div class="margin-top-40 col-xs-12 col-sm-12">
+                            <button type="button" class="btn btn-danger width-100 border-ridus-0">立即登录</button>
+                        </div>
+                    </a>
+                @endif
             </div>
         </div>
         <div id="floatDivBoxs1" style="overflow-y: scroll;">

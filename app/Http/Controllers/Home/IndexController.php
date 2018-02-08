@@ -18,6 +18,8 @@ use App\Models\AdviceModel;
 use App\Models\LeagueModel;
 use App\Models\SearchingModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Response;
 
 class IndexController extends Controller
 {
@@ -26,13 +28,15 @@ class IndexController extends Controller
      */
     public function index(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $common=$data['common'];
         $column='index';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
             'common'=>$common,
             'menus'=>$menus,
-            'column'=>$column
+            'column'=>$column,
+            'user'=>$user
         );
         return view('home.index.index',$param);
     }
@@ -41,13 +45,15 @@ class IndexController extends Controller
      */
     public function league(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $common=$data['common'];
         $column='league';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
             'common'=>$common,
             'menus'=>$menus,
-            'column'=>$column
+            'column'=>$column,
+            'user'=>$user
         );
         return view('home.index.league',$param);
     }
@@ -56,6 +62,7 @@ class IndexController extends Controller
      */
     public function leagueSignUp (Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         unset($data['common']);
         $data = $request->all();
         $return=null;
@@ -77,6 +84,7 @@ class IndexController extends Controller
      */
     public function about(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $common=$data['common'];
         $column='about';
         $menus=MenuManager::getClassAMenuLists();
@@ -92,6 +100,7 @@ class IndexController extends Controller
      */
     public function advice(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         unset($data['common']);
         $return=null;
         if(!array_key_exists('advice_type',$data)){
@@ -136,6 +145,7 @@ class IndexController extends Controller
      */
     public function searching(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         unset($data['common']);
         $return=null;
         if(!array_key_exists('searching_goods',$data)){

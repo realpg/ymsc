@@ -49,7 +49,7 @@
             var winWidth=$(window).width();
             var winHeight=$(window).height();
             $('#league-body').css('width',winWidth);
-            $('#league-body').css('height',winHeight-80);
+            $('#league-body').css('height',winHeight-45);
             //编辑网站基本信息
             $("#form-league-edit").validate({
                 rules: {

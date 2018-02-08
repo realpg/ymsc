@@ -14,6 +14,7 @@ use App\Components\VertifyManager;
 use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class SignController extends Controller
 {
@@ -22,13 +23,15 @@ class SignController extends Controller
      */
     public function signUp(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $common=$data['common'];
         $column='signUp';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
             'common'=>$common,
             'menus'=>$menus,
-            'column'=>$column
+            'column'=>$column,
+            'user'=>$user
         );
         if(array_key_exists('type',$data)){
             $type=$data['type'];
@@ -49,6 +52,7 @@ class SignController extends Controller
      */
     public function signUpDo(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $return=null;
         if(array_key_exists('type',$data)){
             $check_return=self::checkParam($data,$data['type']);
@@ -138,13 +142,15 @@ class SignController extends Controller
      */
     public function signIn(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $common=$data['common'];
         $column='signIn';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
             'common'=>$common,
             'menus'=>$menus,
-            'column'=>$column
+            'column'=>$column,
+            'user'=>$user
         );
 //        if(array_key_exists('type',$data)){
 //            $type=$data['type'];
@@ -165,6 +171,7 @@ class SignController extends Controller
      */
     public function signInDo(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $return=null;
         $check_return=self::checkParam($data,'signIn');
         if($check_return['result']){
@@ -177,6 +184,10 @@ class SignController extends Controller
                 unset($data['common']);
                 $user=MemberManager::login($data);
                 if($user){
+                    unset($user['password']);
+                    unset($user['token']);
+                    Cookie::queue('user', $user, 10);
+
                     $return['result']=true;
                     $return['msg']='登录成功';
                 }
@@ -197,13 +208,15 @@ class SignController extends Controller
      */
     public function reset(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $common=$data['common'];
         $column='signIn';
         $menus=MenuManager::getClassAMenuLists();
         $param=array(
             'common'=>$common,
             'menus'=>$menus,
-            'column'=>$column
+            'column'=>$column,
+            'user'=>$user
         );
         if(array_key_exists('type',$data)){
             $type=$data['type'];
@@ -224,6 +237,7 @@ class SignController extends Controller
      */
     public function resetDo(Request $request){
         $data=$request->all();
+        $user=$request->cookie('user');
         $return=null;
         if(array_key_exists('type',$data)){
             $check_return=self::checkParam($data,$data['type']);
