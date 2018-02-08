@@ -29,7 +29,6 @@
                     <th>类型</th>
                     <th>姓名</th>
                     <th>电话</th>
-                    <th>电子邮箱</th>
                     <th width="150">状态</th>
                     <th width="150">留言时间</th>
                     <th width="100">操作</th>
@@ -45,7 +44,6 @@
                         <td>{{$data['type']}}</td>
                         <td class="text-l">{{$data['name']}}</td>
                         <td>{{$data['phonenum']}}</td>
-                        <td class="text-l">{{$data['email']}}</td>
                         <td width="150">
                             @if($data['status'])
                                 <span class="label label-success radius">已处理</span>
@@ -82,7 +80,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,8]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,7]}// 不参与排序的列
         ]
     });
 

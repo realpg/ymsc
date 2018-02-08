@@ -9,14 +9,11 @@
                 <div class="col-xs-8 col-sm-8">
                     <div class="panel panel-default" style="padding-left:0px;padding-right:0px;">
                         <div class="panel-header">
-                            <div class="col-xs-4 col-sm-4">
+                            <div class="col-xs-6 col-sm-6">
                                 <i class="Hui-iconfont">&#xe62c;</i> {{$data['name']}}
                             </div>
-                            <div class="col-xs-4 col-sm-4">
+                            <div class="col-xs-6 col-sm-6">
                                 <i class="Hui-iconfont">&#xe6a3;</i> {{$data['phonenum']}}
-                            </div>
-                            <div class="col-xs-4 col-sm-4">
-                                <i class="Hui-iconfont">&#xe63b;</i> {{$data['email']}}
                             </div>
                             <div style="clear: both;"></div>
                         </div>
