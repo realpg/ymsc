@@ -121,10 +121,15 @@
             </div>
             <div class="right-content-content">
                 @if($user)
-                    购物车里没有商品
+                    <div class="margin-top-20 margin-right-10 margin-left-10">
+                        <img src="{{ URL::asset('img/nothing.png') }}"  />
+                    </div>
+                    <div class="margin-top-20 text-center index-font">
+                        购物车中还没有商品，赶紧选购吧！
+                    </div>
                 @else
                     <a href="{{ URL::asset('signIn') }}">
-                        <div class="margin-top-40 col-xs-12 col-sm-12">
+                        <div class="margin-top-150 col-xs-12 col-sm-12">
                             <button type="button" class="btn btn-danger width-100 border-ridus-0">立即登录</button>
                         </div>
                     </a>
