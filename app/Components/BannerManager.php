@@ -72,5 +72,22 @@ class BannerManager
         $banner=BannerModel::where('id',$id)->first();
         return $banner;
     }
+
+    /*
+     * 根据menu_id获取Banner的列表
+     *
+     * By zm
+     *
+     * 2018-02-14
+     *
+     */
+    public static function getBannersByMenuId($menu_id){
+        $where=array(
+            'menu_id'=>$menu_id,
+            'status'=>1
+        );
+        $banners=BannerModel::where($where)->orderBy('sort','desc')->get();
+        return $banners;
+    }
     
 }

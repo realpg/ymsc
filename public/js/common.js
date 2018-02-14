@@ -1,3 +1,10 @@
+//初始化body的高度
+$(function () {
+    var winHeight=$(window).height();
+    $('#main-body').css('min-height',winHeight-45);
+    $('#main-body').css('border-bottom','#06131B 3px solid');
+});
+
 // 接口部分
 //基本的ajax访问后端接口类
 function ajaxRequest(url, param, method, callBack) {
@@ -272,6 +279,7 @@ function getQueryString(name) {
     }
     return null;
 }
+
 
 
 

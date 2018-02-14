@@ -16,6 +16,7 @@ use App\Models\GoodsMachiningAttributeModel;
 use App\Models\GoodsModel;
 use App\Models\GoodsStandardAttributeModel;
 use App\Models\GoodsTestingAttributeModel;
+use App\Models\MenuModel;
 
 class GoodsManager
 {
@@ -583,5 +584,18 @@ class GoodsManager
             $goods_case->sort = array_get($data, 'sort');
         }
         return $goods_case;
+    }
+
+    /*
+     * 化学商品类与栏目表联立输出列表
+     *
+     */
+    public static function getChemClassWithHot($menu_id){
+        $where=array(
+            'menu_id'=>$menu_id,
+            'hot'=>1
+        );
+        $chem_classes=ChemClassModel::where($where)->orderBy('sort','desc')->offset(0)->limit(4)->get();
+        return $chem_classes;
     }
 }

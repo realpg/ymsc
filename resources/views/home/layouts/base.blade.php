@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/iconfont/iconfont.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/common.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/right.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/carousel.css') }}"/>
     <!--[if IE 6]>
     <script type="text/javascript" src="{{ URL::asset('dist/lib/DD_belatedPNG_0.0.8a-min.js') }}"></script>
     <script>DD_belatedPNG.fix('*');</script>
@@ -354,12 +355,15 @@
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery.validation/1.14.0/jquery.validate.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery.validation/1.14.0/validate-methods.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery.validation/1.14.0/messages_zh.js') }}"></script>
-{{--common.js--}}
-<script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
+
+
 <script type="text/javascript" src="{{ URL::asset('/js/right.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/jquery.form.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/area.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/searching-select.js') }}"></script>
+<script type="text/javascript" src="{{URL::asset('js/carousel.js')}}"></script>
+{{--common.js--}}
+<script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
 <script>
     $("#form-advice").validate({
         rules: {
@@ -462,6 +466,47 @@
             }
         }
 
+    });
+
+
+
+    /*
+     * 列表页轮播图
+     *
+     * by zm
+     *
+     * 2018-02-14
+     *
+     */
+    $(function(){
+        var carouselContentLength=$('.carousel-content').length;
+        if(carouselContentLength){
+            $(".carousel-content").carousel({
+                carousel : ".carousel",//轮播图容器
+                //indexContainer : ".img-index",//下标容器
+                // prev : ".carousel-prev",//左按钮
+                // next : ".carousel-next",//右按钮
+                timing : 5000,//自动播放间隔
+                animateTime : 800,//动画时间
+                auto : true,//是否自动播放
+            });
+
+            $(".carousel-prev").hover(function(){
+                $(this).find("img").attr("src","./images/left_btn2.png");
+            },function(){
+                $(this).find("img").attr("src","./images/left_btn1.png");
+            });
+            $(".carousel-next").hover(function(){
+                $(this).find("img").attr("src","./images/right_btn2.png");
+            },function(){
+                $(this).find("img").attr("src","./images/right_btn1.png");
+            });
+
+            //规定banner的高度
+            $('#banner').height('450');
+            var bannerHeight=$('#banner').height();
+            $('#side_bar_menus').css('margin-top',-bannerHeight);
+        }
     });
 </script>
 

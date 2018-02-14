@@ -28,13 +28,13 @@
                                     </p>
                                     <p class="clear"></p>
                                     <p class="position-relative form-group margin-top-20">
-                                        <input type="checkbox" name="agree" id="agree"> 我已阅读并同意<a href=""  data-toggle="modal" data-target="#myModal">用户服务协议</a>
+                                        <input type="checkbox" name="agree" id="agree"> 我已阅读并同意<a href=""  data-toggle="modal" data-target="#myModal"><span class="text-blue">用户服务协议</span></a>
                                     </p>
                                     <p class="margin-top-20">
                                         <button class="btn btn-lg btn-primary btn-block" type="submit">注 册</button>
                                     </p>
                                     <p class="position-relative form-group margin-top-20 text-right">
-                                        <a href="{{ URL::asset('signIn') }}">我已有账号</a>
+                                        <a href="{{ URL::asset('signIn') }}"><span class="text-blue">我已有账号</span></a>
                                     </p>
                                 </form>
                             </div>

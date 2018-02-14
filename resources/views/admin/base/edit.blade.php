@@ -25,7 +25,7 @@
                             @else
                                 <img id="logoPrv" src="{{ URL::asset('/img/upload.png') }}" width="154" />
                             @endif
-                            <span class="c-red">*请上传154*105尺寸图片</span>
+                            <span class="c-red">*请上传154*105尺寸的图片</span>
                             <input type="hidden" class="input-text" id="logo" name="logo" value="{{ isset($data['logo']) ? $data['logo'] : '' }}"  />
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                             @else
                                 <img id="imagePrv" src="{{ URL::asset('/img/upload.png') }}" width="210" />
                             @endif
-                            <span class="c-red">*请上传330*225尺寸图片</span>
+                            <span class="c-red">*请上传330*225的尺寸图片</span>
                             <input type="hidden" class="input-text" id="picture" name="picture" value="{{ isset($data['picture']) ? $data['picture'] : '' }}"  />
                         </div>
                     </div>

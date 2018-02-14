@@ -59,7 +59,7 @@ class MenuManager
     }
 
     /*
-     * 根据menu_id所有栏目（模糊查询）
+     * 根据menu_id获取所有栏目（模糊查询）
      *
      * By zm
      *
@@ -75,7 +75,7 @@ class MenuManager
     }
 
     /*
-     * 根据menu_id所有栏目
+     * 根据menu_id获取所有栏目
      *
      * By zm
      *

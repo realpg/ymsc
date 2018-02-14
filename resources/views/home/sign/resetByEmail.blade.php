@@ -30,7 +30,7 @@
                                     <p class="margin-top-30">
                                         <button class="btn btn-lg btn-primary btn-block" type="submit">确 认 修 改</button>
                                     </p>
-                                    <p class="position-relative form-group margin-top-30 text-right">
+                                    <p class="position-relative form-group margin-top-30 text-right text-blue">
                                         <a href="{{ URL::asset('signIn') }}">返回登录</a>
                                     </p>
                                 </form>

@@ -30,7 +30,7 @@
                                         <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
                                     </p>
                                     <p class="position-relative form-group margin-top-30 text-right">
-                                        <a href="{{ URL::asset('reset') }}">忘记密码？</a>
+                                        <a href="{{ URL::asset('reset') }}"><span class="text-blue">忘记密码？</span></a>
                                     </p>
                                 </form>
                             </div>

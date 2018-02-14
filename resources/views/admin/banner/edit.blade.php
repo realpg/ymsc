@@ -29,12 +29,12 @@
                     <input type="hidden" class="input-text" id="picture" name="picture" value="{{ isset($data['picture']) ? $data['picture'] : '' }}"  />
                 </div>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">链接地址：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input id="link" name="link" type="text" class="input-text" value="{{ isset($data['link']) ? $data['link'] : '' }}" placeholder="请输入链接地址">
-                </div>
-            </div>
+            {{--<div class="row cl">--}}
+                {{--<label class="form-label col-xs-4 col-sm-2">链接地址：</label>--}}
+                {{--<div class="formControls col-xs-8 col-sm-9">--}}
+                    {{--<input id="link" name="link" type="text" class="input-text" value="{{ isset($data['link']) ? $data['link'] : '' }}" placeholder="请输入链接地址">--}}
+                {{--</div>--}}
+            {{--</div>--}}
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>栏目：</label>
                 <div class="formControls col-xs-8 col-sm-9">

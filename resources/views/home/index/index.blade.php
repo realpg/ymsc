@@ -10,7 +10,7 @@
         </div>
         <div class="style-home-index-search padding-top-50">
             <form class="form-signin">
-                <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" placeholder="再次输入搜索内容" />
+                <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" placeholder="输入搜索内容" />
                 <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search"></button>
             </form>
             <h6 class="line-height-30 index-font padding-bottom-0 margin-bottom-0">
@@ -22,7 +22,7 @@
                 </div>
                 @foreach($menus as $menu)
                     <div class="col-xs-12 col-lg-3">
-                        <p><a class="btn btn-default style-home-index-btn" href="#" role="button">{{$menu['name']}}</a></p>
+                        <p><a class="btn btn-default style-home-index-btn" href="{{URL::asset($menu['route'])}}" role="button">{{$menu['name']}}</a></p>
                     </div>
                 @endforeach
             </div>
