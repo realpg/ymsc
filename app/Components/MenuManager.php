@@ -106,6 +106,9 @@ class MenuManager
         if (array_key_exists('prefix', $data)) {
             $banner->prefix = array_get($data, 'prefix');
         }
+        if (array_key_exists('picture', $data)) {
+            $banner->picture = array_get($data, 'picture');
+        }
         if (array_key_exists('sort', $data)) {
             $banner->sort = array_get($data, 'sort');
         }

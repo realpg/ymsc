@@ -1,5 +1,9 @@
 @extends('home.layouts.base')
-
+@section('seo')
+    <title>{{$channel['seo_title']}}</title>
+    <meta name="keywords" content="{{$channel['seo_keywords']}}" />
+    <meta name="description" content="{{$channel['seo_description']}}" />
+@endsection
 @section('content')
 <div id="main-body">
     <div class="style-home-nav-station"></div>

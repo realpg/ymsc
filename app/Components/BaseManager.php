@@ -41,6 +41,9 @@ class BaseManager
         if (array_key_exists('logo', $data)) {
             $banner->logo = array_get($data, 'logo');
         }
+        if (array_key_exists('logo_page', $data)) {
+            $banner->logo_page = array_get($data, 'logo_page');
+        }
         if (array_key_exists('phonenum', $data)) {
             $banner->phonenum = array_get($data, 'phonenum');
         }

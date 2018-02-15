@@ -24,6 +24,7 @@ class ChemController
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
         $banners=BannerManager::getBannersByMenuId($menu_id);
+        $channel=MenuManager::getMenuById($menu_id);
         foreach ($menus as $menu){
             $menu_id=$menu['id'];
             $menu['chem_classes']=GoodsManager::getChemClassWithHot($menu_id);
@@ -33,6 +34,7 @@ class ChemController
             'column'=>$column,
             'user'=>$user,
             'menus'=>$menus,
+            'channel'=>$channel,
             'banners'=>$banners
         );
         return view('home.chem.index',$param);

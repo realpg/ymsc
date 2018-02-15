@@ -15,7 +15,17 @@
         <div class="list-group">
             <div href="#" class="style-home-banner-nav-title text-center font-size-16">全部商品分类</div>
             @foreach($menus as $menu)
-                <a href="#" class="style-home-banner-nav-list"><span class="text-silver-grey">{{$menu['name']}}</span></a>
+                <a href="#" class="style-home-banner-nav-list">
+                    <div class="float-left">
+                        @if(!empty($menu['picture']))
+                            <img src="{{URL::asset($menu['picture'])}}" style="width: 14px;border-radius: 100%;border: 1px solid #D1D2D4;" />
+                        @endif
+                        <span class="text-silver-grey">{{$menu['name']}}</span>
+                    </div>
+                    <div class="float-right">
+                        <span class="glyphicon glyphicon-menu-right text-silver-grey margin-top-2" aria-hidden="true"></span>
+                    </div>
+                </a>
             @endforeach
         </div>
     </div>

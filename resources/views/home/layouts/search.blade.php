@@ -2,7 +2,7 @@
     <div class="style-home-header">
         <div class="style-home-header-container">
             <div class="col-xs-12 col-sm-4 col-lg-4 text-center">
-                <img src="{{ URL::asset('/img/logo_page.jpg') }}"  />
+                <img src="{{ URL::asset($common['base']['logo_page']) }}"  />
             </div>
             <div class="col-xs-12 col-sm-8 col-lg-8 padding-top-22 padding-bottom-22">
                 <form class="form-signin">

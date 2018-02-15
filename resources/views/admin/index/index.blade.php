@@ -11,7 +11,7 @@
                 <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
                 <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                     <ul class="cl">
-                        <li><a href="{{ URL::asset('/') }}" class="dropDown_A">查看前台</a></li>
+                        <li><a href="{{ URL::asset('/') }}" class="dropDown_A" target="_blank">查看前台</a></li>
                         @if($admin['type']==1)
                             @if($admin['id']==1)
                                 <li>根级管理员</li>

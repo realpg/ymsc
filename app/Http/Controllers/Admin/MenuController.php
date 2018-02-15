@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Components\GoodsManager;
 use App\Components\MenuManager;
+use App\Components\QNManager;
 use App\Models\MenuModel;
 use Illuminate\Http\Request;
 
@@ -93,10 +94,13 @@ class MenuController
             else{
                 $menu=new MenuModel();
             }
+            //生成七牛token
+            $upload_token = QNManager::uploadToken();
             $param=array(
                 'admin'=>$admin,
                 'data'=>$menu,
                 'menuClassA'=>$menuClassA,
+                'upload_token'=>$upload_token
             );
             return view('admin.menu.edit', $param);
         }
