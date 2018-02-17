@@ -607,8 +607,8 @@ class GoodsManager
      */
     public static function getChemClassByMenuId($data){
         $menu_id=$data['menu_id'];
-        $f_attribute=$data['f_attribute'];
-        $s_attribute=$data['s_attribute'];
+        $f_attribute_id=$data['f_attribute_id'];
+        $s_attribute_id=$data['s_attribute_id'];
         $paginate=self::PAGEINATE;
         $chem_classes=ChemClassModel::where('menu_id',$menu_id)->orderBy('sort','desc')->paginate($paginate);
         return $chem_classes;

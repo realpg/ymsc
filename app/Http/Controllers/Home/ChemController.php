@@ -65,7 +65,9 @@ class ChemController extends Controller
             'user'=>$user,
             'channel'=>$channel,
             'attributes'=>$attributes,
-            'goodses'=>$goodses
+            'goodses'=>$goodses,
+            'f_attribute_id'=>$f_attribute_id,
+            's_attribute_id'=>$s_attribute_id
         );
         return view('home.chem.lists',$param);
     }
