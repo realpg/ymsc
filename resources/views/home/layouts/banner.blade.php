@@ -29,4 +29,15 @@
             @endforeach
         </div>
     </div>
+    @if($column=='machining')
+        <div class="col-xs-12 col-sm-3 col-md-offset-6 padding-0" id="sidebar">
+            <div class="common-text-align-center padding-10 margin-top-25 margin-bottom-25 white-bg height-400">
+                <div class="padding-10 border-upload height-100">
+                    <img src="{{URL::asset('img/machining_upload.png')}}" class="margin-bottom-20 margin-top-50 width-50" />
+                    <h3 class="text-blue margin-bottom-30">点击上传零件图纸</h3>
+                    <p class="common-text-align-left">温馨提示：<br />为了更精确地为您提供报价，最好同时提供2D和3D图纸，若只提供3D图纸，我们将按照常规精度报价。</p>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

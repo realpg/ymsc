@@ -59,7 +59,11 @@
                     </td>
                     <td>{{$data['id']}}</td>
                     <td><img width="100%" class="picture-thumb" src="{{$data['picture']}}?imageView2/2/w/200"></td>
-                    <td class="text-l">{{$data['name']}}</td>
+                    @if($data['hot']==0)
+                        <td class="text-l">{{$data['name']}}</td>
+                    @else
+                        <td class="text-l">{{$data['name']}} <span class="label label-danger radius">热销</span></td>
+                    @endif
                     <td>{{$data['number']}}</td>
                     <td>￥{{$data['price']/100}}&nbsp;/{{$data['unit']}}</td>
                     <td>{{$data['menu']['name']}}</td>

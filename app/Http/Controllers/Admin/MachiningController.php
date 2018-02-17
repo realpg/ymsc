@@ -13,6 +13,7 @@ use App\Components\GoodsManager;
 use App\Components\MenuManager;
 use App\Components\QNManager;
 use App\Models\GoodsCaseModel;
+use App\Models\GoodsDetailModel;
 use App\Models\GoodsMachiningAttributeModel;
 use App\Models\GoodsModel;
 use App\Models\GoodsStandardAttributeModel;

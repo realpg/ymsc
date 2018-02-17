@@ -114,12 +114,12 @@
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否标记为热门商品：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>是否标记为热销商品：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <span class="select-box">
                                 <select id="hot" name="hot" class="select">
                                     <option value="0" {{$data['hot'] == "0"? "selected":""}}>否</option>
-                                    <option value="1" {{$data['hot'] == "1"? "selected":""}}>热门</option>
+                                    <option value="1" {{$data['hot'] == "1"? "selected":""}}>热销</option>
                                 </select>
                             </span>
                         </div>
