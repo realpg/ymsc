@@ -22,7 +22,7 @@
                         热销
                     </span>
                     <span>
-                        <a href="">
+                        <a href="{{URL::asset($column.'/lists/'.$menu['id'])}}">
                             更多
                         </a>
                     </span>

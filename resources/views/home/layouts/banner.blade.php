@@ -15,7 +15,7 @@
         <div class="list-group">
             <div href="#" class="style-home-banner-nav-title text-center font-size-16">全部商品分类</div>
             @foreach($menus as $menu)
-                <a href="#" class="style-home-banner-nav-list">
+                <a href="{{URL::asset($column.'/lists/'.$menu['id'])}}" class="style-home-banner-nav-list">
                     <div class="float-left">
                         @if(!empty($menu['picture']))
                             <img src="{{URL::asset($menu['picture'])}}" style="width: 14px;border-radius: 100%;border: 1px solid #D1D2D4;" />

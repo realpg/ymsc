@@ -100,4 +100,26 @@ class AttributeManager
         $attributes=AttributeModel::where('attribute_id',$attribute_id)->orderBy('sort','desc')->get();
         return $attributes;
     }
+
+    /*
+     * 根据一级栏目获取搜索属性列表
+     *
+     * By zm
+     *
+     * 2018-02-17
+     *
+     */
+    public static function getClassAAttributeListsByMenuId($menu_id)
+    {
+        $where=array(
+            'menu_id'=>$menu_id,
+            'attribute_id'=>0
+        );
+        $attributes = AttributeModel::where($where)->orderBy('sort','desc')->get();
+        foreach ($attributes as $attribute){
+            $attribute_id=$attribute['id'];
+            $attribute['attributes']=AttributeModel::where('attribute_id',$attribute_id)->orderBy('sort','desc')->get();
+        }
+        return $attributes;
+    }
 }

@@ -21,6 +21,7 @@ use App\Models\MenuModel;
 
 class GoodsManager
 {
+    const PAGEINATE = 20;  //分页数目
     /*
      * 按menu_id获取商品
      *
@@ -601,6 +602,19 @@ class GoodsManager
     }
 
     /*
+     * 化学商城根据menu_id获取商品列表
+     *
+     */
+    public static function getChemClassByMenuId($data){
+        $menu_id=$data['menu_id'];
+        $f_attribute=$data['f_attribute'];
+        $s_attribute=$data['s_attribute'];
+        $paginate=self::PAGEINATE;
+        $chem_classes=ChemClassModel::where('menu_id',$menu_id)->orderBy('sort','desc')->paginate($paginate);
+        return $chem_classes;
+    }
+
+    /*
      * 第三方检测商城首页的热门商品
      *
      */
@@ -622,6 +636,93 @@ class GoodsManager
     }
 
     /*
+     * 第三方检测商城根据menu_id获取商品列表
+     *
+     */
+    public static function getTestingClassByMenuId($data){
+        $menu_id=$data['menu_id'];
+        $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
+        $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
+        $paginate=self::PAGEINATE;
+        if(empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'menu_id'=>$menu_id
+            );
+        }
+        else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'menu_id'=>$menu_id,
+                'f_attribute_id'=>$f_attribute_id
+            );
+        }
+        else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
+            $where=array(
+                'menu_id'=>$menu_id,
+                's_attribute_id'=>$s_attribute_id
+            );
+        }
+        else{
+            $where=array(
+                'menu_id'=>$menu_id,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id
+            );
+        }
+        $goodses=GoodsModel::where($where)->orderBy('sort','desc')->paginate($paginate);
+        foreach ($goodses as $goods){
+            $goods_id=$goods['id'];
+            $goods['goods_attribute']=GoodsTestingAttributeModel::where('goods_id',$goods_id)->first();
+            $f_attribute_id=$goods['f_attribute_id'];
+            $goods['f_attribute']=AttributeModel::where('id',$f_attribute_id)->first();
+            $s_attribute_id=$goods['s_attribute_id'];
+            $goods['s_attribute']=AttributeModel::where('id',$s_attribute_id)->first();
+        }
+        return $goodses;
+    }
+
+    /*
+     * 第三方检测商城模糊搜索获取商品列表
+     *
+     */
+    public static function getTestingClassBysearch($data){
+        $menu_id=$data['menu_id'];
+        $search=$data['search'];
+        $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
+        $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
+        $paginate=self::PAGEINATE;
+        $select=array(
+            'goods_info.id as id',
+            'goods_info.name as name',
+            'goods_info.picture as picture',
+            'goods_info.f_attribute_id as f_attribute_id',
+            'goods_info.s_attribute_id as s_attribute_id',
+            'goods_info.price as price',
+            'goods_info.unit as unit',
+        );
+        if(empty($f_attribute_id)&&empty($s_attribute_id)){
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
+        else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
+        else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
+        else{
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
+        foreach ($goodses as $goods){
+            $goods_id=$goods['id'];
+            $goods['goods_attribute']=GoodsTestingAttributeModel::where('goods_id',$goods_id)->first();
+            $f_attribute_id=$goods['f_attribute_id'];
+            $goods['f_attribute']=AttributeModel::where('id',$f_attribute_id)->first();
+            $s_attribute_id=$goods['s_attribute_id'];
+            $goods['s_attribute']=AttributeModel::where('id',$s_attribute_id)->first();
+        }
+        return $goodses;
+    }
+
+    /*
      * 机加工商城首页的热门商品
      *
      */
@@ -631,6 +732,103 @@ class GoodsManager
             'hot'=>1
         );
         $goodses=GoodsModel::where($where)->orderBy('sort','desc')->offset(0)->limit(4)->get();
+        foreach ($goodses as $goods){
+            $goods_id=$goods['id'];
+            $goods['goods_attribute']=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+            if($goods['goods_attribute']){
+                $goods['type']=0;
+            }
+            else{
+                $goods['goods_attribute']=GoodsStandardAttributeModel::where('goods_id',$goods_id)->first();
+                $goods['type']=1;
+            }
+            $f_attribute_id=$goods['f_attribute_id'];
+            $goods['f_attribute']=AttributeModel::where('id',$f_attribute_id)->first();
+        }
+        return $goodses;
+    }
+
+    /*
+     * 机加工商城根据menu_id获取商品列表
+     *
+     */
+    public static function getMachiningClassByMenuId($data){
+        $menu_id=$data['menu_id'];
+        $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
+        $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
+        $paginate=self::PAGEINATE;
+        if(empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'menu_id'=>$menu_id
+            );
+        }
+        else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'menu_id'=>$menu_id,
+                'f_attribute_id'=>$f_attribute_id
+            );
+        }
+        else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
+            $where=array(
+                'menu_id'=>$menu_id,
+                's_attribute_id'=>$s_attribute_id
+            );
+        }
+        else{
+            $where=array(
+                'menu_id'=>$menu_id,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id
+            );
+        }
+        $goodses=GoodsModel::where($where)->orderBy('sort','desc')->paginate($paginate);
+        foreach ($goodses as $goods){
+            $goods_id=$goods['id'];
+            $goods['goods_attribute']=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+            if($goods['goods_attribute']){
+                $goods['type']=0;
+            }
+            else{
+                $goods['goods_attribute']=GoodsStandardAttributeModel::where('goods_id',$goods_id)->first();
+                $goods['type']=1;
+            }
+            $f_attribute_id=$goods['f_attribute_id'];
+            $goods['f_attribute']=AttributeModel::where('id',$f_attribute_id)->first();
+        }
+        return $goodses;
+    }
+
+    /*
+     * 第三方检测商城模糊搜索获取商品列表
+     *
+     */
+    public static function getMachiningClassBysearch($data){
+        $menu_id=$data['menu_id'];
+        $search=$data['search'];
+        $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
+        $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
+        $paginate=self::PAGEINATE;
+        $select=array(
+            'goods_info.id as id',
+            'goods_info.name as name',
+            'goods_info.picture as picture',
+            'goods_info.f_attribute_id as f_attribute_id',
+            'goods_info.s_attribute_id as s_attribute_id',
+            'goods_info.price as price',
+            'goods_info.unit as unit',
+        );
+        if(empty($f_attribute_id)&&empty($s_attribute_id)){
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
+        else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
+        else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
+        else{
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+        }
         foreach ($goodses as $goods){
             $goods_id=$goods['id'];
             $goods['goods_attribute']=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();

@@ -8,6 +8,7 @@
 
 namespace app\Http\Controllers\Home;
 
+use App\Components\AttributeManager;
 use App\Components\BannerManager;
 use App\Components\GoodsManager;
 use App\Components\MenuManager;
@@ -39,5 +40,33 @@ class ChemController extends Controller
             'banners'=>$banners
         );
         return view('home.chem.index',$param);
+    }
+    /*
+     * 列表页
+     */
+    public function lists(Request $request, $menu_id, $f_attribute_id='', $s_attribute_id=''){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='chem';
+        $channel=MenuManager::getMenuById($menu_id);
+        $parant_menu_id=self::MENU_ID;
+        $channel['parent_channel']=MenuManager::getMenuById($parant_menu_id);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId($parant_menu_id);
+        $goods_param=array(
+            'menu_id'=>$menu_id,
+            'f_attribute_id'=>$f_attribute_id,
+            's_attribute_id'=>$s_attribute_id
+        );
+        $goodses=GoodsManager::getChemClassByMenuId($goods_param);
+        $param=array(
+            'common'=>$common,
+            'column'=>$column,
+            'user'=>$user,
+            'channel'=>$channel,
+            'attributes'=>$attributes,
+            'goodses'=>$goodses
+        );
+        return view('home.chem.lists',$param);
     }
 }

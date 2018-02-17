@@ -171,12 +171,32 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
 
     //化学商城
     Route::get('chem', 'Home\ChemController@index');        //化学商城首页
+    Route::get('chem/lists/{menu_id}', 'Home\ChemController@lists');        //化学商城列表页
+    Route::get('chem/lists/{menu_id}/f/{f_attribute_id}', 'Home\ChemController@lists');        //化学商城列表页
+    Route::get('chem/lists/{menu_id}/s/{s_attribute_id}', 'Home\ChemController@lists');        //化学商城列表页
+    Route::get('chem/lists/{menu_id}/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\ChemController@lists');        //化学商城列表页
 
     //第三方检测商城
     Route::get('testing', 'Home\TestingController@index');        //第三方检测商城首页
+    Route::get('testing/lists/{menu_id}', 'Home\TestingController@lists');        //第三方检测商城列表页
+    Route::get('testing/lists/{menu_id}/f/{f_attribute_id}', 'Home\TestingController@lists');        //第三方检测商城列表页
+    Route::get('testing/lists/{menu_id}/s/{s_attribute_id}', 'Home\TestingController@lists');        //第三方检测商城列表页
+    Route::get('testing/lists/{menu_id}/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\TestingController@lists');        //第三方检测商城列表页
+    Route::get('testing/search', 'Home\TestingController@search');        //第三方检测搜索商品
+    Route::get('testing/search/f/{f_attribute_id}', 'Home\TestingController@search');        //第三方检测搜索商品
+    Route::get('testing/search/s/{s_attribute_id}', 'Home\TestingController@search');        //第三方检测搜索商品
+    Route::get('testing/search/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\TestingController@search');        //第三方检测搜索商品
 
     //机加工商城
     Route::get('machining', 'Home\MachiningController@index');        //机加工商城首页
+    Route::get('machining/lists/{menu_id}', 'Home\MachiningController@lists');        //机加工商城列表页
+    Route::get('machining/lists/{menu_id}/f/{f_attribute_id}', 'Home\MachiningController@lists');        //机加工商城列表页
+    Route::get('machining/lists/{menu_id}/s/{s_attribute_id}', 'Home\MachiningController@lists');        //机加工商城列表页
+    Route::get('machining/lists/{menu_id}/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\MachiningController@lists');        //机加工商城列表页
+    Route::get('machining/search', 'Home\MachiningController@search');        //机加工搜索商品
+    Route::get('machining/search/f/{f_attribute_id}', 'Home\MachiningController@search');        //机加工搜索商品
+    Route::get('machining/search/s/{s_attribute_id}', 'Home\MachiningController@search');        //机加工搜索商品
+    Route::get('machining/search/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\MachiningController@search');        //机加工搜索商品
 });
 
 Auth::routes();
