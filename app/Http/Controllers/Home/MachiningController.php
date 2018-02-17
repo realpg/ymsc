@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2018/2/10
- * Time: 14:30
+ * Date: 2018/2/17
+ * Time: 9:03
  */
 
 namespace app\Http\Controllers\Home;
@@ -14,21 +14,21 @@ use App\Components\MenuManager;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ChemController extends Controller
+class MachiningController extends Controller
 {
-    const MENU_ID = 1;  //一级栏目
+    const MENU_ID = 3;  //一级栏目
     public function index(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='chem';
+        $column='machining';
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
         $banners=BannerManager::getBannersByMenuId($menu_id);
         $channel=MenuManager::getMenuById($menu_id);
         foreach ($menus as $menu){
             $menu_id=$menu['id'];
-            $menu['chem_classes']=GoodsManager::getChemClassWithHot($menu_id);
+            $menu['machining_goodses']=GoodsManager::getMachiningGoodsesWithHot($menu_id);
         }
         $param=array(
             'common'=>$common,
@@ -38,6 +38,6 @@ class ChemController extends Controller
             'channel'=>$channel,
             'banners'=>$banners
         );
-        return view('home.chem.index',$param);
+        return view('home.machining.index',$param);
     }
 }

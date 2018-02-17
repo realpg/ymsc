@@ -57,7 +57,7 @@ class MenuController
                 $menu = MenuModel::find($id);
                 $return=null;
                 $goodses=GoodsManager::getAllGoodsByMenuId($menu['id']);
-                if($goodses){
+                if(count($goodses)>0){
                     $return['result']=false;
                     $return['msg']='删除失败,为了保证网站正常运行，请先将该栏目下的商品删除或转移到其他栏目下';
                 }

@@ -8,6 +8,7 @@
 
 namespace App\Components;
 
+use App\Models\AttributeModel;
 use App\Models\ChemClassModel;
 use App\Models\GoodsCaseModel;
 use App\Models\GoodsChemAttributeModel;
@@ -587,7 +588,7 @@ class GoodsManager
     }
 
     /*
-     * 化学商品类与栏目表联立输出列表
+     * 化学商城首页的热门商品
      *
      */
     public static function getChemClassWithHot($menu_id){
@@ -597,5 +598,52 @@ class GoodsManager
         );
         $chem_classes=ChemClassModel::where($where)->orderBy('sort','desc')->offset(0)->limit(4)->get();
         return $chem_classes;
+    }
+
+    /*
+     * 第三方检测商城首页的热门商品
+     *
+     */
+    public static function getTestingGoodsesWithHot($menu_id){
+        $where=array(
+            'menu_id'=>$menu_id,
+            'hot'=>1
+        );
+        $goodses=GoodsModel::where($where)->orderBy('sort','desc')->offset(0)->limit(4)->get();
+        foreach ($goodses as $goods){
+            $goods_id=$goods['id'];
+            $goods['goods_attribute']=GoodsTestingAttributeModel::where('goods_id',$goods_id)->first();
+            $f_attribute_id=$goods['f_attribute_id'];
+            $goods['f_attribute']=AttributeModel::where('id',$f_attribute_id)->first();
+            $s_attribute_id=$goods['s_attribute_id'];
+            $goods['s_attribute']=AttributeModel::where('id',$s_attribute_id)->first();
+        }
+        return $goodses;
+    }
+
+    /*
+     * 机加工商城首页的热门商品
+     *
+     */
+    public static function getMachiningGoodsesWithHot($menu_id){
+        $where=array(
+            'menu_id'=>$menu_id,
+            'hot'=>1
+        );
+        $goodses=GoodsModel::where($where)->orderBy('sort','desc')->offset(0)->limit(4)->get();
+        foreach ($goodses as $goods){
+            $goods_id=$goods['id'];
+            $goods['goods_attribute']=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+            if($goods['goods_attribute']){
+                $goods['type']=0;
+            }
+            else{
+                $goods['goods_attribute']=GoodsStandardAttributeModel::where('goods_id',$goods_id)->first();
+                $goods['type']=1;
+            }
+            $f_attribute_id=$goods['f_attribute_id'];
+            $goods['f_attribute']=AttributeModel::where('id',$f_attribute_id)->first();
+        }
+        return $goodses;
     }
 }

@@ -30,17 +30,21 @@
             </div>
             <div class="clear"></div>
             <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2">
-                @foreach($menu['chem_classes'] as $chem_class)
+                @foreach($menu['testing_goodses'] as $testing_goods)
                     <div class="col-xs-12 col-sm-3 padding-top-10 padding-right-10 padding-left-10">
                         <a href="">
                             <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-radius-5 border-shadow">
-                                <h3 class="style-ellipsis-1">{{$chem_class['name']}}</h3>
-                                <h4 class="style-ellipsis-1">{{$chem_class['english_name']}}</h4>
+                                <h3 class="style-ellipsis-2 font-size-20 line-height-25 height-50">{{$testing_goods['name']}}</h3>
                                 <div class="goods-lists-picture">
-                                    <img class="img-circle" src="{{$chem_class['picture']}}" alt="{{$chem_class['name']}}">
+                                    <img class="img-circle" src="{{$testing_goods['picture']}}" alt="{{$testing_goods['name']}}">
                                 </div>
-                                <h4 class="style-ellipsis-1">CAS号：{{$chem_class['cas']}}</h4>
-                                <h4 class="style-ellipsis-1">分子式：{{$chem_class['molecule']}}</h4>
+                                <button type="button" class="btn btn-info margin-top-10 margin-bottom-10">立 即 咨 询</button>
+                                @if($testing_goods['goods_attribute']['lab'])
+                                    <h4 class="style-ellipsis-1">实验室：{{$testing_goods['goods_attribute']['lab']}}</h4>
+                                @else
+                                    <h4 class="style-ellipsis-1">&nbsp;</h4>
+                                @endif
+                                <h4 class="style-ellipsis-1">应用领域：{{$testing_goods['f_attribute']['name']}}</h4>
                             </div>
                         </a>
                     </div>

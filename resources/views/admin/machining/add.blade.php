@@ -40,7 +40,7 @@
                             @else
                                 <img id="imagePrv" src="{{ URL::asset('/img/upload.png') }}" width="210" />
                             @endif
-                            <span class="c-red">*请上传图片</span>
+                            <span class="c-red">*请上传180*180尺寸的图片</span>
                             <input type="hidden" class="input-text" id="picture" name="picture" value="{{ isset($data['picture']) ? $data['picture'] : '' }}"  />
                         </div>
                     </div>

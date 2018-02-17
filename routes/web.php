@@ -171,6 +171,12 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
 
     //化学商城
     Route::get('chem', 'Home\ChemController@index');        //化学商城首页
+
+    //第三方检测商城
+    Route::get('testing', 'Home\TestingController@index');        //第三方检测商城首页
+
+    //机加工商城
+    Route::get('machining', 'Home\MachiningController@index');        //机加工商城首页
 });
 
 Auth::routes();
