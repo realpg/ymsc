@@ -33,7 +33,7 @@
                 @foreach($menu['testing_goodses'] as $testing_goods)
                     <div class="col-xs-12 col-sm-3 padding-top-10 padding-right-10 padding-left-10">
                         <a href="">
-                            <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-radius-5 border-shadow">
+                            <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
                                 <h3 class="style-ellipsis-2 font-size-20 line-height-25 height-50">{{$testing_goods['name']}}</h3>
                                 <div class="goods-lists-picture">
                                     <img class="img-circle" src="{{$testing_goods['picture']}}" alt="{{$testing_goods['name']}}">

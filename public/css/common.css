@@ -473,6 +473,15 @@
     box-shadow:0 0 8px rgba(123,157,212,0.8);
 }
 
+.border-box{
+    border: 1px solid #ccc;
+}
+
+.border-box:hover{
+    border: 1px solid #ccc;
+    box-shadow:0 0 8px rgba(81, 81,81,0.8);
+}
+
 .text-oneline {
     display: -webkit-box;
     -webkit-box-orient: vertical;
