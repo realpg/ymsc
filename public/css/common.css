@@ -484,6 +484,10 @@
     border:2px solid #337ab7;
 }
 
+.border-bottom-navy-blue{
+    border-bottom: 5px solid #1A1D30;
+}
+
 
 /*边框投影*/
 .border-shadow{

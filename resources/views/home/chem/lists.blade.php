@@ -25,11 +25,38 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-xs-12 col-sm-9 padding-10" style="min-height: 365px;">
+                    <div class="line-height-40 border-bottom-navy-blue row common-text-align-center">
+                        <div class="col-xs-2 col-sm-2 background-navy-blue text-white">货 号</div>
+                        <div class="col-xs-2 col-sm-2">品 牌</div>
+                        <div class="col-xs-2 col-sm-2">纯 度</div>
+                        <div class="col-xs-2 col-sm-2">规 格</div>
+                        <div class="col-xs-1 col-sm-1">货 期</div>
+                        <div class="col-xs-2 col-sm-2">优 迈 价</div>
+                        <div class="col-xs-1 col-sm-1">操 作</div>
+                    </div>
+                    @foreach($goods['goodses'] as $goods['goods'])
+                        <div class="line-height-40 border-bottom-attribute row common-text-align-center">
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['number']}}</div>
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['f_attribute']}}</div>
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['s_attribute']}}</div>
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['spec']}}</div>
+                            <div class="col-xs-1 col-sm-1">{{$goods['goods']['delivery']}}</div>
+                            <div class="col-xs-2 col-sm-2">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</div>
+                            <div class="col-xs-1 col-sm-1">详 情</div>
+                        </div>
+                    @endforeach
+                </div>
             @endforeach
+            @if(count($goodses)==0)
+                <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
+                    <img src="{{ URL::asset('img/nothing.png') }}"  />
+                </div>
+                <div class="margin-top-20 text-center index-font">
+                    没有您要找的商品！
+                </div>
+            @endif
             <div class="clear"></div>
-            <div class="common-text-align-center">
-                {!! $goodses->links() !!}
-            </div>
         </div>
     </div>
 </div>
