@@ -42,7 +42,7 @@
                             <div class="col-xs-2 col-sm-2">{{$goods['goods']['s_attribute']}}</div>
                             <div class="col-xs-2 col-sm-2">{{$goods['goods']['spec']}}</div>
                             <div class="col-xs-1 col-sm-1">{{$goods['goods']['delivery']}}</div>
-                            <div class="col-xs-2 col-sm-2">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</div>
+                            <div class="col-xs-2 col-sm-2 text-red">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</div>
                             <div class="col-xs-1 col-sm-1">详 情</div>
                         </div>
                     @endforeach
