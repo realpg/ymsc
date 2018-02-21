@@ -32,7 +32,7 @@
             <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2">
                 @foreach($menu['chem_classes'] as $chem_class)
                     <div class="col-xs-12 col-sm-3 padding-top-10 padding-right-10 padding-left-10">
-                        <a href="">
+                        <a href="{{URL::asset($column.'/classlists/'.$chem_class['id'])}}">
                             <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
                                 <h3 class="style-ellipsis-1">{{$chem_class['name']}}</h3>
                                 <h4 class="style-ellipsis-1">{{$chem_class['english_name']}}</h4>

@@ -591,6 +591,9 @@ class GoodsManager
     /*
      * 化学商城首页的热门商品
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getChemClassWithHot($menu_id){
         $where=array(
@@ -604,12 +607,16 @@ class GoodsManager
     /*
      * 化学商城根据menu_id获取商品列表
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getChemClassByMenuId($data){
         $menu_id=$data['menu_id'];
         $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
         $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
         $chem_classes=ChemClassModel::where('menu_id',$menu_id)->orderBy('sort','desc')->get();
+        $goods_paginate=6;
         if(empty($f_attribute_id)&&empty($s_attribute_id)){
             $where=array(
                 'goods_info.menu_id'=>$menu_id,
@@ -634,7 +641,7 @@ class GoodsManager
                 'goods_info.s_attribute_id'=>$s_attribute_id
             );
         }
-        $get=array(
+        $select=array(
             'chem_class_info.id as id',
             'chem_class_info.name as name',
             'chem_class_info.sub_name as sub_name',
@@ -660,7 +667,7 @@ class GoodsManager
                 ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
                 ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
                 ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
-                ->where($where)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->get($get);
+                ->where($where)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->select($select)->paginate($goods_paginate);
             if(count($chem_class['goodses'])==0){
                 unset($chem_classes[$k]);
             }
@@ -671,11 +678,15 @@ class GoodsManager
     /*
      * 化学商城模糊搜索
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getChemClassBySearch($data){
         $search=$data['search'];
         $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
         $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
+        $goods_paginate=6;
         $chem_classes=ChemClassModel::where(function ($chem_classes) use ($search) {
             $chem_classes->where('name'  , 'like', '%'.$search.'%')
                 ->orwhere('cas', 'like', '%'.$search.'%');
@@ -699,7 +710,7 @@ class GoodsManager
                 'goods_info.s_attribute_id'=>$s_attribute_id
             );
         }
-        $get=array(
+        $select=array(
             'chem_class_info.id as id',
             'chem_class_info.name as name',
             'chem_class_info.sub_name as sub_name',
@@ -725,7 +736,7 @@ class GoodsManager
                 ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
                 ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
                 ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
-                ->where($where)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->get($get);
+                ->where($where)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->select($select)->paginate($goods_paginate);
             if(count($chem_class['goodses'])==0){
                 unset($chem_classes[$k]);
             }
@@ -734,8 +745,76 @@ class GoodsManager
     }
 
     /*
+     * 化学商城根据chem_class_id获取商品列表
+     *
+     * by zm
+     *
+     * 2018-02-21
+     */
+    public static function getGoodsesByClassId($data){
+        $chem_class_id=$data['class_id'];
+        $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
+        $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
+        $paginate=self::PAGEINATE;
+        if(empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'goods_chem_attribute_info.chem_class_id'=>$chem_class_id,
+            );
+        }
+        else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'goods_chem_attribute_info.chem_class_id'=>$chem_class_id,
+                'goods_info.f_attribute_id'=>$f_attribute_id
+            );
+        }
+        else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
+            $where=array(
+                'goods_chem_attribute_info.chem_class_id'=>$chem_class_id,
+                'goods_info.s_attribute_id'=>$s_attribute_id
+            );
+        }
+        else{
+            $where=array(
+                'goods_chem_attribute_info.chem_class_id'=>$chem_class_id,
+                'goods_info.f_attribute_id'=>$f_attribute_id,
+                'goods_info.s_attribute_id'=>$s_attribute_id
+            );
+        }
+        $select=array(
+            'chem_class_info.id as id',
+            'chem_class_info.name as name',
+            'chem_class_info.sub_name as sub_name',
+            'chem_class_info.english_name as english_name',
+            'chem_class_info.menu_id as menu_id',
+            'chem_class_info.picture as picture',
+            'chem_class_info.cas as cas',
+            'chem_class_info.molecule as molecule',
+            'goods_info.id as goods_id',
+            'goods_info.number as number',
+            'goods_info.price as price',
+            'goods_info.unit as unit',
+            'goods_info.f_attribute_id as f_attribute_id',
+            'goods_info.s_attribute_id as s_attribute_id',
+            'goods_chem_attribute_info.spec as spec',
+            'goods_chem_attribute_info.delivery as delivery',
+            'f_attribute.name as f_attribute',
+            's_attribute.name as s_attribute',
+        );
+        $chem_class=ChemClassModel::find($chem_class_id);
+        $chem_class['goodses']=GoodsModel::join('goods_chem_attribute_info','goods_chem_attribute_info.goods_id','=','goods_info.id')
+            ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
+            ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
+            ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
+            ->where($where)->select($select)->paginate($paginate);
+        return $chem_class;
+    }
+
+    /*
      * 第三方检测商城首页的热门商品
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getTestingGoodsesWithHot($menu_id){
         $where=array(
@@ -757,6 +836,9 @@ class GoodsManager
     /*
      * 第三方检测商城根据menu_id获取商品列表
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getTestingClassByMenuId($data){
         $menu_id=$data['menu_id'];
@@ -802,6 +884,9 @@ class GoodsManager
     /*
      * 第三方检测商城模糊搜索获取商品列表
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getTestingClassBysearch($data){
         $menu_id=$data['menu_id'];
@@ -844,6 +929,9 @@ class GoodsManager
     /*
      * 机加工商城首页的热门商品
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getMachiningGoodsesWithHot($menu_id){
         $where=array(
@@ -870,6 +958,9 @@ class GoodsManager
     /*
      * 机加工商城根据menu_id获取商品列表
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getMachiningClassByMenuId($data){
         $menu_id=$data['menu_id'];
@@ -920,6 +1011,9 @@ class GoodsManager
     /*
      * 第三方检测商城模糊搜索获取商品列表
      *
+     * by zm
+     *
+     * 2018-02-16
      */
     public static function getMachiningClassBysearch($data){
         $menu_id=$data['menu_id'];

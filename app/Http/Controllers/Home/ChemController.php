@@ -103,4 +103,35 @@ class ChemController extends Controller
         );
         return view('home.chem.search',$param);
     }
+    /*
+     * 大类页
+     */
+    public function classlists(Request $request, $class_id, $f_attribute_id='', $s_attribute_id=''){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='chem';
+        $menu_id=self::MENU_ID;
+        $class=GoodsManager::getAllChemClassByChemClassId($class_id);
+        $channel=MenuManager::getMenuById($menu_id);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId($menu_id);
+        $goods_param=array(
+            'class_id'=>$class_id,
+            'f_attribute_id'=>$f_attribute_id,
+            's_attribute_id'=>$s_attribute_id
+        );
+        $chem_class=GoodsManager::getGoodsesByClassId($goods_param);
+        $param=array(
+            'common'=>$common,
+            'column'=>$column,
+            'user'=>$user,
+            'class'=>$class,
+            'channel'=>$channel,
+            'attributes'=>$attributes,
+            'chem_class'=>$chem_class,
+            'f_attribute_id'=>$f_attribute_id,
+            's_attribute_id'=>$s_attribute_id
+        );
+        return view('home.chem.classlists',$param);
+    }
 }

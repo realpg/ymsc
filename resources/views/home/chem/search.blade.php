@@ -13,7 +13,7 @@
         <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2">
             @foreach($goodses as $goods)
                 <div class="col-xs-12 col-sm-3 padding-10">
-                    <a href="">
+                    <a href="{{URL::asset($column.'/classlists/'.$goods['id'])}}">
                         <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
                             <h3 class="style-ellipsis-1">{{$goods['name']}}</h3>
                             <h4 class="style-ellipsis-1">{{$goods['english_name']}}</h4>
@@ -46,6 +46,13 @@
                             <div class="col-xs-1 col-sm-1">详 情</div>
                         </div>
                     @endforeach
+                    @if(count($goods['goodses'])>6)
+                        <a href="{{URL::asset($column.'/classlists/'.$goods['id'])}}">
+                            <div onclik="show_goods_lists()" class="line-height-30 row common-text-align-center margin-top-10 background-navy-blue text-white" style="margin-top:23px;">
+                                加载更多
+                            </div>
+                        </a>
+                    @endif
                 </div>
             @endforeach
             @if(count($goodses)==0)
