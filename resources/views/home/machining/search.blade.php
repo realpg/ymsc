@@ -31,7 +31,7 @@
                     </div>
                 @else
                     <div class="col-xs-12 col-sm-3 padding-10">
-                        <a href="">
+                        <a href="{{URL::asset($column.'/detail/standard/'.$goods['id'])}}">
                             <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box padding-top-10">
                                 <div class="goods-lists-picture">
                                     <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">

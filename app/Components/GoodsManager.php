@@ -1109,4 +1109,25 @@ class GoodsManager
         }
         return $goodses;
     }
+
+    /*
+     * 标品库商品按成分搜索相似产品
+     *
+     * by zm
+     *
+     * 2018-02-22
+     */
+    public static function getStandardListsByComponent($id,$component){
+        $get=array(
+            'goods_info.id as id',
+            'goods_info.picture as picture',
+            'goods_info.name as name'
+        );
+        $goodses=GoodsStandardAttributeModel::join('goods_info','goods_info.id','=','goods_standard_attribute_info.goods_id')
+            ->where('component',$component)
+            ->whereNotIn('goods_standard_attribute_info.id', [$id])
+            ->orderBy('goods_info.sort','desc')
+            ->get($get);
+        return $goodses;
+    }
 }
