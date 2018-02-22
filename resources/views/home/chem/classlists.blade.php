@@ -8,8 +8,10 @@
 <div id="main-body">
     <div class="style-home-nav-station"></div>
     @include('home.layouts.search')
-    <div class="container line-height-40 border-bottom-attribute">
-        商城 > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a> > {{$chem_class['name']}}
+    <div class="border-bottom-attribute">
+        <div class="container line-height-40">
+            商城 > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a> > {{$chem_class['name']}}
+        </div>
     </div>
     <div class="container margin-bottom-20" id="goods_lists">
         <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2">
