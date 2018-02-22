@@ -17,12 +17,9 @@
         <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2 border-div min-height-content">
             <div class="col-xs-12 col-sm-3 padding-10">
                 <div class="text-center margin-right-10 padding-bottom-10 padding-right-10 padding-left-10">
-
-                    <h4 class="style-ellipsis-1">{{$goods['english_name']}}</h4>
-                    <div class="goods-lists-picture">
+                    <div class="goods-lists-picture padding-top-40" style="width:100%;height:100%;">
                         <img class="img-circle" src="{{$goods['chem_class']['picture']}}" alt="{{$goods['name']}}">
                     </div>
-
                 </div>
             </div>
             <div class="col-xs-12 col-sm-9 padding-10">

@@ -18,11 +18,12 @@ use Illuminate\Http\Request;
 class TestingController extends Controller
 {
     const MENU_ID = 2;  //一级栏目
+    const COLUMN = 'testing';
     public function index(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='testing';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
         $banners=BannerManager::getBannersByMenuId($menu_id);
@@ -48,7 +49,7 @@ class TestingController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='testing';
+        $column=self::COLUMN;
         $channel=MenuManager::getMenuById($menu_id);
         $parant_menu_id=self::MENU_ID;
         $channel['parent_channel']=MenuManager::getMenuById($parant_menu_id);
@@ -78,7 +79,7 @@ class TestingController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='testing';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $search=$data['search'];
         $channel=MenuManager::getMenuById($menu_id);
@@ -102,5 +103,31 @@ class TestingController extends Controller
             'search'=>$search
         );
         return view('home.testing.search',$param);
+    }
+    /*
+     * 商品详情页
+     */
+    public function detail(Request $request, $goods_id){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column=self::COLUMN;
+        $menu_id=self::MENU_ID;
+        $goods = GoodsManager::getGoodsById($goods_id);
+        $goods['attribute']=GoodsManager::getGoodsTestingAttributeByGoodsId($goods_id);
+        $goods['f_attribute']=AttributeManager::getAttributeById($goods['f_attribute_id']);
+        $goods['s_attribute']=AttributeManager::getAttributeById($goods['s_attribute_id']);
+        $channel=MenuManager::getMenuById($goods['menu_id']);
+        $channel['parent_channel']=MenuManager::getMenuById($menu_id);
+        $goods['other_goodses']=GoodsManager::getChemClassByAttribute($goods);
+        $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
+        $param=array(
+            'common'=>$common,
+            'column'=>$column,
+            'user'=>$user,
+            'channel'=>$channel,
+            'goods'=>$goods
+        );
+        return view('home.testing.detail',$param);
     }
 }

@@ -195,6 +195,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('testing/search/f/{f_attribute_id}', 'Home\TestingController@search');        //第三方检测搜索商品
     Route::get('testing/search/s/{s_attribute_id}', 'Home\TestingController@search');        //第三方检测搜索商品
     Route::get('testing/search/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\TestingController@search');        //第三方检测搜索商品
+    Route::get('testing/detail/{goods_id}', 'Home\TestingController@detail');        //第三方检测商品详情页
 
     //机加工商城
     Route::get('machining', 'Home\MachiningController@index');        //机加工商城首页

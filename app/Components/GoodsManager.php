@@ -226,6 +226,9 @@ class GoodsManager
         if (array_key_exists('address', $data)) {
             $goods_testing_attribute->address = array_get($data, 'address');
         }
+        if (array_key_exists('explain', $data)) {
+            $goods_testing_attribute->explain = array_get($data, 'explain');
+        }
         return $goods_testing_attribute;
     }
 

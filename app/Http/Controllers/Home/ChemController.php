@@ -18,11 +18,12 @@ use Illuminate\Http\Request;
 class ChemController extends Controller
 {
     const MENU_ID = 1;  //一级栏目
+    const COLUMN = 'chem';
     public function index(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='chem';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
         $banners=BannerManager::getBannersByMenuId($menu_id);
@@ -48,7 +49,7 @@ class ChemController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='chem';
+        $column=self::COLUMN;
         $channel=MenuManager::getMenuById($menu_id);
         $parant_menu_id=self::MENU_ID;
         $channel['parent_channel']=MenuManager::getMenuById($parant_menu_id);
@@ -78,7 +79,7 @@ class ChemController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='chem';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $search=$data['search'];
         $channel=MenuManager::getMenuById($menu_id);
@@ -110,7 +111,7 @@ class ChemController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='chem';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $class=GoodsManager::getAllChemClassByChemClassId($class_id);
         $channel=MenuManager::getMenuById($menu_id);
@@ -141,13 +142,12 @@ class ChemController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='chem';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $goods = GoodsManager::getGoodsById($goods_id);
         $goods['attribute']=GoodsManager::getGoodsChemAttributeByGoodsId($goods_id);
         $goods['chem_class']=GoodsManager::getAllChemClassByChemClassId($goods['attribute']['chem_class_id']);
         $goods['f_attribute']=AttributeManager::getAttributeById($goods['f_attribute_id']);
-        $goods['s_attribute']=AttributeManager::getAttributeById($goods['s_attribute_id']);
         $goods['s_attribute']=AttributeManager::getAttributeById($goods['s_attribute_id']);
         $channel=MenuManager::getMenuById($goods['menu_id']);
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);

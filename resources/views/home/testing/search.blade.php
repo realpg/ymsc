@@ -13,7 +13,7 @@
         <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2">
             @foreach($goodses as $goods)
                 <div class="col-xs-12 col-sm-3 padding-10">
-                    <a href="">
+                    <a href="{{URL::asset($column.'/detail/'.$goods['id'])}}">
                         <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
                             <h3 class="style-ellipsis-2 font-size-20 line-height-25 height-50">{{$goods['name']}}</h3>
                             <div class="goods-lists-picture">

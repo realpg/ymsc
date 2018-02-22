@@ -488,6 +488,10 @@
     border:2px solid #337ab7;
 }
 
+.border-navy-blue{
+    border: 1px solid #1A1D30;
+}
+
 .border-bottom-navy-blue{
     border-bottom: 5px solid #1A1D30;
 }
@@ -1049,6 +1053,22 @@ label.error {
     -moz-transform: scale(1.2); /*Firefox*/
     -ms-transform: scale(1.2); /*IE9*/
     -o-transform: scale(1.2); /*Opera*/
+}
+#tab li{
+    cursor:pointer;
+}
+.tab_active{
+    background: #1A1D30;color:#fff;
+}
+.tab_content:after{
+    content: '';
+    display: block;
+    clear: both;
+}
+.tab_content li{
+    width: 100%;
+    padding:20px;
+    display: none;
 }
 @media screen and (max-width: 1028px) {
     .style-home-index-search{

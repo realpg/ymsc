@@ -326,6 +326,12 @@
                         </div>
                     </div>
                     <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开发和收费情况：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea  id="explain" name="explain" wrap="\n" class="textarea" style="resize:vertical;" placeholder="开发和收费情况" dragonfly="true" nullmsg="开发和收费情况！">{{ isset($data['attribute']['explain']) ? $data['attribute']['explain'] : '' }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
                             <button onClick="layer_close();" class="btn btn-default radius" type="button">取消</button>
@@ -417,6 +423,9 @@
                         required: true,
                     },
                     address: {
+                        required: true,
+                    },
+                    explain: {
                         required: true,
                     },
                 },

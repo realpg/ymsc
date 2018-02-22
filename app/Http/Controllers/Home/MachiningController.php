@@ -18,11 +18,12 @@ use Illuminate\Http\Request;
 class MachiningController extends Controller
 {
     const MENU_ID = 3;  //一级栏目
+    const COLUMN = 'machining';
     public function index(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='machining';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
         $banners=BannerManager::getBannersByMenuId($menu_id);
@@ -48,7 +49,7 @@ class MachiningController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='machining';
+        $column=self::COLUMN;
         $channel=MenuManager::getMenuById($menu_id);
         $parant_menu_id=self::MENU_ID;
         $channel['parent_channel']=MenuManager::getMenuById($parant_menu_id);
@@ -78,7 +79,7 @@ class MachiningController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $column='machining';
+        $column=self::COLUMN;
         $menu_id=self::MENU_ID;
         $search=$data['search'];
         $channel=MenuManager::getMenuById($menu_id);
