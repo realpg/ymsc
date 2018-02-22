@@ -1,0 +1,161 @@
+@extends('home.layouts.base')
+@section('seo')
+    <title>{{$goods['seo_title']?$goods['seo_title']:$common['base']['seo_title']}}</title>
+    <meta name="keywords" content="{{$goods['seo_keywords']?$goods['seo_keywords']:$common['base']['seo_keywords']}}" />
+    <meta name="description" content="{{$goods['seo_description']?$goods['seo_description']:$common['base']['seo_description']}}" />
+@endsection
+@section('content')
+<div id="main-body">
+    <div class="style-home-nav-station"></div>
+    @include('home.layouts.search')
+    <div class="container line-height-40 border-bottom-attribute">
+        商城 > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> >  <a href="{{URL::asset($column.'/lists/'.$goods['menu_id'])}}">{{$channel['name']}}</a> >{{$goods['name']}}
+    </div>
+    <div class="container margin-bottom-20" id="goods_lists">
+        <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2 border-div min-height-content">
+            <div class="col-xs-12 col-sm-3 padding-10">
+                <div class="text-center margin-right-10 padding-bottom-10 padding-right-10 padding-left-10">
+
+                    <h4 class="style-ellipsis-1">{{$goods['english_name']}}</h4>
+                    <div class="goods-lists-picture">
+                        <img class="img-circle" src="{{$goods['chem_class']['picture']}}" alt="{{$goods['name']}}">
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 padding-10">
+                <h3 class="style-ellipsis-1 line-height-30">{{$goods['name']}}</h3>
+                <h4 class="style-ellipsis-1 line-height-30">CAS号：{{$goods['chem_class']['cas']}}</h4>
+                <h4 class="style-ellipsis-1 line-height-30">
+                    <div class="col-xs-6 col-sm-2 padding-0">规格：{{$goods['attribute']['spec']}}</div>
+                    <div class="col-xs-6 col-sm-2 padding-0">纯度：{{$goods['s_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-2 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
+                    <div class="col-xs-6 col-sm-2 padding-0">分类：{{$goods['f_attribute']['name']}}</div>
+                </h4>
+                <h3 class="style-ellipsis-1 line-height-30">
+                    价 格：<span class="text-red">￥{{$goods['price']/100}}{{$goods['unit']}}</span>
+                </h3>
+                <h4 class="style-ellipsis-1 line-height-30 margin-top-20">
+                    数量：
+                    <input id="min" name="" type="button" value="-" class="background-none border-div" />
+                    <input id="text_box" name="" type="text" value="1" class="border-div width-50px common-text-align-center"/>
+                    <input id="add" name="" type="button" value="+" class="background-none border-div" />
+                </h4>
+                <div class="row margin-top-20">
+                    <div class="col-xs-6 col-sm-3">
+                        <button type="button" class="btn btn-danger width-100 border-ridus-0">购 买</button>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <button type="button" class="btn btn-default width-100 border-ridus-0 background-none">加入购物车</button>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="margin-bottom-10">
+            <div class="line-height-40 border-bottom-navy-blue row common-text-align-center">
+                <div class="col-xs-12 col-sm-2 background-navy-blue text-white">其 他 规 格</div>
+            </div>
+            <div class="line-height-40 border-bottom-attribute row common-text-align-center">
+                <div class="col-xs-2 col-sm-2">货号</div>
+                <div class="col-xs-2 col-sm-2">品牌</div>
+                <div class="col-xs-2 col-sm-2">纯度</div>
+                <div class="col-xs-2 col-sm-2">规格</div>
+                <div class="col-xs-2 col-sm-2">货期</div>
+                <div class="col-xs-2 col-sm-2 text-red">优迈价</div>
+            </div>
+            @foreach($goods['other_goodses'] as $goods['other_goods'])
+                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
+                    <div class="line-height-40 border-bottom-attribute row common-text-align-center">
+                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['number']}}</div>
+                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['f_attribute']}}</div>
+                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['s_attribute']}}</div>
+                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['spec']}}</div>
+                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['delivery']}}</div>
+                        <div class="col-xs-0 col-sm-2 text-red">￥{{$goods['other_goods']['price']/100}}/{{$goods['other_goods']['unit']}}</div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+        <div class="margin-top-20">
+            <div class="line-height-40 border-bottom-navy-blue row common-text-align-center">
+                <div class="col-xs-12 col-sm-2 background-navy-blue text-white">商 品 详 情</div>
+            </div>
+            <div>
+                <div class="line-height-40 row" style="background: #E7E7E7;">
+                    <div class="col-xs-12 col-sm-2 common-text-align-center">商 品 信 息</div>
+                </div>
+                <div class="line-height-40 row border-detail border-bottom-0">
+                    <div class="col-xs-12 col-sm-1 padding-0"></div>
+                    <div class="col-xs-12 col-sm-3 padding-0">名 称：{{$goods['name']}}</div>
+                    <div class="col-xs-12 col-sm-2 padding-0">品 牌：{{$goods['f_attribute']['name']}}</div>
+                    <div class="col-xs-12 col-sm-3 padding-0">纯 度：{{$goods['s_attribute']['name']}}</div>
+                    <div class="col-xs-12 col-sm-3 padding-0">规 格：{{$goods['attribute']['spec']}}</div>
+                    <div class="col-xs-12 col-sm-1 padding-0"></div>
+                </div>
+                <div class="line-height-40 border-bottom-attribute row border-detail border-top-0">
+                    <div class="col-xs-12 col-sm-1 padding-0"></div>
+                    <div class="col-xs-12 col-sm-3 padding-0">货 号：{{$goods['number']}}</div>
+                    <div class="col-xs-12 col-sm-2 padding-0">货 期：{{$goods['attribute']['delivery']}}</div>
+                    <div class="col-xs-12 col-sm-3 padding-0">仓 库：{{$goods['attribute']['depot']}}</div>
+                    <div class="col-xs-12 col-sm-3 padding-0">品 牌 商 户 号：{{$goods['attribute']['merchant']}}</div>
+                    <div class="col-xs-12 col-sm-1 padding-0"></div>
+                </div>
+                <div class="line-height-40 row background-detail">
+                    <div class="col-xs-12 col-sm-2 common-text-align-center">化 合 物 信 息</div>
+                </div>
+                <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 英 文 学 名</div>
+                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['english_name']}}</div>
+                </div>
+                <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 中 文 学 名</div>
+                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['sub_name']}}</div>
+                </div>
+                <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">C A S 号</div>
+                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['cas']}}</div>
+                </div>
+                <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">分 子 量</div>
+                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['molecular']}}</div>
+                </div>
+                <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">精 准 质 量</div>
+                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['accurate']}}</div>
+                </div>
+                <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">分 子 式</div>
+                    <div class="col-xs-6 col-sm-10 border-detail border-left-0 border-right-0">{{$goods['chem_class']['molecule']}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+//获得文本框对象
+            var t = $("#text_box");
+//初始化数量为1,并失效减
+            $('#min').attr('disabled',true);
+            //数量增加操作
+            $("#add").click(function(){
+                // 给获取的val加上绝对值，避免出现负数
+                t.val(Math.abs(parseInt(t.val()))+1);
+                if (parseInt(t.val())!=1){
+                    $('#min').attr('disabled',false);
+                };
+            })
+            //数量减少操作
+            $("#min").click(function(){
+                t.val(Math.abs(parseInt(t.val()))-1);
+                if (parseInt(t.val())==1){
+                    $('#min').attr('disabled',true);
+                };
+            })
+        });
+    </script>
+@endsection

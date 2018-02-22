@@ -134,4 +134,31 @@ class ChemController extends Controller
         );
         return view('home.chem.classlists',$param);
     }
+    /*
+     * 商品详情页
+     */
+    public function detail(Request $request, $goods_id){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='chem';
+        $menu_id=self::MENU_ID;
+        $goods = GoodsManager::getGoodsById($goods_id);
+        $goods['attribute']=GoodsManager::getGoodsChemAttributeByGoodsId($goods_id);
+        $goods['chem_class']=GoodsManager::getAllChemClassByChemClassId($goods['attribute']['chem_class_id']);
+        $goods['f_attribute']=AttributeManager::getAttributeById($goods['f_attribute_id']);
+        $goods['s_attribute']=AttributeManager::getAttributeById($goods['s_attribute_id']);
+        $goods['s_attribute']=AttributeManager::getAttributeById($goods['s_attribute_id']);
+        $channel=MenuManager::getMenuById($goods['menu_id']);
+        $channel['parent_channel']=MenuManager::getMenuById($menu_id);
+        $goods['other_goodses']=GoodsManager::getChemClassByAttribute($goods);
+        $param=array(
+            'common'=>$common,
+            'column'=>$column,
+            'user'=>$user,
+            'channel'=>$channel,
+            'goods'=>$goods
+        );
+        return view('home.chem.detail',$param);
+    }
 }

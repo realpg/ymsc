@@ -1,8 +1,8 @@
 @extends('home.layouts.base')
 @section('seo')
-    <title>{{$channel['seo_title']}}</title>
-    <meta name="keywords" content="{{$channel['seo_keywords']}}" />
-    <meta name="description" content="{{$channel['seo_description']}}" />
+    <title>{{$channel['seo_title']?$channel['seo_title']:$common['base']['seo_title']}}</title>
+    <meta name="keywords" content="{{$channel['seo_keywords']?$channel['seo_keywords']:$common['base']['seo_keywords']}}" />
+    <meta name="description" content="{{$channel['seo_description']?$channel['seo_description']:$common['base']['seo_description']}}" />
 @endsection
 @section('content')
 <div id="main-body">
@@ -43,7 +43,9 @@
                             <div class="col-xs-2 col-sm-2">{{$goods['goods']['spec']}}</div>
                             <div class="col-xs-1 col-sm-1">{{$goods['goods']['delivery']}}</div>
                             <div class="col-xs-2 col-sm-2 text-red">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</div>
-                            <div class="col-xs-1 col-sm-1">详 情</div>
+                            <a href="{{URL::asset($column.'/detail/'.$goods['goods']['goods_id'])}}">
+                                <div class="col-xs-1 col-sm-1">详 情</div>
+                            </a>
                         </div>
                     @endforeach
                     @if(count($goods['goodses'])>6)

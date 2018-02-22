@@ -183,6 +183,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('chem/classlists/{class_id}/f/{f_attribute_id}', 'Home\ChemController@classlists');        //化学商城化学商品大类
     Route::get('chem/classlists/{class_id}/s/{s_attribute_id}', 'Home\ChemController@classlists');        //化学商城化学商品大类
     Route::get('chem/classlists/{class_id}/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\ChemController@classlists');        //化学商城化学商品大类
+    Route::get('chem/detail/{goods_id}', 'Home\ChemController@detail');        //化学商城商品详情页
 
     //第三方检测商城
     Route::get('testing', 'Home\TestingController@index');        //第三方检测商城首页

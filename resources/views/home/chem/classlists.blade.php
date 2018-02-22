@@ -1,8 +1,8 @@
 @extends('home.layouts.base')
 @section('seo')
-    <title>{{$class['seo_title']}}</title>
-    <meta name="keywords" content="{{$class['seo_keywords']}}" />
-    <meta name="description" content="{{$class['seo_description']}}" />
+    <title>{{$class['seo_title']?$class['seo_title']:$common['base']['seo_title']}}</title>
+    <meta name="keywords" content="{{$class['seo_keywords']?$class['seo_keywords']:$common['base']['seo_keywords']}}" />
+    <meta name="description" content="{{$class['seo_description']?$class['seo_description']:$common['base']['seo_description']}}" />
 @endsection
 @section('content')
 <div id="main-body">
@@ -14,7 +14,7 @@
     <div class="container margin-bottom-20" id="goods_lists">
         <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2">
             <div class="col-xs-12 col-sm-3 padding-10">
-                <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
+                <div class="text-center margin-right-10 padding-bottom-10 padding-right-10 padding-left-10 border-div">
                     <h3 class="style-ellipsis-1">{{$chem_class['name']}}</h3>
                     {{--<h4 class="style-ellipsis-1">{{$chem_class['english_name']}}</h4>--}}
                     <div class="goods-lists-picture">
@@ -24,7 +24,7 @@
                     <h4 class="style-ellipsis-1">分子式：{{$chem_class['molecule']}}</h4>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-9 padding-10" style="min-height: 365px;">
+            <div class="col-xs-12 col-sm-9 padding-10 min-height-content">
                 <div class="margin-bottom-10">
                     @foreach($attributes as $k=>$attribute)
                         <div class="line-height-40 style-ellipsis-1 border-bottom-attribute">
@@ -85,7 +85,9 @@
                         <div class="col-xs-2 col-sm-2">{{$chem_class['goods']['spec']}}</div>
                         <div class="col-xs-1 col-sm-1">{{$chem_class['goods']['delivery']}}</div>
                         <div class="col-xs-2 col-sm-2 text-red">￥{{$chem_class['goods']['price']/100}}/{{$chem_class['goods']['unit']}}</div>
-                        <div class="col-xs-1 col-sm-1">详 情</div>
+                        <a href="{{URL::asset($column.'/detail/'.$chem_class['goods']['goods_id'])}}">
+                            <div class="col-xs-1 col-sm-1">详 情</div>
+                        </a>
                     </div>
                 @endforeach
                 @if(count($chem_class['goodses'])==0)
