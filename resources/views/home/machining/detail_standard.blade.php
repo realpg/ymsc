@@ -101,7 +101,7 @@
                         </a>
                     </div>
                 @endforeach
-                @if(count($goods['details'])==0)
+                @if(count($goods['other_goodses'])==0)
                     <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                         <img src="{{ URL::asset('img/nothing.png') }}"  />
                     </div>
