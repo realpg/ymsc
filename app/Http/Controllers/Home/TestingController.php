@@ -119,7 +119,6 @@ class TestingController extends Controller
         $goods['s_attribute']=AttributeManager::getAttributeById($goods['s_attribute_id']);
         $channel=MenuManager::getMenuById($goods['menu_id']);
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
-        $goods['other_goodses']=GoodsManager::getChemClassByAttribute($goods);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $param=array(
             'common'=>$common,

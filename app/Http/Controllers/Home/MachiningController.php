@@ -104,4 +104,29 @@ class MachiningController extends Controller
         );
         return view('home.machining.search',$param);
     }
+    /*
+     * 机加工加工类型详情页
+     */
+    public function machiningDetail(Request $request, $goods_id){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column=self::COLUMN;
+        $menu_id=self::MENU_ID;
+        $goods = GoodsManager::getGoodsById($goods_id);
+        $goods['attribute']=GoodsManager::getGoodsMachiningAttributeByGoodsId($goods_id);
+        $goods['f_attribute']=AttributeManager::getAttributeById($goods['f_attribute_id']);
+        $channel=MenuManager::getMenuById($goods['menu_id']);
+        $channel['parent_channel']=MenuManager::getMenuById($menu_id);
+        $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
+        $goods['cases']=GoodsManager::getGoodsCaseByGoodsId($goods_id);
+        $param=array(
+            'common'=>$common,
+            'column'=>$column,
+            'user'=>$user,
+            'channel'=>$channel,
+            'goods'=>$goods
+        );
+        return view('home.machining.detail_machining',$param);
+    }
 }

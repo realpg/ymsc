@@ -399,38 +399,23 @@
                     }
                 </style>
                 <div class="tabCon" id="cases_black">
-                    <div class="row cl cases_black_label">
-                        <div class="formControls col-xs-6 col-sm-6">编辑区</div>
-                        <div class="formControls col-xs-1 col-sm-1"></div>
-                        <div class="formControls col-xs-4 col-sm-4">预览参考区</div>
-                        <div class="formControls col-xs-1 col-sm-1"></div>
-                    </div>
                     <div class="row cl" id="container">
-                        <div class="formControls col-xs-6 col-sm-6">
+                        <div class="common-text-align-center text-red line-height-40">*请上传250*200尺寸的图片，预览内容仅供参考</div>
+                        <div class="formControls col-xs-12 col-sm-12">
                             <div id="machining_cases_content"></div>
-                            <div>
+                            <div class="col-xs-12 col-sm-3">
                                 <a href="javascript:">
                                     <div class="formControls col-xs-12 col-sm-12 case_add_image">添加图片</div>
                                 </a>
                                 <div id="add_case_image" style="text-align: center;" >
-                                    <img id="imagePrv_case" src="{{ URL::asset('/img/add_image.png') }}" />
+                                    <img id="imagePrv_case" src="{{ URL::asset('/img/add_picture.png') }}" style="height:153px;" />
+                                    <input type="text" id="add_case_name" class="input-text margin-bottom-10" placeholder="请输入名称" />
                                     <a href="javascript:" onclick="submitCaseImage()">
                                         <div id="machining_case_content" class="formControls col-xs-12 col-sm-12 case_add_button">确认添加</div>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="formControls col-xs-1 col-sm-1"></div>
-                        <div class="formControls col-xs-4 col-sm-4 padding-top-10 ">
-                            <div class="teltphone_header">
-                                {{--<div class="teltphone_logo">TelePhone</div>--}}
-                            </div>
-                            <div id="machining_cases_show_content" class="cases_show"></div>
-                            <div class="teltphone_footer">
-                                {{--<div class="telephone_button"></div>--}}
-                            </div>
-                        </div>
-                        <div class="formControls col-xs-1 col-sm-1"></div>
                     </div>
                 </div>
             </div>
@@ -487,8 +472,13 @@
     </script>
     {{--案例--}}
     <script id="machining_cases_content_template" type="text/x-dot-template">
-        <div id="machining_details_content_detail" class="formControls col-xs-12 col-sm-12">
-            <img src="@{{=it.content}}" />
+        <div id="machining_details_content_detail" class="formControls col-xs-12 col-sm-3">
+            <img src="@{{=it.content}}" class="height-200" />
+            @{{?it.name}}
+                <div class="common-text-align-center">@{{=it.name}}</div>
+            @{{??}}
+                <div class="common-text-align-center">&nbsp;</div>
+            @{{?}}
             <a href="javascript:" onclick="sortUpCase(@{{=it.index}},@{{=it.id}})" title="上移">
                 <div class="formControls col-xs-4 col-sm-4 Hui-iconfont">&#xe6d6;</div>
             </a>
@@ -1164,6 +1154,7 @@
         //对案例进行编辑
         //json转数组
         var strCase='{{$data['cases']}}'
+        // console.log(strCase)
         var jsonStrCase=strCase.replace(/&quot;/ig, '"')
         var jsonObjCase =  JSON.parse(jsonStrCase)
         // console.log(jsonObjCase)
@@ -1250,6 +1241,7 @@
         //确认添加图片
         function submitCaseImage() {
             var add_case_image=$("#add_case_image").val();
+            var add_case_name=$("#add_case_name").val();
             if(add_case_image==''){
                 layer.msg('添加失败，请上传图片', {icon: 2, time: 2000});
             }
@@ -1257,13 +1249,15 @@
                 var detail={};
                 detail['goods_id']='{{$data['id']}}';
                 detail['content']=add_case_image;
+                detail['name']=add_case_name;
                 detail['sort']=jsonObjCase.length?jsonObjCase.length:0;
                 jsonObjCase.push(detail);
                 addMachiningCaseList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#add_case_image').val('')
-                        $("#imagePrv_case").attr('src', '{{ URL::asset('/img/add_image.png') }}')
+                        $("#imagePrv_case").attr('src', '{{ URL::asset('/img/add_picture.png') }}')
+                        $("#add_case_name").val('')
                         refreshCase(jsonObjCase)
                     } else {
                         layer.msg(ret.msg, {icon: 2, time: 1000})
@@ -1301,6 +1295,7 @@
                 _token: "{{ csrf_token() }}",
                 goods_id:detail['goods_id'],
                 content:detail['content'],
+                name:detail['name'],
                 sort:detail['sort']
             }
             editMachiningCase('{{URL::asset('')}}', param, callBack)

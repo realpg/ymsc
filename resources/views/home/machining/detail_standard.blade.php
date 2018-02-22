@@ -15,14 +15,14 @@
     </div>
     <div class="container margin-bottom-20" id="goods_lists">
         <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2 border-div min-height-content">
-            <div class="col-xs-12 col-sm-4 padding-10">
+            <div class="col-xs-12 col-sm-3 padding-10">
                 <div class="text-center margin-right-10 padding-bottom-10 padding-right-10 padding-left-10">
                     <div class="goods-lists-picture padding-top-40" style="width:100%;height:100%;">
                         <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-8 padding-10">
+            <div class="col-xs-12 col-sm-9 padding-10">
                 <h3 class="style-ellipsis-1 line-height-30">{{$goods['name']}}</h3>
                 <h4 class="style-ellipsis-1 line-height-30">实验室：{{$goods['attribute']['lab']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">

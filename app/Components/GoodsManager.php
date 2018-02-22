@@ -585,6 +585,9 @@ class GoodsManager
         if (array_key_exists('content', $data)) {
             $goods_case->content = array_get($data, 'content');
         }
+        if (array_key_exists('name', $data)) {
+            $goods_case->name = array_get($data, 'name');
+        }
         if (array_key_exists('sort', $data)) {
             $goods_case->sort = array_get($data, 'sort');
         }
