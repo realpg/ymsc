@@ -8,6 +8,9 @@
 
 namespace App\Components;
 
+use App\Http\Controllers\Home\ChemController;
+use App\Http\Controllers\Home\MachiningController;
+use App\Http\Controllers\Home\TestingController;
 use App\Models\AttributeModel;
 use App\Models\ChemClassModel;
 use App\Models\GoodsCaseModel;
@@ -275,6 +278,7 @@ class GoodsManager
                 $chem_classes->where('name'  , 'like', '%'.$search.'%')
                     ->orwhere('sub_name', 'like', '%'.$search.'%')
                     ->orwhere('english_name', 'like', '%'.$search.'%')
+                    ->orwhere('molecule','like','%'.$search.'%')
                     ->orwhere('cas', 'like', '%'.$search.'%');
             })->orderBy('sort','desc')->get();
         }
@@ -286,7 +290,9 @@ class GoodsManager
             }
             $chem_classes = ChemClassModel::whereIn('menu_id',$menu_id_array)->where(function ($chem_classes) use ($search) {
                 $chem_classes->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('sub_name', 'like', '%'.$search.'%')
                     ->orwhere('english_name', 'like', '%'.$search.'%')
+                    ->orwhere('molecule','like','%'.$search.'%')
                     ->orwhere('cas', 'like', '%'.$search.'%');
             })->orderBy('sort','desc')->get();
         }
@@ -348,7 +354,8 @@ class GoodsManager
             ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
             ->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)
             ->where(function ($goodses) use ($search) {
-                $goodses->where('goods_info.number'  , 'like', '%'.$search.'%');
+                $goodses->where('goods_info.name'  , 'like', '%'.$search.'%')
+                ->where('goods_info.number'  , 'like', '%'.$search.'%');
             })
             ->orderBy('goods_info.sort','desc')
             ->get($get);
@@ -695,7 +702,12 @@ class GoodsManager
         $goods_paginate=6;
         $chem_classes=ChemClassModel::where(function ($chem_classes) use ($search) {
             $chem_classes->where('name'  , 'like', '%'.$search.'%')
+                ->orwhere('sub_name', 'like', '%'.$search.'%')
+                ->orwhere('english_name', 'like', '%'.$search.'%')
+                ->orwhere('molecule','like','%'.$search.'%')
                 ->orwhere('cas', 'like', '%'.$search.'%');
+//                ->orwhere('molecule','like','%'.$search.'%')
+//                ->orwhere('cas', 'like', '%'.$search.'%');
         })->orderBy('sort','desc')->orderBy('id','desc')->get();
         if(empty($f_attribute_id)&&empty($s_attribute_id)){
             $where=array();
@@ -956,16 +968,38 @@ class GoodsManager
             'goods_info.unit as unit',
         );
         if(empty($f_attribute_id)&&empty($s_attribute_id)){
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                    ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');
+                })
+                ->select($select)->paginate($paginate);
         }
         else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');
+                })
+                ->select($select)->paginate($paginate);
         }
         else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');})
+                ->select($select)->paginate($paginate);
         }
         else{
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');})
+                ->select($select)->paginate($paginate);
         }
         foreach ($goodses as $goods){
             $goods_id=$goods['id'];
@@ -1083,16 +1117,36 @@ class GoodsManager
             'goods_info.unit as unit',
         );
         if(empty($f_attribute_id)&&empty($s_attribute_id)){
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');})
+                ->select($select)->paginate($paginate);
         }
         else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');})
+                ->select($select)->paginate($paginate);
         }
         else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');})
+                ->select($select)->paginate($paginate);
         }
         else{
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)->where('goods_info.name','like','%'.$search.'%')->select($select)->paginate($paginate);
+            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
+//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where(function($goodses) use ($search){
+                    $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.number','like','%'.$search.'%');})
+                ->select($select)->paginate($paginate);
         }
         foreach ($goodses as $goods){
             $goods_id=$goods['id'];
@@ -1128,6 +1182,48 @@ class GoodsManager
             ->whereNotIn('goods_standard_attribute_info.id', [$id])
             ->orderBy('goods_info.sort','desc')
             ->get($get);
+        return $goodses;
+    }
+
+    /*
+     * 对所有商品做模糊查询
+     *
+     * by zm
+     *
+     * 2018-02-23
+     */
+    public static function getGoodsesByName($search){
+        //化学商城
+        $chem_menu_id=ChemController::MENU_ID;
+        $chem_column=ChemController::COLUMN;
+        //第三方检测
+        $testing_menu_id=TestingController::MENU_ID;
+        $testing_column=TestingController::COLUMN;
+        //机加工
+        $machining_menu_id=MachiningController::MENU_ID;
+        $machining_column=MachiningController::COLUMN;
+        $menus=MenuManager::getClassAMenuLists();
+        foreach ($menus as $k=>$menu){
+            if($menu['id']==$chem_menu_id){
+                $chem_goodses=self::getAllChemClassesByMenuId($search,$chem_menu_id);
+                $goodses[$k]['goodses']=$chem_goodses;
+                $goodses[$k]['column']=$chem_column;
+                $goodses[$k]['column_id']=$chem_menu_id;
+            }
+            else if($menu['id']==$testing_menu_id){
+                $testing_goodses=self::getAllGoodsListsByMenuId($search,$testing_menu_id);
+                $goodses[$k]['goodses']=$testing_goodses;
+                $goodses[$k]['column']=$testing_column;
+                $goodses[$k]['column_id']=$testing_menu_id;
+            }
+            else if($menu['id']==$machining_menu_id){
+                $machining_goodses=self::getAllGoodsListsByMenuId($search,$machining_menu_id);
+                $goodses[$k]['goodses']=$machining_goodses;
+                $goodses[$k]['column']=$machining_column;
+                $goodses[$k]['column_id']=$machining_menu_id;
+            }
+        }
+
         return $goodses;
     }
 }

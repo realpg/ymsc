@@ -1,8 +1,8 @@
 @extends('home.layouts.base')
 @section('seo')
-    <title>{{$channel['seo_title']}}</title>
-    <meta name="keywords" content="{{$channel['seo_keywords']}}" />
-    <meta name="description" content="{{$channel['seo_description']}}" />
+    <title>{{$channel['seo_title']?$channel['seo_title']:$common['base']['seo_title']}}</title>
+    <meta name="keywords" content="{{$channel['seo_keywords']?$channel['seo_keywords']:$common['base']['seo_keywords']}}" />
+    <meta name="description" content="{{$channel['seo_description']?$channel['seo_description']:$common['base']['seo_description']}}" />
 @endsection
 @section('content')
 <div id="main-body">

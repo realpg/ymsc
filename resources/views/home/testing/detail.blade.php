@@ -10,7 +10,7 @@
     @include('home.layouts.search')
     <div class="border-bottom-attribute">
         <div class="container line-height-40">
-            商城 > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> >  <a href="{{URL::asset($column.'/lists/'.$goods['menu_id'])}}">{{$channel['name']}}</a> >{{$goods['name']}}
+            <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> >  <a href="{{URL::asset($column.'/lists/'.$goods['menu_id'])}}">{{$channel['name']}}</a> >{{$goods['name']}}
         </div>
     </div>
     <div class="container margin-bottom-20" id="goods_lists">
@@ -40,8 +40,6 @@
             </div>
             <div class="clear"></div>
         </div>
-        <style>
-        </style>
         <ul class="line-height-40 border-bottom-navy-blue row common-text-align-center" id="tab">
             <li class="tab_active col-xs-12 col-sm-2 background-detail ">设 备 详 情</li>
             <li class="col-xs-12 col-sm-2 background-detail">客 户 评 价</li>

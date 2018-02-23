@@ -10,7 +10,7 @@
     @include('home.layouts.search')
     <div class="border-bottom-attribute">
         <div class="container line-height-40">
-            商城 > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> >  <a href="{{URL::asset($column.'/lists/'.$goods['menu_id'])}}">{{$channel['name']}}</a> >{{$goods['name']}}
+            <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> >  <a href="{{URL::asset($column.'/lists/'.$goods['menu_id'])}}">{{$channel['name']}}</a> >{{$goods['name']}}
         </div>
     </div>
     <div class="container margin-bottom-20" id="goods_lists">
@@ -24,9 +24,9 @@
             </div>
             <div class="col-md-12 col-lg-8 padding-10">
                 <h3 class="style-ellipsis-1 line-height-30">设备：{{$goods['name']}}</h3>
-                <h4 class="style-ellipsis-1 line-height-30">精度：{{$goods['attribute']['accuracy']}}</h4>
-                <h4 class="style-ellipsis-1 line-height-30">服务商：{{$goods['attribute']['service']}}</h4>
-                <h4 class="style-ellipsis-1 line-height-30">产品材料：{{$goods['attribute']['material']}}</h4>
+                <h4 class="style-ellipsis-1 line-height-30">精度：{{$goods['attribute']['accuracy']?$goods['attribute']['accuracy']:'未设置'}}</h4>
+                <h4 class="style-ellipsis-1 line-height-30">服务商：{{$goods['attribute']['service']?$goods['attribute']['service']:'未设置'}}</h4>
+                <h4 class="style-ellipsis-1 line-height-30">产品材料：{{$goods['attribute']['material']?$goods['attribute']['material']:'未设置'}}</h4>
                 <div class="row margin-top-20">
                     <div class="col-md-6 col-lg-3">
                         <button type="button" class="btn btn-default width-100 border-ridus-0 background-none">立 即 咨 询</button>

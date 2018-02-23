@@ -9,7 +9,7 @@
             <img src="{{$common['base']['logo']}}" />
         </div>
         <div class="style-home-index-search padding-top-50">
-            <form class="form-signin">
+            <form class="form-signin" method="get" action="{{ URL::asset($column.'/search/') }}">
                 <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" placeholder="输入搜索内容" />
                 <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search"></button>
             </form>

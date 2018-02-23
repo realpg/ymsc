@@ -10,7 +10,7 @@
     @include('home.layouts.search')
     <div class="border-bottom-attribute">
         <div class="container line-height-40">
-            商城 > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a> > {{$chem_class['name']}}
+            <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a> > {{$chem_class['name']}}
         </div>
     </div>
     <div class="container margin-bottom-20" id="goods_lists">

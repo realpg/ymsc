@@ -1,5 +1,5 @@
 <div class="container line-height-40">
-    商城 > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a>
+    <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a>
 </div>
 <div class="border-top-attribute">
     <div class="container">

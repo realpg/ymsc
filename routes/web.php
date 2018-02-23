@@ -156,6 +156,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('about', 'Home\IndexController@about');        //关于我们
     Route::post('advice', 'Home\IndexController@advice');        //提交意见反馈
     Route::post('searching', 'Home\IndexController@searching');        //提交帮你找货
+    Route::get('index/search', 'Home\IndexController@search');        //商城搜索商品
 
     Route::get('signUp', 'Home\SignController@signUp');        //注册
     Route::post('signUp', 'Home\SignController@signUpDo');      //通过手机注册

@@ -9,6 +9,7 @@
 namespace app\Http\Controllers\Home;
 
 use App\Components\AdviceManager;
+use App\Components\GoodsManager;
 use App\Components\HomeManager;
 use App\Components\LeagueManager;
 use App\Components\MenuManager;
@@ -205,5 +206,25 @@ class IndexController extends Controller
             }
         }
         return $return;
+    }
+    /*
+     * 搜索商品
+     */
+    public function search(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $column='index';
+        $common=$data['common'];
+        $search=$data['search'];
+        $goodses=GoodsManager::getGoodsesByName($search);
+        $menus=MenuManager::getClassAMenuLists();
+        $param=array(
+            'common'=>$common,
+            'column'=>$column,
+            'user'=>$user,
+            'goodses'=>$goodses,
+            'menus'=>$menus
+        );
+        return view('home.index.search',$param);
     }
 }
