@@ -1218,6 +1218,16 @@ class GoodsManager
             }
             else if($menu['id']==$machining_menu_id){
                 $machining_goodses=self::getAllGoodsListsByMenuId($search,$machining_menu_id);
+                foreach ($machining_goodses as $machining_goods){
+                    $goods_id=$machining_goods['id'];
+                    $attribute=GoodsManager::getGoodsMachiningAttributeByGoodsId($goods_id);
+                    if($attribute){
+                        $machining_goods['type']=0;
+                    }
+                    else{
+                        $machining_goods['type']=1;
+                    }
+                }
                 $goodses[$k]['goodses']=$machining_goodses;
                 $goodses[$k]['column']=$machining_column;
                 $goodses[$k]['column_id']=$machining_menu_id;

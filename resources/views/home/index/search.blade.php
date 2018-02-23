@@ -35,8 +35,22 @@
                                                     <h4 class="style-ellipsis-1">分子式：{{$goods['molecule']}}</h4>
                                                 </div>
                                             </a>
-                                        @else
+                                        @elseif($goodses[$k]['column_id']==2)
                                             <a href="{{URL::asset($goodses[$k]['column'].'/detail/'.$goods['id'])}}">
+                                                <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
+                                                    <h3 class="style-ellipsis-2 font-size-20 line-height-25 height-50">{{$goods['name']}}</h3>
+                                                    <div class="goods-lists-picture margin-bottom-10">
+                                                        <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">
+                                                    </div>
+                                                    <button type="button" class="btn btn-info margin-top-20 margin-bottom-10">查 看 详 情</button>
+                                                </div>
+                                            </a>
+                                        @elseif($goodses[$k]['column_id']==3)
+                                            @if($goods['type']==0)
+                                                <a href="{{URL::asset($goodses[$k]['column'].'/detail/machining/'.$goods['id'])}}">
+                                            @elseif($goods['type']==1)
+                                                <a href="{{URL::asset($goodses[$k]['column'].'/detail/standard/'.$goods['id'])}}">
+                                            @endif
                                                 <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
                                                     <h3 class="style-ellipsis-2 font-size-20 line-height-25 height-50">{{$goods['name']}}</h3>
                                                     <div class="goods-lists-picture margin-bottom-10">
