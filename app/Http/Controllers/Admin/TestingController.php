@@ -243,6 +243,7 @@ class TestingController
         $result=$goods_detail->save();
         if($result){
             $return['result']=true;
+            $return['ret']=GoodsManager::getGoodsDetailById($goods_detail->id);
             $return['msg']='编辑商品详情成功';
         }
         else{
