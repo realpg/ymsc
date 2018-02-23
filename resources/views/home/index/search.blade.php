@@ -63,14 +63,14 @@
                                     </div>
                                 @endforeach
                                 <div class="clear"></div>
-                                @if(count($goodses[$k])==0)
-                                    <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
-                                        <img src="{{ URL::asset('img/nothing.png') }}"  />
-                                    </div>
-                                    <div class="margin-top-20 text-center index-font">
-                                        没有您要找的商品！
-                                    </div>
-                                @endif
+                            @endif
+                            @if(count($goodses[$k]['goodses'])==0)
+                                <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
+                                    <img src="{{ URL::asset('img/nothing.png') }}"  />
+                                </div>
+                                <div class="margin-top-20 text-center index-font">
+                                    此栏目下没有您要找的商品！
+                                </div>
                             @endif
                         </div>
                     </li>
