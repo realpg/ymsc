@@ -22,7 +22,7 @@
                 <div class="page-header style-home-about-title">
                     <h3>联系我们</h3>
                 </div>
-                <div class="row style-home-about-contact-content style-home-about-contact-content" style="min-height:95px;">
+                <div class="row style-home-about-contact-content style-home-about-contact-content min-height-contact">
                     <div class="col-xs-12 col-md-3 ">
                         <i class="iconfont icon-gongsiyewu"></i>
                         {{$common['base']['name']}}

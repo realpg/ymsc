@@ -6,7 +6,7 @@
  * Time: 13:14
  */
 
-namespace app\Http\Controllers\Home;
+namespace App\Http\Controllers\Home;
 
 use App\Components\VertifyManager;
 use App\Http\Controllers\ApiResponse;

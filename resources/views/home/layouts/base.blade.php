@@ -54,12 +54,12 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right hidden-sm style-home-nav">
-                    {{--<li class=" {{$column=='center'?'style-home-nav-active':''}}">--}}
-                        {{--<a href="{{ URL::asset('center') }}">我的优迈</a>--}}
-                    {{--</li>--}}
                     @if($user)
                         <li class=" {{$column=='center'?'style-home-nav-active':''}}">
-                            <a href="">我的优迈</a>
+                            <a href="{{ URL::asset('center') }}">我的优迈</a>
+                        </li>
+                        <li class=" {{$column=='cart'?'style-home-nav-active':''}}">
+                            <a href="{{ URL::asset('cart') }}">购物车</a>
                         </li>
                         <li>
                             <a href="{{ URL::asset('signOut') }}">安全退出</a>
@@ -468,17 +468,8 @@
 
     });
 
-
-
-    /*
-     * 列表页轮播图
-     *
-     * by zm
-     *
-     * 2018-02-14
-     *
-     */
     $(function(){
+        //轮播图列表
         var carouselContentLength=$('.carousel-content').length;
         if(carouselContentLength){
             $(".carousel-content").carousel({
@@ -506,6 +497,12 @@
             $('#banner').height('450');
             var bannerHeight=$('#banner').height();
             $('#side_bar_menus').css('margin-top',-bannerHeight);
+        }
+        //个人中心内容最低高度设置
+        var centerMenuLength=$('#center-menu').length;
+        if(centerMenuLength){
+            var center_height=$('#center-menu').height();
+            $('#center-content').css('min-height',center_height);
         }
     });
 </script>

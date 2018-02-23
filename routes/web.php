@@ -210,6 +210,9 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('machining/search/f/{f_attribute_id}/s/{s_attribute_id}', 'Home\MachiningController@search');        //机加工搜索商品
     Route::get('machining/detail/machining/{goods_id}', 'Home\MachiningController@machiningDetail');        //机加工加工类型详情页
     Route::get('machining/detail/standard/{goods_id}', 'Home\MachiningController@standardDetail');        //机加工标品库商品详情页
+
+    //个人中心
+    Route::get('center', 'Home\CenterController@index');        //个人中心首页
 });
 
 Auth::routes();

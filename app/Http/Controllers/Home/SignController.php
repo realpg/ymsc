@@ -6,7 +6,7 @@
  * Time: 9:43
  */
 
-namespace app\Http\Controllers\Home;
+namespace App\Http\Controllers\Home;
 
 use App\Components\MenuManager;
 use App\Components\MemberManager;
@@ -15,7 +15,6 @@ use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Redirect;
 
 class SignController extends Controller
 {
@@ -183,10 +182,7 @@ class SignController extends Controller
                 unset($data['common']);
                 $user=MemberManager::login($data);
                 if($user){
-                    unset($user['password']);
-                    unset($user['token']);
                     Cookie::queue('user', $user);
-
                     $return['result']=true;
                     $return['msg']='登录成功';
                 }

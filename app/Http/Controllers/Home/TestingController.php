@@ -6,7 +6,7 @@
  * Time: 7:15
  */
 
-namespace app\Http\Controllers\Home;
+namespace App\Http\Controllers\Home;
 
 use App\Components\AttributeManager;
 use App\Components\BannerManager;

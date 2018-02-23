@@ -6,7 +6,7 @@
  * Time: 14:15
  */
 
-namespace app\Http\Controllers\Home;
+namespace App\Http\Controllers\Home;
 
 use App\Components\AdviceManager;
 use App\Components\GoodsManager;

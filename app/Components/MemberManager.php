@@ -203,6 +203,12 @@ class MemberManager
             $user->where('phonenum','like','%'.$name.'%')
                 ->orwhere('email','like','%'.$name.'%');
         })->first();
+        if(!empty($user)){
+            $user['password']=null;
+            $user['token']=null;
+            unset($user['password']);
+            unset($user['token']);
+        }
         return $user;
     }
 
