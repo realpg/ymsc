@@ -313,7 +313,7 @@ class SignController extends Controller
     */
     public function signOut(Request $request){
         setcookie('user', '', -1, '/');
-        return \redirect('/');
+        return redirect('/');
     }
 
     /*
