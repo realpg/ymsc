@@ -182,6 +182,7 @@ class SignController extends Controller
                 unset($data['common']);
                 $user=MemberManager::login($data);
                 if($user){
+                    dd($user);
                     Cookie::queue('user', $user);
                     $return['result']=true;
                     $return['msg']='登录成功';
