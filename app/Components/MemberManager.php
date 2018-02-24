@@ -200,8 +200,8 @@ class MemberManager
         $name=$data['phonenum'];
         $password=$data['password'];
         $user=UserModel::where('password',$password)->where(function($user) use ($name){
-            $user->where('phonenum','like','%'.$name.'%')
-                ->orwhere('email','like','%'.$name.'%');
+            $user->where('phonenum',$name)
+                ->orwhere('email',$name);
         })->first();
         if(!empty($user)){
             $user['password']=null;

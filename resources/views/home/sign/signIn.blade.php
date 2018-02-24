@@ -89,6 +89,8 @@
                                 }
                             },
                             error: function (XmlHttpRequest, textStatus, errorThrown) {
+                                $("#password").val('');
+                                $("#verifyimage").click();
                                 layer.msg('操作失败', {icon: 2, time: 2000});
                                 console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
                                 console.log("textStatus:" + textStatus);
