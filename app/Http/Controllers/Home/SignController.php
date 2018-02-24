@@ -185,6 +185,7 @@ class SignController extends Controller
 //                    Cookie::queue('user', $user);
                     $return['result']=true;
                     $return['msg']='登录成功';
+                    setcookie('yunsuo_session_verify', '', -1, '/');
                     return response($return)->cookie('user', $user, '300');
                 }
                 else{
