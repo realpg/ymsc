@@ -172,6 +172,21 @@ function isPoneAvailable(phone_num) {
     }
 }
 
+/*
+ * 校验邮箱js
+ *
+ * By zm
+ */
+
+function isEmail(email) {
+    var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+    if (!myreg.test(email)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 // 判断参数是否为空
 function judgeIsNullStr(val) {
     if (val == null || val == "" || val == undefined || val == "未设置") {

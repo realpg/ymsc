@@ -130,28 +130,33 @@
 
         function showtime(){
             var phonenum=$('#phonenum').val();
-            if(phonenum){
-                var param={
-                    _token: "{{ csrf_token() }}",
-                    phonenum:phonenum,
+            if(isPoneAvailable(phonenum)){
+                if(phonenum){
+                    var param={
+                        _token: "{{ csrf_token() }}",
+                        phonenum:phonenum,
+                    }
+                    sendSMSCode('{{URL::asset('')}}', param, function(ret){
+                        if(ret.result){
+                            layer.msg(ret.msg, {icon: 1, time: 2000});
+                        }
+                        else{
+                            layer.msg(ret.msg, {icon: 2, time: 2000});
+                        }
+                    })
+                    //倒计时
+                    document.signUpByPhonenum.send.disabled=true;
+                    var t=60;
+                    for(i=1;i<=t;i++) {
+                        window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+                    }
                 }
-                sendSMSCode('{{URL::asset('')}}', param, function(ret){
-                    if(ret.result){
-                        layer.msg(ret.msg, {icon: 1, time: 2000});
-                    }
-                    else{
-                        layer.msg(ret.msg, {icon: 2, time: 2000});
-                    }
-                })
-                //倒计时
-                document.signUpByPhonenum.send.disabled=true;
-                var t=60;
-                for(i=1;i<=t;i++) {
-                    window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+                else{
+                    layer.msg('请填写手机号', {icon: 2, time: 2000});
                 }
             }
             else{
-                layer.msg('请填写手机号', {icon: 2, time: 2000});
+                layer.msg('请正确填写手机号', {icon: 2, time: 2000});
             }
         }
         function update_p(num,t) {

@@ -103,28 +103,33 @@
         });
         function showtime(){
             var email=$('#email').val();
-            if(email){
-                var param={
-                    _token: "{{ csrf_token() }}",
-                    email:email,
+            if(isEmail(email)){
+                if(email){
+                    var param={
+                        _token: "{{ csrf_token() }}",
+                        email:email,
+                    }
+                    sendEmailCode('{{URL::asset('')}}', param, function(ret){
+                        if(ret.result){
+                            layer.msg(ret.msg, {icon: 1, time: 2000});
+                        }
+                        else{
+                            layer.msg(ret.msg, {icon: 2, time: 2000});
+                        }
+                    })
+                    //倒计时
+                    document.signUpByEmail.send.disabled=true;
+                    var t=60;
+                    for(i=1;i<=t;i++) {
+                        window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+                    }
                 }
-                sendEmailCode('{{URL::asset('')}}', param, function(ret){
-                    if(ret.result){
-                        layer.msg(ret.msg, {icon: 1, time: 2000});
-                    }
-                    else{
-                        layer.msg(ret.msg, {icon: 2, time: 2000});
-                    }
-                })
-                //倒计时
-                document.signUpByEmail.send.disabled=true;
-                var t=60;
-                for(i=1;i<=t;i++) {
-                    window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
+                else{
+                    layer.msg('请填写邮箱', {icon: 2, time: 2000});
                 }
             }
             else{
-                layer.msg('请填写邮箱', {icon: 2, time: 2000});
+                layer.msg('请正确填写邮箱', {icon: 2, time: 2000});
             }
         }
 

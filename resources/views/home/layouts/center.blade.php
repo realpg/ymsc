@@ -1,3 +1,8 @@
+<style>
+    label.error{
+        top:0;
+    }
+</style>
 <div class="col-xs-12 col-sm-2 " id="center-menu">
     <div class="list-group text-center margin-bottom-0">
         <div href="#" class="list-group-item border-ridus-0 background-navy-blue text-white border-navy-blue">

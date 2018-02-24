@@ -213,6 +213,13 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
 
     //个人中心
     Route::get('center', 'Home\CenterController@index');        //个人中心首页
+    Route::post('center/base', 'Home\CenterController@baseDo');        //编辑基本信息
+    Route::get('center/email/check', 'Home\CenterController@checkEmail');        //验证原邮箱
+    Route::get('center/email/replace', 'Home\CenterController@replaceEmail');        //修改绑定的邮箱
+    Route::get('center/phonenum/check', 'Home\CenterController@checkPhonenum');        //验证原手机号
+    Route::get('center/phonenum/replace', 'Home\CenterController@replacePhonenum');        //修改绑定的手机号
+    Route::post('center/check', 'Home\CenterController@check');        //修改手机号或邮箱验证
+    Route::post('center/edit', 'Home\CenterController@editDo');        //修改手机号或邮箱
 });
 
 Auth::routes();
