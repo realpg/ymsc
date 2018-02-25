@@ -158,6 +158,14 @@
                         </div>
                     </div>
                 @endforeach
+                @if(count($addresses)==0)
+                    <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
+                        <img src="{{ URL::asset('img/nothing.png') }}"  />
+                    </div>
+                    <div class="margin-top-20 text-center index-font">
+                        还没有添加收货地址，快添加一个吧！
+                    </div>
+                @endif
             </div>
         </div>
     </div>
