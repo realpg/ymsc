@@ -34,7 +34,7 @@
                 <h4 class="style-ellipsis-1 line-height-30">地址：{{$goods['attribute']['address']}}</h4>
                 <div class="row margin-top-10">
                     <div class="col-xs-6 col-sm-3">
-                        <button type="button" class="btn btn-info width-100 border-ridus-0">立 即 咨 询</button>
+                        <button type="button" class="btn btn-info width-100 border-radius-0">立 即 咨 询</button>
                     </div>
                 </div>
             </div>

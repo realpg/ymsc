@@ -220,6 +220,10 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('center/phonenum/replace', 'Home\CenterController@replacePhonenum');        //修改绑定的手机号
     Route::post('center/check', 'Home\CenterController@check');        //修改手机号或邮箱验证
     Route::post('center/edit', 'Home\CenterController@editDo');        //修改手机号或邮箱
+    Route::get('center/address', 'Home\CenterController@address');        //地址管理
+    Route::post('center/address', 'Home\CenterController@addressDo');        //编辑地址管理
+    Route::get('center/address/del', 'Home\CenterController@addressDel');        //删除地址
+    Route::get('center/address/default', 'Home\CenterController@addressDefault');        //删除地址
 });
 
 Auth::routes();

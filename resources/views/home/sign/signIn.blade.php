@@ -23,7 +23,7 @@
                                     </p>
                                     <p class="position-relative form-group margin-top-30">
                                         <input type="text" name="verificationCode" id="verificationCode" class="form-control width-55 float-left" placeholder="请输入验证码">
-                                        <img src="{{ URL::asset('code') }}" class="form-control width-40 float-right padding-0 border-0 border-ridus-0 cursor-pointer"  id="verifyimage"  onclick="this.src='{{ url('code') }}?r='+Math.random();" alt="验证码" />
+                                        <img src="{{ URL::asset('code') }}" class="form-control width-40 float-right padding-0 border-0 border-radius-0 cursor-pointer"  id="verifyimage"  onclick="this.src='{{ url('code') }}?r='+Math.random();" alt="验证码" />
                                     </p>
                                     <p class="clear"></p>
                                     <p class="margin-top-30">

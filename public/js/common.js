@@ -154,6 +154,16 @@ function sendSMSCode(url, param, callBack) {
 function sendEmailCode(url, param, callBack) {
     ajaxRequest(url + "emailcode", param, "GET", callBack);
 }
+
+
+//删除收货地址
+function delAddress(url, param, callBack) {
+    ajaxRequest(url + "center/address/del", param, "GET", callBack);
+}
+//设置默认收货地址
+function defaultAddress(url, param, callBack) {
+    ajaxRequest(url + "center/address/default", param, "GET", callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 

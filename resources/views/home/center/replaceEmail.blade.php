@@ -6,26 +6,32 @@
     <div class="container margin-top-20 margin-bottom-20">
         @include('home.layouts.center')
         <div class="col-xs-12 col-sm-10 border-center-menu padding-top-10 padding-bottom-10  line-height-34" id="center-content">
+            <div class="member-nav">
+                <span class="font-size-16"><b>绑定邮箱</b></span>
+            </div>
             <form method="post" id="form-email-edit"  name="replaceEmail">
                 {{ csrf_field() }}
                 <input type="hidden" name="type" id="type" class="form-control" value="replaceEmail" readonly>
                 <div class="col-xs-12 col-sm-8">
                     <div class="row position-relative margin-top-20">
-                        <div class="col-xs-6 col-sm-3 text-right">新 邮 箱：</div>
-                        <div class="col-xs-6 col-sm-8">
+                        <div class="col-xs-4 col-sm-3 text-right">新 邮 箱：</div>
+                        <div class="col-xs-8 col-sm-8">
                             <input type="text" name="email" id="email" class="form-control" placeholder="请输入需要绑定的邮箱" />
                         </div>
                     </div>
                     <div class="row position-relative margin-top-20">
-                        <div class="col-xs-6 col-sm-3 text-right">验 证 码：</div>
-                        <div class="col-xs-6 col-sm-8">
+                        <div class="col-xs-4 col-sm-3 text-right">验 证 码：</div>
+                        <div class="col-xs-8 col-sm-8">
                             <input type="text" name="verificationCode" id="verificationCode" class="form-control width-55 float-left" placeholder="请输入验证码">
                             <input type="button" class="btn btn-warning width-40 float-right" value="获取验证码"  name="send" onclick="showtime()">
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-8 text-center margin-top-20 margin-bottom-20">
-                    <button type="submint" class="btn btn-info">确 认 提 交</button>
+                    <div class="row position-relative margin-top-20 margin-bottom-20">
+                        <div class="col-xs-4 col-sm-3 text-right"></div>
+                        <div class="col-xs-8 col-sm-8">
+                            <button type="submint" class="btn btn-info border-radius-0">确 认 提 交</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

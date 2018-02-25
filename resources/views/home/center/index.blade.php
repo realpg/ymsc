@@ -6,6 +6,9 @@
     <div class="container margin-top-20 margin-bottom-20">
         @include('home.layouts.center')
         <div class="col-xs-12 col-sm-10 border-center-menu padding-top-10 padding-bottom-10  line-height-34" id="center-content">
+            <div class="member-nav">
+                <span class="font-size-16"><b>个人信息</b></span>
+            </div>
             <form method="post" id="form-center-edit">
                 {{ csrf_field() }}
                 <div class="col-xs-12 col-sm-8">
@@ -56,8 +59,8 @@
                     <div class="row position-relative margin-top-20">
                         <div class="col-xs-6 col-sm-3 text-right">性 别：</div>
                         <div class="col-xs-6 col-sm-8">
-                            <input type="radio" name="gender" id="gender_1" value="1" checked>&nbsp; 男&nbsp;
-                            <input type="radio" name="gender" id="gender_2" value="2">&nbsp; 女
+                            <input type="radio" name="gender" id="gender_1" value="1" {{$user['gender']==1?'checked':''}} />&nbsp; 男&nbsp;
+                            <input type="radio" name="gender" id="gender_2" value="2" {{$user['gender']==2?'checked':''}} />&nbsp; 女
                         </div>
                     </div>
                 </div>
@@ -75,8 +78,13 @@
                         <input type="hidden" name="avatar" id="avatar" />
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 text-center margin-top-20 margin-bottom-20">
-                    <button type="submint" class="btn btn-info">确 认 修 改</button>
+                <div class="col-xs-12 col-sm-8">
+                    <div class="row position-relative margin-top-20 margin-bottom-20">
+                        <div class="col-xs-3 col-sm-3 text-right"></div>
+                        <div class="col-xs-9 col-sm-8">
+                            <button type="submint" class="btn btn-info border-radius-0">确 认 修 改</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

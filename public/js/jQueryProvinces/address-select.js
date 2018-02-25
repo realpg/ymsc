@@ -1,6 +1,6 @@
-var searching_province=$("#searching_province"),searching_city=$("#searching_city"),searching_town=$("#searching_town");
+var address_province=$("#address_province"),address_city=$("#address_city"),address_town=$("#address_town");
 for(var i=0;i<provinceList.length;i++){
-    addEle(searching_province,provinceList[i].name);
+    addEle(address_province,provinceList[i].name);
 }
 function addEle(ele,value){
     var optionStr="";
@@ -13,7 +13,7 @@ function removeEle(ele){
     ele.append(optionStar);
 }
 var provinceText,cityText,cityItem;
-searching_province.on("change",function(){
+address_province.on("change",function(){
     provinceText=$(this).val();
     $.each(provinceList,function(i,item){
         if(provinceText == item.name){
@@ -21,15 +21,15 @@ searching_province.on("change",function(){
             return cityItem
         }
     });
-    removeEle(searching_city);
-    removeEle(searching_town);
+    removeEle(address_city);
+    removeEle(address_town);
     $.each(provinceList[cityItem].cityList,function(i,item){
-        addEle(searching_city,item.name)
+        addEle(address_city,item.name)
     })
 });
-searching_city.on("change",function(){
+address_city.on("change",function(){
     cityText=$(this).val();
-    removeEle(searching_town);
+    removeEle(address_town);
     $.each(provinceList,function(i,item){
         if(provinceText == item.name){
             cityItem=i;
@@ -39,7 +39,7 @@ searching_city.on("change",function(){
     $.each(provinceList[cityItem].cityList,function(i,item){
         if(cityText == item.name){
             for(var n=0;n<item.areaList.length;n++){
-                addEle(searching_town,item.areaList[n])
+                addEle(address_town,item.areaList[n])
             }
         }
     });

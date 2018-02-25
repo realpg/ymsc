@@ -8,10 +8,13 @@
 
 namespace App\Http\Controllers\Home;
 
+
+use App\Components\AddressManager;
 use App\Components\MemberManager;
 use App\Components\QNManager;
 use App\Components\VertifyManager;
 use App\Http\Controllers\Controller;
+use App\Models\AddressModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -61,7 +64,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='编辑个人信息失败，请先登录';
+            $return['msg']='编辑个人信息失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
     }
@@ -288,6 +291,142 @@ class CenterController extends Controller
         else{
             $return['result']=false;
             $return['msg']='缺少参数';
+        }
+        return $return;
+    }
+    /*
+     * 管理地址
+     */
+    public function address(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $addresses=AddressManager::getAddressLists();
+        if($user){
+            $column='center';
+            $column_child='address';
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'column_child'=>$column_child,
+                'user'=>$user,
+                'addresses'=>$addresses
+            );
+            return view('home.center.address',$param);
+        }
+        else{
+            return redirect('signIn');
+        }
+    }
+    /*
+     * 编辑管理地址
+     */
+    public function addressDo(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if(array_key_exists('id',$data)){
+                $address=AddressManager::getAddressById($data['id']);
+            }
+            else{
+                $data['user_id']=$user['id'];
+                $data['province']=$data['address_province'];
+                $data['city']=$data['address_city'];
+                $data['town']=$data['address_town'];
+                $data['detail']=$data['address_detail'];
+                $address=new AddressModel();
+            }
+            $address=AddressManager::setAddress($address,$data);
+            $result=$address->save();
+            if($result){
+                $return['result']=true;
+                $return['msg']='编辑地址成功';
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='编辑地址失败';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='编辑地址失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+    /*
+     * 删除地址
+     */
+    public function addressDel(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if(array_key_exists('id',$data)){
+                $address=AddressManager::getAddressById($data['id']);
+//                $data['user_id']=$user['id'];
+                $data['delete']=1;
+                $address=AddressManager::setAddress($address,$data);
+                $result=$address->save();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='删除地址成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='删除地址失败';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='删除地址失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+    /*
+     * 设置默认地址
+     */
+    public function addressDefault(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if(array_key_exists('id',$data)){
+                $address=AddressManager::getAddressById($data['id']);
+                $data['status']=1;
+                $address=AddressManager::setAddress($address,$data);
+                $result=$address->save();
+                if($result){
+                    $default_addresses=AddressManager::getAddressByUserIdAndAddressId($user['id'],$data['id']);
+                    foreach ($default_addresses as $default_addresse){
+                        $default_address_id=$default_addresse['id'];
+                        $default_address=AddressManager::getAddressById($default_address_id);
+                        $data_default['id']=$default_address_id;
+                        $data_default['status']=0;
+                        $default_address=AddressManager::setAddress($default_address,$data_default);
+                        $default_address->save();
+                    }
+                    $return['result']=true;
+                    $return['msg']='设置默认地址成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='设置默认地址失败';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='设置默认地址失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
     }

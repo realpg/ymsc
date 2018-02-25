@@ -39,10 +39,10 @@
                         </h4>
                         <div class="row margin-top-20">
                             <div class="col-xs-6 col-sm-3">
-                                <button type="button" class="btn btn-danger width-100 border-ridus-0">购 买</button>
+                                <button type="button" class="btn btn-danger width-100 border-radius-0">购 买</button>
                             </div>
                             <div class="col-xs-6 col-sm-3">
-                                <button type="button" class="btn btn-default width-100 border-ridus-0 background-none">加入购物车</button>
+                                <button type="button" class="btn btn-default width-100 border-radius-0 background-none">加入购物车</button>
                             </div>
                         </div>
                     </div>

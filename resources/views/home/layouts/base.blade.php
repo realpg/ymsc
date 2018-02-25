@@ -131,7 +131,7 @@
                 @else
                     <a href="{{ URL::asset('signIn') }}">
                         <div class="margin-top-150 col-xs-12 col-sm-12">
-                            <button type="button" class="btn btn-danger width-100 border-ridus-0">立即登录</button>
+                            <button type="button" class="btn btn-danger width-100 border-radius-0">立即登录</button>
                         </div>
                     </a>
                 @endif
@@ -239,7 +239,7 @@
                         <textarea class="form-control" rows="6" name="searching_content" id="searching_content" style="resize:none"  placeholder="请输入备注"></textarea>
                     </div>
                     <div class="margin-top-5 margin-bottom-40 col-xs-12 col-sm-12">
-                        <button type="submit" class="btn btn-danger width-100 border-ridus-0">立即提交</button>
+                        <button type="submit" class="btn btn-danger width-100 border-radius-0">立即提交</button>
                     </div>
                 </form>
             </div>
@@ -326,7 +326,7 @@
                         <input type="text" class="form-control" name="advice_name" id="advice_name" placeholder="请输入联系人">
                     </div>
                     <div class="margin-top-40 col-xs-12 col-sm-12">
-                        <button type="submit" class="btn btn-danger width-100 border-ridus-0">立即提交</button>
+                        <button type="submit" class="btn btn-danger width-100 border-radius-0">立即提交</button>
                     </div>
                 </form>
             </div>
