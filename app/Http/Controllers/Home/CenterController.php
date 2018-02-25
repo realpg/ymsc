@@ -301,7 +301,7 @@ class CenterController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
-        $addresses=AddressManager::getAddressLists();
+        $addresses=AddressManager::getAddressListsByUserId($user['id']);
         if($user){
             $column='center';
             $column_child='address';

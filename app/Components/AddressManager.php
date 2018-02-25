@@ -84,15 +84,15 @@ class AddressManager
     }
 
     /*
-     * 获取地址列表
+     * 根据user_id获取地址列表
      *
      * By zm
      *
      * 2018-02-25
      *
      */
-    public static function getAddressLists(){
-        $addresses=AddressModel::where('delete',0)->orderBy('id','asc')->get();
+    public static function getAddressListsByUserId($user_id){
+        $addresses=AddressModel::where('delete',0)->where('user_id',$user_id)->orderBy('id','asc')->get();
         return $addresses;
     }
 }
