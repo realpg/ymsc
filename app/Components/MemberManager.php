@@ -203,12 +203,6 @@ class MemberManager
             $user->where('phonenum',$name)
                 ->orwhere('email',$name);
         })->first();
-        if(!empty($user)){
-            $user['password']=null;
-            $user['token']=null;
-            unset($user['password']);
-            unset($user['token']);
-        }
         return $user;
     }
 
@@ -258,5 +252,20 @@ class MemberManager
                 . substr($charid, 20, 12);
             return $uuid;
         }
+    }
+
+    /*
+     * 根据id获取用户信息，不带token
+     *
+     * By zm
+     *
+     * 2018-02-02
+     */
+    public static function getUserInfoByIdWithNotToken($id)
+    {
+        $user = UserModel::find($id);
+        unset($user['password']);
+        unset($user['token']);
+        return $user;
     }
 }

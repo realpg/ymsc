@@ -25,6 +25,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $common=$data['common'];
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
             //生成七牛token
@@ -49,11 +50,11 @@ class CenterController extends Controller
         $data=$request->all();
         $user=$request->cookie('user');
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $return=null;
             $member=MemberManager::setUser($user,$data);
             $result=$member->save();
             if($result){
-                Cookie::queue('user', $member);
                 $return['result']=true;
                 $return['msg']='编辑个人信息成功';
             }
@@ -76,6 +77,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $common=$data['common'];
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
             $param=array(
@@ -98,6 +100,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $common=$data['common'];
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
             $param=array(
@@ -120,6 +123,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $common=$data['common'];
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
             $param=array(
@@ -142,6 +146,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $common=$data['common'];
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
             $param=array(
@@ -162,31 +167,38 @@ class CenterController extends Controller
     public function check(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
-        if(array_key_exists('type',$data)){
-            if(array_key_exists('verificationCode',$data)){
-                if($data['type']=='checkPhonenum'&&array_key_exists('phonenum',$data)){
-                    $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
-                    if($vertify_result){
-                        if($user['phonenum']==$data['phonenum']){
-                            $return['result']=true;
-                            $return['msg']='验证成功';
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            if(array_key_exists('type',$data)){
+                if(array_key_exists('verificationCode',$data)){
+                    if($data['type']=='checkPhonenum'&&array_key_exists('phonenum',$data)){
+                        $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
+                        if($vertify_result){
+                            if($user['phonenum']==$data['phonenum']){
+                                $return['result']=true;
+                                $return['msg']='验证成功';
+                            }
+                            else{
+                                $return['result']=false;
+                                $return['msg']='验证失败';
+                            }
                         }
                         else{
                             $return['result']=false;
-                            $return['msg']='验证失败';
+                            $return['msg']='验证码不正确';
                         }
                     }
-                    else{
-                        $return['result']=false;
-                        $return['msg']='验证码不正确';
-                    }
-                }
-                else if($data['type']=='checkEmail'&&array_key_exists('email',$data)){
-                    $vertify_result = VertifyManager::judgeVertifyCodeByEmail($data['email'], $data['verificationCode']);
-                    if($vertify_result){
-                        if($user['email']==$data['email']){
-                            $return['result']=true;
-                            $return['msg']='验证成功';
+                    else if($data['type']=='checkEmail'&&array_key_exists('email',$data)){
+                        $vertify_result = VertifyManager::judgeVertifyCodeByEmail($data['email'], $data['verificationCode']);
+                        if($vertify_result){
+                            if($user['email']==$data['email']){
+                                $return['result']=true;
+                                $return['msg']='验证成功';
+                            }
+                            else{
+                                $return['result']=false;
+                                $return['msg']='验证码不正确';
+                            }
                         }
                         else{
                             $return['result']=false;
@@ -195,12 +207,12 @@ class CenterController extends Controller
                     }
                     else{
                         $return['result']=false;
-                        $return['msg']='验证码不正确';
+                        $return['msg']='非法操作';
                     }
                 }
                 else{
                     $return['result']=false;
-                    $return['msg']='非法操作';
+                    $return['msg']='缺少参数';
                 }
             }
             else{
@@ -210,7 +222,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='缺少参数';
+            $return['msg']='验证失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
     }
@@ -220,67 +232,72 @@ class CenterController extends Controller
     public function editDo(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
-        if(array_key_exists('type',$data)){
-            if(array_key_exists('verificationCode',$data)){
-                if($data['type']=='replacePhonenum'&&array_key_exists('phonenum',$data)){
-                    $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
-                    if($vertify_result){
-                        $check_result=MemberManager::getUserInfoByPhonenum($data['phonenum']);
-                        if(!$check_result){
-                            unset($data['verificationCode']);
-                            $member=MemberManager::setUser($user,$data);
-                            $result=$member->save();
-                            if($result){
-                                Cookie::queue('user', $member);
-                                $return['result']=true;
-                                $return['msg']='修改成功';
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            if(array_key_exists('type',$data)){
+                if(array_key_exists('verificationCode',$data)){
+                    if($data['type']=='replacePhonenum'&&array_key_exists('phonenum',$data)){
+                        $vertify_result = VertifyManager::judgeVertifyCode($data['phonenum'], $data['verificationCode']);
+                        if($vertify_result){
+                            $check_result=MemberManager::getUserInfoByPhonenum($data['phonenum']);
+                            if(!$check_result){
+                                unset($data['verificationCode']);
+                                $member=MemberManager::setUser($user,$data);
+                                $result=$member->save();
+                                if($result){
+                                    $return['result']=true;
+                                    $return['msg']='修改成功';
+                                }
+                                else{
+                                    $return['result']=false;
+                                    $return['msg']='修改失败';
+                                }
                             }
                             else{
                                 $return['result']=false;
-                                $return['msg']='修改失败';
+                                $return['msg']='该手机号已经注册过，不能重复注册';
                             }
                         }
                         else{
                             $return['result']=false;
-                            $return['msg']='该手机号已经注册过，不能重复注册';
+                            $return['msg']='验证码不正确';
                         }
                     }
-                    else{
-                        $return['result']=false;
-                        $return['msg']='验证码不正确';
-                    }
-                }
-                else if($data['type']=='replaceEmail'&&array_key_exists('email',$data)){
-                    $vertify_result = VertifyManager::judgeVertifyCodeByEmail($data['email'], $data['verificationCode']);
-                    if($vertify_result){
-                        $check_result=MemberManager::getUserInfoByEmail($data['email']);
-                        if(!$check_result){
-                            unset($data['verificationCode']);
-                            $member=MemberManager::setUser($user,$data);
-                            $result=$member->save();
-                            if($result){
-                                Cookie::queue('user', $member);
-                                $return['result']=true;
-                                $return['msg']='修改成功';
+                    else if($data['type']=='replaceEmail'&&array_key_exists('email',$data)){
+                        $vertify_result = VertifyManager::judgeVertifyCodeByEmail($data['email'], $data['verificationCode']);
+                        if($vertify_result){
+                            $check_result=MemberManager::getUserInfoByEmail($data['email']);
+                            if(!$check_result){
+                                unset($data['verificationCode']);
+                                $member=MemberManager::setUser($user,$data);
+                                $result=$member->save();
+                                if($result){
+                                    $return['result']=true;
+                                    $return['msg']='修改成功';
+                                }
+                                else{
+                                    $return['result']=false;
+                                    $return['msg']='修改失败';
+                                }
                             }
                             else{
                                 $return['result']=false;
-                                $return['msg']='修改失败';
+                                $return['msg']='该邮箱已经注册过，不能重复注册';
                             }
                         }
                         else{
                             $return['result']=false;
-                            $return['msg']='该邮箱已经注册过，不能重复注册';
+                            $return['msg']='验证码不正确';
                         }
                     }
                     else{
                         $return['result']=false;
-                        $return['msg']='验证码不正确';
+                        $return['msg']='非法操作';
                     }
                 }
                 else{
                     $return['result']=false;
-                    $return['msg']='非法操作';
+                    $return['msg']='缺少参数';
                 }
             }
             else{
@@ -290,7 +307,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='缺少参数';
+            $return['msg']='绑定失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
     }
@@ -303,6 +320,7 @@ class CenterController extends Controller
         $common=$data['common'];
         $addresses=AddressManager::getAddressListsByUserId($user['id']);
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='address';
             $param=array(
@@ -326,6 +344,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $return=null;
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             if(array_key_exists('id',$data)){
                 $address=AddressManager::getAddressById($data['id']);
             }
@@ -362,6 +381,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $return=null;
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             if(array_key_exists('id',$data)){
                 $address=AddressManager::getAddressById($data['id']);
 //                $data['user_id']=$user['id'];
@@ -396,6 +416,7 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $return=null;
         if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             if(array_key_exists('id',$data)){
                 $address=AddressManager::getAddressById($data['id']);
                 $data['status']=1;
