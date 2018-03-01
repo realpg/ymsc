@@ -223,7 +223,11 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('center/address', 'Home\CenterController@address');        //地址管理
     Route::post('center/address', 'Home\CenterController@addressDo');        //编辑地址管理
     Route::get('center/address/del', 'Home\CenterController@addressDel');        //删除地址
-    Route::get('center/address/default', 'Home\CenterController@addressDefault');        //删除地址
+    Route::get('center/address/default', 'Home\CenterController@addressDefault');        //修改默认地址
+    Route::get('center/invoice', 'Home\CenterController@invoice');        //发票管理
+    Route::post('center/invoice', 'Home\CenterController@invoiceDo');        //编辑地址管理
+    Route::get('center/invoice/del', 'Home\CenterController@invoiceDel');        //删除发票
+    Route::get('center/invoice/default', 'Home\CenterController@invoiceDefault');        //修改默认发票
 });
 
 Auth::routes();

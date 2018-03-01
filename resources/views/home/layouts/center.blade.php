@@ -10,7 +10,7 @@
         </div>
         <a href="{{ URL::asset('center') }}" class="list-group-item {{$column_child=='index'?'active_center':''}}">个人信息</a>
         <a href="{{ URL::asset('center/address') }}" class="list-group-item {{$column_child=='address'?'active_center':''}}">地址管理</a>
-        <a href="#" class="list-group-item {{$column_child=='invoice'?'active_center':''}}">发票管理</a>
+        <a href="{{ URL::asset('center/invoice') }}" class="list-group-item {{$column_child=='invoice'?'active_center':''}}">发票管理</a>
     </div>
     <div class="list-group text-center margin-bottom-0">
         <div href="#" class="list-group-item border-radius-0 background-navy-blue text-white border-navy-blue">

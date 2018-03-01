@@ -164,6 +164,15 @@ function delAddress(url, param, callBack) {
 function defaultAddress(url, param, callBack) {
     ajaxRequest(url + "center/address/default", param, "GET", callBack);
 }
+
+//删除发票
+function delInvoice(url, param, callBack) {
+    ajaxRequest(url + "center/invoice/del", param, "GET", callBack);
+}
+//设置默认收货地址
+function defaultInvoice(url, param, callBack) {
+    ajaxRequest(url + "center/invoice/default", param, "GET", callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -191,6 +200,21 @@ function isPoneAvailable(phone_num) {
 function isEmail(email) {
     var myreg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
     if (!myreg.test(email)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/*
+ * 校验电话号码（包括手机，固定电话，带区号，不带区号）js
+ *
+ * By zm
+ */
+
+function isPhone(phone) {
+    var myreg = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/;
+    if (!myreg.test(phone)) {
         return false;
     } else {
         return true;

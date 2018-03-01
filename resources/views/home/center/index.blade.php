@@ -66,16 +66,21 @@
                 </div>
                 <div class="col-xs-12 col-sm-2">
                     <div class="margin-top-20 text-center" id="container">
-                        @if($user['avatar'])
-                            <img src="{{$user['avatar']}}" id="imagePrv" class="width-150 border-radius-100" />
-                        @else
-                            @if($user['gender']==2)
-                                <img src="{{URL::asset('img/avatar_girl.png')}}" id="imagePrv" class="width-150 border-radius-100" />
+                        <div class="width-150 flex-auto">
+                            @if($user['avatar'])
+                                <img src="{{$user['avatar']}}" id="imagePrv" class="width-150 border-radius-100" />
                             @else
-                                <img src="{{URL::asset('img/avatar_boy.png')}}" id="imagePrv" class="width-150 border-radius-100" />
+                                @if($user['gender']==2)
+                                    <img src="{{URL::asset('img/avatar_girl.png')}}" id="imagePrv" class="width-150 border-radius-100" />
+                                @else
+                                    <img src="{{URL::asset('img/avatar_boy.png')}}" id="imagePrv" class="width-150 border-radius-100" />
+                                @endif
                             @endif
-                        @endif
-                        <input type="hidden" name="avatar" id="avatar" />
+                            <input type="hidden" name="avatar" id="avatar" />
+                            <div class="margin-top-10">
+                                点击图片上传头像
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-8">

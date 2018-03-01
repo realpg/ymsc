@@ -84,6 +84,10 @@ input button{
     font-weight: bold;
 }
 
+.margin-left-0 {
+    margin-left: 0px;
+}
+
 .margin-left-2 {
     margin-left: 2px;
 }
@@ -110,6 +114,10 @@ input button{
 
 .margin-left-40 {
     margin-left: 40px;
+}
+
+.margin-right-0 {
+    margin-right: 0px;
 }
 
 .margin-right-2 {
@@ -1121,6 +1129,11 @@ label.error {
     font-size: 0;
 }
 .center-address i{
+    color: #d9534f;
+    line-height: 34px;
+    margin-right: 10px;
+}
+.center-invoice i{
     color: #d9534f;
     line-height: 34px;
     margin-right: 10px;

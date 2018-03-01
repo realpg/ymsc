@@ -72,7 +72,7 @@
                         <div class="row position-relative margin-top-20 margin-bottom-20">
                             <div class="col-xs-2 col-sm-3 text-right"></div>
                             <div class="col-xs-10 col-sm-8">
-                                <button type="submint" class="btn btn-info border-radius-0 margin-right-10">确 认 修 改</button>
+                                <button type="submint" class="btn btn-info border-radius-0 margin-right-10">确 认 添 加</button>
                                 <button type="reset" class="btn btn-default border-radius-0">取 消</button>
                             </div>
                         </div>
@@ -210,7 +210,6 @@
                     type: 'POST',
                     url: "{{ URL::asset('center/address')}}",
                     success: function (ret) {
-                        console.log(JSON.stringify(ret));
                         if (ret.result) {
                             layer.msg(ret.msg, {icon: 1, time: 2000});
                             window.location.reload()
