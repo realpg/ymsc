@@ -655,6 +655,14 @@ input button{
     min-height:95px;
 }
 
+.max-height-modal{
+    max-height: 330px;
+}
+
+.overflow-y-scroll{
+    overflow-y: scroll;
+}
+
 .position-relative{
     position: relative;
 }

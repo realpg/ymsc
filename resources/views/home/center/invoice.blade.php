@@ -113,8 +113,42 @@
                                 <div class="row position-relative margin-top-20">
                                     <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 公 司 证 照：</div>
                                     <div class="col-xs-6 col-sm-8">
-                                        <button type="button" class="btn btn-primary margin-right-10"> 非 三 证 合 一 企 业 </button>
-                                        <button type="button" class="btn btn-primary"> 三 证 合 一 企 业 </button>
+                                        <button type="button" class="btn btn-primary margin-right-10" data-toggle="modal" data-target="#invoiceModel_old"> 非 三 证 合 一 企 业 </button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invoiceModel_new"> 三 证 合 一 企 业 </button>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="invoiceModel_old" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4>非三证合一企业</h4>
+                                                </div>
+                                                <div class="modal-body max-height-modal overflow-y-scroll">
+                                                    123
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="invoiceModel_new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4>三证合一企业</h4>
+                                                </div>
+                                                <div class="modal-body max-height-modal overflow-y-scroll">
+                                                    new
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row position-relative margin-top-20">
@@ -135,12 +169,6 @@
                                         <input type="text" name="address" id="address" class="form-control" placeholder="请输入收票人地址">
                                     </div>
                                 </div>
-                                {{--<div class="row position-relative margin-top-20">--}}
-                                    {{--<div class="col-xs-6 col-sm-4 text-right"></div>--}}
-                                    {{--<div class="col-xs-6 col-sm-8">--}}
-                                        {{--<input type="checkbox" name="status" id="status" value="1"> 设为默认发票--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
                                 <div class="row position-relative margin-top-20 margin-bottom-20">
                                     <div class="col-xs-2 col-sm-4 text-right"></div>
                                     <div class="col-xs-10 col-sm-8">
@@ -194,7 +222,7 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <h4>发票详情</h4>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body max-height-modal overflow-y-scroll">
                                             <div class="row position-relative margin-top-20">
                                                 <div class="col-xs-6 col-sm-4 text-right">发 票 抬 头：</div>
                                                 <div class="col-xs-6 col-sm-8">
@@ -269,17 +297,41 @@
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                             <h4>发票详情</h4>
                                         </div>
-                                        <div class="modal-body">
+                                        <div class="modal-body max-height-modal overflow-y-scroll">
                                             <div class="row position-relative margin-top-20">
-                                                <div class="col-xs-6 col-sm-4 text-right">发 票 抬 头：</div>
+                                                <div class="col-xs-6 col-sm-4 text-right">单 位 名 称：</div>
                                                 <div class="col-xs-6 col-sm-8">
                                                     {{$invoice['title']}}
                                                 </div>
                                             </div>
                                             <div class="row position-relative margin-top-20">
-                                                <div class="col-xs-6 col-sm-4 text-right">税 号 / 信 用 代 码：</div>
+                                                <div class="col-xs-6 col-sm-4 text-right">纳 税 人 识 别 码：</div>
                                                 <div class="col-xs-6 col-sm-8">
                                                     {{$invoice['credit']}}
+                                                </div>
+                                            </div>
+                                            <div class="row position-relative margin-top-20">
+                                                <div class="col-xs-6 col-sm-4 text-right">注 册 地 址：</div>
+                                                <div class="col-xs-6 col-sm-8">
+                                                    {{$invoice['company_address']}}
+                                                </div>
+                                            </div>
+                                            <div class="row position-relative margin-top-20">
+                                                <div class="col-xs-6 col-sm-4 text-right">注 册 电 话：</div>
+                                                <div class="col-xs-6 col-sm-8">
+                                                    {{$invoice['company_tel']}}
+                                                </div>
+                                            </div>
+                                            <div class="row position-relative margin-top-20">
+                                                <div class="col-xs-6 col-sm-4 text-right">开 户 银 行：</div>
+                                                <div class="col-xs-6 col-sm-8">
+                                                    {{$invoice['bank']}}
+                                                </div>
+                                            </div>
+                                            <div class="row position-relative margin-top-20">
+                                                <div class="col-xs-6 col-sm-4 text-right">银 行 账 号：</div>
+                                                <div class="col-xs-6 col-sm-8">
+                                                    {{$invoice['number']}}
                                                 </div>
                                             </div>
                                             <div class="row position-relative margin-top-20">
@@ -314,7 +366,7 @@
                             <img src="{{ URL::asset('img/nothing.png') }}"  />
                         </div>
                         <div class="margin-top-20 text-center index-font">
-                            还没有增值税专用发票，快添加一个吧！
+                            还没有设置发票，快添加一个吧！
                         </div>
                     @endif
                 </div>

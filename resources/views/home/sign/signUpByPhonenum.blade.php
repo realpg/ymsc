@@ -52,7 +52,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">用户服务协议</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body max-height-modal overflow-y-scroll">
                     我是内容
                 </div>
                 <div class="modal-footer">
