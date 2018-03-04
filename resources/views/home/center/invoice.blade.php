@@ -123,24 +123,24 @@
                                     <div class="col-xs-6 col-sm-8">
                                         <div class="row height-150 text-center" id="invoiceModel_old">
                                             <div class="col-xs-12 col-sm-4">
-                                                <img src="{{URL::asset('img/add_picture.png')}}" id="old_license" class="width-100" />
+                                                <img src="{{URL::asset('img/add_picture.png')}}" id="old_license" class="width-100 height-150" />
                                                 <input type="hidden" name="business_license" id="business_license" />
                                                 <p>营业执照</p>
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
-                                                <img src="{{URL::asset('img/add_picture.png')}}" id="old_permit" class="width-100" />
+                                                <img src="{{URL::asset('img/add_picture.png')}}" id="old_permit" class="width-100 height-150" />
                                                 <input type="hidden" name="account_opening_permit" id="account_opening_permit" />
                                                 <p>开户许可证</p>
                                             </div>
                                             <div class="col-xs-12 col-sm-4">
-                                                <img src="{{URL::asset('img/add_picture.png')}}" id="old_certificate" class="width-100" />
+                                                <img src="{{URL::asset('img/add_picture.png')}}" id="old_certificate" class="width-100 height-150" />
                                                 <input type="hidden" name="tax_registration_certificate" id="tax_registration_certificate" />
                                                 <p>税务登记证</p>
                                             </div>
                                         </div>
                                         <div class="row height-150 text-center" id="invoiceModel_new" hidden>
                                             <div class="col-xs-12 col-sm-4 col-md-offset-4">
-                                                <img src="{{URL::asset('img/add_picture.png')}}" id="new_license" class="width-100" />
+                                                <img src="{{URL::asset('img/add_picture.png')}}" id="new_license" class="width-100 height-150" />
                                                 <input type="hidden" name="business_license_new" id="business_license_new" />
                                                 <p>营业执照</p>
                                             </div>
@@ -336,22 +336,22 @@
                                                     @if($invoice['licence']==0)
                                                         <div class="row height-150 text-center">
                                                             <div class="col-xs-12 col-sm-4">
-                                                                <img src="{{$invoice['business_license']}}" class="width-100" />
+                                                                <img src="{{$invoice['business_license']}}" class="width-100 height-150" />
                                                                 <p>营业执照</p>
                                                             </div>
                                                             <div class="col-xs-12 col-sm-4">
-                                                                <img src="{{$invoice['account_opening_permit']}}" class="width-100" />
+                                                                <img src="{{$invoice['account_opening_permit']}}" class="width-100 height-150" />
                                                                 <p>开户许可证</p>
                                                             </div>
                                                             <div class="col-xs-12 col-sm-4">
-                                                                <img src="{{$invoice['tax_registration_certificate']}}" class="width-100" />
+                                                                <img src="{{$invoice['tax_registration_certificate']}}" class="width-100 height-150" />
                                                                 <p>税务登记证</p>
                                                             </div>
                                                         </div>
                                                     @else
                                                         <div class="row height-150 text-center">
                                                             <div class="col-xs-12 col-sm-4">
-                                                                <img src="{{$invoice['business_license']}}" class="width-100" />
+                                                                <img src="{{$invoice['business_license']}}" class="width-100 height-150" />
                                                                 <p>营业执照</p>
                                                             </div>
                                                         </div>
