@@ -473,6 +473,8 @@ class CenterController extends Controller
         $user=$request->cookie('user');
         $common=$data['common'];
         $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
+        //生成七牛token
+        $upload_token = QNManager::uploadToken();
         if($user){
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
@@ -482,7 +484,8 @@ class CenterController extends Controller
                 'column'=>$column,
                 'column_child'=>$column_child,
                 'user'=>$user,
-                'invoices'=>$invoices
+                'invoices'=>$invoices,
+                'upload_token'=>$upload_token
             );
             return view('home.center.invoice',$param);
         }
@@ -511,6 +514,12 @@ class CenterController extends Controller
                 else if($data['type']=='editSpecialInvoice'){
                     $data['type']=1;
                     $data['phonenum']=$data['special_phonenum'];
+                    if($data['licence']==1){
+                        unset($data['business_license']);
+                        unset($data['account_opening_permit']);
+                        unset($data['tax_registration_certificate']);
+                        $data['business_license']=$data['business_license_new'];
+                    }
                     $invoice=new InvoiceModel();
                 }
                 else{
