@@ -80,84 +80,88 @@
                 </form>
             </div>
             <div class="row margin-bottom-20 padding-left-20 padding-right-20">
-                <div class="line-height-40 text-center">
-                    <div class="col-xs-2 col-sm-2 background-detail style-ellipsis-1">收货人</div>
-                    <div class="col-xs-6 col-sm-6 background-detail style-ellipsis-1">地址</div>
-                    <div class="col-xs-4 col-sm-4 background-detail style-ellipsis-1">操作</div>
-                </div>
-                @foreach($addresses as $address)
-                    <div class="line-height-40">
-                        <div class="col-xs-2 col-sm-2 text-center style-ellipsis-1 border-bottom-attribute">{{$address['name']}}</div>
-                        <div class="col-xs-6 col-sm-6 style-ellipsis-1 border-bottom-attribute">{{$address['province']}} {{$address['city']}} {{$address['town']}}  {{$address['detail']}}</div>
-                        <div class="col-xs-4 col-sm-4 text-center style-ellipsis-1 border-bottom-attribute">
-                            <a href="" data-toggle="modal" data-target="#addressModel_{{$address['id']}}" >
-                                <span class="text-blue padding-left-5 padding-right-5">详 情</span>
-                            </a>
-                            <a href="javascript:" onclick="address_del(this,'{{$address['id']}}')">
-                                <span class="text-blue padding-left-5 padding-right-5">删 除</span>
-                            </a>
-                            @if($address['status'])
-                                <span class="label label-danger padding-left-5 padding-right-5">默 认 地 址</span>
-                            @else
-                                <a href="javascript:" onclick="address_default(this,'{{$address['id']}}')">
-                                    <span class="text-blue">设 置 默 认</span>
-                                </a>
-                            @endif
-                        </div>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="addressModel_{{$address['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4>地址详情</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row position-relative margin-top-20">
-                                        <div class="col-xs-6 col-sm-3 text-right">收 货 人：</div>
-                                        <div class="col-xs-6 col-sm-8">
-                                            {{$address['name']}}
-                                        </div>
-                                    </div>
-                                    <div class="row position-relative margin-top-20">
-                                        <div class="col-xs-6 col-sm-3 text-right">收 货 地 址：</div>
-                                        <div class="col-xs-6 col-sm-8">
-                                            {{$address['province']}} {{$address['city']}} {{$address['town']}}  {{$address['detail']}}
-                                        </div>
-                                    </div>
-                                    @if($address['phonenum'])
-                                    <div class="row position-relative margin-top-20">
-                                        <div class="col-xs-6 col-sm-3 text-right">手 机 号 码：</div>
-                                        <div class="col-xs-6 col-sm-8">
-                                            {{$address['phonenum']}}
-                                        </div>
-                                    </div>
+                <div class="table-responsive">
+                    <table class="table border-0">
+                        <tr class="line-height-40 text-center">
+                            <td class="background-detail style-ellipsis-1">收货人</td>
+                            <td class="background-detail style-ellipsis-1">地址</td>
+                            <td class="background-detail style-ellipsis-1">操作</td>
+                        </tr>
+                        @foreach($addresses as $address)
+                            <tr class="line-height-40">
+                                <td class="col-xs-2 col-sm-2 text-center style-ellipsis-1 border-bottom-attribute">{{$address['name']}}</td>
+                                <td class="col-xs-6 col-sm-6 style-ellipsis-1 border-bottom-attribute">{{$address['province']}} {{$address['city']}} {{$address['town']}}  {{$address['detail']}}</td>
+                                <td class="col-xs-4 col-sm-4 text-center style-ellipsis-1 border-bottom-attribute">
+                                    <a href="" data-toggle="modal" data-target="#addressModel_{{$address['id']}}" >
+                                        <span class="text-blue padding-left-5 padding-right-5">详 情</span>
+                                    </a>
+                                    <a href="javascript:" onclick="address_del(this,'{{$address['id']}}')">
+                                        <span class="text-blue padding-left-5 padding-right-5">删 除</span>
+                                    </a>
+                                    @if($address['status'])
+                                        <span class="label label-danger padding-left-5 padding-right-5">默 认 地 址</span>
+                                    @else
+                                        <a href="javascript:" onclick="address_default(this,'{{$address['id']}}')">
+                                            <span class="text-blue">设 置 默 认</span>
+                                        </a>
                                     @endif
-                                    @if($address['phone'])
-                                    <div class="row position-relative margin-top-20">
-                                        <div class="col-xs-6 col-sm-3 text-right">固 定 电 话：</div>
-                                        <div class="col-xs-6 col-sm-8">
-                                            {{$address['phone']}}
+                                </td>
+                            </tr>
+                            <!-- Modal -->
+                            <div class="modal fade" id="addressModel_{{$address['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4>地址详情</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row position-relative margin-top-20">
+                                                <div class="col-xs-6 col-sm-3 text-right">收 货 人：</div>
+                                                <div class="col-xs-6 col-sm-8">
+                                                    {{$address['name']}}
+                                                </div>
+                                            </div>
+                                            <div class="row position-relative margin-top-20">
+                                                <div class="col-xs-6 col-sm-3 text-right">收 货 地 址：</div>
+                                                <div class="col-xs-6 col-sm-8">
+                                                    {{$address['province']}} {{$address['city']}} {{$address['town']}}  {{$address['detail']}}
+                                                </div>
+                                            </div>
+                                            @if($address['phonenum'])
+                                                <div class="row position-relative margin-top-20">
+                                                    <div class="col-xs-6 col-sm-3 text-right">手 机 号 码：</div>
+                                                    <div class="col-xs-6 col-sm-8">
+                                                        {{$address['phonenum']}}
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($address['phone'])
+                                                <div class="row position-relative margin-top-20">
+                                                    <div class="col-xs-6 col-sm-3 text-right">固 定 电 话：</div>
+                                                    <div class="col-xs-6 col-sm-8">
+                                                        {{$address['phone']}}
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            @if($address['code'])
+                                                <div class="row position-relative margin-top-20">
+                                                    <div class="col-xs-6 col-sm-3 text-right">邮 编：</div>
+                                                    <div class="col-xs-6 col-sm-8">
+                                                        {{$address['code']}}
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                         </div>
                                     </div>
-                                    @endif
-                                    @if($address['code'])
-                                    <div class="row position-relative margin-top-20">
-                                        <div class="col-xs-6 col-sm-3 text-right">邮 编：</div>
-                                        <div class="col-xs-6 col-sm-8">
-                                            {{$address['code']}}
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                @endforeach
+                        @endforeach
+                    </table>
+                </div>
                 @if(count($addresses)==0)
                     <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                         <img src="{{ URL::asset('img/nothing.png') }}"  />

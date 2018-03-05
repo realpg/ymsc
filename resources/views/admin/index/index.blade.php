@@ -83,17 +83,6 @@
                     </ul>
                 </dd>
             </dl>
-            {{--<dl id="menu-goods">--}}
-                {{--<dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>--}}
-                {{--</dt>--}}
-                {{--<dd>--}}
-                    {{--<ul>--}}
-                        {{--<li><a data-href="{{ URL::asset('/admin/chem/index') }}" data-title="试剂耗材管理" href="javascript:void(0)">试剂耗材管理</a></li>--}}
-                        {{--<li><a data-href="{{ URL::asset('/admin/testing/index') }}" data-title="第三方检测管理" href="javascript:void(0)">第三方检测管理</a></li>--}}
-                        {{--<li><a data-href="{{ URL::asset('/admin/machining/index') }}" data-title="机加工管理" href="javascript:void(0)">机加工管理</a></li>--}}
-                    {{--</ul>--}}
-                {{--</dd>--}}
-            {{--</dl>--}}
             <dl id="menu-goods">
                 <dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
                 </dt>
@@ -128,15 +117,16 @@
                     </ul>
                 </dd>
             </dl>
-            {{--<dl id="menu-member">--}}
-                {{--<dt><i class="Hui-iconfont">&#xe62b;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>--}}
-                {{--</dt>--}}
-                {{--<dd>--}}
-                    {{--<ul>--}}
-                        {{--<li><a data-href="{{ URL::asset('/admin/member/index') }}" data-title="会员管理" href="javascript:void(0)">会员管理</a></li>--}}
-                    {{--</ul>--}}
-                {{--</dd>--}}
-            {{--</dl>--}}
+            <dl id="menu-member">
+                <dt><i class="Hui-iconfont">&#xe62b;</i> 会员中心<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="{{ URL::asset('/admin/member/index') }}" data-title="会员管理" href="javascript:void(0)">会员管理</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/invoice/index') }}" data-title="专用发票审核管理" href="javascript:void(0)">专用发票审核管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
             {{--<dl id="menu-comment">--}}
                 {{--<dt><i class="Hui-iconfont">&#xe6b3;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>--}}
                 {{--</dt>--}}

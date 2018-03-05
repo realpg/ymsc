@@ -136,9 +136,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/machiningcase/del', 'Admin\MachiningController@delCase');  //删除机加工商品案例信息
     Route::post('/machiningcase/edit', 'Admin\MachiningController@editDoCase');  //编辑机加工商品案例信息
 
-//    //会员管理
-//    Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页
-//    Route::get('/member/edit', 'Admin\MemberController@edit');  //查看会员详情
+    //会员管理
+    Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页
+    Route::post('/member/index', 'Admin\MemberController@index');  //搜索会员
+    Route::get('/member/edit', 'Admin\MemberController@edit');  //查看会员详情
+    //增值税专用发票管理
+    Route::get('/invoice/index', 'Admin\InvoiceController@index');  //增值税专用发票管理首页
+    Route::post('/invoice/index', 'Admin\InvoiceController@index');  //搜索增值税专用发票
+    Route::get('/invoice/edit', 'Admin\InvoiceController@edit');  //查看增值税专用发票详情
+    Route::post('/invoice/examine', 'Admin\InvoiceController@examine');  //审核增值税专用发票
 //
 //    //评论管理
 //    Route::get('/comment/index', 'Admin\CommentController@index');  //评论管理首页

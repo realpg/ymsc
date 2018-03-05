@@ -8,10 +8,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Components\OrganizationManager;
-use App\Components\UserManager;
-use App\Models\Organization;
-use App\User;
+use App\Components\MemberManager;
 use Illuminate\Http\Request;
 
 class MemberController
@@ -27,18 +24,10 @@ class MemberController
         else{
             $search='';
         }
-        if(array_key_exists('organization_id',$data)){
-            $organization_id=$data['organization_id'];
-        }
-        else{
-            $organization_id='';
-        }
-        $users = UserManager::getAllMembersByName($search,$organization_id);
-        $organizations=OrganizationManager::getAllOrganizationLists('');
+        $members = MemberManager::getUsersByName($search);
         $param=array(
             'admin'=>$admin,
-            'datas'=>$users,
-            'organizations'=>$organizations
+            'datas'=>$members,
         );
         return view('admin.member.index', $param);
     }
@@ -47,9 +36,7 @@ class MemberController
     public function edit(Request $request){
         $data = $request->all();
         $admin = $request->session()->get('admin');
-        $member=UserManager::getUserInfoById($data['id']);
-        $member['organization']=Organization::find($member['organization_id']);
-        $member['share']=UserManager::getUserInfoById($member['share_user']);
+        $member=MemberManager::getUserInfoByIdWithNotToken($data['id']);
         $param=array(
             'admin'=>$admin,
             'data'=>$member,

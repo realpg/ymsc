@@ -1,12 +1,12 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span>会员列表 <a class="btn btn-success radius btn-refresh r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" onclick="location.replace('{{URL::asset('/admin/member/index')}}');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 增值税专用发票管理 <span class="c-gray en">&gt;</span>增值税专用发票列表 <a class="btn btn-success radius btn-refresh r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" onclick="location.replace('{{URL::asset('/admin/invoice/index')}}');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="text-c">
-        <form action="{{URL::asset('/admin/member/index')}}" method="post" class="form-horizontal">
+        <form action="{{URL::asset('/admin/invoice/index')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
-            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="会员昵称/电话">
+            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="增值税专用发票昵称/电话">
             <button type="submit" class="btn btn-success" id="" name="">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -17,10 +17,10 @@
             <thead>
             <tr class="text-c">
                 <th width="80">ID</th>
-                <th>头像</th>
-                <th>昵称</th>
-                <th>电话</th>
-                <th>积分</th>
+                <th>收票人姓名</th>
+                <th>收票人电话</th>
+                <th>收票人地址</th>
+                <th>状态</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
             </tr>
@@ -29,20 +29,21 @@
             @foreach($datas as $data)
                 <tr class="text-c">
                     <td>{{$data['id']}}</td>
+                    <td class="text-l">{{$data['name']}}</td>
+                    <td class="text-l">{{$data['phonenum']}}</td>
+                    <td class="text-l">{{$data['address']}}</td>
                     <td>
-                        <img src="{{ $data['avatar'] ? $data['avatar'].'?imageView2/1/w/200/h/200/interlace/1/q/75|imageslim' : URL::asset('/img/default_headicon.png')}}"
-                             class="img-rect-30 radius-5">
+                        @if($data['examine']==0)
+                            <span class="label label-danger radius">待审核</span>
+                        @elseif($data['examine']==1)
+                            <span class="label label-success radius">已通过</span>
+                        @elseif($data['examine']==2)
+                            <span class="label label-warning radius">未通过</span>
+                        @endif
                     </td>
-                    <td class="text-l">{{$data['nick_name']}}</td>
-                    @if($data['phonenum'])
-                        <td class="text-l">{{substr($data['phonenum'],0,3)}}****{{substr($data['phonenum'],6,4)}}</td>
-                    @else
-                        <td class="text-l">未绑定</td>
-                    @endif
-                    <td class="text-l">{{$data['score']}}</td>
                     <td>{{$data['updated_at']}}</td>
                     <td class="td-manage">
-                        <a title="查看详情" href="javascript:;" onclick="member_edit('查看详情','{{URL::asset('/admin/member/edit')}}?id={{$data['id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
+                        <a title="查看详情" href="javascript:;" onclick="invoice_edit('查看详情','{{URL::asset('/admin/invoice/edit')}}?id={{$data['id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
                             <i class="Hui-iconfont">&#xe695;</i>
                         </a>
                     </td>
@@ -69,9 +70,9 @@
         ]
     });
 
-    /*查看会员详情*/
-    function member_edit(title, url, id) {
-        console.log("member_edit url:" + url);
+    /*查看增值税专用发票详情*/
+    function invoice_edit(title, url, id) {
+        console.log("invoice_edit url:" + url);
         var index = layer.open({
             type: 2,
             title: title,

@@ -29,7 +29,7 @@
             <div class="col-xs-12 col-sm-9 padding-10 min-height-content">
                 <div class="margin-bottom-10">
                     @foreach($attributes as $k=>$attribute)
-                        <div class="line-height-40 style-ellipsis-1 border-bottom-attribute">
+                        <div class="line-height-40 border-bottom-attribute style-ellipsis-1">
                             <span class="padding-right-10 border-right-attribute height-14">{{$attribute['name']}} </span>
                             @if($k==0)
                                 @if($s_attribute_id)
@@ -70,28 +70,43 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="line-height-40 border-bottom-navy-blue row common-text-align-center">
-                    <div class="col-xs-2 col-sm-2 background-navy-blue text-white">货 号</div>
-                    <div class="col-xs-2 col-sm-2">品 牌</div>
-                    <div class="col-xs-2 col-sm-2">纯 度</div>
-                    <div class="col-xs-2 col-sm-2">规 格</div>
-                    <div class="col-xs-1 col-sm-1">货 期</div>
-                    <div class="col-xs-2 col-sm-2">优 迈 价</div>
-                    <div class="col-xs-1 col-sm-1">操 作</div>
+                <div class="table-responsive">
+                    <table class="table border-0">
+                        <tr>
+                            <th class="background-navy-blue text-white text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">货 号</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">品 牌</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">纯 度</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">规 格</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">货 期</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">优 迈 价</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">操 作</th>
+                        </tr>
+                        @foreach($chem_class['goodses'] as $chem_class['goods'])
+                            <tr>
+                                <td class="line-height-40 border-bottom-attribute text-center">
+                                    <a href="{{URL::asset($column.'/detail/'.$chem_class['goods']['goods_id'])}}">
+                                    {{$chem_class['goods']['number']}}
+                                    </a>
+                                </td>
+                                <td class="line-height-40 border-bottom-attribute text-center">
+                                    <a href="{{URL::asset($column.'/detail/'.$chem_class['goods']['goods_id'])}}">
+                                    {{$chem_class['goods']['f_attribute']}}
+                                    </a>
+                                </td>
+                                <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['s_attribute']}}</td>
+                                <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['spec']}}</td>
+                                <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['delivery']}}</td>
+                                <td class="line-height-40 border-bottom-attribute text-center text-red">￥{{$chem_class['goods']['price']/100}}/{{$chem_class['goods']['unit']}}</td>
+                                <td class="line-height-40 border-bottom-attribute text-center">
+                                    <a href="{{URL::asset($column.'/detail/'.$chem_class['goods']['goods_id'])}}">
+                                    详 情
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
                 </div>
-                @foreach($chem_class['goodses'] as $chem_class['goods'])
-                    <div class="line-height-40 border-bottom-attribute row common-text-align-center">
-                        <div class="col-xs-2 col-sm-2">{{$chem_class['goods']['number']}}</div>
-                        <div class="col-xs-2 col-sm-2">{{$chem_class['goods']['f_attribute']}}</div>
-                        <div class="col-xs-2 col-sm-2">{{$chem_class['goods']['s_attribute']}}</div>
-                        <div class="col-xs-2 col-sm-2">{{$chem_class['goods']['spec']}}</div>
-                        <div class="col-xs-1 col-sm-1">{{$chem_class['goods']['delivery']}}</div>
-                        <div class="col-xs-2 col-sm-2 text-red">￥{{$chem_class['goods']['price']/100}}/{{$chem_class['goods']['unit']}}</div>
-                        <a href="{{URL::asset($column.'/detail/'.$chem_class['goods']['goods_id'])}}">
-                            <div class="col-xs-1 col-sm-1">详 情</div>
-                        </a>
-                    </div>
-                @endforeach
+
                 @if(count($chem_class['goodses'])==0)
                     <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                         <img src="{{ URL::asset('img/nothing.png') }}"  />

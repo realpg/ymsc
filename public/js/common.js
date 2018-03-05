@@ -144,6 +144,10 @@ function delMachiningCase(url, param, callBack) {
 function editMachiningCase(url, param, callBack) {
     $.post(url + "admin/machiningcase/edit",param,callBack);
 }
+//审核增值税专用发票
+function examineInvoice(url, param, callBack) {
+    $.post(url + "admin/invoice/examine",param,callBack);
+}
 
 
 //下发短信验证码

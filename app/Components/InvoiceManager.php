@@ -117,4 +117,20 @@ class InvoiceManager
         $invoices=InvoiceModel::where('delete',0)->where('user_id',$user_id)->orderBy('id','asc')->get();
         return $invoices;
     }
+
+    /*
+     * 模糊查询获取增值税专用发票列表
+     *
+     * By zm
+     *
+     * 2018-03-05
+     *
+     */
+    public static function getSpecialInvoiceListsBySearch($search){
+        $invoices=InvoiceModel::where(function($invoices)use($search){
+            $invoices->where('name','like','%'.$search.'%')
+                ->where('phonenum','like','%'.$search.'%');
+            })->where('type',1)->orderBy('examine','asc')->orderBy('id','asc')->get();
+        return $invoices;
+    }
 }

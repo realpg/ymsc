@@ -268,4 +268,20 @@ class MemberManager
         unset($user['token']);
         return $user;
     }
+
+    /*
+     * 根据name搜索用户
+     *
+     * By zm
+     *
+     * 2018-03-05
+     */
+    public static function getUsersByName($search){
+        $users=UserModel::where(function($users)use($search){
+            $users->where('nick_name','like','%'.$search.'%')
+                ->orwhere('phonenum','like','%'.$search.'%')
+                ->orwhere('email','like','%'.$search.'%');
+        })->orderBy('id','desc')->get();
+        return $users;
+    }
 }

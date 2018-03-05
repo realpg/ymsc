@@ -55,26 +55,53 @@
             <div class="line-height-40 border-bottom-navy-blue row common-text-align-center">
                 <div class="col-xs-12 col-sm-2 background-navy-blue text-white">其 他 规 格</div>
             </div>
-            <div class="line-height-40 border-bottom-attribute row common-text-align-center">
-                <div class="col-xs-2 col-sm-2">货号</div>
-                <div class="col-xs-2 col-sm-2">品牌</div>
-                <div class="col-xs-2 col-sm-2">纯度</div>
-                <div class="col-xs-2 col-sm-2">规格</div>
-                <div class="col-xs-2 col-sm-2">货期</div>
-                <div class="col-xs-2 col-sm-2 text-red">优迈价</div>
+            <div class="table-responsive">
+                <table class="table border-0">
+                    <tr class="line-height-40 border-bottom-attribute row common-text-align-center">
+                        <td class="col-xs-2 col-sm-2">货号</td>
+                        <td class="col-xs-2 col-sm-2">品牌</td>
+                        <td class="col-xs-2 col-sm-2">纯度</td>
+                        <td class="col-xs-2 col-sm-2">规格</td>
+                        <td class="col-xs-2 col-sm-2">货期</td>
+                        <td class="col-xs-2 col-sm-2 text-red">优迈价</td>
+                    </tr>
+                    @foreach($goods['other_goodses'] as $goods['other_goods'])
+                        <tr class="line-height-40 border-bottom-attribute row common-text-align-center">
+                            <td class="col-xs-0 col-sm-2">
+                                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
+                                    {{$goods['other_goods']['number']}}
+                                </a>
+                            </td>
+                            <td class="col-xs-0 col-sm-2">
+                                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
+                                    {{$goods['other_goods']['f_attribute']}}
+                                </a>
+                            </td>
+                            <td class="col-xs-0 col-sm-2">
+                                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
+                                    {{$goods['other_goods']['s_attribute']}}
+                                </a>
+                            </td>
+                            <td class="col-xs-0 col-sm-2">
+                                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
+                                    {{$goods['other_goods']['spec']}}
+                                </a>
+                            </td>
+                            <td class="col-xs-0 col-sm-2">
+                                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
+                                    {{$goods['other_goods']['delivery']}}
+                                </a>
+                            </td>
+                            <td class="col-xs-0 col-sm-2 text-red">
+                                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
+                                    ￥{{$goods['other_goods']['price']/100}}/{{$goods['other_goods']['unit']}}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
             </div>
-            @foreach($goods['other_goodses'] as $goods['other_goods'])
-                <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
-                    <div class="line-height-40 border-bottom-attribute row common-text-align-center">
-                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['number']}}</div>
-                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['f_attribute']}}</div>
-                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['s_attribute']}}</div>
-                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['spec']}}</div>
-                        <div class="col-xs-0 col-sm-2">{{$goods['other_goods']['delivery']}}</div>
-                        <div class="col-xs-0 col-sm-2 text-red">￥{{$goods['other_goods']['price']/100}}/{{$goods['other_goods']['unit']}}</div>
-                    </div>
-                </a>
-            @endforeach
+
         </div>
         <div class="margin-top-20">
             <div class="line-height-40 border-bottom-navy-blue row common-text-align-center">
@@ -104,28 +131,28 @@
                     <div class="col-xs-12 col-sm-2 common-text-align-center">化 合 物 信 息</div>
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 英 文 学 名</div>
-                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['english_name']}}</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 英 文 学 名</div>
+                    <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['english_name']}}</div>
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 中 文 学 名</div>
-                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['sub_name']}}</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 中 文 学 名</div>
+                    <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['sub_name']}}</div>
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">C A S 号</div>
-                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['cas']}}</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">C A S 号</div>
+                    <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['cas']}}</div>
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">分 子 量</div>
-                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['molecular']}}</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">分 子 量</div>
+                    <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['molecular']}}</div>
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">精 准 质 量</div>
-                    <div class="col-xs-6 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['accurate']}}</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">精 准 质 量</div>
+                    <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['accurate']}}</div>
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-6 col-sm-2 common-text-align-center border-top-white background-detail">分 子 式</div>
-                    <div class="col-xs-6 col-sm-10 border-detail border-left-0 border-right-0">{{$goods['chem_class']['molecule']}}</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">分 子 式</div>
+                    <div class="col-xs-12 col-sm-10 border-detail border-left-0 border-right-0">{{$goods['chem_class']['molecule']}}</div>
                 </div>
             </div>
         </div>
