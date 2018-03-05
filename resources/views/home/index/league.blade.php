@@ -1,10 +1,10 @@
 @extends('home.layouts.base')
 @section('content')
-    <div id="league-body">
+    <div id="league-body" style="max-height:813px;">
         <div class="style-home-nav-station"></div>
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-md-8">
+                <div class="col-xs-12 col-md-8" id="style-home-league-contact-company">
                     <div class="style-home-league-contact">
                         <p><h4>{{$common['base']['name']}}</h4></p>
                         <p><h4>电话：{{$common['base']['phonenum']}}</h4></p>

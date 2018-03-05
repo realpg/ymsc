@@ -1198,3 +1198,8 @@ a:hover{
         width:25.5rem;
     }
 }
+@media screen and (max-width:992px) {
+    #style-home-league-contact-company{
+        display: none;
+    }
+}
