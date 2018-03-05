@@ -51,6 +51,17 @@
                 </div>
             </div>
             <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>状态：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box">
+                        <select id="status" name="status" class="select">
+                            <option value="0" {{$data['status'] == 0? "selected":""}} >隐藏</option>
+                            <option value="1" {{$data['status'] == 1? "selected":""}} >显示</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2">SEO_标题：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <textarea  id="seo_title" name="seo_title" wrap="\n" class="textarea" style="resize:vertical;" placeholder="请填写SEO_标题" dragonfly="true" nullmsg="SEO_标题不能为空！">{{ isset($data['seo_title']) ? $data['seo_title'] : '' }}</textarea>

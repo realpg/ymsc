@@ -29,6 +29,7 @@
             <tr class="text-c">
                 <th width="80">ID</th>
                 <th>栏目名称</th>
+                <th width="150">状态</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
             </tr>
@@ -37,6 +38,11 @@
             <tr class="text-c">
                 <td>{{$datas['id']}}</td>
                 <td class="text-l">{{$datas['name']}}</td>
+                @if($datas['status']==1)
+                    <td><span class="label label-success radius">显示</span></td>
+                @else
+                    <td><span class="label label-danger radius">隐藏</span></td>
+                @endif
                 <td>{{$datas['updated_at']}}</td>
                 <td class="td-manage">
                     <a title="编辑" href="javascript:;" onclick="menu_edit('编辑','{{URL::asset('/admin/menu/edit')}}?id={{$datas['id']}}&menu_id={{$datas['id']}}',{{$datas['id']}})" class="ml-5" style="text-decoration:none">
@@ -60,6 +66,7 @@
             <tr class="text-c">
                 <th width="80">ID</th>
                 <th>栏目名称</th>
+                <th width="150">状态</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
             </tr>
@@ -69,6 +76,11 @@
                 <tr class="text-c">
                     <td>{{$menu['id']}}</td>
                     <td class="text-l">{{$menu['name']}}</td>
+                    @if($menu['status']==1)
+                        <td><span class="label label-success radius">显示</span></td>
+                    @else
+                        <td><span class="label label-danger radius">隐藏</span></td>
+                    @endif
                     <td>{{$menu['updated_at']}}</td>
                     <td class="td-manage">
                         <a title="编辑" href="javascript:;" onclick="menu_edit('编辑','{{URL::asset('/admin/menu/edit')}}?id={{$menu['id']}}&menu_id={{$menu['menu_id']}}',{{$menu['id']}})" class="ml-5" style="text-decoration:none">
@@ -97,7 +109,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[3]}// 不参与排序的列
+            {"orderable":false,"aTargets":[4]}// 不参与排序的列
         ]
     });
 

@@ -21,9 +21,11 @@
                     <p><a class="btn btn-default style-home-index-btn" href="http://xueshu.baidu.com/" target="_blank" role="button">百度学术</a></p>
                 </div>
                 @foreach($menus as $menu)
+                    @if($menu['status']==1)
                     <div class="col-sm-12 col-md-3">
                         <p><a class="btn btn-default style-home-index-btn" href="{{URL::asset($menu['route'])}}" role="button">{{$menu['name']}}</a></p>
                     </div>
+                    @endif
                 @endforeach
             </div>
         </div>

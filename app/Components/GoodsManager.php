@@ -754,7 +754,8 @@ class GoodsManager
                 ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
                 ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
                 ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
-                ->where($where)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->orderBy('goods_info.sort','desc')->orderBy('goods_info.id','desc')->select($select)->paginate($goods_paginate);
+                ->join('menu_info','menu_info.id','=','chem_class_info.menu_id')
+                ->where($where)->where('menu_info.status',1)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->orderBy('goods_info.sort','desc')->orderBy('goods_info.id','desc')->select($select)->paginate($goods_paginate);
             if(count($chem_class['goodses'])==0){
                 unset($chem_classes[$k]);
             }
@@ -969,7 +970,7 @@ class GoodsManager
         );
         if(empty($f_attribute_id)&&empty($s_attribute_id)){
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                    ->where('menu_info.status',1)
                     ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');
@@ -978,7 +979,7 @@ class GoodsManager
         }
         else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where('menu_info.status',1)
                 ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');
@@ -987,7 +988,7 @@ class GoodsManager
         }
         else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where('menu_info.status',1)
                 ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');})
@@ -995,7 +996,7 @@ class GoodsManager
         }
         else{
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where('menu_info.status',1)
                 ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');})
@@ -1118,7 +1119,7 @@ class GoodsManager
         );
         if(empty($f_attribute_id)&&empty($s_attribute_id)){
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where('menu_info.status',1)
                 ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');})
@@ -1126,7 +1127,7 @@ class GoodsManager
         }
         else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where('menu_info.status',1)
                 ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');})
@@ -1134,7 +1135,7 @@ class GoodsManager
         }
         else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where('menu_info.status',1)
                 ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');})
@@ -1142,7 +1143,7 @@ class GoodsManager
         }
         else{
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')->where('goods_info.f_attribute_id',$f_attribute_id)->where('goods_info.s_attribute_id',$s_attribute_id)->where('menu_info.menu_id','=',$menu_id)
-//                ->where('goods_info.name','like','%'.$search.'%')
+                ->where('menu_info.status',1)
                 ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');})
@@ -1209,12 +1210,16 @@ class GoodsManager
                 $goodses[$k]['goodses']=$chem_goodses;
                 $goodses[$k]['column']=$chem_column;
                 $goodses[$k]['column_id']=$chem_menu_id;
+                $menu=MenuManager::getMenuById($chem_menu_id);
+                $goodses[$k]['column_status']=$menu['status'];
             }
             else if($menu['id']==$testing_menu_id){
                 $testing_goodses=self::getAllGoodsListsByMenuId($search,$testing_menu_id);
                 $goodses[$k]['goodses']=$testing_goodses;
                 $goodses[$k]['column']=$testing_column;
                 $goodses[$k]['column_id']=$testing_menu_id;
+                $menu=MenuManager::getMenuById($testing_menu_id);
+                $goodses[$k]['column_status']=$menu['status'];
             }
             else if($menu['id']==$machining_menu_id){
                 $machining_goodses=self::getAllGoodsListsByMenuId($search,$machining_menu_id);
@@ -1231,9 +1236,24 @@ class GoodsManager
                 $goodses[$k]['goodses']=$machining_goodses;
                 $goodses[$k]['column']=$machining_column;
                 $goodses[$k]['column_id']=$machining_menu_id;
+                $menu=MenuManager::getMenuById($machining_menu_id);
+                $goodses[$k]['column_status']=$menu['status'];
             }
         }
-
-        return $goodses;
+        $goods_lists=array();
+        foreach($goodses as $k=>$goods){
+            if($goods['column_status']==1){
+                array_push($goods_lists,$goods);
+            }
+        }
+        foreach ($goods_lists as $goods_list){
+            foreach ($goods_list['goodses'] as $k=>$goods){
+                $menu=MenuManager::getMenuById($goods['menu_id']);
+                if($menu['status']==0){
+                    unset($goods_list['goodses'][$k]);
+                }
+            }
+        }
+        return $goods_lists;
     }
 }

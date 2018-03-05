@@ -217,7 +217,7 @@ class IndexController extends Controller
         $common=$data['common'];
         $search=$data['search'];
         $goodses=GoodsManager::getGoodsesByName($search);
-        $menus=MenuManager::getClassAMenuLists();
+        $menus=MenuManager::getClassAMenuListswhichCanShow();
         $param=array(
             'common'=>$common,
             'column'=>$column,

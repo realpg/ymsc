@@ -27,6 +27,20 @@ class MenuManager
     }
 
     /*
+     * 获取一级栏目（“显示”状态）
+     *
+     * By zm
+     *
+     * 2018-01-28
+     *
+     */
+    public static function getClassAMenuListswhichCanShow()
+    {
+        $menus = MenuModel::where('menu_id',0)->where('status',1)->orderBy('sort','desc')->get();
+        return $menus;
+    }
+
+    /*
      * 获取一级栏目以及对应的二级栏目
      *
      * By zm
@@ -96,32 +110,35 @@ class MenuManager
      * 2018-01-28
      *
      */
-    public static function setMenu($banner, $data){
+    public static function setMenu($menu, $data){
         if (array_key_exists('name', $data)) {
-            $banner->name = array_get($data, 'name');
+            $menu->name = array_get($data, 'name');
         }
         if (array_key_exists('menu_id', $data)) {
-            $banner->menu_id = array_get($data, 'menu_id');
+            $menu->menu_id = array_get($data, 'menu_id');
         }
         if (array_key_exists('prefix', $data)) {
-            $banner->prefix = array_get($data, 'prefix');
+            $menu->prefix = array_get($data, 'prefix');
         }
         if (array_key_exists('picture', $data)) {
-            $banner->picture = array_get($data, 'picture');
+            $menu->picture = array_get($data, 'picture');
         }
         if (array_key_exists('sort', $data)) {
-            $banner->sort = array_get($data, 'sort');
+            $menu->sort = array_get($data, 'sort');
+        }
+        if (array_key_exists('status', $data)) {
+            $menu->status = array_get($data, 'status');
         }
         if (array_key_exists('seo_title', $data)) {
-            $banner->seo_title = array_get($data, 'seo_title');
+            $menu->seo_title = array_get($data, 'seo_title');
         }
         if (array_key_exists('seo_keywords', $data)) {
-            $banner->seo_keywords = array_get($data, 'seo_keywords');
+            $menu->seo_keywords = array_get($data, 'seo_keywords');
         }
         if (array_key_exists('seo_description', $data)) {
-            $banner->seo_description = array_get($data, 'seo_description');
+            $menu->seo_description = array_get($data, 'seo_description');
         }
-        return $banner;
+        return $menu;
     }
 
 }

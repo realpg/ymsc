@@ -15,6 +15,7 @@
         <div class="list-group">
             <div href="#" class="style-home-banner-nav-title text-center font-size-16">全部商品分类</div>
             @foreach($menus as $menu)
+                @if($menu['status']==1)
                 <a href="{{URL::asset($column.'/lists/'.$menu['id'])}}" class="style-home-banner-nav-list">
                     <div class="float-left">
                         @if(!empty($menu['picture']))
@@ -26,6 +27,7 @@
                         <span class="glyphicon glyphicon-menu-right text-silver-grey margin-top-2" aria-hidden="true"></span>
                     </div>
                 </a>
+                @endif
             @endforeach
         </div>
     </div>

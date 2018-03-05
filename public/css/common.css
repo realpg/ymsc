@@ -1187,7 +1187,7 @@ label.error {
 .style-home-index-form-control-button{
     border-radius: 0;
 }
-a:hover{
+.table-responsive a:hover{
     color:#FC2421;
 }
 @media screen and (max-width: 1028px) {
