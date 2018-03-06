@@ -10,9 +10,12 @@ namespace App\Http\Controllers\Home;
 
 use App\Components\AttributeManager;
 use App\Components\BannerManager;
+use App\Components\DrawingManager;
 use App\Components\GoodsManager;
 use App\Components\MenuManager;
+use App\Components\QNManager;
 use App\Http\Controllers\Controller;
+use App\Models\DrawingModel;
 use Illuminate\Http\Request;
 
 class MachiningController extends Controller
@@ -32,13 +35,16 @@ class MachiningController extends Controller
             $menu_id=$menu['id'];
             $menu['machining_goodses']=GoodsManager::getMachiningGoodsesWithHot($menu_id);
         }
+        //生成七牛token
+        $upload_token = QNManager::uploadToken();
         $param=array(
             'common'=>$common,
             'column'=>$column,
             'user'=>$user,
             'menus'=>$menus,
             'channel'=>$channel,
-            'banners'=>$banners
+            'banners'=>$banners,
+            'upload_token'=>$upload_token
         );
         return view('home.machining.index',$param);
     }
@@ -153,5 +159,35 @@ class MachiningController extends Controller
             'goods'=>$goods
         );
         return view('home.machining.detail_standard',$param);
+    }
+
+    /*
+     * 上传机加工图纸
+     */
+    public function upload(Request $request){
+        $data=$request->all();
+        unset($data['common']);
+        $return=null;
+        $user=$request->cookie('user');
+        if($user){
+            $drawing=new DrawingModel();
+            $data['user_id']=$user['id'];
+            $data['content']=implode(",",$data['uploadImages']);;
+            $drawing = DrawingManager::setDrawing($drawing,$data);
+            $result=$drawing->save();
+            if($result){
+                $return['result']=true;
+                $return['msg']='提交成功，请联系客服进行进一步沟通';
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='提交失败';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='提交失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
     }
 }

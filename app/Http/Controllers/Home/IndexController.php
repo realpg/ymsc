@@ -67,7 +67,6 @@ class IndexController extends Controller
     public function leagueSignUp (Request $request){
         $data=$request->all();
         unset($data['common']);
-        $data = $request->all();
         $return=null;
         $league=new LeagueModel();
         $league = LeagueManager::setLeague($league,$data);

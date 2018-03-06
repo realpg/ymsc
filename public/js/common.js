@@ -152,6 +152,14 @@ function examineInvoice(url, param, callBack) {
 function delWord(url, param, callBack) {
     ajaxRequest(url + "admin/word/del", param, "GET", callBack);
 }
+//删除图纸
+function delDrawing(url, param, callBack) {
+    ajaxRequest(url + "admin/drawing/del", param, "GET", callBack);
+}
+//批量删除图纸
+function delMoreDrawing(url, param, callBack) {
+    ajaxRequest(url + "admin/drawing/delMore", param, "GET", callBack);
+}
 
 
 //下发短信验证码
@@ -180,6 +188,12 @@ function delInvoice(url, param, callBack) {
 //设置默认收货地址
 function defaultInvoice(url, param, callBack) {
     ajaxRequest(url + "center/invoice/default", param, "GET", callBack);
+}
+
+
+//上传第三方检测的图纸
+function uploadMachiningImages(url, param, callBack) {
+    $.post(url + "machining/upload",param,callBack);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 

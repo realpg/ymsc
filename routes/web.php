@@ -79,6 +79,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/searching/del', 'Admin\SearchingController@del');  //删除找货信息
     Route::get('/searching/delMore', 'Admin\SearchingController@delMore');  //批量删除找货信息
 
+    //图纸信息管理
+    Route::get('/drawing/index', 'Admin\DrawingController@index');  //图纸管理首页
+    Route::post('/drawing/index', 'Admin\DrawingController@index');  //搜索图纸信息
+    Route::get('/drawing/edit', 'Admin\DrawingController@edit');  //查看图纸信息详情
+    Route::post('/drawing/edit', 'Admin\DrawingController@editDo');  //修改图纸信息详情
+    Route::get('/drawing/del', 'Admin\DrawingController@del');  //删除图纸信息
+    Route::get('/drawing/delMore', 'Admin\DrawingController@delMore');  //批量删除图纸信息
+
     //客服管理
     Route::get('/service/index', 'Admin\ServiceController@index');  //客服管理首页
     Route::get('/service/edit', 'Admin\ServiceController@edit');  //编辑客服
@@ -213,6 +221,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
 
     //机加工商城
     Route::get('machining', 'Home\MachiningController@index');        //机加工商城首页
+    Route::post('machining/upload', 'Home\MachiningController@upload');        //机加工图纸上传
     Route::get('machining/lists/{menu_id}', 'Home\MachiningController@lists');        //机加工商城列表页
     Route::get('machining/lists/{menu_id}/f/{f_attribute_id}', 'Home\MachiningController@lists');        //机加工商城列表页
     Route::get('machining/lists/{menu_id}/s/{s_attribute_id}', 'Home\MachiningController@lists');        //机加工商城列表页
