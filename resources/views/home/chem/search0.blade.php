@@ -26,42 +26,28 @@
                     </a>
                 </div>
                 <div class="col-xs-12 col-sm-9 padding-10" style="min-height: 365px;">
-                    <div class="table-responsive">
-                        <table class="table border-0">
-                            <tr class="line-height-40 border-bottom-navy-blue row common-text-align-center">
-                                <td class="background-navy-blue text-white" style="border-top:0;">货 号</td>
-                                <td style="border-top:0;">品 牌</td>
-                                <td style="border-top:0;">纯 度</td>
-                                <td style="border-top:0;">规 格</td>
-                                <td style="border-top:0;">货 期</td>
-                                <td style="border-top:0;">优 迈 价</td>
-                                <td style="border-top:0;">操 作</td>
-                            </tr>
-                            @foreach($goods['goodses'] as $goods['goods'])
-                                <tr class="line-height-40 border-bottom-attribute row common-text-align-center">
-                                    <td style="border-top:0;">
-                                        <a href="{{URL::asset($column.'/detail/'.$goods['goods']['goods_id'])}}">
-                                        {{$goods['goods']['number']}}
-                                        </a>
-                                    </td>
-                                    <td style="border-top:0;">
-                                        <a href="{{URL::asset($column.'/detail/'.$goods['goods']['goods_id'])}}">
-                                        {{$goods['goods']['f_attribute']}}
-                                        </a>
-                                    </td>
-                                    <td style="border-top:0;">{{$goods['goods']['s_attribute']}}</td>
-                                    <td style="border-top:0;">{{$goods['goods']['spec']}}</td>
-                                    <td style="border-top:0;">{{$goods['goods']['delivery']}}</td>
-                                    <td style="border-top:0;">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</td>
-                                    <td style="border-top:0;">
-                                        <a href="{{URL::asset($column.'/detail/'.$goods['goods']['goods_id'])}}">
-                                            详 情
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
+                    <div class="line-height-40 border-bottom-navy-blue row common-text-align-center">
+                        <div class="col-xs-2 col-sm-2 background-navy-blue text-white">货 号</div>
+                        <div class="col-xs-2 col-sm-2">品 牌</div>
+                        <div class="col-xs-2 col-sm-2">纯 度</div>
+                        <div class="col-xs-2 col-sm-2">规 格</div>
+                        <div class="col-xs-1 col-sm-1">货 期</div>
+                        <div class="col-xs-2 col-sm-2">优 迈 价</div>
+                        <div class="col-xs-1 col-sm-1">操 作</div>
                     </div>
+                    @foreach($goods['goodses'] as $goods['goods'])
+                        <div class="line-height-40 border-bottom-attribute row common-text-align-center">
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['number']}}</div>
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['f_attribute']}}</div>
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['s_attribute']}}</div>
+                            <div class="col-xs-2 col-sm-2">{{$goods['goods']['spec']}}</div>
+                            <div class="col-xs-1 col-sm-1">{{$goods['goods']['delivery']}}</div>
+                            <div class="col-xs-2 col-sm-2 text-red">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</div>
+                            <a href="{{URL::asset($column.'/detail/'.$goods['goods']['goods_id'])}}">
+                                <div class="col-xs-1 col-sm-1">详 情</div>
+                            </a>
+                        </div>
+                    @endforeach
                     @if(count($goods['goodses'])>6)
                         <a href="{{URL::asset($column.'/classlists/'.$goods['id'])}}">
                             <div onclik="show_goods_lists()" class="line-height-30 row common-text-align-center margin-top-10 background-navy-blue text-white" style="margin-top:23px;">
