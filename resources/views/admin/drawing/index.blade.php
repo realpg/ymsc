@@ -26,7 +26,7 @@
                         <input type="checkbox" id="checkbox-1">
                     </th>
                     <th width="80">ID</th>
-                    <th>会员昵称</th>
+                    <th width="150">会员昵称</th>
                     <th>后台标注的备注</th>
                     <th width="100">状态</th>
                     <th width="150">上传时间</th>
