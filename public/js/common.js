@@ -148,6 +148,10 @@ function editMachiningCase(url, param, callBack) {
 function examineInvoice(url, param, callBack) {
     $.post(url + "admin/invoice/examine",param,callBack);
 }
+//删除关键字
+function delWord(url, param, callBack) {
+    ajaxRequest(url + "admin/word/del", param, "GET", callBack);
+}
 
 
 //下发短信验证码

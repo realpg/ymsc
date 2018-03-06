@@ -48,6 +48,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/baseAbout/edit', 'Admin\BaseController@baseAboutDo');  //编辑关于我们
     Route::post('/baseSeo/edit', 'Admin\BaseController@baseSeoDo');  //编辑SEO
 
+    //搜索关键字设置
+    Route::get('/word/index', 'Admin\WordController@index');  //关键字管理首页
+    Route::post('/word/index', 'Admin\WordController@index');  //搜索关键字
+    Route::get('/word/del', 'Admin\WordController@del');  //删除关键字
+    Route::get('/word/edit', 'Admin\WordController@edit');  //创建或编辑关键字
+    Route::post('/word/edit', 'Admin\WordController@editDo');  //创建或编辑关键字
+
     //加盟信息管理
     Route::get('/league/index', 'Admin\LeagueController@index');  //加盟管理首页
     Route::post('/league/index', 'Admin\LeagueController@index');  //搜索加盟管理信息

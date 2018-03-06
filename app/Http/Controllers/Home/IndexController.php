@@ -14,6 +14,7 @@ use App\Components\HomeManager;
 use App\Components\LeagueManager;
 use App\Components\MenuManager;
 use App\Components\SearchingManager;
+use App\Components\WordManager;
 use App\Http\Controllers\Controller;
 use App\Models\AdviceModel;
 use App\Models\LeagueModel;
@@ -33,11 +34,13 @@ class IndexController extends Controller
         $common=$data['common'];
         $column='index';
         $menus=MenuManager::getClassAMenuLists();
+        $words=WordManager::getAllWordsForIndex();
         $param=array(
             'common'=>$common,
             'menus'=>$menus,
             'column'=>$column,
-            'user'=>$user
+            'user'=>$user,
+            'words'=>$words
         );
         return view('home.index.index',$param);
     }

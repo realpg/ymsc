@@ -12,6 +12,10 @@ input button{
     float: left;
 }
 
+.index-search a{
+    text-decoration: none;
+}
+
 .float-right {
     float: right;
 }
@@ -745,6 +749,10 @@ input button{
 
 .height-14{
     height:14px;
+}
+
+.height-30{
+    height:30px;
 }
 
 .height-50{

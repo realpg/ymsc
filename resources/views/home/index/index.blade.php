@@ -9,12 +9,21 @@
             <img src="{{$common['base']['logo']}}" />
         </div>
         <div class="style-home-index-search padding-top-50">
-            <form class="form-signin" method="get" action="{{ URL::asset($column.'/search/') }}">
+            <form class="form-search-all" method="get" action="{{ URL::asset($column.'/search/') }}" id="form-search-all">
                 <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" placeholder="输入搜索内容" />
                 <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search"></button>
             </form>
-            <h6 class="line-height-30 index-font padding-bottom-0 margin-bottom-0">
-                大家都在搜：新品6折
+            <h6 class="line-height-30 index-font padding-bottom-0 margin-bottom-0 index-search">
+                @if(count($words)>0)
+                    大家都在搜：
+                    @foreach($words as $word)
+                        <a href="javascript:" class="text-decoration-none" onclick="choiceWord('{{$word['name']}}')">
+                            <span class="padding-right-5 padding-left-5 index-font text-decoration-none">{{$word['name']}}</span>
+                        </a>
+                    @endforeach
+                @else
+                    &nbsp;
+                @endif
             </h6>
             <div class="row padding-right-15">
                 <div class="col-sm-12 col-md-3">
@@ -56,5 +65,9 @@
             //调用
             CanvasParticle(config);
         });
+        function choiceWord(name){
+            $('#search').val(name)
+            $('#form-search-all').submit();
+        }
     </script>
 @endsection
