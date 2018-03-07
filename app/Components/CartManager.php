@@ -45,6 +45,22 @@ class CartManager
         $cart = CartModel::find($id);
         return $cart;
     }
+
+    /*
+     * 根据goods_id和user_id获取信息详情
+     *
+     * by zm
+     *
+     * 2018-03-07
+     */
+    public static function getCartInfoByGoodsIdAndUserId($goods_id,$user_id){
+        $where=array(
+            'goods_id'=>$goods_id,
+            'user_id'=>$user_id
+        );
+        $cart = CartModel::where($where)->first();
+        return $cart;
+    }
     
     /*
      * whereIn查找信息

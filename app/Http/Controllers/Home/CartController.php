@@ -49,7 +49,14 @@ class CartController
                 $cart=CartManager::getCartInfoById($data['id']);
             }
             else{
-                $cart=new CartModel();
+                //判断购物车中是否有此商品
+                $cart=CartManager::getCartInfoByGoodsIdAndUserId($data['goods_id'],$user['id']);
+                if($cart){
+                    $data['count']=$data['count']+$cart['count'];
+                }
+                else{
+                    $cart=new CartModel();
+                }
             }
             $data['user_id']=$user['id'];
             $cart=CartManager::setCart($cart,$data);

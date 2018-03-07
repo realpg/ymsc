@@ -282,6 +282,8 @@ class MemberManager
                 ->orwhere('phonenum','like','%'.$search.'%')
                 ->orwhere('email','like','%'.$search.'%');
         })->orderBy('id','desc')->get();
+//        $sql = UserModel::query()->where('id','14')->toSql();   //此方法可以打印sql语句
+//        dd($sql);
         return $users;
     }
 }

@@ -20,8 +20,10 @@ use App\Http\Controllers\Controller;
 use App\Models\AdviceModel;
 use App\Models\LeagueModel;
 use App\Models\SearchingModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
 class IndexController extends Controller
