@@ -76,4 +76,43 @@ class CartController
         }
         return $return;
     }
+
+    /*
+     * 删除购物车
+     */
+    public function del(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if(array_key_exists('id',$data)){
+                $id=$data['id'];
+                if (is_numeric($id) !== true) {
+                    $return['result']=false;
+                    $return['msg']='合规校验失败，参数类型不正确';
+                }
+                else{
+                    $cart = CartModel::find($id);
+                    $result=$cart->delete();
+                    if($result){
+                        $return['result']=true;
+                        $return['msg']='删除购物车成功';
+                    }
+                    else{
+                        $return['result']=false;
+                        $return['msg']='删除购物车失败';
+                    }
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='删除购物车失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
 }

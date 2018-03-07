@@ -201,6 +201,10 @@ function uploadMachiningImages(url, param, callBack) {
 function editShoppingCart(url, param, callBack) {
     $.post(url + "cart/edit",param,callBack);
 }
+//删除购物车执行
+function delShoppingCart(url, param, callBack) {
+    ajaxRequest(url + "cart/del", param, "GET", callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 

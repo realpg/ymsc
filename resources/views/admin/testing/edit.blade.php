@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>价格单位：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品单位：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <input id="unit" name="unit" type="text" class="input-text" value="{{ isset($data['unit']) ? $data['unit'] : '' }}" placeholder="请输入价格单位">
                         </div>

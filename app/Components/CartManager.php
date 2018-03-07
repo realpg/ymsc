@@ -6,10 +6,15 @@
  * Time: 9:30
  */
 
-namespace app\Components;
+namespace App\Components;
 
-
+use App\Http\Controllers\Home\ChemController;
+use App\Http\Controllers\Home\MachiningController;
+use App\Http\Controllers\Home\TestingController;
 use App\Models\CartModel;
+use App\Models\GoodsMachiningAttributeModel;
+use App\Models\GoodsModel;
+use App\Models\MenuModel;
 
 class CartManager
 {
@@ -85,6 +90,28 @@ class CartManager
      */
     public static function getCartsByUserId($user_id){
         $carts=CartModel::where('user_id',$user_id)->orderBy('created_at','asc')->get();
+        foreach ($carts as $cart){
+            $goods_id=$cart['goods_id'];
+            $cart['goods_info']=GoodsModel::find($goods_id);
+            $menu_id=$cart['goods_info']['menu_id'];
+            $cart['goods_menu']=MenuModel::find($menu_id);
+            if($cart['goods_menu']['menu_id']==1){
+                $cart['goods_column']=ChemController::COLUMN;
+            }
+            else if($cart['goods_menu']['menu_id']==2){
+                $cart['goods_column']=TestingController::COLUMN;
+            }
+            else if($cart['goods_menu']['menu_id']==3){
+                $cart['goods_column']=MachiningController::COLUMN;
+                $attribute=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+                if($attribute){
+                    $cart['goods_type']=0;
+                }
+                else{
+                    $cart['goods_type']=1;
+                }
+            }
+        }
         return $carts;
     }
 }

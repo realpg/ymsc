@@ -38,6 +38,17 @@
                     <input id="name" name="name" type="text" class="input-text no_click" readonly value="{{ isset($chem_class['name']) ? $chem_class['name'] : '' }}" placeholder="请输入商品名称">
                 </div>
             </div>
+            <div class="row cl" id="container">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    @if($chem_class['picture'])
+                        <img id="imagePrv" src="{{$chem_class['picture'] }}" width="210" />
+                    @else
+                        <img id="imagePrv" src="{{ URL::asset('/img/upload.png') }}" width="210" />
+                    @endif
+                    <input type="hidden" class="input-text" id="picture" name="picture" value="{{ isset($chem_class['picture']) ? $chem_class['picture'] : '' }}"  />
+                </div>
+            </div>
             @if(isset($data['id']))
                 <div class="row cl">
                     <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品货号：</label>
@@ -53,7 +64,7 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>价格单位：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品单位：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="unit" name="unit" type="text" class="input-text" value="{{ isset($data['unit']) ? $data['unit'] : '' }}" placeholder="请输入价格单位">
                 </div>

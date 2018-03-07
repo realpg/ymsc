@@ -118,7 +118,7 @@
         </div>
     </div>
     <div class="style-home-right-content">
-        <div id="floatDivBoxs0">
+        <div id="floatDivBoxs0" style="overflow-y: auto;">
             <div class="right-content-title padding-left-5 padding-right-5">
                 <div class="float-left">
                     <i class="iconfont icon-48 font-size-18"></i>
@@ -133,7 +133,46 @@
             <div class="right-content-content">
                 @if($user)
                     @if(count($carts)>0)
-                        {{count($carts)}}
+                        <ul>
+                            @foreach($carts as $cart)
+                            <li class="padding-10 border-bottom-attribute">
+                                <div class="row font-size-12">
+                                    @if($cart['goods_menu']['menu_id']==1)
+                                        <a href="{{URL::asset($cart['goods_column'].'/detail/'.$cart['goods_info']['id'])}}">
+                                    @elseif($cart['goods_menu']['menu_id']==2)
+                                        <a href="{{URL::asset($cart['goods_column'].'/detail/'.$cart['goods_info']['id'])}}">
+                                    @elseif($cart['goods_menu']['menu_id']==3)
+                                        @if($cart['goods_type']==0)
+                                        <a href="{{URL::asset($cart['goods_column'].'/detail/machining/'.$cart['goods_info']['id'])}}">
+                                        @else
+                                        <a href="{{URL::asset($cart['goods_column'].'/detail/standard/'.$cart['goods_info']['id'])}}">
+                                        @endif
+                                    @endif
+                                            <div class="col-xs-5 col-sm-5">
+                                                <img src="{{$cart['goods_info']['picture']}}" class="width-100" />
+                                            </div>
+                                    @if($cart['goods_menu']['menu_id']==1||$cart['goods_menu']['menu_id']==2||$cart['goods_menu']['menu_id']==3)
+                                        </a>
+                                    @endif
+                                    <div class="col-xs-7 col-sm-7">
+                                        <p>{{$cart['goods_info']['name']}}</p>
+                                        <p class="text-red">￥{{$cart['goods_info']['price']/100}} /{{$cart['goods_info']['unit']}}</p>
+                                        <div class="row">
+                                            <p class="col-xs-7 col-sm-7">数量：{{$cart['count']}}</p>
+                                            <a href="javascript:" onclick="cart_del(this,'{{$cart['id']}}')" >
+                                                <p class="col-xs-5 col-sm-5 text-blue" >删除</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
+                        <a href="">
+                            <div class="margin-top-10 col-xs-12 col-sm-12">
+                                <button type="button" class="btn btn-danger width-100 border-radius-0">一键购买</button>
+                            </div>
+                        </a>
                     @else
                         <div class="margin-top-20 margin-right-10 margin-left-10">
                             <img src="{{ URL::asset('img/nothing.png') }}"  />
@@ -151,7 +190,7 @@
                 @endif
             </div>
         </div>
-        <div id="floatDivBoxs1" style="overflow-y: scroll;">
+        <div id="floatDivBoxs1" style="overflow-y: auto;">
             <div class="right-content-title padding-left-5 padding-right-5">
                 <div class="float-left">
                     <i class="iconfont icon-chazhao font-size-18"></i>
@@ -519,6 +558,25 @@
             $('#center-content').css('min-height',center_height);
         }
     });
+
+    //删除购物车
+    function cart_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            //进行后台删除
+            var param = {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            }
+            delShoppingCart('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    $(obj).parents("li").remove();
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                }
+            })
+        });
+    }
 </script>
 
 </body>

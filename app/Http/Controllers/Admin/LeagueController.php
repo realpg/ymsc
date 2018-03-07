@@ -33,6 +33,7 @@ class LeagueController
     public function del(Request $request)
     {
         $data=$request->all();
+        $return=null;
         if(array_key_exists('id',$data)){
             $id=$data['id'];
             if (is_numeric($id) !== true) {
@@ -41,7 +42,6 @@ class LeagueController
             }
             else{
                 $league = LeagueModel::find($id);
-                $return=null;
                 $result=$league->delete();
                 if($result){
                     $return['result']=true;

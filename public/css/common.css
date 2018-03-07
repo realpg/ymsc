@@ -8,12 +8,18 @@ input button{
     text-decoration: none;
     color: unset;
 }
-.float-left {
-    float: left;
-}
 
 .index-search a{
     text-decoration: none;
+}
+
+.right-content-content a{
+    text-decoration: none;
+    color: unset;
+}
+
+.float-left {
+    float: left;
 }
 
 .float-right {
