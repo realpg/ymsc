@@ -1198,6 +1198,16 @@ label.error {
 .table-responsive a:hover{
     color:#FC2421;
 }
+.upper-right-prompt{
+    display:block;
+    background:#FC2421;
+    border-radius:50%;
+    width:10px;
+    height:10px;
+    top:0px;
+    right:0px;
+    position:absolute;
+}
 @media screen and (max-width: 1028px) {
     .style-home-index-search{
         width:25.5rem;

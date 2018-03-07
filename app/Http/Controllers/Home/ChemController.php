@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Components\CartManager;
 use App\Components\AttributeManager;
 use App\Components\BannerManager;
 use App\Components\GoodsManager;
@@ -32,14 +33,29 @@ class ChemController extends Controller
             $menu_id=$menu['id'];
             $menu['chem_classes']=GoodsManager::getChemClassWithHot($menu_id);
         }
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'menus'=>$menus,
-            'channel'=>$channel,
-            'banners'=>$banners
-        );
+        if($user){
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'menus'=>$menus,
+                'channel'=>$channel,
+                'banners'=>$banners,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'menus'=>$menus,
+                'channel'=>$channel,
+                'banners'=>$banners
+            );
+        }
         return view('home.chem.index',$param);
     }
     /*
@@ -60,16 +76,33 @@ class ChemController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getChemClassByMenuId($goods_param);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'channel'=>$channel,
-            'attributes'=>$attributes,
-            'goodses'=>$goodses,
-            'f_attribute_id'=>$f_attribute_id,
-            's_attribute_id'=>$s_attribute_id
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id
+            );
+        }
         return view('home.chem.lists',$param);
     }
     /*
@@ -91,17 +124,35 @@ class ChemController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getChemClassBySearch($goods_param);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'channel'=>$channel,
-            'attributes'=>$attributes,
-            'goodses'=>$goodses,
-            'f_attribute_id'=>$f_attribute_id,
-            's_attribute_id'=>$s_attribute_id,
-            'search'=>$search
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id,
+                'search'=>$search,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id,
+                'search'=>$search
+            );
+        }
         return view('home.chem.search',$param);
     }
     /*
@@ -122,17 +173,35 @@ class ChemController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $chem_class=GoodsManager::getGoodsesByClassId($goods_param);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'class'=>$class,
-            'channel'=>$channel,
-            'attributes'=>$attributes,
-            'chem_class'=>$chem_class,
-            'f_attribute_id'=>$f_attribute_id,
-            's_attribute_id'=>$s_attribute_id
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'class'=>$class,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'chem_class'=>$chem_class,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'class'=>$class,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'chem_class'=>$chem_class,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id
+            );
+        }
         return view('home.chem.classlists',$param);
     }
     /*
@@ -152,13 +221,27 @@ class ChemController extends Controller
         $channel=MenuManager::getMenuById($goods['menu_id']);
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['other_goodses']=GoodsManager::getChemClassByAttribute($goods);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'channel'=>$channel,
-            'goods'=>$goods
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'goods'=>$goods,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'goods'=>$goods
+            );
+        }
         return view('home.chem.detail',$param);
     }
 }

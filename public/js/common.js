@@ -195,6 +195,12 @@ function defaultInvoice(url, param, callBack) {
 function uploadMachiningImages(url, param, callBack) {
     $.post(url + "machining/upload",param,callBack);
 }
+
+
+//添加购物车执行
+function editShoppingCart(url, param, callBack) {
+    $.post(url + "cart/edit",param,callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 

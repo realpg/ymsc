@@ -42,7 +42,7 @@
                                 <button type="button" class="btn btn-danger width-100 border-radius-0">购 买</button>
                             </div>
                             <div class="col-xs-6 col-sm-3">
-                                <button type="button" class="btn btn-default width-100 border-radius-0 background-none">加入购物车</button>
+                                <button type="button" class="btn btn-default width-100 border-radius-0 background-none" onclick="addShoppingCart('{{$goods['id']}}')">加入购物车</button>
                             </div>
                         </div>
                     </div>
@@ -143,5 +143,24 @@
                 $('#min').attr('disabled',true);
             };
         })
+
+        //添加购物车调用函数
+        function addShoppingCart(goods_id){
+            var count=$('#text_box').val();
+            var param={
+                goods_id: goods_id,
+                count:count,
+                _token: "{{ csrf_token() }}"
+            }
+            console.log('addShoppingCart param is : '+JSON.stringify(param));
+            editShoppingCart('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 3000});
+                    window.location.reload()
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
+            })
+        }
     </script>
 @endsection

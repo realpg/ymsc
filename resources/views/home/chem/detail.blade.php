@@ -45,7 +45,7 @@
                         <button type="button" class="btn btn-danger width-100 border-radius-0">购 买</button>
                     </div>
                     <div class="col-xs-6 col-sm-3">
-                        <button type="button" class="btn btn-default width-100 border-radius-0 background-none">加入购物车</button>
+                        <button type="button" class="btn btn-default width-100 border-radius-0 background-none" onclick="addShoppingCart('{{$goods['id']}}')">加入购物车</button>
                     </div>
                 </div>
             </div>
@@ -161,27 +161,46 @@
 @endsection
 
 @section('script')
-    <script>
-        $(document).ready(function(){
-            //获得文本框对象
-            var t = $("#text_box");
-            //初始化数量为1,并失效减
-            $('#min').attr('disabled',true);
-            //数量增加操作
-            $("#add").click(function(){
-                // 给获取的val加上绝对值，避免出现负数
-                t.val(Math.abs(parseInt(t.val()))+1);
-                if (parseInt(t.val())!=1){
-                    $('#min').attr('disabled',false);
-                };
-            })
-            //数量减少操作
-            $("#min").click(function(){
-                t.val(Math.abs(parseInt(t.val()))-1);
-                if (parseInt(t.val())==1){
-                    $('#min').attr('disabled',true);
-                };
-            })
-        });
-    </script>
+<script>
+    $(document).ready(function(){
+        //获得文本框对象
+        var t = $("#text_box");
+        //初始化数量为1,并失效减
+        $('#min').attr('disabled',true);
+        //数量增加操作
+        $("#add").click(function(){
+            // 给获取的val加上绝对值，避免出现负数
+            t.val(Math.abs(parseInt(t.val()))+1);
+            if (parseInt(t.val())!=1){
+                $('#min').attr('disabled',false);
+            };
+        })
+        //数量减少操作
+        $("#min").click(function(){
+            t.val(Math.abs(parseInt(t.val()))-1);
+            if (parseInt(t.val())==1){
+                $('#min').attr('disabled',true);
+            };
+        })
+    });
+
+    //添加购物车调用函数
+    function addShoppingCart(goods_id){
+        var count=$('#text_box').val();
+        var param={
+            goods_id: goods_id,
+            count:count,
+            _token: "{{ csrf_token() }}"
+        }
+        console.log('addShoppingCart param is : '+JSON.stringify(param));
+        editShoppingCart('{{URL::asset('')}}', param, function (ret) {
+            if (ret.result == true) {
+                layer.msg(ret.msg, {icon: 1, time: 3000});
+                window.location.reload()
+            } else {
+                layer.msg(ret.msg, {icon: 2, time: 3000})
+            }
+        })
+    }
+</script>
 @endsection

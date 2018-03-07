@@ -59,7 +59,12 @@
                             <a href="{{ URL::asset('center') }}">我的优迈</a>
                         </li>
                         <li class=" {{$column=='cart'?'style-home-nav-active':''}}">
-                            <a href="{{ URL::asset('cart') }}">购物车</a>
+                            <a href="{{ URL::asset('cart') }}">
+                                购物车
+                                @if(count($carts)>0)
+                                    <i class="upper-right-prompt"></i>
+                                @endif
+                            </a>
                         </li>
                         <li>
                             <a href="{{ URL::asset('signOut') }}">安全退出</a>
@@ -89,6 +94,11 @@
         <div id="rightArrow0" onclick="changeChannel(0)">
             <a href="javascript:;" title="购物车">
                 <i class="iconfont icon-48 font-size-24"></i>
+                @if($user)
+                    @if(count($carts)>0)
+                        <i class="upper-right-prompt"></i>
+                    @endif
+                @endif
             </a>
         </div>
         <div id="rightArrow1" onclick="changeChannel(1)">
@@ -122,12 +132,16 @@
             </div>
             <div class="right-content-content">
                 @if($user)
-                    <div class="margin-top-20 margin-right-10 margin-left-10">
-                        <img src="{{ URL::asset('img/nothing.png') }}"  />
-                    </div>
-                    <div class="margin-top-20 text-center index-font">
-                        购物车中还没有商品，赶紧选购吧！
-                    </div>
+                    @if(count($carts)>0)
+                        {{count($carts)}}
+                    @else
+                        <div class="margin-top-20 margin-right-10 margin-left-10">
+                            <img src="{{ URL::asset('img/nothing.png') }}"  />
+                        </div>
+                        <div class="margin-top-20 text-center index-font">
+                            购物车中还没有商品，赶紧选购吧！
+                        </div>
+                    @endif
                 @else
                     <a href="{{ URL::asset('signIn') }}">
                         <div class="margin-top-150 col-xs-12 col-sm-12">

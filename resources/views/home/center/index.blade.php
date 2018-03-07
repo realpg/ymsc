@@ -68,15 +68,15 @@
                     <div class="margin-top-20 text-center" id="container">
                         <div class="width-150 flex-auto">
                             @if($user['avatar'])
-                                <img src="{{$user['avatar']}}" id="imagePrv" class="width-150 border-radius-100" />
+                                <img src="{{$user['avatar']}}" id="imagePrv" class="width-150 height-150 border-radius-100" />
                             @else
                                 @if($user['gender']==2)
-                                    <img src="{{URL::asset('img/avatar_girl.png')}}" id="imagePrv" class="width-150 border-radius-100" />
+                                    <img src="{{URL::asset('img/avatar_girl.png')}}" id="imagePrv" class="width-150 height-150 border-radius-100" />
                                 @else
-                                    <img src="{{URL::asset('img/avatar_boy.png')}}" id="imagePrv" class="width-150 border-radius-100" />
+                                    <img src="{{URL::asset('img/avatar_boy.png')}}" id="imagePrv" class="width-150 height-150 border-radius-100" />
                                 @endif
                             @endif
-                            <input type="hidden" name="avatar" id="avatar" />
+                            <input type="hidden" name="avatar" id="avatar" value="{{$user['avatar']}}" />
                             <div class="margin-top-10">
                                 点击图片上传头像
                             </div>

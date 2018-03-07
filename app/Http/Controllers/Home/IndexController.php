@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Components\AdviceManager;
+use App\Components\CartManager;
 use App\Components\GoodsManager;
 use App\Components\HomeManager;
 use App\Components\LeagueManager;
@@ -35,13 +36,26 @@ class IndexController extends Controller
         $column='index';
         $menus=MenuManager::getClassAMenuLists();
         $words=WordManager::getAllWordsForIndex();
-        $param=array(
-            'common'=>$common,
-            'menus'=>$menus,
-            'column'=>$column,
-            'user'=>$user,
-            'words'=>$words
-        );
+        if($user){
+            $carts=CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'words'=>$words,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'words'=>$words
+            );
+        }
         return view('home.index.index',$param);
     }
     /*
@@ -53,12 +67,24 @@ class IndexController extends Controller
         $common=$data['common'];
         $column='league';
         $menus=MenuManager::getClassAMenuLists();
-        $param=array(
-            'common'=>$common,
-            'menus'=>$menus,
-            'column'=>$column,
-            'user'=>$user
-        );
+        if($user) {
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user
+            );
+        }
         return view('home.index.league',$param);
     }
     /*
@@ -90,12 +116,24 @@ class IndexController extends Controller
         $common=$data['common'];
         $column='about';
         $menus=MenuManager::getClassAMenuLists();
-        $param=array(
-            'common'=>$common,
-            'menus'=>$menus,
-            'column'=>$column,
-            'user'=>$user
-        );
+        if($user) {
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user
+            );
+        }
         return view('home.index.about',$param);
     }
     /*
@@ -220,13 +258,26 @@ class IndexController extends Controller
         $search=$data['search'];
         $goodses=GoodsManager::getGoodsesByName($search);
         $menus=MenuManager::getClassAMenuListswhichCanShow();
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'goodses'=>$goodses,
-            'menus'=>$menus
-        );
+        if($user) {
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'goodses'=>$goodses,
+                'menus'=>$menus,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'goodses'=>$goodses,
+                'menus'=>$menus
+            );
+        }
         return view('home.index.search',$param);
     }
 }

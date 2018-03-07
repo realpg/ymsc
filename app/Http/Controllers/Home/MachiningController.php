@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Components\CartManager;
 use App\Components\AttributeManager;
 use App\Components\BannerManager;
 use App\Components\DrawingManager;
@@ -37,15 +38,31 @@ class MachiningController extends Controller
         }
         //生成七牛token
         $upload_token = QNManager::uploadToken();
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'menus'=>$menus,
-            'channel'=>$channel,
-            'banners'=>$banners,
-            'upload_token'=>$upload_token
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'menus'=>$menus,
+                'channel'=>$channel,
+                'banners'=>$banners,
+                'upload_token'=>$upload_token,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'menus'=>$menus,
+                'channel'=>$channel,
+                'banners'=>$banners,
+                'upload_token'=>$upload_token
+            );
+        }
         return view('home.machining.index',$param);
     }
     /*
@@ -66,16 +83,33 @@ class MachiningController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getMachiningClassByMenuId($goods_param);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'channel'=>$channel,
-            'attributes'=>$attributes,
-            'goodses'=>$goodses,
-            'f_attribute_id'=>$f_attribute_id,
-            's_attribute_id'=>$s_attribute_id
-        );
+        if($user){
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id
+            );
+        }
         return view('home.machining.lists',$param);
     }
     /*
@@ -97,17 +131,35 @@ class MachiningController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getMachiningClassBysearch($goods_param);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'channel'=>$channel,
-            'attributes'=>$attributes,
-            'goodses'=>$goodses,
-            'f_attribute_id'=>$f_attribute_id,
-            's_attribute_id'=>$s_attribute_id,
-            'search'=>$search
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id,
+                'search'=>$search,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'attributes'=>$attributes,
+                'goodses'=>$goodses,
+                'f_attribute_id'=>$f_attribute_id,
+                's_attribute_id'=>$s_attribute_id,
+                'search'=>$search
+            );
+        }
         return view('home.machining.search',$param);
     }
     /*
@@ -126,13 +178,27 @@ class MachiningController extends Controller
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $goods['cases']=GoodsManager::getGoodsCaseByGoodsId($goods_id);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'channel'=>$channel,
-            'goods'=>$goods
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'goods'=>$goods,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'goods'=>$goods
+            );
+        }
         return view('home.machining.detail_machining',$param);
     }
     /*
@@ -151,13 +217,27 @@ class MachiningController extends Controller
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $goods['other_goodses']=GoodsManager::getStandardListsByComponent($goods['attribute']['id'],$goods['attribute']['component']);
-        $param=array(
-            'common'=>$common,
-            'column'=>$column,
-            'user'=>$user,
-            'channel'=>$channel,
-            'goods'=>$goods
-        );
+        if($user) {
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'goods'=>$goods,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'channel'=>$channel,
+                'goods'=>$goods
+            );
+        }
         return view('home.machining.detail_standard',$param);
     }
 

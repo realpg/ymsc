@@ -8,7 +8,7 @@
 
 namespace App\Http\Controllers\Home;
 
-
+use App\Components\CartManager;
 use App\Components\AddressManager;
 use App\Components\InvoiceManager;
 use App\Components\MemberManager;
@@ -32,12 +32,15 @@ class CenterController extends Controller
             $column_child='index';
             //生成七牛token
             $upload_token = QNManager::uploadToken();
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
                 'user'=>$user,
-                'upload_token'=>$upload_token
+                'upload_token'=>$upload_token,
+                'carts'=>$carts
             );
             return view('home.center.index',$param);
         }
@@ -82,11 +85,14 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
-                'user'=>$user
+                'user'=>$user,
+                'carts'=>$carts
             );
             return view('home.center.checkEmail',$param);
         }
@@ -105,11 +111,14 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
-                'user'=>$user
+                'user'=>$user,
+                'carts'=>$carts
             );
             return view('home.center.replaceEmail',$param);
         }
@@ -128,11 +137,14 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
-                'user'=>$user
+                'user'=>$user,
+                'carts'=>$carts
             );
             return view('home.center.checkPhonenum',$param);
         }
@@ -151,11 +163,14 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='index';
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
-                'user'=>$user
+                'user'=>$user,
+                'carts'=>$carts
             );
             return view('home.center.replacePhonenum',$param);
         }
@@ -325,12 +340,15 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='address';
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
                 'user'=>$user,
-                'addresses'=>$addresses
+                'addresses'=>$addresses,
+                'carts'=>$carts
             );
             return view('home.center.address',$param);
         }
@@ -479,13 +497,16 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='invoice';
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
                 'user'=>$user,
                 'invoices'=>$invoices,
-                'upload_token'=>$upload_token
+                'upload_token'=>$upload_token,
+                'carts'=>$carts
             );
             return view('home.center.invoice',$param);
         }

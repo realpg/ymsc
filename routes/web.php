@@ -250,6 +250,12 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::post('center/invoice', 'Home\CenterController@invoiceDo');        //编辑地址管理
     Route::get('center/invoice/del', 'Home\CenterController@invoiceDel');        //删除发票
     Route::get('center/invoice/default', 'Home\CenterController@invoiceDefault');        //修改默认发票
+
+    //个人中心
+    Route::get('cart', 'Home\CartController@index');        //购物车页面
+    Route::post('cart/edit', 'Home\CartController@editDo');        //编辑购物车
+    Route::get('cart/del', 'Home\CartController@del');        //删除购物车
+    Route::get('cart/delMore', 'Admin\CartController@delMore');  //批量删除购物车
 });
 
 Auth::routes();

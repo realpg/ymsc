@@ -20,7 +20,6 @@ class LeagueManager
      * 2018-01-26
      */
     public static function getAllLeagueLists($search){
-//        $leagues = LeagueModel::where('name','like','%'.$search.'%')->orderBy('id','desc')->get();
         $leagues = LeagueModel::where(function ($leagues) use ($search) {
             $leagues->where('name'  , 'like', '%'.$search.'%')
                 ->orwhere('phonenum', 'like', '%'.$search.'%');

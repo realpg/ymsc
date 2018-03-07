@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Components\CartManager;
 use App\Components\MenuManager;
 use App\Components\MemberManager;
 use App\Components\VertifyManager;
