@@ -168,9 +168,9 @@
                             </li>
                             @endforeach
                         </ul>
-                        <a href="">
+                        <a href="{{URL::asset('cart')}}">
                             <div class="margin-top-10 col-xs-12 col-sm-12">
-                                <button type="button" class="btn btn-danger width-100 border-radius-0">一键购买</button>
+                                <button type="button" class="btn btn-danger width-100 border-radius-0">查看购物车</button>
                             </div>
                         </a>
                     @else
@@ -571,6 +571,10 @@
                 if (ret.result == true) {
                     layer.msg(ret.msg, {icon: 1, time: 1000});
                     $(obj).parents("li").remove();
+                    var cartContentLength=$('#cart-content').length;
+                    if(cartContentLength){
+                        window.location.reload()
+                    }
                 } else {
                     layer.msg(ret.msg, {icon: 2, time: 1000})
                 }

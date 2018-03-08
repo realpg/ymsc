@@ -90,6 +90,8 @@ class CartManager
      */
     public static function getCartsByUserId($user_id){
         $carts=CartModel::where('user_id',$user_id)->orderBy('created_at','asc')->get();
+//        $count=0;
+//        $total=0;
         foreach ($carts as $cart){
             $goods_id=$cart['goods_id'];
             $cart['goods_info']=GoodsModel::find($goods_id);
@@ -111,6 +113,8 @@ class CartManager
                     $cart['goods_type']=1;
                 }
             }
+//            $count+=$cart['count'];
+//            $total+=$cart['goods_info']['price']*$cart['count'];
         }
         return $carts;
     }

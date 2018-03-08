@@ -89,9 +89,9 @@
                         </tr>
                         @foreach($addresses as $address)
                             <tr class="line-height-40">
-                                <td class="col-xs-2 col-sm-2 text-center style-ellipsis-1 border-bottom-attribute">{{$address['name']}}</td>
-                                <td class="col-xs-6 col-sm-6 style-ellipsis-1 border-bottom-attribute">{{$address['province']}} {{$address['city']}} {{$address['town']}}  {{$address['detail']}}</td>
-                                <td class="col-xs-4 col-sm-4 text-center style-ellipsis-1 border-bottom-attribute">
+                                <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$address['name']}}</td>
+                                <td class="style-ellipsis-1 border-bottom-attribute">{{$address['province']}} {{$address['city']}} {{$address['town']}}  {{$address['detail']}}</td>
+                                <td class="text-center style-ellipsis-1 border-bottom-attribute">
                                     <a href="" data-toggle="modal" data-target="#addressModel_{{$address['id']}}" >
                                         <span class="text-blue padding-left-5 padding-right-5">详 情</span>
                                     </a>

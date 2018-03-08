@@ -669,6 +669,15 @@ input button{
     line-height: 50px;
 }
 
+.line-height-110 {
+    line-height: 110px;
+}
+
+.table-vertical-align{
+    display:table-cell;
+    vertical-align:middle;
+}
+
 .min-height-content{
     min-height: 365px;
 }
@@ -705,6 +714,10 @@ input button{
     width:100%;
 }
 
+.width-110{
+    width:110px;
+}
+
 .width-70{
     width:70%;
 }
@@ -719,6 +732,10 @@ input button{
 
 .width-50{
     width:50%;
+}
+
+.width-50px{
+    width:50px;
 }
 
 .width-40{
@@ -741,12 +758,24 @@ input button{
     width:30px;
 }
 
+.width-150{
+    width:150px;
+}
+
+.width-200{
+    width:200px;
+}
+
 .width-250{
     width:250px;
 }
 
 .height-100{
     height:100%;
+}
+
+.height-110{
+    height:110px;
 }
 
 .height-150{
@@ -797,6 +826,14 @@ input button{
 
 .background-detail{
     background: #E7E7E7;
+}
+
+.background-light{
+    background: #E3EFFA;
+}
+
+.background-blue{
+    background: #337ab7;
 }
 
 /*自动隐藏文字*/
@@ -1225,5 +1262,8 @@ label.error {
 @media screen and (max-width:992px) {
     #style-home-league-contact-company{
         display: none;
+    }
+    #pay_progress img{
+        width:100%;
     }
 }
