@@ -74,6 +74,7 @@
                     </tr>
                 @endforeach
             </table>
+            @if(count($carts)>0)
             <table class="table border-detail">
                 <tr class="line-height-40 text-center">
                     <td class="width-110" style="display:table-cell;vertical-align:middle;border:0px;">
@@ -94,6 +95,14 @@
                     <td class="width-110 text-white background-blue" style="display:table-cell;vertical-align:middle;border:0px;">立即结算</td>
                 </tr>
             </table>
+            @else
+                <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
+                    <img src="{{ URL::asset('img/nothing.png') }}"  />
+                </div>
+                <div class="margin-top-20 text-center index-font">
+                    购物车里还没有添加商品，快去选购吧！
+                </div>
+            @endif
         </div>
     </div>
 </div>
