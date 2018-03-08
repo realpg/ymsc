@@ -62,9 +62,9 @@
                             @endforeach
                         </table>
                     </div>
-                    @if(count($goods['goodses'])>6)
+                    @if(count($goods['goodses'])==7)
                         <a href="{{URL::asset($column.'/classlists/'.$goods['id'])}}">
-                            <div onclik="show_goods_lists()" class="line-height-30 row common-text-align-center margin-top-10 background-navy-blue text-white" style="margin-top:23px;">
+                            <div onclik="show_goods_lists()" class="line-height-30 row common-text-align-center background-detail" style="margin-top:-5px;">
                                 加载更多
                             </div>
                         </a>

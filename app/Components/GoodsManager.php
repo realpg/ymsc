@@ -629,7 +629,7 @@ class GoodsManager
         $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
         $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
         $chem_classes=ChemClassModel::where('menu_id',$menu_id)->orderBy('sort','desc')->orderBy('id','desc')->get();
-        $goods_paginate=6;
+        $goods_paginate=7;
         if(empty($f_attribute_id)&&empty($s_attribute_id)){
             $where=array(
                 'goods_info.menu_id'=>$menu_id,
@@ -699,7 +699,7 @@ class GoodsManager
         $search=$data['search'];
         $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
         $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
-        $goods_paginate=6;
+        $goods_paginate=7;
         $chem_classes=ChemClassModel::where(function ($chem_classes) use ($search) {
             $chem_classes->where('name'  , 'like', '%'.$search.'%')
                 ->orwhere('sub_name', 'like', '%'.$search.'%')
