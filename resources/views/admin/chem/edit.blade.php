@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>品牌商户号：</label>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>品牌商货号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="merchant" name="merchant" type="text" class="input-text"  value="{{ isset($data['attribute']['merchant']) ? $data['attribute']['merchant'] : '' }}" placeholder="请输入品牌商户号">
                 </div>

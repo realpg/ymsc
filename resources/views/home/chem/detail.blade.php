@@ -124,7 +124,7 @@
                     <div class="col-xs-12 col-sm-3 padding-0">货 号：{{$goods['number']}}</div>
                     <div class="col-xs-12 col-sm-2 padding-0">货 期：{{$goods['attribute']['delivery']}}</div>
                     <div class="col-xs-12 col-sm-3 padding-0">仓 库：{{$goods['attribute']['depot']}}</div>
-                    <div class="col-xs-12 col-sm-3 padding-0">品 牌 商 户 号：{{$goods['attribute']['merchant']}}</div>
+                    <div class="col-xs-12 col-sm-3 padding-0">品 牌 商 货 号：{{$goods['attribute']['merchant']}}</div>
                     <div class="col-xs-12 col-sm-1 padding-0"></div>
                 </div>
                 <div class="line-height-40 row background-detail">
