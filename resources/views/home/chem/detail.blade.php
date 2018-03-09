@@ -32,7 +32,7 @@
                     <div class="col-xs-6 col-sm-2 padding-0">分类：{{$goods['f_attribute']['name']}}</div>
                 </h4>
                 <h3 class="style-ellipsis-1 line-height-30">
-                    价 格：<span class="text-red">￥{{$goods['price']/100}}{{$goods['unit']}}</span>
+                    价 格：<span class="text-red">￥{{$goods['price']/100}} / {{$goods['unit']}}</span>
                 </h3>
                 <h4 class="style-ellipsis-1 line-height-30 margin-top-20">
                     数量：

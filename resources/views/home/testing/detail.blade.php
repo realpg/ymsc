@@ -26,7 +26,7 @@
                 <h3 class="style-ellipsis-1 line-height-30">{{$goods['name']}}</h3>
                 <h4 class="style-ellipsis-1 line-height-30">实验室：{{$goods['attribute']['lab']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">
-                    参考价格：<span class="text-red font-size-24">￥{{$goods['price']/100}}{{$goods['unit']}}</span>
+                    参考价格：<span class="text-red font-size-24">￥{{$goods['price']/100}} / {{$goods['unit']}}</span>
                 </h4>
                 <h4 class="style-ellipsis-1 line-height-30">应用领域：{{$goods['f_attribute']['name']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">仪器分类：{{$goods['s_attribute']['name']}}</h4>

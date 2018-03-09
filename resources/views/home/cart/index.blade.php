@@ -90,9 +90,13 @@
                     </td>
                     <td class="text-right width-150" style="display:table-cell;vertical-align:middle;border:0px;">总价（不包含邮费）</td>
                     <td class="text-center width-150" style="display:table-cell;vertical-align:middle;border:0px;">
-                        <span class="text-red" id="total_all">￥0</span>
+                        ￥<span class="text-red" id="total_all">0</span>
                     </td>
-                    <td class="width-110 text-white background-blue" style="display:table-cell;vertical-align:middle;border:0px;">立即结算</td>
+                    <td class="width-110 text-white background-blue cart-settlement" style="display:table-cell;vertical-align:middle;border:0px;padding:0px;" >
+                        <a href="javascript:" onclick="settlement()" class="line-height-40">
+                            立即结算
+                        </a>
+                    </td>
                 </tr>
             </table>
             @else
@@ -215,7 +219,7 @@
             })
         }
         else{
-            layer.msg('请选择要删除的信息', {icon: 2, time: 2000})
+            layer.msg('请选择要删除的商品', {icon: 2, time: 2000})
         }
     }
     //统计
@@ -234,7 +238,35 @@
         }
         console.log("statistics count is : "+count+" ; statistics total is : "+total);
         $('#count_all').text(count);
-        $('#total_all').text('￥'+(total).toFixed(2));
+        $('#total_all').text((total).toFixed(2));
+    }
+    //结算
+    function settlement(){
+        var id_array=new Array();
+        $("input:checkbox[name='id_array']:checked").each(function() { // 遍历name=test的多选框
+            // 每一个被选中项的值
+            id_array.push($(this).val())
+        });
+        if(id_array.length>0){
+            var total=$('#total_all').text();
+            var param = {
+                id_array: id_array,
+                total:total,
+                _token: "{{ csrf_token() }}"
+            }
+            addOrder('{{URL::asset('')}}', param, function (ret) {
+                console.log("addOrder ret is : "+JSON.stringify(ret))
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    window.location.href = "{{URL::asset('order')}}";
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
+            })
+        }
+        else{
+            layer.msg('请选择要结算的商品', {icon: 2, time: 2000})
+        }
     }
 </script>
 @endsection

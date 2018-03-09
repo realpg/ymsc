@@ -148,7 +148,8 @@ class CartController
                     $return['result'] = false;
                     $return['msg'] = '删除失败';
                 }
-            } else {
+            }
+            else {
                 $return['result'] = false;
                 $return['msg'] = '合规校验失败，缺少参数';
             }
@@ -159,4 +160,6 @@ class CartController
         }
         return $return;
     }
+
+
 }

@@ -918,6 +918,14 @@ input button{
     text-decoration: none;
     background-color: #01061a;
 }
+.cart-settlement a{
+    display: block;
+    width:100%;
+    height:100%;
+}
+.cart-settlement a:hover{
+    color: unset;
+}
 .style-home-nav-station{
     height:34px;
 }

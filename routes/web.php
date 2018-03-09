@@ -256,6 +256,10 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::post('cart/edit', 'Home\CartController@editDo');        //编辑购物车
     Route::get('cart/del', 'Home\CartController@del');        //删除购物车
     Route::get('cart/delMore', 'Home\CartController@delMore');  //批量删除购物车
+
+    //订单
+    Route::post('order/add', 'Home\OrderController@addDo');        //添加订单
+    Route::get('order', 'Home\OrderController@edit');        //编辑订单
 });
 
 Auth::routes();
