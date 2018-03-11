@@ -9,6 +9,12 @@
 namespace App\Components;
 
 
+use App\Http\Controllers\Home\ChemController;
+use App\Http\Controllers\Home\MachiningController;
+use App\Http\Controllers\Home\TestingController;
+use App\Models\GoodsMachiningAttributeModel;
+use App\Models\GoodsModel;
+use App\Models\MenuModel;
 use App\Models\OrderModel;
 
 class OrderManager
@@ -78,6 +84,28 @@ class OrderManager
         }
         $order=OrderModel::where($where)->orderBy('id','desc')->first();
         $order['suborders']=SuborderManager::getSubordersByTradeNo($order['trade_no']);
+        foreach ($order['suborders'] as $suborder){
+            $goods_id=$suborder['goods_id'];
+            $suborder['goods_info']=GoodsModel::find($goods_id);
+            $menu_id=$suborder['goods_info']['menu_id'];
+            $suborder['goods_menu']=MenuModel::find($menu_id);
+            if($suborder['goods_menu']['menu_id']==1){
+                $suborder['goods_column']=ChemController::COLUMN;
+            }
+            else if($suborder['goods_menu']['menu_id']==2){
+                $suborder['goods_column']=TestingController::COLUMN;
+            }
+            else if($suborder['goods_menu']['menu_id']==3){
+                $suborder['goods_column']=MachiningController::COLUMN;
+                $attribute=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+                if($attribute){
+                    $suborder['goods_type']=0;
+                }
+                else{
+                    $suborder['goods_type']=1;
+                }
+            }
+        }
         return $order;
     }
 }

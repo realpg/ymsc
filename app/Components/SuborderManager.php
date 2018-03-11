@@ -35,6 +35,9 @@ class SuborderManager
         if (array_key_exists('goods_id', $data)) {
             $suborder->goods_id = array_get($data, 'goods_id');
         }
+        if (array_key_exists('goods_number', $data)) {
+            $suborder->goods_number = array_get($data, 'goods_number');
+        }
         if (array_key_exists('goods_name', $data)) {
             $suborder->goods_name = array_get($data, 'goods_name');
         }
@@ -43,6 +46,9 @@ class SuborderManager
         }
         if (array_key_exists('total_fee', $data)) {
             $suborder->total_fee = array_get($data, 'total_fee');
+        }
+        if (array_key_exists('goods_unit', $data)) {
+            $suborder->goods_unit = array_get($data, 'goods_unit');
         }
         if (array_key_exists('count', $data)) {
             $suborder->count = array_get($data, 'count');

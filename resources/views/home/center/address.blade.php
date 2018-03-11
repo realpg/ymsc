@@ -167,7 +167,7 @@
                         <img src="{{ URL::asset('img/nothing.png') }}"  />
                     </div>
                     <div class="margin-top-20 text-center index-font">
-                        还没有添加收货地址，快添加一个吧！
+                        您还没有添加收货地址，快来添加一个吧！
                     </div>
                 @endif
             </div>

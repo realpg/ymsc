@@ -8,8 +8,10 @@
 
 namespace App\Http\Controllers\Home;
 
+use App\Components\AddressManager;
 use App\Components\CartManager;
 use App\Components\GoodsManager;
+use App\Components\InvoiceManager;
 use App\Components\OrderManager;
 use App\Components\SuborderManager;
 use App\Models\CartModel;
@@ -32,7 +34,7 @@ class OrderController
                 $order=new OrderModel();
                 $order_data['user_id']=$user['id'];
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
-                $order_data['total_fee']=$data['total'];
+                $order_data['total_fee']=$data['total']*100;
                 $order=OrderManager::setOrder($order,$order_data);
                 $order_result=$order->save();
                 if($order_result){
@@ -46,9 +48,11 @@ class OrderController
                         $cart=CartManager::getCartInfoById($cart_id);
                         $suborder_data['goods_id']=$cart['goods_id'];
                         $goods=GoodsManager::getGoodsById($suborder_data['goods_id']);
+                        $suborder_data['goods_number']=$goods['number'];
                         $suborder_data['goods_name']=$goods['name'];
                         $suborder_data['goods_picture']=$goods['picture'];
                         $suborder_data['total_fee']=$goods['price'];
+                        $suborder_data['goods_unit']=$goods['unit'];
                         $suborder_data['count']=$cart['count'];
                         $suborder=SuborderManager::setSuborder($suborder,$suborder_data);
                         $suborder_result=$suborder->save();
@@ -86,15 +90,22 @@ class OrderController
         if($user){
             $column='cart';
             $progress=2;
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $addresses=AddressManager::getAddressListsByUserId($user['id']);
+            $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'progress'=>$progress,
                 'user'=>$user,
+                'carts'=>$carts,
+                'addresses'=>$addresses,
+                'invoices'=>$invoices,
                 'order'=>$order
             );
-            return view('home.order.add',$param);
+            return view('home.order.edit',$param);
         }
         else{
             return redirect('signIn');
