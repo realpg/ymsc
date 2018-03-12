@@ -164,7 +164,7 @@ class OrderController
                     'out_trade_no' => $order->trade_no,
                     'total_fee' => $order->total_fee,
                     'body' => '优迈商城支付',
-                    'spbill_create_ip' => '182.92.235.154',
+                    'spbill_create_ip' => $_SERVER['HTTP_HOST'],
                     'product_id' => $goods_ids,            // 订单商品 ID
                 ];
                 //配置config
