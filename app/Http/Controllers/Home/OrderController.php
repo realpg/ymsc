@@ -26,9 +26,9 @@ use Yansongda\Pay\Pay;
 class OrderController
 {
     //配置微信支付的参数
-    protected $wechat_config = [
-        'appid' => 'wx685ff20a78495315', // APP APPID
-        'app_id' => '', // 公众号 APPID
+    protected static $wechat_config = [
+        'appid' => '', // APP APPID
+        'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
         'miniapp_id' => '', // 小程序 APPID
         'mch_id' => '1491365062', //微信商户号
         'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
@@ -56,7 +56,7 @@ class OrderController
                 $order_data['user_id']=$user['id'];
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
                 $order_data['count']=$data['count'];
-                $order_data['total_fee']=$data['total']*100+1000;
+                $order_data['total_fee']=$data['total']*100+1;
                 $order=OrderManager::setOrder($order,$order_data);
                 $order_result=$order->save();
                 if($order_result){
@@ -152,20 +152,25 @@ class OrderController
                 $result=$order->save();
                 $suborders=SuborderManager::getSubordersByTradeNo($order->trade_no);
                 $goods_ids='';
+                if($goods_ids){
+                    $goods_ids=substr($goods_ids,0,strlen($goods_ids)-1);
+                }
                 foreach ($suborders as $suborder){
                     $goods_ids.=$suborder['goods_id'].',';
                 }
+
                 //进行总订单支付
                 $pay_order = [
                     'out_trade_no' => $order->trade_no,
                     'total_fee' => $order->total_fee,
-                    'body' => $order->content,
+                    'body' => '优迈商城支付',
                     'spbill_create_ip' => '182.92.235.154',
                     'product_id' => $goods_ids,            // 订单商品 ID
                 ];
                 //配置config
-                $config = $this->wechat_config();
+                $config = self::$wechat_config;
                 $result = Pay::wechat($config)->scan($pay_order);
+                dd($result);
                 if($result){
                     //设置微信预付订单id（prepay_id）
                     $order->prepay_id = explode("=", $result['package'])[1];

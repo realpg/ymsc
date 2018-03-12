@@ -537,29 +537,31 @@
                         </div>
                     </div>
                 </div>
-                <table class="table border-detail margin-top-20 margin-bottom-20">
-                    <tr class="line-height-40 text-center">
-                        <td class="text-left text-blue" style="display:table-cell;vertical-align:middle;border:0px;">
-                            <a href="{{URL::asset('cart')}}"  >
-                                < 返回购物车
-                            </a>
-                        </td>
-                        <td class="text-right width-250" style="display:table-cell;vertical-align:middle;border:0px;">
-                           共<span class="text-red">{{$order['count']}}</span>件商品
-                        </td>
-                        <td class="text-right width-250" style="display:table-cell;vertical-align:middle;border:0px;">
-                            总价（包含<span class="text-red">￥10.00</span> 邮费）
-                        </td>
-                        <td class="text-center width-150 text-red" style="display:table-cell;vertical-align:middle;border:0px;">
-                            ￥<span id="total_all">{{$order['total_fee']/100}}</span>
-                        </td>
-                        <td class="width-110 text-white background-blue cart-settlement" style="display:table-cell;vertical-align:middle;border:0px;padding:0px;" >
-                            <a href="javascript:" onclick="pay()" class="line-height-40">
-                                立即结算
-                            </a>
-                        </td>
-                    </tr>
-                </table>
+                <div class="table-responsive">
+                    <table class="table border-detail margin-top-20 margin-bottom-20">
+                        <tr class="line-height-40 text-center">
+                            <td class="text-left text-blue width-250" style="display:table-cell;vertical-align:middle;border:0px;">
+                                <a href="{{URL::asset('cart')}}"  >
+                                    < 返回购物车
+                                </a>
+                            </td>
+                            <td class="text-right width-250" style="display:table-cell;vertical-align:middle;border:0px;">
+                               共<span class="text-red">{{$order['count']}}</span>件商品
+                            </td>
+                            <td class="text-right width-250" style="display:table-cell;vertical-align:middle;border:0px;">
+                                总价（包含<span class="text-red">￥10.00</span> 邮费）
+                            </td>
+                            <td class="text-center width-150 text-red" style="display:table-cell;vertical-align:middle;border:0px;">
+                                ￥<span id="total_all">{{$order['total_fee']/100}}</span>
+                            </td>
+                            <td class="width-110 text-white background-blue cart-settlement" style="display:table-cell;vertical-align:middle;border:0px;padding:0px;" >
+                                <a href="javascript:" onclick="pay()" class="line-height-40">
+                                    立即结算
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             @else
                 <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                     <img src="{{ URL::asset('img/nothing.png') }}"  />
@@ -713,7 +715,7 @@
             _token: "{{ csrf_token() }}"
         }
         payOrder('{{URL::asset('')}}', param, function (ret) {
-            // console.log("editOrder ret is : "+JSON.stringify(ret))
+            console.log("editOrder ret is : "+JSON.stringify(ret))
             if (ret.result == true) {
                 layer.msg(ret.msg, {icon: 1, time: 1000});
                 {{--window.location.href = "{{URL::asset('success')}}";--}}

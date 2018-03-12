@@ -74,14 +74,14 @@ class OrderManager
     public static function getOrderByUserIdAndTradeNo($user_id, $trade_no){
         if($trade_no){
             $where=array(
-                "status"=>0,
+                "status"=>1,
                 "user_id"=>$user_id,
                 "trade_no"=>$trade_no
             );
         }
         else{
             $where=array(
-                "status"=>0,
+                "status"=>1,
                 "user_id"=>$user_id
             );
         }
