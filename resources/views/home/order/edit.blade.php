@@ -463,15 +463,15 @@
                         </div>
                         <div class="row margin-bottom-20 padding-left-20 padding-right-20 border-bottom-detail">
                             <div class="col-xs-12 col-sm-2">
-                                <div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box height-80" style="text-align: center;">
+                                <div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box-active height-50" style="text-align: center;">
                                     <img src="{{URL::asset('img/wechat.png')}}" class="height-100" />
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-2">
-                                <div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box height-80" style="text-align: center;">
-                                    <img src="{{URL::asset('img/alipay.png')}}" class="height-100" />
-                                </div>
-                            </div>
+                            {{--<div class="col-xs-12 col-sm-2">--}}
+                                {{--<div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box height-80" style="text-align: center;">--}}
+                                    {{--<img src="{{URL::asset('img/alipay.png')}}" class="height-100" />--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                     <div class="table-responsive">

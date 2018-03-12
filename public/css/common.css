@@ -560,6 +560,11 @@ input button{
     /*border: 1px solid #EBEBEB;*/
 }
 
+.border-box-active{
+    border: 1px solid #ccc;
+    box-shadow:0 0 8px rgba(81, 81,81,0.8);
+}
+
 .border-box:hover{
     border: 1px solid #ccc;
     box-shadow:0 0 8px rgba(81, 81,81,0.8);

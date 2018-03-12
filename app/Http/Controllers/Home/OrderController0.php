@@ -10,38 +10,17 @@ namespace App\Http\Controllers\Home;
 
 use App\Components\AddressManager;
 use App\Components\CartManager;
-use App\Components\DateTool;
 use App\Components\GoodsManager;
 use App\Components\InvoiceManager;
-use App\Components\MemberManager;
 use App\Components\OrderManager;
 use App\Components\SuborderManager;
-use App\Components\Utils;
 use App\Models\OrderModel;
 use App\Models\SuborderModel;
 use Illuminate\Http\Request;
-use Yansongda\Pay\Log;
-use Yansongda\Pay\Pay;
 
 class OrderController
 {
-    //配置微信支付的参数
-    protected $wechat_config = [
-        'appid' => 'wx685ff20a78495315', // APP APPID
-        'app_id' => '', // 公众号 APPID
-        'miniapp_id' => '', // 小程序 APPID
-        'mch_id' => '1491365062', //微信商户号
-        'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
-        'notify_url' => 'http://ymsc.isart.me/order/notify.php',
-        'trade_type'=>'NATIVE',
-        'cert_client' => './cert/apiclient_cert.pem', // optional，退款等情况时用到
-        'cert_key' => './cert/apiclient_key.pem',// optional，退款等情况时用到
-        'log' => [ // optional
-            'file' => './logs/wechat.log',
-            'level' => 'debug'
-        ]
-    ];
-
+    
     /*
      * 添加订单
      */
@@ -145,42 +124,19 @@ class OrderController
         if($user){
             if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
                 $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+                $data['status']=1;
                 $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
                 $data['invoice_type']=$invoice['type'];
                 $order=OrderManager::setOrder($order,$data);
                 unset($order['suborders']);
                 $result=$order->save();
-                $suborders=SuborderManager::getSubordersByTradeNo($order->trade_no);
-                $goods_ids='';
-                foreach ($suborders as $suborder){
-                    $goods_ids.=$suborder['goods_id'].',';
-                }
-                //进行总订单支付
-                $pay_order = [
-                    'out_trade_no' => $order->trade_no,
-                    'total_fee' => $order->total_fee,
-                    'body' => $order->content,
-                    'spbill_create_ip' => '182.92.235.154',
-                    'product_id' => $goods_ids,            // 订单商品 ID
-                ];
-                //配置config
-                $config = $this->wechat_config();
-                $result = Pay::wechat($config)->scan($pay_order);
                 if($result){
-                    //设置微信预付订单id（prepay_id）
-                    $order->prepay_id = explode("=", $result['package'])[1];
-                    $order->save();
-                    //更改会员积分
-                    $member=MemberManager::getUserInfoByIdWithNotToken($user['id']);
-                    $member_data['score']=$member['$member']+(int)($order->total_fee/100);
-                    $member=MemberManager::setUser($member,$member_data);
-                    $member->save();
                     $return['result']=true;
-                    $return['msg']='支付成功';
+                    $return['msg']='提交订单成功';
                 }
                 else{
                     $return['result']=false;
-                    $return['msg']='支付失败';
+                    $return['msg']='提交订单失败';
                 }
             }
             else{
@@ -190,7 +146,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='支付失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']='提交订单失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
     }
@@ -217,37 +173,5 @@ class OrderController
         $rand_end=rand(1000,10000);  //随机数4位
         $number=$rand_prv.$time.$given.$rand_end;
         return $number;
-    }
-
-    /*
-     * 微信支付成功回调
-     *
-     * By TerryQi
-     *
-     * 2018-01-12
-     */
-    public function wechatNotify(Request $request)
-    {
-        $config = $this->wechat_config();
-        $wechat = Pay::wechat($config);
-        $user=$request->cookie('user');
-        try {
-            $data = $wechat->verify($request->getContent()); // 是的，验签就这么简单！
-            Log::info('Wechat notify', $data->all());
-            //支付成功
-            if ($data->result_code == "SUCCESS") {
-                //总订单out_trade_no
-                $out_trade_no = $data->out_trade_no;
-                //针对总订单进行处理
-                $order = OrderManager::getOrderByUserIdAndTradeNo($user['id'],$out_trade_no);
-                $order->pay_at = DateTool::getCurrentTime();
-                $order->status = Utils::ORDER_PAYSUCCESS;
-                $order->save();     //总订单设定支付时间和订单状态
-                Log::info('order trade_no:'.$order->trade_no);
-            }
-            return $wechat->success();
-        } catch (Exception $e) {
-            Log::info($e->getMessage());
-        }
     }
 }

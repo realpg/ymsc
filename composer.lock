@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "09dd6215c4a9da67d1d1171ceac6acbe",
+    "content-hash": "37514510eaa39301a9be31b4b451249a",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3155,21 +3155,25 @@
         },
         {
             "name": "yansongda/pay",
-            "version": "v1.3.0",
+            "version": "v2.0.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yansongda/pay.git",
-                "reference": "6e504f1af13b812b4e855970d08472872bc4a92e"
+                "reference": "e268e206d2e5417fd5d529587fbd28202de3a2d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/yansongda/pay/6e504f1af13b812b4e855970d08472872bc4a92e.zip",
-                "reference": "6e504f1af13b812b4e855970d08472872bc4a92e",
+                "url": "https://files.phpcomposer.com/files/yansongda/pay/e268e206d2e5417fd5d529587fbd28202de3a2d2.zip",
+                "reference": "e268e206d2e5417fd5d529587fbd28202de3a2d2",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "^6.3",
-                "php": ">=5.6"
+                "ext-openssl": "*",
+                "ext-simplexml": "*",
+                "monolog/monolog": "^1.23",
+                "php": ">=7.0",
+                "symfony/http-foundation": "^3.0|^4.0",
+                "yansongda/supports": "^1.4"
             },
             "require-dev": {
                 "phpunit/phpunit": "^6.2"
@@ -3196,7 +3200,52 @@
                 "pay",
                 "wechat"
             ],
-            "time": "2017-12-26T10:01:57+00:00"
+            "time": "2018-03-08T08:55:34+00:00"
+        },
+        {
+            "name": "yansongda/supports",
+            "version": "v1.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yansongda/supports.git",
+                "reference": "f2a3133df8759850901ba57c9c0284352be1d3da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/yansongda/supports/f2a3133df8759850901ba57c9c0284352be1d3da.zip",
+                "reference": "f2a3133df8759850901ba57c9c0284352be1d3da",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.3",
+                "php": ">=5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yansongda\\Supports\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yansongda",
+                    "email": "me@yansongda.cn"
+                }
+            ],
+            "description": "common components",
+            "keywords": [
+                "Guzzle",
+                "array",
+                "collection",
+                "config",
+                "http",
+                "support"
+            ],
+            "time": "2018-01-06T08:44:37+00:00"
         }
     ],
     "packages-dev": [
