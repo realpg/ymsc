@@ -260,6 +260,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     //订单
     Route::post('order/add', 'Home\OrderController@addDo');        //添加订单
     Route::get('order', 'Home\OrderController@edit');        //编辑订单
+    Route::post('order/pay', 'Home\OrderController@payDo');        //付款
 });
 
 Auth::routes();

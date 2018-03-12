@@ -14,7 +14,6 @@ use App\Components\GoodsManager;
 use App\Components\InvoiceManager;
 use App\Components\OrderManager;
 use App\Components\SuborderManager;
-use App\Models\CartModel;
 use App\Models\OrderModel;
 use App\Models\SuborderModel;
 use Illuminate\Http\Request;
@@ -34,7 +33,8 @@ class OrderController
                 $order=new OrderModel();
                 $order_data['user_id']=$user['id'];
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
-                $order_data['total_fee']=$data['total']*100;
+                $order_data['count']=$data['count'];
+                $order_data['total_fee']=$data['total']*100+1000;
                 $order=OrderManager::setOrder($order,$order_data);
                 $order_result=$order->save();
                 if($order_result){
@@ -110,6 +110,44 @@ class OrderController
         else{
             return redirect('signIn');
         }
+    }
+
+    /*
+     * 执行编辑订单
+     */
+    public function payDo(Request $request){
+        $data=$request->all();
+        unset($data['common']);
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
+                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+                $data['status']=1;
+                $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
+                $data['invoice_type']=$invoice['type'];
+                $order=OrderManager::setOrder($order,$data);
+                unset($order['suborders']);
+                $result=$order->save();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='提交订单成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='提交订单失败';
+                }
+            }
+            else{
+                $return['result'] = false;
+                $return['msg'] = '合规校验失败，缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='提交订单失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
     }
 
     /*

@@ -214,6 +214,11 @@ function delMoreShoppingCart(url, param, callBack) {
 function addOrder(url, param, callBack) {
     $.post(url + "order/add",param,callBack);
 }
+
+//支付
+function payOrder(url, param, callBack) {
+    $.post(url + "order/pay",param,callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 

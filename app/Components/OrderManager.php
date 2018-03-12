@@ -40,6 +40,9 @@ class OrderManager
         if (array_key_exists('total_fee', $data)) {
             $order->total_fee = array_get($data, 'total_fee');
         }
+        if (array_key_exists('count', $data)) {
+            $order->count = array_get($data, 'count');
+        }
         if (array_key_exists('content', $data)) {
             $order->content = array_get($data, 'content');
         }

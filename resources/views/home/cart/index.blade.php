@@ -249,13 +249,14 @@
         });
         if(id_array.length>0){
             var total=$('#total_all').text();
+            var count=$('#count_all').text();
             var param = {
                 id_array: id_array,
                 total:total,
+                count:count,
                 _token: "{{ csrf_token() }}"
             }
             addOrder('{{URL::asset('')}}', param, function (ret) {
-                console.log("addOrder ret is : "+JSON.stringify(ret))
                 if (ret.result == true) {
                     layer.msg(ret.msg, {icon: 1, time: 1000});
                     window.location.href = "{{URL::asset('order')}}";
