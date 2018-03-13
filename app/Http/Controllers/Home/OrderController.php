@@ -45,22 +45,6 @@ class OrderController
         ];
         return $config;
     }
-//    //配置微信支付的参数
-//    protected static $wechat_config = [
-//        'appid' => '', // APP APPID
-//        'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
-//        'miniapp_id' => '', // 小程序 APPID
-//        'mch_id' => '1491365062', //微信商户号
-//        'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
-//        'notify_url' => 'http://ymsc.isart.me/order/notify.php',
-//        'trade_type'=>'NATIVE',
-//        'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
-//        'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
-//        'log' => [ // optional
-//            'file' => app_path() . '/../storage/logs/wechat.log',
-//            'level' => 'debug'
-//        ]
-//    ];
 
     /*
      * 添加订单
@@ -187,11 +171,10 @@ class OrderController
                     'spbill_create_ip' => $_SERVER['HTTP_HOST'],
                     'product_id' => $goods_ids,            // 订单商品 ID
                 ];
-                \Illuminate\Support\Facades\Log::info(\GuzzleHttp\json_encode($pay_order));
                 //配置config
                 $config = self::getConfig();
                 $result = Pay::wechat($config)->scan($pay_order);
-                dd($result);
+//                dd($result);
                 if($result){
                     //设置微信预付订单id（prepay_id）
                     $order->prepay_id = explode("=", $result['package'])[1];
