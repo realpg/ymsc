@@ -30,11 +30,12 @@ class WechatController extends Controller
     {
         $config = [
             'appid' => '', // APP APPID
-            'app_id' => '', // 公众号 APPID
-            'miniapp_id' => 'wxb4077b9735ca748a',       //小程序miniapp_id
-            'mch_id' => '1497470122',                    // 微信商户号
-            'key' => 'LltO2bE5r4sGVJZjn0zd4aRsNQHezIiJ',                     // 微信支付签名秘钥  ImpYNtH4B5x7C587qy5ujzS6fbZnNv6T
-            'notify_url' => 'https://yxp.isart.me/api/wechat/notify',      //支付结果通知地址  https://tclm.isart.me/api/wechat/notify
+            'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
+            'miniapp_id' => '', // 小程序 APPID
+            'mch_id' => '1491365062', //微信商户号
+            'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
+            'notify_url' => 'http://ymsc.isart.me/api/order/notify',
+            'trade_type'=>'NATIVE',
             'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
             'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
             'log' => [ // optional
