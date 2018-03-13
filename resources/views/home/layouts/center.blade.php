@@ -16,7 +16,7 @@
         <div href="#" class="list-group-item border-radius-0 background-navy-blue text-white border-navy-blue">
             订单管理
         </div>
-        <a href="#" class="list-group-item {{$column_child=='order'?'active_center':''}}">我的订单</a>
+        <a href="{{ URL::asset('center/order') }}" class="list-group-item {{$column_child=='order'?'active_center':''}}">我的订单</a>
         <a href="#" class="list-group-item {{$column_child=='refund'?'active_center':''}}">退款单</a>
     </div>
     <div class="list-group text-center margin-bottom-0">

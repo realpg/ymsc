@@ -34,10 +34,10 @@ class OrderController
         'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
         'notify_url' => 'http://ymsc.isart.me/order/notify.php',
         'trade_type'=>'NATIVE',
-        'cert_client' => './cert/apiclient_cert.pem', // optional，退款等情况时用到
-        'cert_key' => './cert/apiclient_key.pem',// optional，退款等情况时用到
+        'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
+        'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
         'log' => [ // optional
-            'file' => './logs/wechat.log',
+            'file' => app_path() . '/../storage/logs/wechat.log',
             'level' => 'debug'
         ]
     ];
@@ -167,6 +167,7 @@ class OrderController
                     'spbill_create_ip' => $_SERVER['HTTP_HOST'],
                     'product_id' => $goods_ids,            // 订单商品 ID
                 ];
+                \Illuminate\Support\Facades\Log::info(\GuzzleHttp\json_encode($pay_order));
                 //配置config
                 $config = self::$wechat_config;
                 $result = Pay::wechat($config)->scan($pay_order);

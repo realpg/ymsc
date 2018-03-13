@@ -250,6 +250,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::post('center/invoice', 'Home\CenterController@invoiceDo');        //编辑地址管理
     Route::get('center/invoice/del', 'Home\CenterController@invoiceDel');        //删除发票
     Route::get('center/invoice/default', 'Home\CenterController@invoiceDefault');        //修改默认发票
+    Route::get('center/order', 'Home\CenterController@order');        //订单管理
 
     //购物车
     Route::get('cart', 'Home\CartController@index');        //购物车页面
@@ -260,6 +261,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     //订单
     Route::post('order/add', 'Home\OrderController@addDo');        //添加订单
     Route::get('order', 'Home\OrderController@edit');        //编辑订单
+    Route::get('order/{trade_no}', 'Home\OrderController@edit');        //编辑订单
     Route::post('order/pay', 'Home\OrderController@payDo');        //付款
     //支付结果通知    请勿调用
     Route::any('order/notify', 'API\WechatController@wechatNotify');

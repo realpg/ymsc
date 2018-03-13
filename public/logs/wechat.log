@@ -50,3 +50,15 @@
 
 2018-03-12 18:32:29 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wxa2096c6338c06a0f","mch_id":"1491365062","nonce_str":"RgUR5GDEL73uV2pN","notify_url":"http://ymsc.isart.me/order/notify.php","sign":"6B58888ED07E03E1B2902056B5C8652D","trade_type":"NATIVE","spbill_create_ip":"::1","out_trade_no":"20152084924900143361","total_fee":6,"body":"优迈商城支付","product_id":"13,37,"}] []
 
+2018-03-12 18:37:16 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wxa2096c6338c06a0f","mch_id":"1491365062","nonce_str":"IFPnqjEhoYUVfs4u","notify_url":"http://ymsc.isart.me/order/notify.php","sign":"5F210A61F42332CE07D8A548D6C07035","trade_type":"NATIVE","spbill_create_ip":"::1","out_trade_no":"20152084924900143361","total_fee":6,"body":"优迈商城支付","product_id":"13,37,"}] []
+
+2018-03-12 18:37:16 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wxa2096c6338c06a0f","mch_id":"1491365062","nonce_str":"IFPnqjEhoYUVfs4u","notify_url":"http://ymsc.isart.me/order/notify.php","sign":"5F210A61F42332CE07D8A548D6C07035","trade_type":"NATIVE","spbill_create_ip":"::1","out_trade_no":"20152084924900143361","total_fee":6,"body":"优迈商城支付","product_id":"13,37,"}] []
+
+2018-03-13 13:16:46 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wxa2096c6338c06a0f","mch_id":"1491365062","nonce_str":"NAg0GJqTYqFdRtCH","notify_url":"http://ymsc.isart.me/order/notify.php","sign":"1EFB617D47E23BF77E7176539FCBCAA7","trade_type":"NATIVE","spbill_create_ip":"::1","out_trade_no":"53152091376100143796","total_fee":10,"body":"优迈商城支付","product_id":"23,26,"}] []
+
+2018-03-13 13:16:46 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wxa2096c6338c06a0f","mch_id":"1491365062","nonce_str":"NAg0GJqTYqFdRtCH","notify_url":"http://ymsc.isart.me/order/notify.php","sign":"1EFB617D47E23BF77E7176539FCBCAA7","trade_type":"NATIVE","spbill_create_ip":"::1","out_trade_no":"53152091376100143796","total_fee":10,"body":"优迈商城支付","product_id":"23,26,"}] []
+
+2018-03-13 13:17:05 > DEBUG > Pre Order: ["pay/unifiedorder",{"appid":"wxa2096c6338c06a0f","mch_id":"1491365062","nonce_str":"bmzvsQBYer34Or6N","notify_url":"http://ymsc.isart.me/order/notify.php","sign":"C368C8240D08C4E3107C10BD5A5D52CE","trade_type":"NATIVE","spbill_create_ip":"::1","out_trade_no":"53152091376100143796","total_fee":10,"body":"优迈商城支付","product_id":"23,26,"}] []
+
+2018-03-13 13:17:05 > DEBUG > Request To Wechat Api ["https://api.mch.weixin.qq.com/pay/unifiedorder",{"appid":"wxa2096c6338c06a0f","mch_id":"1491365062","nonce_str":"bmzvsQBYer34Or6N","notify_url":"http://ymsc.isart.me/order/notify.php","sign":"C368C8240D08C4E3107C10BD5A5D52CE","trade_type":"NATIVE","spbill_create_ip":"::1","out_trade_no":"53152091376100143796","total_fee":10,"body":"优迈商城支付","product_id":"23,26,"}] []
+

@@ -12,6 +12,7 @@ use App\Components\CartManager;
 use App\Components\AddressManager;
 use App\Components\InvoiceManager;
 use App\Components\MemberManager;
+use App\Components\OrderManager;
 use App\Components\QNManager;
 use App\Components\VertifyManager;
 use App\Http\Controllers\Controller;
@@ -654,5 +655,34 @@ class CenterController extends Controller
             $return['msg']='设置默认地址失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
+    }
+
+    /*
+     * 管理订单
+     */
+    public function order(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            $column='center';
+            $column_child='order';
+            $orders=OrderManager::getOrdersByUserId($user['id']);
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'column_child'=>$column_child,
+                'user'=>$user,
+                'orders'=>$orders,
+                'carts'=>$carts
+            );
+            return view('home.center.order',$param);
+        }
+        else{
+            return redirect('signIn');
+        }
     }
 }

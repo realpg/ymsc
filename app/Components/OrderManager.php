@@ -111,4 +111,41 @@ class OrderManager
         }
         return $order;
     }
+
+    /*
+     * 根据user_id获取订单
+     *
+     * By zm
+     *
+     * 2018-03-09
+     */
+    public static function getOrdersByUserId($user_id){
+        $orders=OrderModel::where('user_id',$user_id)->orderBy('id','desc')->get();
+        foreach ($orders as $order){
+            $order['suborders']=SuborderManager::getSubordersByTradeNo($order['trade_no']);
+            foreach ($order['suborders'] as $suborder){
+                $goods_id=$suborder['goods_id'];
+                $suborder['goods_info']=GoodsModel::find($goods_id);
+                $menu_id=$suborder['goods_info']['menu_id'];
+                $suborder['goods_menu']=MenuModel::find($menu_id);
+                if($suborder['goods_menu']['menu_id']==1){
+                    $suborder['goods_column']=ChemController::COLUMN;
+                }
+                else if($suborder['goods_menu']['menu_id']==2){
+                    $suborder['goods_column']=TestingController::COLUMN;
+                }
+                else if($suborder['goods_menu']['menu_id']==3){
+                    $suborder['goods_column']=MachiningController::COLUMN;
+                    $attribute=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+                    if($attribute){
+                        $suborder['goods_type']=0;
+                    }
+                    else{
+                        $suborder['goods_type']=1;
+                    }
+                }
+            }
+        }
+        return $orders;
+    }
 }
