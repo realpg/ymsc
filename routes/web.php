@@ -263,6 +263,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('order', 'Home\OrderController@edit');        //编辑订单
     Route::get('order/{trade_no}', 'Home\OrderController@edit');        //编辑订单
     Route::post('order/pay', 'Home\OrderController@payDo');        //付款
+    Route::post('order/pay/code/{trade_no}', 'Home\OrderController@code');        //付款
     //支付结果通知    请勿调用
     Route::any('order/notify', 'API\WechatController@wechatNotify');
 });

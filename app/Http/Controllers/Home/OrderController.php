@@ -175,17 +175,18 @@ class OrderController
                 $config = self::getConfig();
                 $result = Pay::wechat($config)->scan($pay_order);
 //                dd($result);
-                if($result){
-                    //设置微信预付订单id（prepay_id）
-                    $order->prepay_id = explode("=", $result['package'])[1];
+                if($result['return_code']){
+//                    设置微信预付订单id（prepay_id）
+                    $order->prepay_id = $result['prepay_id'];
+                    $order->code_url = $result['code_url'];
                     $order->save();
-                    //更改会员积分
-                    $member=MemberManager::getUserInfoByIdWithNotToken($user['id']);
-                    $member_data['score']=$member['$member']+(int)($order->total_fee/100);
-                    $member=MemberManager::setUser($member,$member_data);
-                    $member->save();
+//                    //更改会员积分
+//                    $member=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+//                    $member_data['score']=$member['$member']+(int)($order->total_fee/100);
+//                    $member=MemberManager::setUser($member,$member_data);
+//                    $member->save();
                     $return['result']=true;
-                    $return['msg']='支付成功';
+                    $return['msg']='支付二维码生成成功';
                 }
                 else{
                     $return['result']=false;
@@ -195,6 +196,31 @@ class OrderController
             else{
                 $return['result'] = false;
                 $return['msg'] = '合规校验失败，缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='支付失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+
+    /*
+     * 扫描支付二维码
+     */
+    public function code(Request $request, $trade_no=''){
+        $data = $request->all();
+        unset($data['common']);
+        $user = $request->cookie('user');
+        $return = null;
+        if ($user) {
+            if(!empty($trade_no)){
+                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+                dd($order);
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='校验失败，缺少参数';
             }
         }
         else{

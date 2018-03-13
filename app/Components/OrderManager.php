@@ -34,6 +34,9 @@ class OrderManager
         if (array_key_exists('prepay_id', $data)) {
             $order->prepay_id = array_get($data, 'prepay_id');
         }
+        if (array_key_exists('code_url', $data)) {
+            $order->code_url = array_get($data, 'code_url');
+        }
         if (array_key_exists('user_id', $data)) {
             $order->user_id = array_get($data, 'user_id');
         }
