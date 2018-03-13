@@ -25,22 +25,42 @@ use Yansongda\Pay\Pay;
 
 class OrderController
 {
-    //配置微信支付的参数
-    protected static $wechat_config = [
-        'appid' => '', // APP APPID
-        'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
-        'miniapp_id' => '', // 小程序 APPID
-        'mch_id' => '1491365062', //微信商户号
-        'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
-        'notify_url' => 'http://ymsc.isart.me/order/notify.php',
-        'trade_type'=>'NATIVE',
-        'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
-        'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
-        'log' => [ // optional
-            'file' => app_path() . '/../storage/logs/wechat.log',
-            'level' => 'debug'
-        ]
-    ];
+    //获取小程序微信支付的相关信息
+    private function getConfig()
+    {
+        $config = [
+            'appid' => '', // APP APPID
+            'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
+            'miniapp_id' => '', // 小程序 APPID
+            'mch_id' => '1491365062', //微信商户号
+            'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
+            'notify_url' => 'http://ymsc.isart.me/order/notify.php',
+            'trade_type'=>'NATIVE',
+            'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
+            'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
+            'log' => [ // optional
+                'file' => app_path() . '/../storage/logs/wechat.log',
+                'level' => 'debug'
+            ]
+        ];
+        return $config;
+    }
+//    //配置微信支付的参数
+//    protected static $wechat_config = [
+//        'appid' => '', // APP APPID
+//        'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
+//        'miniapp_id' => '', // 小程序 APPID
+//        'mch_id' => '1491365062', //微信商户号
+//        'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
+//        'notify_url' => 'http://ymsc.isart.me/order/notify.php',
+//        'trade_type'=>'NATIVE',
+//        'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
+//        'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
+//        'log' => [ // optional
+//            'file' => app_path() . '/../storage/logs/wechat.log',
+//            'level' => 'debug'
+//        ]
+//    ];
 
     /*
      * 添加订单
@@ -169,7 +189,7 @@ class OrderController
                 ];
                 \Illuminate\Support\Facades\Log::info(\GuzzleHttp\json_encode($pay_order));
                 //配置config
-                $config = self::$wechat_config;
+                $config = self::getConfig();
                 $result = Pay::wechat($config)->scan($pay_order);
                 dd($result);
                 if($result){
@@ -234,7 +254,7 @@ class OrderController
      */
     public function wechatNotify(Request $request)
     {
-        $config = $this->wechat_config();
+        $config = $this->getConfig();
         $wechat = Pay::wechat($config);
         $user=$request->cookie('user');
         try {
