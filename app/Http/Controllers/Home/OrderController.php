@@ -215,7 +215,7 @@ class OrderController
         $return = null;
         if ($user) {
             if(!empty($trade_no)){
-                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
                 dd($order);
             }
             else{
