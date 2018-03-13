@@ -228,7 +228,7 @@ class OrderController
                     'carts'=>$carts,
                     'order'=>$order
                 );
-                return view('home.qrorder.code',$param);
+                return view('home.order.qrcode',$param);
             }
             else{
                 $return['result']=false;
