@@ -5,7 +5,7 @@
         @include('home.layouts.payProgress')
         <div class="container margin-top-20 text-center">
             @if($order['suborders'])
-                <div id="output"></div>
+                <div id="output" class="margin-top-20"></div>
                 <h4>请打开微信扫一扫，扫描图中二维码进行支付</h4>
             @else
                 <div class="margin-top-20 margin-right-10 margin-left-10 text-center">

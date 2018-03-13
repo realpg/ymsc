@@ -34,7 +34,7 @@ class OrderController
             'miniapp_id' => '', // 小程序 APPID
             'mch_id' => '1491365062', //微信商户号
             'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
-            'notify_url' => 'http://ymsc.isart.me/order/notify.php',
+            'notify_url' => 'http://ymsc.isart.me/api/order/notify',
             'trade_type'=>'NATIVE',
             'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
             'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到

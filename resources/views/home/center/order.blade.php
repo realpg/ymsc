@@ -92,7 +92,7 @@
                             <tr class="line-height-40 text-center">
                                 <td class="text-left text-blue width-250 border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
                                     <div class="float-left">
-                                        <a href=""  >
+                                        <a href=""  />
                                             发票详情
                                         </a>
                                     </div>
