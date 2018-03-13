@@ -717,7 +717,7 @@
         payOrder('{{URL::asset('')}}', param, function (ret) {
             console.log("editOrder ret is : "+JSON.stringify(ret))
             if (ret.result == true) {
-                window.location.href = "{{URL::asset('order/pay/code/')}}"+trade_no;
+                window.location.href = "{{URL::asset('order/pay/code')}}"+"/"+trade_no;
             } else {
                 layer.msg(ret.msg, {icon: 2, time: 3000})
             }
