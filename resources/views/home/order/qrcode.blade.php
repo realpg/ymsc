@@ -3,11 +3,10 @@
     <div id="main-body">
         <div class="style-home-nav-station"></div>
         @include('home.layouts.payProgress')
-        <div class="container margin-top-20">
+        <div class="container margin-top-20 text-center">
             @if($order['suborders'])
                 <div id="output"></div>
                 <h4>请打开微信扫一扫，扫描图中二维码进行支付</h4>
-                {{$order['code_url']}}
             @else
                 <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                     <img src="{{ URL::asset('img/nothing.png') }}"  />
