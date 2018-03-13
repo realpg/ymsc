@@ -210,13 +210,25 @@ class OrderController
      */
     public function code(Request $request, $trade_no=''){
         $data = $request->all();
-        unset($data['common']);
         $user = $request->cookie('user');
+        $common=$data['common'];
         $return = null;
         if ($user) {
+            $column='cart';
+            $progress=2;
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
             if(!empty($trade_no)){
                 $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
-                dd($order);
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'progress'=>$progress,
+                    'user'=>$user,
+                    'carts'=>$carts,
+                    'order'=>$order
+                );
+                return view('home.order.code',$param);
             }
             else{
                 $return['result']=false;
