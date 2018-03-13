@@ -17,6 +17,7 @@ use App\Components\MemberManager;
 use App\Components\OrderManager;
 use App\Components\SuborderManager;
 use App\Components\Utils;
+use App\Http\Controllers\Controller;
 use App\Models\OrderModel;
 use App\Models\SuborderModel;
 use Illuminate\Http\Request;
