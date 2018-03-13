@@ -208,7 +208,7 @@ class OrderController
     /*
      * 扫描支付二维码
      */
-    public function code(Request $request, $trade_no=''){
+    public function qrcode(Request $request, $trade_no=''){
         $data = $request->all();
         $user = $request->cookie('user');
         $common=$data['common'];
@@ -228,7 +228,7 @@ class OrderController
                     'carts'=>$carts,
                     'order'=>$order
                 );
-                return view('home.order.code',$param);
+                return view('home.qrorder.code',$param);
             }
             else{
                 $return['result']=false;
