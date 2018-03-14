@@ -61,22 +61,19 @@ class WechatController extends Controller
                 $out_trade_no = $data->out_trade_no;
                 Log::info('order out_trade_no:'.$data->out_trade_no);
                 //针对总订单进行处理
-//                $order = OrderManager::getOrderByUserIdAndTradeNo($user['id'],$out_trade_no);
-                $order=OrderModel::where('trade_no',$out_trade_no)->first();
+                $order = OrderManager::getOrderByUserIdAndTradeNoWithoutSuborder($user['id'],$out_trade_no);
+//                $order=OrderModel::where('trade_no',$out_trade_no)->first();
                 unset($order['suborders']);
-//                Log::info('order:'.\GuzzleHttp\json_encode($order));
-//                $order->pay_at = date("Y-m-d H:i:s");
-//                Log::info('order pay_at:'.$order->pay_at);
-//                $order->status = Utils::ORDER_PAYSUCCESS;
                 $order_data['pay_at']=date("Y-m-d H:i:s");
-                $order_data['status']=2;
+                $order_data['status']=Utils::ORDER_PAYSUCCESS;
                 $order=OrderManager::setOrder($order,$order_data);
                 $reuslt=$order->save();     //总订单设定支付时间和订单状态
                 if($reuslt){
                     Log::info('order trade_no:'.$order->trade_no);
+                    return redirect('order/pay/success');
                 }
                 else{
-                    Log::info('order:'.$order->all());
+                    return redirect('order/pay/fail/'.$out_trade_no);
                 }
             }
             return $wechat->success();

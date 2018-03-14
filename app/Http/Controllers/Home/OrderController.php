@@ -297,4 +297,57 @@ class OrderController
             Log::info($e->getMessage());
         }
     }
+
+    /*
+     * 支付成功
+     */
+    public function success(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        if($user){
+            $column='cart';
+            $progress=3;
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'progress'=>$progress,
+                'user'=>$user,
+                'carts'=>$carts
+            );
+            return view('home.order.success',$param);
+        }
+        else{
+            return redirect('signIn');
+        }
+    }
+
+    /*
+     * 支付失败
+     */
+    public function fail(Request $request, $trade_no=''){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        if($user){
+            $column='cart';
+            $progress=2;
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'progress'=>$progress,
+                'user'=>$user,
+                'carts'=>$carts,
+                'trade_no'=>$trade_no
+            );
+            return view('home.order.fail',$param);
+        }
+        else{
+            return redirect('signIn');
+        }
+    }
 }

@@ -68,7 +68,7 @@ class OrderManager
     }
 
     /*
-     * 根据user_id和订单号获取主订单
+     * 根据user_id和订单号获取订单（含子订单及商品信息）
      *
      * By zm
      *
@@ -112,6 +112,31 @@ class OrderManager
                 }
             }
         }
+        return $order;
+    }
+
+    /*
+     * 根据user_id和订单号获取主订单（不含子订单）
+     *
+     * By zm
+     *
+     * 2018-03-14
+     */
+    public static function getOrderByUserIdAndTradeNoWithoutSuborder($user_id, $trade_no){
+        if($trade_no){
+            $where=array(
+                "status"=>1,
+                "user_id"=>$user_id,
+                "trade_no"=>$trade_no
+            );
+        }
+        else{
+            $where=array(
+                "status"=>1,
+                "user_id"=>$user_id
+            );
+        }
+        $order=OrderModel::where($where)->orderBy('id','desc')->first();
         return $order;
     }
 
