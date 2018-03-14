@@ -60,7 +60,7 @@ class OrderController
                 $order_data['user_id']=$user['id'];
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
                 $order_data['count']=$data['count'];
-                $order_data['total_fee']=$data['total']*100+1;
+                $order_data['total_fee']=$data['total']*100+0;
                 $order=OrderManager::setOrder($order,$order_data);
                 $order_result=$order->save();
                 if($order_result){

@@ -66,9 +66,12 @@ class WechatController extends Controller
             if ($data->result_code == "SUCCESS") {
                 //总订单out_trade_no
                 $out_trade_no = $data->out_trade_no;
+                Log::info('order out_trade_no:'.$data->out_trade_no);
                 //针对总订单进行处理
                 $order = OrderManager::getOrderByUserIdAndTradeNo($user['id'],$out_trade_no);
+                Log::info('order:'.\GuzzleHttp\json_encode($order));
                 $order->pay_at = DateTool::getCurrentTime();
+                Log::info('order pay_at:'.$order->pay_at);
                 $order->status = Utils::ORDER_PAYSUCCESS;
                 $order->save();     //总订单设定支付时间和订单状态
                 Log::info('order trade_no:'.$order->trade_no);
