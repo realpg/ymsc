@@ -220,7 +220,7 @@ class OrderController
             $carts = CartManager::getCartsByUserId($user['id']);
             if(!empty($trade_no)){
                 $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
-                if($data['code_url']){
+                if($order['code_url']){
                     $param=array(
                         'common'=>$common,
                         'column'=>$column,
