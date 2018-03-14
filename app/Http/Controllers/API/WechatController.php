@@ -65,7 +65,7 @@ class WechatController extends Controller
 //                $order=OrderModel::where('trade_no',$out_trade_no)->first();
                 unset($order['suborders']);
                 $order_data['pay_at']=date("Y-m-d H:i:s");
-                $order_data['status']=Utils::ORDER_PAYSUCCESS;
+                $order_data['status']=2;
                 $order=OrderManager::setOrder($order,$order_data);
                 $reuslt=$order->save();     //总订单设定支付时间和订单状态
                 if($reuslt){
