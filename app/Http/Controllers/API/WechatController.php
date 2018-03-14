@@ -75,7 +75,7 @@ class WechatController extends Controller
                     return redirect('order/pay/fail/'.$out_trade_no);
                 }
             }
-            return $wechat->success();
+//            return $wechat->success();
         } catch (Exception $e) {
             Log::info($e->getMessage());
         }

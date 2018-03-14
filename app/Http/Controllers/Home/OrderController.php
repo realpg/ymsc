@@ -220,15 +220,20 @@ class OrderController
             $carts = CartManager::getCartsByUserId($user['id']);
             if(!empty($trade_no)){
                 $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
-                $param=array(
-                    'common'=>$common,
-                    'column'=>$column,
-                    'progress'=>$progress,
-                    'user'=>$user,
-                    'carts'=>$carts,
-                    'order'=>$order
-                );
-                return view('home.order.qrcode',$param);
+                if($order){
+                    $param=array(
+                        'common'=>$common,
+                        'column'=>$column,
+                        'progress'=>$progress,
+                        'user'=>$user,
+                        'carts'=>$carts,
+                        'order'=>$order
+                    );
+                    return view('home.order.qrcode',$param);
+                }
+                else{
+                    return redirect('center/order');
+                }
             }
             else{
                 $return['result']=false;
@@ -264,38 +269,6 @@ class OrderController
         $rand_end=rand(1000,10000);  //随机数4位
         $number=$rand_prv.$time.$given.$rand_end;
         return $number;
-    }
-
-    /*
-     * 微信支付成功回调
-     *
-     * By TerryQi
-     *
-     * 2018-01-12
-     */
-    public function wechatNotify(Request $request)
-    {
-        $config = $this->getConfig();
-        $wechat = Pay::wechat($config);
-        $user=$request->cookie('user');
-        try {
-            $data = $wechat->verify($request->getContent()); // 是的，验签就这么简单！
-            Log::info('Wechat notify', $data->all());
-            //支付成功
-            if ($data->result_code == "SUCCESS") {
-                //总订单out_trade_no
-                $out_trade_no = $data->out_trade_no;
-                //针对总订单进行处理
-                $order = OrderManager::getOrderByUserIdAndTradeNo($user['id'],$out_trade_no);
-                $order->pay_at = DateTool::getCurrentTime();
-                $order->status = Utils::ORDER_PAYSUCCESS;
-                $order->save();     //总订单设定支付时间和订单状态
-                Log::info('order trade_no:'.$order->trade_no);
-            }
-            return $wechat->success();
-        } catch (Exception $e) {
-            Log::info($e->getMessage());
-        }
     }
 
     /*
