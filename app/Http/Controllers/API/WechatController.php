@@ -69,6 +69,7 @@ class WechatController extends Controller
                 Log::info('order out_trade_no:'.$data->out_trade_no);
                 //针对总订单进行处理
                 $order = OrderManager::getOrderByUserIdAndTradeNo($user['id'],$out_trade_no);
+                unset($order['suborders']);
                 Log::info('order:'.\GuzzleHttp\json_encode($order));
                 $order->pay_at = date("Y-m-d H:i:s");
                 Log::info('order pay_at:'.$order->pay_at);
