@@ -8,8 +8,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Components\BannerManager;
 use App\Components\DateTool;
 use App\Components\OrderManager;
+use App\Components\ServiceManager;
 use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use App\Models\OrderModel;
@@ -69,10 +71,23 @@ class WechatController extends Controller
                 $reuslt=$order->save();     //总订单设定支付时间和订单状态
                 if($reuslt){
                     Log::info('order trade_no:'.$order->trade_no);
-                    return redirect('home/order/pay/success');
-                }
-                else{
-                    return redirect('home/order/pay/fail/'.$out_trade_no);
+                    $base=BannerManager::getBaseInfo();
+                    $services=ServiceManager::getAllServices();
+                    $common['base']=$base;
+                    $common['services']=$services;
+                    $request['common']=$common;
+                    $column='cart';
+                    $progress=3;
+                    //购物车信息
+                    $carts = CartManager::getCartsByUserId($user['id']);
+                    $param=array(
+                        'common'=>$common,
+                        'column'=>$column,
+                        'progress'=>$progress,
+                        'user'=>$user,
+                        'carts'=>$carts
+                    );
+                    return view('home.order.success',$param);
                 }
             }
 //            return $wechat->success();
