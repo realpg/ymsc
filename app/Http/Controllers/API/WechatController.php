@@ -69,10 +69,10 @@ class WechatController extends Controller
                 $reuslt=$order->save();     //总订单设定支付时间和订单状态
                 if($reuslt){
                     Log::info('order trade_no:'.$order->trade_no);
-                    return redirect('order/pay/success');
+                    return redirect('home/order/pay/success');
                 }
                 else{
-                    return redirect('order/pay/fail/'.$out_trade_no);
+                    return redirect('home/order/pay/fail/'.$out_trade_no);
                 }
             }
 //            return $wechat->success();
