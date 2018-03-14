@@ -63,7 +63,6 @@ class WechatController extends Controller
                 //针对总订单进行处理
                 $order = OrderManager::getOrderByUserIdAndTradeNoWithoutSuborder($user['id'],$out_trade_no);
 //                $order=OrderModel::where('trade_no',$out_trade_no)->first();
-                unset($order['suborders']);
                 $order_data['pay_at']=date("Y-m-d H:i:s");
                 $order_data['status']=2;
                 $order=OrderManager::setOrder($order,$order_data);
