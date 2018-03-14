@@ -219,7 +219,8 @@ class OrderController
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
             if(!empty($trade_no)){
-                $order=OrderManager::getOrderByUserIdAndTradeNoWithoutSuborder($user['id'],$trade_no);
+                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
+                unset($order['suborders']);
                 if($order){
                     $param=array(
                         'common'=>$common,
