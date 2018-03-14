@@ -8,18 +8,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Components\AddressManager;
-use App\Components\CartManager;
 use App\Components\DateTool;
-use App\Components\GoodsManager;
-use App\Components\InvoiceManager;
-use App\Components\MemberManager;
 use App\Components\OrderManager;
-use App\Components\SuborderManager;
 use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use App\Models\OrderModel;
-use App\Models\SuborderModel;
 use Illuminate\Http\Request;
 use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay;
@@ -68,7 +61,8 @@ class WechatController extends Controller
                 $out_trade_no = $data->out_trade_no;
                 Log::info('order out_trade_no:'.$data->out_trade_no);
                 //针对总订单进行处理
-                $order = OrderManager::getOrderByUserIdAndTradeNo($user['id'],$out_trade_no);
+//                $order = OrderManager::getOrderByUserIdAndTradeNo($user['id'],$out_trade_no);
+                $order=OrderModel::where('trade_no',$out_trade_no)->first();
                 unset($order['suborders']);
 //                Log::info('order:'.\GuzzleHttp\json_encode($order));
 //                $order->pay_at = date("Y-m-d H:i:s");
