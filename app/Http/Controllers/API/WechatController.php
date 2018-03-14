@@ -77,9 +77,13 @@ class WechatController extends Controller
                 $order_data['pay_at']=date("Y-m-d H:i:s");
                 $order_data['status']=2;
                 $order=OrderManager::setOrder($order,$order_data);
-                $order->save();     //总订单设定支付时间和订单状态
-                Log::info('order trade_no:'.$order->trade_no);
-                Log::info('orde:'.$order->all());
+                $reuslt=$order->save();     //总订单设定支付时间和订单状态
+                if($reuslt){
+                    Log::info('order trade_no:'.$order->trade_no);
+                }
+                else{
+                    Log::info('order:'.$order->all());
+                }
             }
             return $wechat->success();
         } catch (Exception $e) {
