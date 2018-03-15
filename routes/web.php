@@ -160,6 +160,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/invoice/index', 'Admin\InvoiceController@index');  //搜索增值税专用发票
     Route::get('/invoice/edit', 'Admin\InvoiceController@edit');  //查看增值税专用发票详情
     Route::post('/invoice/examine', 'Admin\InvoiceController@examine');  //审核增值税专用发票
+
+    //订单管理
+    Route::get('/order/index', 'Admin\OrderController@index');  //订单管理首页
+    Route::post('/order/index', 'Admin\OrderController@index');  //搜索订单
+    Route::get('/order/edit', 'Admin\OrderController@edit');  //查看订单详情
 //
 //    //评论管理
 //    Route::get('/comment/index', 'Admin\CommentController@index');  //评论管理首页

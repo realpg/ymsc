@@ -130,6 +130,15 @@
                     </ul>
                 </dd>
             </dl>
+            <dl id="menu-member">
+                <dt><i class="Hui-iconfont">&#xe687;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="{{ URL::asset('/admin/order/index') }}" data-title="订单查看" href="javascript:void(0)">全部订单</a></li>
+                    </ul>
+                </dd>
+            </dl>
             {{--<dl id="menu-comment">--}}
                 {{--<dt><i class="Hui-iconfont">&#xe6b3;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>--}}
                 {{--</dt>--}}

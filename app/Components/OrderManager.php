@@ -229,4 +229,21 @@ class OrderManager
         $order=OrderModel::find($id);
         return $order;
     }
+
+
+    /*
+     * 根据search获取订单列表
+     *
+     * By zm
+     *
+     * 2018-03-15
+     */
+    public static function getOrdersBySearch($search){
+        $orders=OrderModel::where('trade_no','like','%'.$search.'%')->orderBy('id','desc')->get();
+        foreach ($orders as $order){
+            $user_id=$order['user_id'];
+            $order['user']=MemberManager::getUserInfoByIdWithNotToken($user_id);
+        }
+        return $orders;
+    }
 }

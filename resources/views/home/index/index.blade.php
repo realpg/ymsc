@@ -6,14 +6,15 @@
     </style>
     <div id="mydiv">
         <div class="padding-top-150 text-center">
-            <img src="{{$common['base']['logo']}}" />
+            <img src="{{$common['base']['logo']}}" style="height:154px;" />
         </div>
-        <div class="style-home-index-search padding-top-50">
+        <div class="style-home-index-search padding-top-20">
             <form class="form-search-all" method="get" action="{{ URL::asset($column.'/search/') }}" id="form-search-all">
                 <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" placeholder="输入搜索内容" />
                 <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search"></button>
             </form>
-            <h6 class="line-height-30 index-font padding-bottom-0 margin-bottom-0 index-search">
+            <div class="clear"></div>
+            <h6 class="line-height-30 index-font padding-bottom-0 margin-bottom-0 index-search margin-top-10 margin-bottom-10">
                 @if(count($words)>0)
                     大家都在搜：
                     @foreach($words as $word)
