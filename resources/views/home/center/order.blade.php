@@ -92,16 +92,16 @@
                             <tr class="line-height-40 text-center">
                                 <td class="text-left text-blue width-250 border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
                                     <div class="float-left">
-                                        <a href=""  />
+                                        <a href=""  data-toggle="modal" data-target="#invoiceModel_{{$order['invoice_id']}}"  />
                                             发票详情
                                         </a>
                                     </div>
                                     @if($order['status']==2)
-                                    <div class="float-right">
-                                        <a href=""  >
-                                            物流详情
-                                        </a>
-                                    </div>
+                                    {{--<div class="float-right">--}}
+                                        {{--<a href=""  >--}}
+                                            {{--物流详情--}}
+                                        {{--</a>--}}
+                                    {{--</div>--}}
                                     @endif
                                 </td>
                                 <td class="text-right width-250 border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
@@ -121,7 +121,7 @@
                                     </td>
                                 @elseif($order['status']==2)
                                     <td class="width-110 text-blue cart-settlement border-bottom-attribute" style="display:table-cell;vertical-align:middle;padding:0px;" >
-                                        <a href="javascript:" class="line-height-40">
+                                        <a href="javascript:" onclick="confirmReceipt(this,'{{$order['id']}}')" class="line-height-40">
                                             确认收货
                                         </a>
                                     </td>
@@ -133,13 +133,165 @@
                                     </td>
                                 @endif
                                 <td class="width-110 text-blue cart-settlement border-bottom-attribute" style="display:table-cell;vertical-align:middle;padding:0px;" >
-                                    <a href="javascript:" class="line-height-40">
+                                    @if($order['status']==3||$order['status']==5||$order['status']==6)
+                                    <a href="javascript:" class="line-height-40" onclick="order_del(this,'{{$order['id']}}')">
                                         删除
                                     </a>
+                                    @else
+                                       <span class="no_click background-none">删除</span>
+                                    @endif
                                 </td>
                             </tr>
                         </table>
                     </div>
+
+                    @if($order['invoice_type']==0)
+                    <!-- Modal -->
+                        <div class="modal fade" id="invoiceModel_{{$order['invoice']['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4>发票详情</h4>
+                                    </div>
+                                    <div class="modal-body max-height-modal overflow-y-scroll">
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">发 票 抬 头：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['title']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">税 号 / 信 用 代 码：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['credit']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">收 票 人 姓 名：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['name']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">收 票 人 电 话：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['phonenum']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">收 票 人 地 址：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['address']}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                    <!-- Modal -->
+                        <div class="modal fade" id="invoiceModel_{{$order['invoice']['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4>发票详情</h4>
+                                    </div>
+                                    <div class="modal-body max-height-modal overflow-y-scroll">
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">单 位 名 称：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['title']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">纳 税 人 识 别 码：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['credit']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">注 册 地 址：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['company_address']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">注 册 电 话：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['company_tel']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">开 户 银 行：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['bank']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">银 行 账 号：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['number']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">公 司 证 照：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                @if($order['invoice']['licence']==0)
+                                                    <div class="row height-150 text-center">
+                                                        <div class="col-xs-12 col-sm-4">
+                                                            <img src="{{$order['invoice']['business_license']}}" class="width-100 height-150" />
+                                                            <p>营业执照</p>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-4">
+                                                            <img src="{{$order['invoice']['account_opening_permit']}}" class="width-100 height-150" />
+                                                            <p>开户许可证</p>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-4">
+                                                            <img src="{{$order['invoice']['tax_registration_certificate']}}" class="width-100 height-150" />
+                                                            <p>税务登记证</p>
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <div class="row height-150 text-center">
+                                                        <div class="col-xs-12 col-sm-4">
+                                                            <img src="{{$order['invoice']['business_license']}}" class="width-100 height-150" />
+                                                            <p>营业执照</p>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">收 票 人 姓 名：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['name']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">收 票 人 电 话：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['phonenum']}}
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-20">
+                                            <div class="col-xs-6 col-sm-4 text-right">收 票 人 地 址：</div>
+                                            <div class="col-xs-6 col-sm-8">
+                                                {{$order['invoice']['address']}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
             </div>
             <div class="row margin-bottom-20 padding-left-20 padding-right-20">
@@ -160,7 +312,43 @@
 @section('script')
 <script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/address-select.js') }}"></script>
 <script type="text/javascript">
-    $(function () {
-    });
+
+    //删除订单
+    function order_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            //进行后台删除
+            var param = {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            }
+            delOrder('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    $(obj).parents("table").remove();
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                }
+            })
+        });
+    }
+
+    //确认收货
+    function confirmReceipt(obj,id){
+        layer.confirm('确认要确认收货吗？',function(index){
+            //进行后台删除
+            var param = {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            }
+            confirmOrder('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    window.location.reload();
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                }
+            })
+        });
+    }
 </script>
 @endsection

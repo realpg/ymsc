@@ -189,6 +189,14 @@ function delInvoice(url, param, callBack) {
 function defaultInvoice(url, param, callBack) {
     ajaxRequest(url + "center/invoice/default", param, "GET", callBack);
 }
+//删除订单
+function delOrder(url, param, callBack) {
+    ajaxRequest(url + "center/order/del", param, "GET", callBack);
+}
+//确认收货
+function confirmOrder(url, param, callBack) {
+    ajaxRequest(url + "center/order/confirm", param, "GET", callBack);
+}
 
 
 //上传第三方检测的图纸

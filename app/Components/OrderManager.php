@@ -64,6 +64,9 @@ class OrderManager
         if (array_key_exists('invoice_type', $data)) {
             $order->invoice_type = array_get($data, 'invoice_type');
         }
+        if (array_key_exists('delete', $data)) {
+            $order->delete = array_get($data, 'delete');
+        }
         return $order;
     }
 
@@ -141,7 +144,7 @@ class OrderManager
     }
 
     /*
-     * 根据user_id获取订单
+     * 根据user_id获取订单（全部）
      *
      * By zm
      *
@@ -175,5 +178,55 @@ class OrderManager
             }
         }
         return $orders;
+    }
+
+
+    /*
+     * 根据user_id获取订单（不显示已删除的订单）
+     *
+     * By zm
+     *
+     * 2018-03-15
+     */
+    public static function getOrdersByUserIdWithoutDetele($user_id){
+        $orders=OrderModel::where('user_id',$user_id)->where('delete',0)->orderBy('id','desc')->get();
+        foreach ($orders as $order){
+            $order['suborders']=SuborderManager::getSubordersByTradeNo($order['trade_no']);
+            foreach ($order['suborders'] as $suborder){
+                $goods_id=$suborder['goods_id'];
+                $suborder['goods_info']=GoodsModel::find($goods_id);
+                $menu_id=$suborder['goods_info']['menu_id'];
+                $suborder['goods_menu']=MenuModel::find($menu_id);
+                if($suborder['goods_menu']['menu_id']==1){
+                    $suborder['goods_column']=ChemController::COLUMN;
+                }
+                else if($suborder['goods_menu']['menu_id']==2){
+                    $suborder['goods_column']=TestingController::COLUMN;
+                }
+                else if($suborder['goods_menu']['menu_id']==3){
+                    $suborder['goods_column']=MachiningController::COLUMN;
+                    $attribute=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+                    if($attribute){
+                        $suborder['goods_type']=0;
+                    }
+                    else{
+                        $suborder['goods_type']=1;
+                    }
+                }
+            }
+        }
+        return $orders;
+    }
+
+    /*
+     * 根据id获取订单
+     *
+     * By zm
+     *
+     * 2018-03-15
+     */
+    public static function getOrderById($id){
+        $order=OrderModel::find($id);
+        return $order;
     }
 }

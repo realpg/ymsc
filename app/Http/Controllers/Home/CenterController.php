@@ -668,7 +668,11 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             $column='center';
             $column_child='order';
-            $orders=OrderManager::getOrdersByUserId($user['id']);
+            $orders=OrderManager::getOrdersByUserIdWithoutDetele($user['id']);
+            foreach ($orders as $order){
+                $invoice_id=$order['invoice_id'];
+                $order['invoice']=InvoiceManager::getInvoiceById($invoice_id);
+            }
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
@@ -684,5 +688,79 @@ class CenterController extends Controller
         else{
             return redirect('signIn');
         }
+    }
+    /*
+     * 删除订单
+     */
+    public function orderDel(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            if(array_key_exists('id',$data)){
+                $order=OrderManager::getOrderById($data['id']);
+                $data['delete']=1;
+                $invoice=OrderManager::setOrder($order,$data);
+                $result=$invoice->save();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='删除订单成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='删除订单失败';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='删除订单失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+    /*
+     * 订单确认收货
+     */
+    public function orderConfirm(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            if(array_key_exists('id',$data)){
+                $order=OrderManager::getOrderById($data['id']);
+                if($order['status']==2){
+                    $data['status']=3;
+                    $invoice=OrderManager::setOrder($order,$data);
+                    $result=$invoice->save();
+                    if($result){
+                        $return['result']=true;
+                        $return['msg']='确认收货成功';
+                    }
+                    else{
+                        $return['result']=false;
+                        $return['msg']='确认收货失败';
+                    }
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='非法操作';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='确认收货失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
     }
 }
