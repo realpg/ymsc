@@ -31,6 +31,7 @@
                 <h4 class="style-ellipsis-1 line-height-30">应用领域：{{$goods['f_attribute']['name']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">仪器分类：{{$goods['s_attribute']['name']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">联系人：{{$goods['attribute']['contacts']}}</h4>
+                <h4 class="style-ellipsis-1 line-height-30">地域：{{$goods['attribute']['region']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">地址：{{$goods['attribute']['address']}}</h4>
                 <div class="row margin-top-10">
                     <div class="col-xs-6 col-sm-3">

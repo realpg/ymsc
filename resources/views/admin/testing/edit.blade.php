@@ -308,6 +308,12 @@
                 </div>
                 <div class="tabCon">
                     <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地域：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="region" name="region" type="text" class="input-text" value="{{ isset($data['attribute']['region']) ? $data['attribute']['region'] : '' }}" placeholder="请输入地域">
+                        </div>
+                    </div>
+                    <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>实验室：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <input id="lab" name="lab" type="text" class="input-text" value="{{ isset($data['attribute']['lab']) ? $data['attribute']['lab'] : '' }}" placeholder="请输入实验室">
@@ -415,6 +421,9 @@
                     sort: {
                         required: true,
                         digits:true,
+                    },
+                    region: {
+                        required: true,
                     },
                     lab: {
                         required: true,

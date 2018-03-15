@@ -223,6 +223,9 @@ class GoodsManager
         if (array_key_exists('lab', $data)) {
             $goods_testing_attribute->lab = array_get($data, 'lab');
         }
+        if (array_key_exists('region', $data)) {
+            $goods_testing_attribute->region = array_get($data, 'region');
+        }
         if (array_key_exists('contacts', $data)) {
             $goods_testing_attribute->contacts = array_get($data, 'contacts');
         }
