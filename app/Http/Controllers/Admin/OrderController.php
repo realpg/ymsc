@@ -8,6 +8,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Components\AddressManager;
+use App\Components\InvoiceManager;
 use App\Components\OrderManager;
 use Illuminate\Http\Request;
 
@@ -37,6 +39,8 @@ class OrderController
         $data = $request->all();
         $admin = $request->session()->get('admin');
         $order=OrderManager::getOrderById($data['id']);
+        $order['address']=AddressManager::getAddressById($order['address_id']);
+        $order['invoice']=InvoiceManager::getInvoiceById($order['invoice_id']);
         $param=array(
             'admin'=>$admin,
             'data'=>$order,
