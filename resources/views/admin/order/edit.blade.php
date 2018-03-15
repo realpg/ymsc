@@ -82,7 +82,37 @@
                         </div>
                     @endif
                 </div>
-                <div class="tabCon">1</div>
+                <div class="tabCon">
+                    <table class="table table-border table-bordered table-bg table-hover table-sort" id="table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="80">ID</th>
+                            <th width="100">图片</th>
+                            <th>商品</th>
+                            <th width="100">单价（元）</th>
+                            <th width="100">商品单位</th>
+                            <th width="100">数量</th>
+                            <th width="100">小计（元）</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($data['suborders'] as $suborder)
+                            <tr class="text-c">
+                                <td>{{$suborder['goods_id']}}</td>
+                                <td><img width="100%" src="{{$suborder['goods_picture']}}?imageView2/2/w/200" /></td>
+                                <td class="text-l">
+                                    商品货号：{{$suborder['goods_number']}}<br />
+                                    商品名称：{{$suborder['goods_name']}}
+                                </td>
+                                <td>{{$suborder['total_fee']/100}}</td>
+                                <td>{{$suborder['goods_unit']}}</td>
+                                <td>{{$suborder['count']}}</td>
+                                <td>{{$suborder['total_fee']/100*$suborder['count'] }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
                 <div class="tabCon">
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2">收货人：</label>
@@ -224,26 +254,6 @@
                                 <input type="text" readonly class="input-text on_click" value="{{ isset($data['invoice']['address']) ? $data['invoice']['address'] : '' }}">
                             </div>
                         </div>
-                        <div class="row cl">
-                            <label class="form-label col-xs-4 col-sm-2">营业执照：</label>
-                            <div class="formControls col-xs-8 col-sm-9">
-                                <img src="{{$data['invoice']['business_license']}}" class="width-100" />
-                            </div>
-                        </div>
-                        @if($data['invoice']['licence']==0)
-                            <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-2">开户许可证：</label>
-                                <div class="formControls col-xs-8 col-sm-9">
-                                    <img src="{{$data['invoice']['account_opening_permit']}}" class="width-100" />
-                                </div>
-                            </div>
-                            <div class="row cl">
-                                <label class="form-label col-xs-4 col-sm-2">税务登记证：</label>
-                                <div class="formControls col-xs-8 col-sm-9">
-                                    <img src="{{$data['invoice']['tax_registration_certificate']}}" class="width-100" />
-                                </div>
-                            </div>
-                        @endif
                     @endif
                 </div>
             </div>
