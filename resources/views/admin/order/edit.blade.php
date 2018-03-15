@@ -12,63 +12,37 @@
         <form class="form form-horizontal" method="post" id="form-member-edit">
             {{csrf_field()}}
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">头像：</label>
+                <label class="form-label col-xs-4 col-sm-2">订单号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    @if($data['avatar'])
-                        <img src="{{$data['avatar']}}" class="member-image" />
-                    @else
-                        <img src="{{URL::asset('/img/default_headicon.png')}}" class="member-image" />
-                    @endif
+                    <input type="text" readonly class="input-text on_click" value="{{ isset($data['trade_no']) ? $data['trade_no'] : '' }}">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">昵称：</label>
+                <label class="form-label col-xs-4 col-sm-2">微信预付订单号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['nick_name']) ? $data['nick_name'] : '' }}">
+                    <input type="text" readonly class="input-text on_click" value="{{ isset($data['prepay_id']) ? $data['prepay_id'] : '' }}">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">真实姓名：</label>
+                <label class="form-label col-xs-4 col-sm-2">总价（元）：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['real_name']) ? $data['real_name'] : '' }}">
+                    <input type="text" readonly class="input-text on_click" value="{{ isset($data['total_fee']) ? $data['total_fee']/100 : '' }}">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">电话：</label>
+                <label class="form-label col-xs-4 col-sm-2">数量：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['phonenum']) ? $data['phonenum'] : '' }}">
+                    <input type="text" readonly class="input-text on_click" value="{{ isset($data['count']) ? $data['count'] : '' }}">
                 </div>
             </div>
+            @if($data['content'])
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">电子邮件：</label>
+                <label class="form-label col-xs-4 col-sm-2">备注：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['email']) ? $data['email'] : '' }}">
+                    <textarea wrap="\n" class="textarea on_click" style="resize:vertical;" dragonfly="true">{{ isset($data['content']) ? $data['content'] : '' }}</textarea>
                 </div>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">QQ号：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['qq']) ? $data['qq'] : '' }}">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">微信号：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['wechat']) ? $data['wechat'] : '' }}">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">性别：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['gender']) ? $data['gender']==1?'男':'女' : '' }}">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">积分：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" readonly class="input-text" value="{{ isset($data['score']) ? $data['score'] : '' }}">
-                </div>
-            </div>
+            @endif
             <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                     <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>

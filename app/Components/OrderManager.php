@@ -240,10 +240,6 @@ class OrderManager
      */
     public static function getOrdersBySearch($search){
         $orders=OrderModel::where('trade_no','like','%'.$search.'%')->orderBy('id','desc')->get();
-        foreach ($orders as $order){
-            $user_id=$order['user_id'];
-            $order['user']=MemberManager::getUserInfoByIdWithNotToken($user_id);
-        }
         return $orders;
     }
 }

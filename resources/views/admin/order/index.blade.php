@@ -17,11 +17,10 @@
             <thead>
             <tr class="text-c">
                 <th width="80">ID</th>
-                <th>订单号</th>
+                <th width="150">订单号</th>
                 <th>总价</th>
                 <th>数量</th>
                 <th>备注</th>
-                <th>用户</th>
                 <th>状态</th>
                 <th width="150">下单时间</th>
                 <th width="100">操作</th>
@@ -35,7 +34,6 @@
                     <td>￥{{$data['total_fee']/100}}</td>
                     <td>{{$data['count']}}</td>
                     <td class="text-l">{{$data['content']}}</td>
-                    <td>{{$data['user']['nick_name']}}</td>
                     <td>
                         @if($data['status']==1)
                             <span class="label label-secondary radius">待支付</span>
@@ -76,7 +74,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[4,8]}// 不参与排序的列
+            {"orderable":false,"aTargets":[4,7]}// 不参与排序的列
         ]
     });
 

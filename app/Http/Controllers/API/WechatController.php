@@ -10,11 +10,13 @@ namespace App\Http\Controllers\API;
 
 use App\Components\BannerManager;
 use App\Components\DateTool;
+use App\Components\MemberManager;
 use App\Components\OrderManager;
 use App\Components\ServiceManager;
 use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use App\Models\OrderModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Yansongda\Pay\Log;
 use Yansongda\Pay\Pay;
@@ -71,6 +73,12 @@ class WechatController extends Controller
                 $reuslt=$order->save();     //总订单设定支付时间和订单状态
                 if($reuslt){
                     Log::info('order trade_no:'.$order->trade_no);
+                    //会员积分变更
+                    $member=UserModel::find($order['user_id']);
+                    $member_data['score']=$member['score']+$order['total_fee'];
+                    $member=MemberManager::setUser($member,$member_data);
+                    $member->save();
+                    //跳转页面
                     $base=BannerManager::getBaseInfo();
                     $services=ServiceManager::getAllServices();
                     $common['base']=$base;
