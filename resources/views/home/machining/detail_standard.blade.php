@@ -39,7 +39,7 @@
                         </h4>
                         <div class="row margin-top-20">
                             <div class="col-xs-6 col-sm-3">
-                                <button type="button" class="btn btn-danger width-100 border-radius-0">购 买</button>
+                                <button type="button" onclick="settlement()" class="btn btn-danger width-100 border-radius-0">购 买</button>
                             </div>
                             <div class="col-xs-6 col-sm-3">
                                 <button type="button" class="btn btn-default width-100 border-radius-0 background-none" onclick="addShoppingCart('{{$goods['id']}}')">加入购物车</button>
@@ -157,6 +157,26 @@
                 if (ret.result == true) {
                     layer.msg(ret.msg, {icon: 1, time: 3000});
                     window.location.reload()
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
+            })
+        }
+
+        //结算
+        function settlement(){
+            var total=$('#total').text();
+            var count=$('#text_box').val();
+            var param = {
+                goods_id: '{{$goods['id']}}',
+                total:total,
+                count:count,
+                _token: "{{ csrf_token() }}"
+            }
+            addGoodsOrder('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    window.location.href = "{{URL::asset('order')}}";
                 } else {
                     layer.msg(ret.msg, {icon: 2, time: 3000})
                 }
