@@ -25,6 +25,7 @@ use Yansongda\Pay\Pay;
 
 class OrderController
 {
+    const POSTAGE = 0;  //邮费
     //获取小程序微信支付的相关信息
     private function getConfig()
     {
@@ -60,7 +61,8 @@ class OrderController
                 $order_data['user_id']=$user['id'];
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
                 $order_data['count']=$data['count'];
-                $order_data['total_fee']=$data['total']*100+0;
+                $postage=self::POSTAGE;   //邮费
+                $order_data['total_fee']=$data['total']*100+$postage;
                 $order=OrderManager::setOrder($order,$order_data);
                 $order_result=$order->save();
                 if($order_result){
@@ -86,6 +88,60 @@ class OrderController
                             $delete_cart_result=$cart->delete();
                         }
                     }
+                    $return['result']=true;
+                    $return['msg']='添加订单成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='添加订单失败';
+                }
+            }
+            else{
+                $return['result'] = false;
+                $return['msg'] = '合规校验失败，缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='结算失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+
+    /*
+     * 添加订单（商品页立即支付）
+     */
+    public function addGoodsDo(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if (array_key_exists('goods_id', $data)) {
+                //生成主订单
+                $order=new OrderModel();
+                $order_data['user_id']=$user['id'];
+                $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
+                $order_data['count']=$data['count'];
+                $postage=self::POSTAGE;   //邮费
+                $order_data['total_fee']=$data['total']*100+$postage;
+                $order=OrderManager::setOrder($order,$order_data);
+                $order_result=$order->save();
+                if($order_result){
+                    $trade_no=$order->trade_no;
+                    $suborder=new SuborderModel();
+                    $suborder_data['sub_trade_no']=self::ProduceOrderNumber($user['id']);
+                    $suborder_data['trade_no']=$trade_no;
+                    $suborder_data['user_id']=$user['id'];
+                    $suborder_data['goods_id']=$data['goods_id'];
+                    $goods=GoodsManager::getGoodsById($suborder_data['goods_id']);
+                    $suborder_data['goods_number']=$goods['number'];
+                    $suborder_data['goods_name']=$goods['name'];
+                    $suborder_data['goods_picture']=$goods['picture'];
+                    $suborder_data['total_fee']=$goods['price'];
+                    $suborder_data['goods_unit']=$goods['unit'];
+                    $suborder_data['count']=$data['count'];
+                    $suborder=SuborderManager::setSuborder($suborder,$suborder_data);
+                    $suborder_result=$suborder->save();
                     $return['result']=true;
                     $return['msg']='添加订单成功';
                 }

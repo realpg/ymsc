@@ -75,7 +75,8 @@ class WechatController extends Controller
                     Log::info('order trade_no:'.$order->trade_no);
                     //会员积分变更
                     $member=UserModel::find($order['user_id']);
-                    $member_data['score']=$member['score']+$order['total_fee'];
+//                    $member_data['score']=$member['score']+floor($order['total_fee']/100);       //积分按元取整来算
+                    $member_data['score']=$member['score']+$order['total_fee'];       //积分按分来算
                     $member=MemberManager::setUser($member,$member_data);
                     $member->save();
                     //跳转页面

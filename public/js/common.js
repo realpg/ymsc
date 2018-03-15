@@ -222,7 +222,10 @@ function delMoreShoppingCart(url, param, callBack) {
 function addOrder(url, param, callBack) {
     $.post(url + "order/add",param,callBack);
 }
-
+//商品页立即支付
+function addGoodsOrder(url, param, callBack) {
+    $.post(url + "order/addGoods",param,callBack);
+}
 //支付
 function payOrder(url, param, callBack) {
     $.post(url + "order/pay",param,callBack);
