@@ -35,7 +35,7 @@
             if (ret.result == true) {
                 window.location.href = "{{URL::asset('order/pay/success')}}";
             } else {
-                window.location.href = "{{URL::asset('order/pay/fail/')}}"+"/"+trade_no;
+                layer.msg(ret.msg, {icon: 2, time: 3000})
             }
         })
     }
