@@ -84,6 +84,11 @@
                             </div>
                         </div>
                     @endif
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="tabCon">
                     <table class="table table-border table-bordered table-bg table-hover table-sort" id="table-sort">
@@ -115,6 +120,11 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="tabCon">
                     <div class="row cl">
@@ -157,6 +167,11 @@
                             </div>
                         </div>
                     @endif
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="tabCon">
                     @if($data['invoice']['type']==0)
@@ -258,6 +273,11 @@
                             </div>
                         </div>
                     @endif
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="tabCon">
                     <div class="row cl hidden">
@@ -289,14 +309,14 @@
                             <span class="c-red">*物流信息一旦保存，禁止修改！请核对后再点击保存</span>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row cl">
-                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                    @if(($data['status']==2||$data['status']==6)&&empty($data['logistics_company'])&&empty($data['logistics_no']))
-                        <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-                    @endif
-                    <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            @if(($data['status']==2||$data['status']==6)&&empty($data['logistics_company'])&&empty($data['logistics_no']))
+                                <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                            @endif
+                            <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
