@@ -169,7 +169,7 @@
                             @endforeach
                         </ul>
                         <a href="{{URL::asset('cart')}}">
-                            <div class="margin-top-10 col-xs-12 col-sm-12">
+                            <div class="margin-top-10 margin-bottom-50 col-xs-12 col-sm-12">
                                 <button type="button" class="btn btn-danger width-100 border-radius-0">查看购物车</button>
                             </div>
                         </a>
