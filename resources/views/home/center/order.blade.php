@@ -102,7 +102,7 @@
                                                 物流详情
                                             </a>
                                         </div>
-                                    @elseif($order['status']==1&&empty($order['logistics_company'])&&empty($order['logistics_no']))
+                                    @elseif($order['status']==2&&empty($order['logistics_company'])&&empty($order['logistics_no']))
                                         <div class="float-right">
                                             <a href="" >
                                                 申请退款
@@ -244,34 +244,34 @@
                                                 {{$order['invoice']['number']}}
                                             </div>
                                         </div>
-                                        <div class="row position-relative margin-top-20">
-                                            <div class="col-xs-6 col-sm-4 text-right">公 司 证 照：</div>
-                                            <div class="col-xs-6 col-sm-8">
-                                                @if($order['invoice']['licence']==0)
-                                                    <div class="row height-150 text-center">
-                                                        <div class="col-xs-12 col-sm-4">
-                                                            <img src="{{$order['invoice']['business_license']}}" class="width-100 height-150" />
-                                                            <p>营业执照</p>
-                                                        </div>
-                                                        <div class="col-xs-12 col-sm-4">
-                                                            <img src="{{$order['invoice']['account_opening_permit']}}" class="width-100 height-150" />
-                                                            <p>开户许可证</p>
-                                                        </div>
-                                                        <div class="col-xs-12 col-sm-4">
-                                                            <img src="{{$order['invoice']['tax_registration_certificate']}}" class="width-100 height-150" />
-                                                            <p>税务登记证</p>
-                                                        </div>
-                                                    </div>
-                                                @else
-                                                    <div class="row height-150 text-center">
-                                                        <div class="col-xs-12 col-sm-4">
-                                                            <img src="{{$order['invoice']['business_license']}}" class="width-100 height-150" />
-                                                            <p>营业执照</p>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </div>
-                                        </div>
+                                        {{--<div class="row position-relative margin-top-20">--}}
+                                            {{--<div class="col-xs-6 col-sm-4 text-right">公 司 证 照：</div>--}}
+                                            {{--<div class="col-xs-6 col-sm-8">--}}
+                                                {{--@if($order['invoice']['licence']==0)--}}
+                                                    {{--<div class="row height-150 text-center">--}}
+                                                        {{--<div class="col-xs-12 col-sm-4">--}}
+                                                            {{--<img src="{{$order['invoice']['business_license']}}" class="width-100 height-150" />--}}
+                                                            {{--<p>营业执照</p>--}}
+                                                        {{--</div>--}}
+                                                        {{--<div class="col-xs-12 col-sm-4">--}}
+                                                            {{--<img src="{{$order['invoice']['account_opening_permit']}}" class="width-100 height-150" />--}}
+                                                            {{--<p>开户许可证</p>--}}
+                                                        {{--</div>--}}
+                                                        {{--<div class="col-xs-12 col-sm-4">--}}
+                                                            {{--<img src="{{$order['invoice']['tax_registration_certificate']}}" class="width-100 height-150" />--}}
+                                                            {{--<p>税务登记证</p>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--@else--}}
+                                                    {{--<div class="row height-150 text-center">--}}
+                                                        {{--<div class="col-xs-12 col-sm-4">--}}
+                                                            {{--<img src="{{$order['invoice']['business_license']}}" class="width-100 height-150" />--}}
+                                                            {{--<p>营业执照</p>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--@endif--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                         <div class="row position-relative margin-top-20">
                                             <div class="col-xs-6 col-sm-4 text-right">收 票 人 姓 名：</div>
                                             <div class="col-xs-6 col-sm-8">
