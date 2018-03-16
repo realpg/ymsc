@@ -24,16 +24,25 @@
             </div>
             <div class="col-xs-12 col-sm-8 padding-10">
                 <h3 class="style-ellipsis-1 line-height-30">{{$goods['name']}}</h3>
+                <h4 class="style-ellipsis-1 line-height-30">商品货号：{{$goods['number']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">实验室：{{$goods['attribute']['lab']}}</h4>
                 <h4 class="style-ellipsis-1 line-height-30">
                     参考价格：<span class="text-red font-size-24">￥{{$goods['price']/100}} / {{$goods['unit']}}</span>
                 </h4>
-                <h4 class="style-ellipsis-1 line-height-30">应用领域：{{$goods['f_attribute']['name']}}</h4>
-                <h4 class="style-ellipsis-1 line-height-30">仪器分类：{{$goods['s_attribute']['name']}}</h4>
-                <h4 class="style-ellipsis-1 line-height-30">联系人：{{$goods['attribute']['contacts']}}</h4>
-                <h4 class="style-ellipsis-1 line-height-30">地域：{{$goods['attribute']['region']}}</h4>
+                <h4 class="style-ellipsis-1 line-height-30">
+                    <div class="col-xs-6 col-sm-6 padding-0">应用领域：{{$goods['f_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-6 padding-0">仪器分类：{{$goods['s_attribute']['name']}}</div>
+                </h4>
+                <h4 class="style-ellipsis-1 line-height-30">
+                    <div class="col-xs-6 col-sm-6 padding-0">联系人：{{$goods['attribute']['contacts']}}</div>
+                    <div class="col-xs-6 col-sm-6 padding-0">地域：{{$goods['attribute']['region']}}</div>
+                </h4>
+                {{--<h4 class="style-ellipsis-1 line-height-30">应用领域：{{$goods['f_attribute']['name']}}</h4>--}}
+                {{--<h4 class="style-ellipsis-1 line-height-30">仪器分类：{{$goods['s_attribute']['name']}}</h4>--}}
+                {{--<h4 class="style-ellipsis-1 line-height-30">联系人：{{$goods['attribute']['contacts']}}</h4>--}}
+                {{--<h4 class="style-ellipsis-1 line-height-30">地域：{{$goods['attribute']['region']}}</h4>--}}
                 <h4 class="style-ellipsis-1 line-height-30">地址：{{$goods['attribute']['address']}}</h4>
-                <div class="row margin-top-10">
+                <div class="row margin-top-10 margin-bottom-20">
                     <div class="col-xs-6 col-sm-3">
                         <button type="button" class="btn btn-info width-100 border-radius-0">立 即 咨 询</button>
                     </div>

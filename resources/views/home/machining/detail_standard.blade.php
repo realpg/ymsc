@@ -25,6 +25,7 @@
                     </div>
                     <div class="col-md-12 col-lg-8 padding-10">
                         <h4 class="style-ellipsis-1 line-height-30">设备：{{$goods['name']}}</h4>
+                        <h4 class="style-ellipsis-1 line-height-30">商品货号：{{$goods['number']}}</h4>
                         <h4 class="style-ellipsis-1 line-height-30">精度：{{$goods['attribute']['accuracy']}}</h4>
                         <h4 class="style-ellipsis-1 line-height-30">成分：{{$goods['attribute']['component']}}</h4>
                         <h4 class="style-ellipsis-1 line-height-30">尺寸：{{$goods['attribute']['size']}}</h4>
@@ -37,7 +38,7 @@
                             <input id="text_box" name="" type="text" value="1" class="border-div width-50px common-text-align-center"/>
                             <input id="add" name="" type="button" value="+" class="background-none border-div" />
                         </h4>
-                        <div class="row margin-top-20">
+                        <div class="row margin-top-20 margin-bottom-20">
                             <div class="col-xs-6 col-sm-3">
                                 <button type="button" onclick="settlement()" class="btn btn-danger width-100 border-radius-0">购 买</button>
                             </div>

@@ -282,4 +282,34 @@ class IndexController extends Controller
         }
         return view('home.index.search',$param);
     }
+
+    /*
+     * 补差价商品
+     */
+    public function differenceGoods(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='index';
+        $goods=GoodsManager::getGoodsById(1);
+        if($user){
+            $carts=CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>$carts,
+                'goods'=>$goods
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'goods'=>$goods
+            );
+        }
+        return view('home.index.differenceGoods',$param);
+    }
 }

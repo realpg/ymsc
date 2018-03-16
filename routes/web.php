@@ -199,6 +199,8 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('smscode', 'Home\CodeController@sendVertifyCode');        //短信验证码
     Route::get('emailcode', 'Home\CodeController@sendVertifyCodeByEmail');        //邮箱验证码
 
+    Route::get('differenceGoods', 'Home\IndexController@differenceGoods');        //补差价商品
+
     //化学商城
     Route::get('chem', 'Home\ChemController@index');        //化学商城首页
     Route::get('chem/lists/{menu_id}', 'Home\ChemController@lists');        //化学商城列表页
