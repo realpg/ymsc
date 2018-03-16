@@ -32,6 +32,7 @@
             _token: "{{ csrf_token() }}"
         }
         getTheResultOfPayment('{{URL::asset('')}}', param, function (ret) {
+            console.log("getTheResultOfPayment is : "+ JSON.stringify(ret))
             if (ret.result == true) {
                 window.location.href = "{{URL::asset('order/pay/success')}}";
             } else {
