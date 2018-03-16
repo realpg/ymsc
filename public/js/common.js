@@ -232,7 +232,7 @@ function payOrder(url, param, callBack) {
 }
 //支付结果
 function getTheResultOfPayment(url, param, callBack) {
-    $.post(url + "order/pay/result",param,callBack);
+    ajaxRequest(url + "order/pay/result", param, "GET", callBack);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
