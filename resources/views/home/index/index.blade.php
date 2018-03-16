@@ -5,16 +5,16 @@
         body{background-color: #011931}
     </style>
     <div id="mydiv">
-        <div class="padding-top-150 text-center">
+        <div class="text-center" id="logo">
             <img src="{{$common['base']['logo']}}" style="height:154px;" />
         </div>
         <div class="style-home-index-search padding-top-20">
             <form class="form-search-all" method="get" action="{{ URL::asset($column.'/search/') }}" id="form-search-all">
-                <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" placeholder="输入搜索内容" />
-                <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search"></button>
+                <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" style="height:40px;" placeholder="输入搜索内容" />
+                <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search" style="height:40px;"></button>
             </form>
             <div class="clear"></div>
-            <h6 class="line-height-30 index-font padding-bottom-0 margin-bottom-0 index-search margin-top-10 margin-bottom-10">
+            <h5 class="line-height-30 index-font padding-bottom-0 margin-bottom-0 index-search margin-top-10 margin-bottom-10">
                 @if(count($words)>0)
                     大家都在搜：
                     @foreach($words as $word)
@@ -25,7 +25,7 @@
                 @else
                     &nbsp;
                 @endif
-            </h6>
+            </h5>
             <div class="row padding-right-15">
                 <div class="col-sm-12 col-md-3">
                     <p><a class="btn btn-default style-home-index-btn" href="http://xueshu.baidu.com/" target="_blank" role="button">百度学术</a></p>
@@ -65,6 +65,8 @@
             }
             //调用
             CanvasParticle(config);
+
+            $('#logo').css('padding-top',winHeight*0.2)
         });
         function choiceWord(name){
             $('#search').val(name)
