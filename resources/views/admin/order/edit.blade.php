@@ -18,7 +18,9 @@
                     @if($data['status']!=1)
                     <span>收货地址</span>
                     <span>发票信息</span>
-                    <span>物流信息</span>
+                        @if($data['status']==2||$data['status']==6)
+                        <span>物流信息</span>
+                        @endif
                     @endif
                 </div>
                 <div class="tabCon">
@@ -291,7 +293,7 @@
             </div>
             <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                    @if($data['status']==2&&empty($data['logistics_company'])&&empty($data['logistics_no']))
+                    @if(($data['status']==2||$data['status']==6)&&empty($data['logistics_company'])&&empty($data['logistics_no']))
                         <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
                     @endif
                     <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>

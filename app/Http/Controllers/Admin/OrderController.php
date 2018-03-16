@@ -57,9 +57,10 @@ class OrderController
         $return=null;
         if(array_key_exists('id', $data)){
             $order = OrderManager::getOrderById($data['id']);
-            if($order['status']==2){
-                $base = OrderManager::setOrder($order,$data);
-                $result=$base->save();
+            if($order['status']==2||$order['status']==6){
+                $data['status']=2;
+                $order = OrderManager::setOrder($order,$data);
+                $result=$order->save();
                 if($result){
                     $return['result']=true;
                     $return['msg']='编辑物流信息成功';
@@ -71,7 +72,7 @@ class OrderController
             }
             else{
                 $return['result']=false;
-                $return['msg']='非法操作';
+                $return['msg']='此状态下无法编辑物流信息！只有在客户付款成功或退款失败的时候才可以进行物流提交！';
             }
         }
         else{
