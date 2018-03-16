@@ -339,6 +339,38 @@ class OrderController
     }
 
     /*
+     * 支付结果
+     */
+    public function result(Request $request){
+        $data=$request->all();
+        unset($data['common']);
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
+                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+                if($order['status']==2){
+                    $return['result']=true;
+                    $return['msg']='支付成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='支付失败';
+                }
+            }
+            else{
+                $return['result'] = false;
+                $return['msg'] = '合规校验失败，缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='跳转失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+
+    /*
      * 支付成功
      */
     public function success(Request $request){

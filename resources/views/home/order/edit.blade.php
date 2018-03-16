@@ -715,7 +715,6 @@
             _token: "{{ csrf_token() }}"
         }
         payOrder('{{URL::asset('')}}', param, function (ret) {
-            console.log("editOrder ret is : "+JSON.stringify(ret))
             if (ret.result == true) {
                 window.location.href = "{{URL::asset('order/pay/qrcode')}}"+"/"+trade_no;
             } else {

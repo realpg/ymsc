@@ -272,6 +272,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('order/{trade_no}', 'Home\OrderController@edit');        //编辑订单
     Route::post('order/pay', 'Home\OrderController@payDo');        //付款
     Route::get('order/pay/qrcode/{trade_no}', 'Home\OrderController@qrcode');        //二维码付款
+    Route::get('order/pay/result', 'Home\OrderController@result');        //付款成功
     Route::get('order/pay/success', 'Home\OrderController@success');        //付款成功
     Route::get('order/pay/fail/{trade_no}', 'Home\OrderController@fail');        //付款失败
 });

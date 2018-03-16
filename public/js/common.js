@@ -230,6 +230,10 @@ function addGoodsOrder(url, param, callBack) {
 function payOrder(url, param, callBack) {
     $.post(url + "order/pay",param,callBack);
 }
+//支付结果
+function getTheResultOfPayment(url, param, callBack) {
+    $.post(url + "order/pay/result",param,callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 

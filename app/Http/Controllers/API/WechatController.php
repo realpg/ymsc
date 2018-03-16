@@ -79,24 +79,24 @@ class WechatController extends Controller
                     $member_data['score']=$member['score']+$order['total_fee'];       //积分按分来算
                     $member=MemberManager::setUser($member,$member_data);
                     $member->save();
-                    //跳转页面
-                    $base=BannerManager::getBaseInfo();
-                    $services=ServiceManager::getAllServices();
-                    $common['base']=$base;
-                    $common['services']=$services;
-                    $request['common']=$common;
-                    $column='cart';
-                    $progress=3;
-                    //购物车信息
-                    $carts = CartManager::getCartsByUserId($user['id']);
-                    $param=array(
-                        'common'=>$common,
-                        'column'=>$column,
-                        'progress'=>$progress,
-                        'user'=>$user,
-                        'carts'=>$carts
-                    );
-                    return view('home.order.success',$param);
+//                    //跳转页面
+//                    $base=BannerManager::getBaseInfo();
+//                    $services=ServiceManager::getAllServices();
+//                    $common['base']=$base;
+//                    $common['services']=$services;
+//                    $request['common']=$common;
+//                    $column='cart';
+//                    $progress=3;
+//                    //购物车信息
+//                    $carts = CartManager::getCartsByUserId($user['id']);
+//                    $param=array(
+//                        'common'=>$common,
+//                        'column'=>$column,
+//                        'progress'=>$progress,
+//                        'user'=>$user,
+//                        'carts'=>$carts
+//                    );
+//                    return view('home.order.success',$param);
                 }
             }
 //            return $wechat->success();
