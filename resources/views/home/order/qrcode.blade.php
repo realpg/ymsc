@@ -7,7 +7,7 @@
             @if($order['suborders'])
                 <div id="output" class="margin-top-20"></div>
                 <h4>请打开微信扫一扫，扫描图中二维码进行支付</h4>
-                <h4>支付后<a href="javascript:" onclick="result('{{$order['trade_no']}}')"><span class="font-blue">请点击此链接查看结果</span></a></h4>
+                <h4>支付后<a href="javascript:" onclick="result('{{$order['trade_no']}}')"><span class="text-blue">请点击此链接查看结果</span></a></h4>
             @else
                 <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                     <img src="{{ URL::asset('img/nothing.png') }}"  />
