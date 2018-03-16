@@ -262,8 +262,13 @@ class OrderManager
      *
      * 2018-03-15
      */
-    public static function getOrdersBySearch($search){
-        $orders=OrderModel::where('trade_no','like','%'.$search.'%')->orderBy('id','desc')->get();
+    public static function getOrdersBySearch($status,$logistics,$search){
+        if($status){
+            $orders=OrderModel::where('trade_no','like','%'.$search.'%')->where('status',$status)->orderBy('id','desc')->get();
+        }
+        else{
+            $orders=OrderModel::where('trade_no','like','%'.$search.'%')->orderBy('id','desc')->get();
+        }
         return $orders;
     }
 

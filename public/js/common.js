@@ -160,6 +160,14 @@ function delDrawing(url, param, callBack) {
 function delMoreDrawing(url, param, callBack) {
     ajaxRequest(url + "admin/drawing/delMore", param, "GET", callBack);
 }
+//点击退款成功
+function refundSuccessDo(url, param, callBack) {
+    ajaxRequest(url + "admin/order/refund/success", param, "GET", callBack);
+}
+//点击退款失败
+function refundFailDo(url, param, callBack) {
+    ajaxRequest(url + "admin/order/refund/fail", param, "GET", callBack);
+}
 
 
 //下发短信验证码

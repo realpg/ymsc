@@ -21,16 +21,30 @@ class OrderController
     {
         $data = $request->all();
         $admin = $request->session()->get('admin');
+        if(array_key_exists('status',$data)){
+            $status=$data['status'];
+        }
+        else{
+            $status='';
+        }
+        if(array_key_exists('logistics',$data)){
+            $logistics=$data['logistics'];
+        }
+        else{
+            $logistics='';
+        }
         if(array_key_exists('search',$data)){
             $search=$data['search'];
         }
         else{
             $search='';
         }
-        $orders = OrderManager::getOrdersBySearch($search);
+        $orders = OrderManager::getOrdersBySearch($status,$logistics,$search);
         $param=array(
             'admin'=>$admin,
             'datas'=>$orders,
+            'status'=>$status,
+            'logistics'=>$logistics
         );
         return view('admin.order.index', $param);
     }
@@ -73,6 +87,74 @@ class OrderController
             else{
                 $return['result']=false;
                 $return['msg']='此状态下无法编辑物流信息！只有在客户付款成功或退款失败的时候才可以进行物流提交！';
+            }
+        }
+        else{
+            $param=array(
+                'msg'=>'合规校验失败，缺少参数'
+            );
+            return view('admin.index.error500', $param);
+        }
+        return $return;
+    }
+
+    //点击退款成功
+    public function refundSuccessDo(Request $request){
+        $data = $request->all();
+        $admin = $request->session()->get('admin');
+        $return=null;
+        if(array_key_exists('id', $data)){
+            $order = OrderManager::getOrderById($data['id']);
+            if($order['status']==4&&empty($order['logistics_company'])&&empty($order['logistics_no'])){
+                $data['status']=5;
+                $order = OrderManager::setOrder($order,$data);
+                $result=$order->save();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='修改退款状态成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='修改退款状态失败';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='此状态下无法修改退款状态！只有在客户付款成功并且没有发货前可以修改！';
+            }
+        }
+        else{
+            $param=array(
+                'msg'=>'合规校验失败，缺少参数'
+            );
+            return view('admin.index.error500', $param);
+        }
+        return $return;
+    }
+
+    //点击退款失败
+    public function refundFailDo(Request $request){
+        $data = $request->all();
+        $admin = $request->session()->get('admin');
+        $return=null;
+        if(array_key_exists('id', $data)){
+            $order = OrderManager::getOrderById($data['id']);
+            if($order['status']==4&&empty($order['logistics_company'])&&empty($order['logistics_no'])){
+                $data['status']=6;
+                $order = OrderManager::setOrder($order,$data);
+                $result=$order->save();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='修改退款状态成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='修改退款状态失败';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='此状态下无法修改退款状态！只有在客户付款成功并且没有发货前可以修改！';
             }
         }
         else{

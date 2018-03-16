@@ -84,8 +84,20 @@
                             </div>
                         </div>
                     @endif
+                    @if($data['status']==4)
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"></label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <span class="c-red">*温馨提示：退款流程请在微信商户平台中进行退款，确定在微信商户已退款后，点击退款成功更改订单状态！避免造成损失！</span>
+                        </div>
+                    </div>
+                    @endif
                     <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            @if($data['status']==4)
+                                <button onClick="refundSuccess('{{$data['id']}}')"  class="btn btn-success radius" type="button">退款成功</button>
+                                <button onClick="refundFail('{{$data['id']}}')"  class="btn btn-danger radius" type="button">退款失败</button>
+                            @endif
                             <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
                         </div>
                     </div>
@@ -327,6 +339,7 @@
 @section('script')
 <script type="text/javascript">
     $(function () {
+
         $("#tab-system").Huitab({
             index:0
         });
@@ -366,5 +379,45 @@
 
         });
     });
+
+    /* 点击退款成功 */
+    function refundSuccess(id) {
+        layer.confirm('为了避免业务纠纷，请确定已在微信商户平台对此订单成功退款？',function(){
+            var param = {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            }
+            refundSuccessDo('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    setTimeout(function () {
+                        parent.$('.btn-refresh').click();
+                    }, 1000)
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                }
+            })
+        })
+    }
+
+    /* 点击退款失败 */
+    function refundFail(id) {
+        layer.confirm('为了避免业务纠纷，请确定没有在微信商户平台对此订单退款，并且退款失败后按正常流程为客户发送商品？',function(){
+            var param = {
+                id: id,
+                _token: "{{ csrf_token() }}"
+            }
+            refundFailDo('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    setTimeout(function () {
+                        parent.$('.btn-refresh').click();
+                    }, 1000)
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                }
+            })
+        })
+    }
 </script>
 @endsection
