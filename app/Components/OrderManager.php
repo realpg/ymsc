@@ -119,6 +119,22 @@ class OrderManager
     }
 
     /*
+     * 根据user_id和订单号获取订单（用于判断支付状态）
+     *
+     * By zm
+     *
+     * 2018-03-16
+     */
+    public static function getOrderByUserIdAndTradeNoWithoutSuborderForPay($user_id, $trade_no){
+        $where=array(
+            "user_id"=>$user_id,
+            "trade_no"=>$trade_no
+        );
+        $order=OrderModel::where($where)->first();
+        return $order;
+    }
+
+    /*
      * 根据user_id和订单号获取主订单（不含子订单）
      *
      * By zm
