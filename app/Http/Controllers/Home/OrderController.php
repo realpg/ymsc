@@ -347,7 +347,7 @@ class OrderController
         $user=$request->cookie('user');
         $return=null;
         if($user){
-            if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
+            if (array_key_exists('trade_no', $data)) {
                 $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
                 if($order['status']==2){
                     $return['result']=true;
