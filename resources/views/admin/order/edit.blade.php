@@ -9,7 +9,7 @@
         }
     </style>
     <div class="page-container">
-        <form class="form form-horizontal" method="post" id="form-member-edit">
+        <form class="form form-horizontal" method="post" id="form-order-edit">
             {{csrf_field()}}
             <div id="tab-system" class="HuiTab">
                 <div class="tabBar clearfix">
@@ -18,6 +18,7 @@
                     @if($data['status']!=1)
                     <span>收货地址</span>
                     <span>发票信息</span>
+                    <span>物流信息</span>
                     @endif
                 </div>
                 <div class="tabCon">
@@ -256,9 +257,43 @@
                         </div>
                     @endif
                 </div>
+                <div class="tabCon">
+                    <div class="row cl hidden">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>id：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="id" name="id" readonly type="text" class="input-text" value="{{ isset($data['id']) ? $data['id'] : '' }}" placeholder="id">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>物流公司：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <span class="select-box">
+                                <select id="type" name="logistics_company" id="logistics_company" class="select">
+                                    <option value="ST" {{$data['logistics_company']=='ST'?'selected':''}}>申通</option>
+                                    <option value="YT" {{$data['logistics_company']=='YT'?'selected':''}}>圆通</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>物流单号：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input type="text" name="logistics_no" id="logistics_no" class="input-text" value="{{ isset($data['logistics_no']) ? $data['logistics_no'] : '' }}" placeholder="请填写物流单号">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"></label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <span class="c-red">*物流信息一旦保存，禁止修改！请核对后再点击保存</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    @if($data['status']==2&&empty($data['logistics_company'])&&empty($data['logistics_no']))
+                        <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                    @endif
                     <button onClick="layer_close();" class="btn btn-default radius" type="button">返回</button>
                 </div>
             </div>
@@ -272,6 +307,41 @@
     $(function () {
         $("#tab-system").Huitab({
             index:0
+        });
+
+        $("#form-order-edit").validate({
+            rules: {
+                logistics_no: {
+                    required: true,
+                }
+            },
+            onkeyup: false,
+            focusCleanup: false,
+            success: "valid",
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    type: 'POST',
+                    url: "{{ URL::asset('/admin/order/logistics')}}",
+                    success: function (ret) {
+                        console.log(JSON.stringify(ret));
+                        if (ret.result) {
+                            layer.msg(ret.msg, {icon: 1, time: 2000});
+                            setTimeout(function () {
+                                parent.$('.btn-refresh').click();
+                            }, 1000)
+                        } else {
+                            layer.msg(ret.msg, {icon: 2, time: 2000});
+                        }
+                    },
+                    error: function (XmlHttpRequest, textStatus, errorThrown) {
+                        layer.msg('保存失败', {icon: 2, time: 2000});
+                        console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                        console.log("textStatus:" + textStatus);
+                        console.log("errorThrown:" + errorThrown);
+                    }
+                });
+            }
+
         });
     });
 </script>

@@ -64,6 +64,12 @@ class OrderManager
         if (array_key_exists('invoice_type', $data)) {
             $order->invoice_type = array_get($data, 'invoice_type');
         }
+        if (array_key_exists('logistics_company', $data)) {
+            $order->logistics_company = array_get($data, 'logistics_company');
+        }
+        if (array_key_exists('logistics_no', $data)) {
+            $order->logistics_no = array_get($data, 'logistics_no');
+        }
         if (array_key_exists('delete', $data)) {
             $order->delete = array_get($data, 'delete');
         }

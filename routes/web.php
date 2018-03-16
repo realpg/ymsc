@@ -165,6 +165,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/order/index', 'Admin\OrderController@index');  //订单管理首页
     Route::post('/order/index', 'Admin\OrderController@index');  //搜索订单
     Route::get('/order/edit', 'Admin\OrderController@edit');  //查看订单详情
+    Route::post('/order/logistics', 'Admin\OrderController@logisticsDo');  //填写物流信息
 //
 //    //评论管理
 //    Route::get('/comment/index', 'Admin\CommentController@index');  //评论管理首页

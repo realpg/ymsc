@@ -49,4 +49,37 @@ class OrderController
         );
         return view('admin.order.edit', $param);
     }
+
+    //编辑物流信息信息
+    public function logisticsDo(Request $request){
+        $data = $request->all();
+        $admin = $request->session()->get('admin');
+        $return=null;
+        if(array_key_exists('id', $data)){
+            $order = OrderManager::getOrderById($data['id']);
+            if($order['status']==2){
+                $base = OrderManager::setOrder($order,$data);
+                $result=$base->save();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='编辑物流信息成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='编辑物流信息失败';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='非法操作';
+            }
+        }
+        else{
+            $param=array(
+                'msg'=>'合规校验失败，缺少参数'
+            );
+            return view('admin.index.error500', $param);
+        }
+        return $return;
+    }
 }

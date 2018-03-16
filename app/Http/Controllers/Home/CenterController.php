@@ -672,6 +672,8 @@ class CenterController extends Controller
             foreach ($orders as $order){
                 $invoice_id=$order['invoice_id'];
                 $order['invoice']=InvoiceManager::getInvoiceById($invoice_id);
+                $address_id=$order['address_id'];
+                $order['address']=AddressManager::getAddressById($address_id);
             }
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);

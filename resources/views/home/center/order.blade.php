@@ -96,12 +96,12 @@
                                             发票详情
                                         </a>
                                     </div>
-                                    @if($order['status']==2)
-                                    {{--<div class="float-right">--}}
-                                        {{--<a href=""  >--}}
-                                            {{--物流详情--}}
-                                        {{--</a>--}}
-                                    {{--</div>--}}
+                                    @if($order['status']!=1&&$order['logistics_company']&&$order['logistics_no'])
+                                    <div class="float-right">
+                                        <a href=""  data-toggle="modal" data-target="#logisticsModel_{{$order['id']}}" >
+                                            物流详情
+                                        </a>
+                                    </div>
                                     @endif
                                 </td>
                                 <td class="text-right width-250 border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
@@ -133,7 +133,7 @@
                                     </td>
                                 @endif
                                 <td class="width-110 text-blue cart-settlement border-bottom-attribute" style="display:table-cell;vertical-align:middle;padding:0px;" >
-                                    @if($order['status']==3||$order['status']==5||$order['status']==6)
+                                    @if($order['status']==1||$order['status']==3||$order['status']==5)
                                     <a href="javascript:" class="line-height-40" onclick="order_del(this,'{{$order['id']}}')">
                                         删除
                                     </a>
@@ -292,6 +292,57 @@
                             </div>
                         </div>
                     @endif
+
+
+                <!-- Modal -->
+                    <div class="modal fade" id="logisticsModel_{{$order['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4>物流信息</h4>
+                                </div>
+                                <div class="modal-body max-height-modal overflow-y-scroll">
+                                    <div class="position-relative margin-top-10 margin-left-10 margin-right-10 padding-bottom-10 border-box-active">
+                                        <div class="row position-relative margin-top-10 font-size-14">
+                                            <div class="col-xs-6 col-sm-3 text-right">物 流 公 司：</div>
+                                            <div class="col-xs-6 col-sm-9">
+                                                @if($order['logistics_company']=='ST')
+                                                    申通
+                                                @elseif($order['logistics_company']=='YT')
+                                                    圆通
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="row position-relative margin-top-10">
+                                            <div class="col-xs-6 col-sm-3 text-right">物 流 单 号：</div>
+                                            <div class="col-xs-6 col-sm-9">{{$order['logistics_no']}}</div>
+                                        </div>
+                                        <div class="row position-relative margin-top-10">
+                                            <div class="col-xs-6 col-sm-3 text-right">收 货 地 址：</div>
+                                            <div class="col-xs-6 col-sm-9">
+                                                {{$order['address']['province']}} {{$order['address']['city']}} {{$order['address']['town']}}
+                                                {{$order['address']['detail']}}<br />
+                                                <span class="margin-right-50">收货人：{{$order['address']['name']}}</span>联系电话：{{$order['address']['phonenum']}}<br />
+                                                @if($order['address']['phone'])
+                                                    <span class="margin-right-50">收货人：固定电话：{{$order['address']['phone']}}</span>
+                                                @endif
+                                                @if($order['address']['code'])
+                                                    邮编：{{$order['address']['code']}}
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="margin-top-10 margin-bottom-10 text-center">
+                                        暂未上传物流信息
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endforeach
             </div>
             <div class="row margin-bottom-20 padding-left-20 padding-right-20">
