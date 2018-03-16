@@ -19,6 +19,7 @@ use App\Models\OrderModel;
 
 class OrderManager
 {
+    const PAGINATE=5;  //分页数目
     /*
      * 配置主订单参数
      *
@@ -211,7 +212,8 @@ class OrderManager
      * 2018-03-15
      */
     public static function getOrdersByUserIdWithoutDetele($user_id){
-        $orders=OrderModel::where('user_id',$user_id)->where('delete',0)->orderBy('id','desc')->get();
+        $paginate=self::PAGINATE;
+        $orders=OrderModel::where('user_id',$user_id)->where('delete',0)->orderBy('id','desc')->paginate($paginate);
         foreach ($orders as $order){
             $order['suborders']=SuborderManager::getSubordersByTradeNo($order['trade_no']);
             foreach ($order['suborders'] as $suborder){
@@ -262,6 +264,49 @@ class OrderManager
      */
     public static function getOrdersBySearch($search){
         $orders=OrderModel::where('trade_no','like','%'.$search.'%')->orderBy('id','desc')->get();
+        return $orders;
+    }
+
+
+    /*
+     * 根据user_id获取退款订单（不显示已删除的订单）
+     *
+     * By zm
+     *
+     * 2018-03-16
+     */
+    public static function getRefundOrdersByUserIdWithoutDetele($user_id){
+        $paginate=self::PAGINATE;
+        $where=array(
+            'user_id'=>$user_id,
+            'delete'=>0
+        );
+        $orders=OrderModel::where($where)->whereIn('status',[4,5,6])->orderBy('id','desc')->paginate($paginate);
+        foreach ($orders as $order){
+            $order['suborders']=SuborderManager::getSubordersByTradeNo($order['trade_no']);
+            foreach ($order['suborders'] as $suborder){
+                $goods_id=$suborder['goods_id'];
+                $suborder['goods_info']=GoodsModel::find($goods_id);
+                $menu_id=$suborder['goods_info']['menu_id'];
+                $suborder['goods_menu']=MenuModel::find($menu_id);
+                if($suborder['goods_menu']['menu_id']==1){
+                    $suborder['goods_column']=ChemController::COLUMN;
+                }
+                else if($suborder['goods_menu']['menu_id']==2){
+                    $suborder['goods_column']=TestingController::COLUMN;
+                }
+                else if($suborder['goods_menu']['menu_id']==3){
+                    $suborder['goods_column']=MachiningController::COLUMN;
+                    $attribute=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+                    if($attribute){
+                        $suborder['goods_type']=0;
+                    }
+                    else{
+                        $suborder['goods_type']=1;
+                    }
+                }
+            }
+        }
         return $orders;
     }
 }

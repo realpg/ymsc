@@ -7,7 +7,7 @@
         @include('home.layouts.center')
         <div class="col-xs-12 col-sm-10 border-center-menu padding-top-10 padding-bottom-10  line-height-34 center-address" id="center-content">
             <div class="member-nav">
-                <span class="font-size-16"><b>订单管理</b></span>
+                <span class="font-size-16"><b>退款单</b></span>
             </div>
             <div>
                 @foreach($orders as $order)
@@ -356,10 +356,10 @@
             <div class="row margin-bottom-20 padding-left-20 padding-right-20">
                 @if(count($orders)==0)
                     <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
-                        <img src="{{ URL::asset('img/nothing.png') }}"  />
+                        <img src="{{ URL::asset('img/happy.png') }}"  />
                     </div>
                     <div class="margin-top-20 text-center index-font">
-                        您还没有订单，快去添加一个吧！
+                        您没有退款单
                     </div>
                 @endif
             </div>

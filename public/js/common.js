@@ -197,6 +197,10 @@ function delOrder(url, param, callBack) {
 function confirmOrder(url, param, callBack) {
     ajaxRequest(url + "center/order/confirm", param, "GET", callBack);
 }
+//申请退款
+function refundOrder(url, param, callBack) {
+    ajaxRequest(url + "center/order/refund", param, "GET", callBack);
+}
 
 
 //上传第三方检测的图纸

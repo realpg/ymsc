@@ -702,12 +702,18 @@ class CenterController extends Controller
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
             if(array_key_exists('id',$data)){
                 $order=OrderManager::getOrderById($data['id']);
-                $data['delete']=1;
-                $invoice=OrderManager::setOrder($order,$data);
-                $result=$invoice->save();
-                if($result){
-                    $return['result']=true;
-                    $return['msg']='删除订单成功';
+                if($order['status']==1||$order['status']==3||$order['status']==5){
+                    $data['delete']=1;
+                    $invoice=OrderManager::setOrder($order,$data);
+                    $result=$invoice->save();
+                    if($result){
+                        $return['result']=true;
+                        $return['msg']='删除订单成功';
+                    }
+                    else{
+                        $return['result']=false;
+                        $return['msg']='删除订单失败';
+                    }
                 }
                 else{
                     $return['result']=false;
@@ -764,5 +770,80 @@ class CenterController extends Controller
             $return['msg']='确认收货失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
+    }
+    /*
+     * 订单申请退款
+     */
+    public function orderRefund(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            if(array_key_exists('id',$data)){
+                $order=OrderManager::getOrderById($data['id']);
+                if($order['status']==2&&empty($order['logistics_company'])&&empty($order['logistics_no'])){
+                    $data['status']=4;
+                    $invoice=OrderManager::setOrder($order,$data);
+                    $result=$invoice->save();
+                    if($result){
+                        $return['result']=true;
+                        $return['msg']='申请退款成功，等待管理人员进行操作';
+                    }
+                    else{
+                        $return['result']=false;
+                        $return['msg']='申请退款失败';
+                    }
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='非法操作';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='申请退款失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+
+    /*
+     * 管理退款单
+     */
+    public function refundOrder(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            $column='center';
+            $column_child='refund';
+            $orders=OrderManager::getRefundOrdersByUserIdWithoutDetele($user['id']);
+            foreach ($orders as $order){
+                $invoice_id=$order['invoice_id'];
+                $order['invoice']=InvoiceManager::getInvoiceById($invoice_id);
+                $address_id=$order['address_id'];
+                $order['address']=AddressManager::getAddressById($address_id);
+            }
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'column_child'=>$column_child,
+                'user'=>$user,
+                'orders'=>$orders,
+                'carts'=>$carts
+            );
+            return view('home.center.refundOrder',$param);
+        }
+        else{
+            return redirect('signIn');
+        }
     }
 }

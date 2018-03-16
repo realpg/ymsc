@@ -259,6 +259,8 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('center/order', 'Home\CenterController@order');        //订单管理
     Route::get('center/order/del', 'Home\CenterController@orderDel');        //删除订单
     Route::get('center/order/confirm', 'Home\CenterController@orderConfirm');        //订单确认收货
+    Route::get('center/order/refund', 'Home\CenterController@orderRefund');        //订单申请退款
+    Route::get('center/refundorder', 'Home\CenterController@refundOrder');        //退款单管理
 
     //购物车
     Route::get('cart', 'Home\CartController@index');        //购物车页面
