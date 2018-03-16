@@ -97,11 +97,17 @@
                                         </a>
                                     </div>
                                     @if($order['status']!=1&&$order['logistics_company']&&$order['logistics_no'])
-                                    <div class="float-right">
-                                        <a href=""  data-toggle="modal" data-target="#logisticsModel_{{$order['id']}}" >
-                                            物流详情
-                                        </a>
-                                    </div>
+                                        <div class="float-right">
+                                            <a href=""  data-toggle="modal" data-target="#logisticsModel_{{$order['id']}}" >
+                                                物流详情
+                                            </a>
+                                        </div>
+                                    @elseif($order['status']==1&&empty($order['logistics_company'])&&empty($order['logistics_no']))
+                                        <div class="float-right">
+                                            <a href="" >
+                                                申请退款
+                                            </a>
+                                        </div>
                                     @endif
                                 </td>
                                 <td class="text-right width-250 border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
