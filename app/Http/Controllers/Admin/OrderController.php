@@ -165,4 +165,16 @@ class OrderController
         }
         return $return;
     }
+
+    //获取快递公司列表及编码
+    public function getExpressComs(){
+        $param = array(
+            'pro_code' => Utils::PRO_CODE,       //项目pro_code应该统一管理，建议在Utils中定义一个通用变量
+        );
+        $result = Utils::curl('http://common.isart.me/api/common/express/getExpressComs', $param, true);   //访问接口
+        if($result['result']){
+            $result = json_decode($result['ret']['result'], true);   //因为返回的已经是json数据，为了适配makeResponse方法，所以进行json转数组操作
+        }
+        return $result;
+    }
 }

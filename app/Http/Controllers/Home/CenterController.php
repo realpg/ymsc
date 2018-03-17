@@ -14,6 +14,7 @@ use App\Components\InvoiceManager;
 use App\Components\MemberManager;
 use App\Components\OrderManager;
 use App\Components\QNManager;
+use App\Components\Utils;
 use App\Components\VertifyManager;
 use App\Http\Controllers\Controller;
 use App\Models\AddressModel;
@@ -674,6 +675,7 @@ class CenterController extends Controller
                 $order['invoice']=InvoiceManager::getInvoiceById($invoice_id);
                 $address_id=$order['address_id'];
                 $order['address']=AddressManager::getAddressById($address_id);
+                $order['logistics']=self::getlogisticsInfoByNo($order['logistics_company'],$order['logistics_no']);
             }
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -691,6 +693,23 @@ class CenterController extends Controller
             return redirect('signIn');
         }
     }
+
+    /*
+     * 获取物流信息
+     */
+    public function getlogisticsInfoByNo($com, $no){
+        $param = array(
+            'pro_code' => Utils::PRO_CODE,       //项目pro_code应该统一管理，建议在Utils中定义一个通用变量
+            'com' => $com,//物流公司编号
+            'no' => $no,//物流单号
+        );
+        $result = Utils::curl('http://common.isart.me/api/common/express/getByNo', $param, true);   //访问接口
+        if($result['result']){
+            $result = json_decode($result['ret']['result'], true);   //因为返回的已经是json数据，为了适配makeResponse方法，所以进行json转数组操作
+        }
+        return $result;
+    }
+
     /*
      * 删除订单
      */

@@ -20,6 +20,8 @@ class Utils
     const ORDER_REFUNDSUCCESS = "5";    //退款成功
     const ORDER_REFUNDFAILED = "6";    //退款失败
 
+    const PRO_CODE='';   //项目pro_code应该统一管理
+
 
     /*
      * 判断一个对象是不是空
