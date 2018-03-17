@@ -70,6 +70,7 @@
                         </a>
                     @endif
                 </div>
+                <div class="clear"></div>
             @endforeach
             @if(count($goodses)==0)
                 <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
