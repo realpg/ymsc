@@ -2,6 +2,7 @@
 @section('content')
 <div id="main-body">
     <div class="style-home-nav-station"></div>
+    <div class="height-80"></div>
     @include('home.layouts.search')
     <div class="container margin-bottom-20" id="goods_lists">
         <ul class="line-height-40 border-bottom-navy-blue row common-text-align-center" id="tab">

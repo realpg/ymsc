@@ -5,13 +5,33 @@
         body{background-color: #011931}
     </style>
     <div id="mydiv">
+        <div class="container">
+            <h5 class="line-height-30 index-font padding-bottom-0 margin-bottom-0 index-search margin-top-10 margin-bottom-10 text-right" style="height:30px;margin-top: 60px;">
+                <a href="http://xueshu.baidu.com/" class="text-decoration-none">
+                    <span class="padding-right-5 padding-left-5 index-font text-decoration-none">百度学术</span>
+                </a>
+                @foreach($menus as $menu)
+                    @if($menu['status']==1)
+                        <a href="{{URL::asset($menu['route'])}}" class="text-decoration-none">
+                            <span class="padding-right-5 padding-left-5 index-font text-decoration-none">{{$menu['name']}}</span>
+                        </a>
+                    @endif
+                @endforeach
+            </h5>
+        </div>
         <div class="text-center" id="logo">
             <img src="{{$common['base']['logo']}}" style="height:154px;" />
         </div>
-        <div class="style-home-index-search padding-top-20">
+        <div class="style-home-index-search padding-top-0" style="width:640px;">
             <form class="form-search-all" method="get" action="{{ URL::asset($column.'/search/') }}" id="form-search-all">
-                <input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" style="height:40px;" placeholder="输入搜索内容" />
-                <button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search" style="height:40px;"></button>
+                <div style="width:540px;float: left;">
+                    <input type="text" id="search" name="search" class="style-home-index-form-control width-100" style="height:36px;" placeholder="输入搜索内容" />
+                </div>
+                <div style="width:100px;float: left;">
+                    <button type="submit" class="btn-default style-home-index-form-control-button glyphicon glyphicon-search width-100" style="height:36px;"></button>
+                </div>
+                {{--<input type="text" id="search" name="search" class="style-home-index-form-control col-xs-9 col-sm-10 col-lg-11" style="height:40px;" placeholder="输入搜索内容" />--}}
+                {{--<button type="submit" class="btn-default col-xs-3 col-sm-2 col-lg-1 style-home-index-form-control-button glyphicon glyphicon-search" style="height:40px;"></button>--}}
             </form>
             <div class="clear"></div>
             <h5 class="line-height-30 index-font padding-bottom-0 margin-bottom-0 index-search margin-top-10 margin-bottom-10">
@@ -26,18 +46,18 @@
                     &nbsp;
                 @endif
             </h5>
-            <div class="row padding-right-15">
-                <div class="col-sm-12 col-md-3">
-                    <p><a class="btn btn-default style-home-index-btn" href="http://xueshu.baidu.com/" target="_blank" role="button">百度学术</a></p>
-                </div>
-                @foreach($menus as $menu)
-                    @if($menu['status']==1)
-                    <div class="col-sm-12 col-md-3">
-                        <p><a class="btn btn-default style-home-index-btn" href="{{URL::asset($menu['route'])}}" role="button">{{$menu['name']}}</a></p>
-                    </div>
-                    @endif
-                @endforeach
-            </div>
+            {{--<div class="row padding-right-15">--}}
+                {{--<div class="col-sm-12 col-md-3">--}}
+                    {{--<p><a class="btn btn-default style-home-index-btn" href="http://xueshu.baidu.com/" target="_blank" role="button">百度学术</a></p>--}}
+                {{--</div>--}}
+                {{--@foreach($menus as $menu)--}}
+                    {{--@if($menu['status']==1)--}}
+                    {{--<div class="col-sm-12 col-md-3">--}}
+                        {{--<p><a class="btn btn-default style-home-index-btn" href="{{URL::asset($menu['route'])}}" role="button">{{$menu['name']}}</a></p>--}}
+                    {{--</div>--}}
+                    {{--@endif--}}
+                {{--@endforeach--}}
+            {{--</div>--}}
         </div>
     </div>
 @endsection
@@ -66,7 +86,7 @@
             //调用
             CanvasParticle(config);
 
-            $('#logo').css('padding-top',winHeight*0.2)
+            $('#logo').css('padding-top',winHeight*0.09)
         });
         function choiceWord(name){
             $('#search').val(name)

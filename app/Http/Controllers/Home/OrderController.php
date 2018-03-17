@@ -27,14 +27,33 @@ class OrderController
 {
     const POSTAGE = 0;  //邮费
     //获取小程序微信支付的相关信息
+//    private function getConfig()
+//    {
+//        $config = [
+//            'appid' => '', // APP APPID
+//            'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
+//            'miniapp_id' => '', // 小程序 APPID
+//            'mch_id' => '1491365062', //微信商户号
+//            'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
+//            'notify_url' => 'http://ymsc.isart.me/api/order/notify',
+//            'trade_type'=>'NATIVE',
+//            'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
+//            'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
+//            'log' => [ // optional
+//                'file' => app_path() . '/../storage/logs/wechat.log',
+//                'level' => 'debug'
+//            ]
+//        ];
+//        return $config;
+//    }
     private function getConfig()
     {
         $config = [
             'appid' => '', // APP APPID
-            'app_id' => 'wxa2096c6338c06a0f', // 公众号 APPID
+            'app_id' => 'wxe56af7ffb1ffb155', // 公众号 APPID
             'miniapp_id' => '', // 小程序 APPID
-            'mch_id' => '1491365062', //微信商户号
-            'key' => 'liuaweiisthelegalpersonofisart66',  // 微信支付签名秘钥
+            'mch_id' => '1497102892', //微信商户号
+            'key' => 'dm0ZHUfYJxOIVnajfCA4ZFZHrcLqqCFk',  // 微信支付签名秘钥
             'notify_url' => 'http://ymsc.isart.me/api/order/notify',
             'trade_type'=>'NATIVE',
             'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到

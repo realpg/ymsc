@@ -7,6 +7,7 @@
 @section('content')
 <div id="main-body">
     <div class="style-home-nav-station"></div>
+    <div class="height-80"></div>
     @include('home.layouts.search')
     @include('home.layouts.banner')
     <div class="container margin-bottom-20" id="goods_lists">

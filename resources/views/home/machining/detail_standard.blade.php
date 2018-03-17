@@ -7,6 +7,7 @@
 @section('content')
     <div id="main-body">
         <div class="style-home-nav-station"></div>
+        <div class="height-80"></div>
         @include('home.layouts.search')
         <div class="border-bottom-attribute">
             <div class="container line-height-40">

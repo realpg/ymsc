@@ -1,7 +1,10 @@
 <div class="container line-height-40">
-    <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> > {{$channel['name']}}
+    {{--<div class="border-bottom-attribute">--}}
+        <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> > {{$channel['name']}}
+    {{--</div>--}}
 </div>
 <div class="border-top-attribute">
+{{--<div>--}}
     <div class="container">
         @foreach($attributes as $k=>$attribute)
             <div class="line-height-40 style-ellipsis-1 border-bottom-attribute">
