@@ -7,6 +7,7 @@
                 <span>网站基本信息</span>
                 <span>关于我们设置</span>
                 <span>首页SEO设置</span>
+                <span>补差价商品链接</span>
             </div>
             <div class="tabCon">
                 <form class="form form-horizontal" method="post" id="form-baseInfo-edit">
@@ -145,6 +146,16 @@
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
                             <button onClick="layer_close();" class="btn btn-default radius" type="button">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tabCon">
+                <form class="form form-horizontal" method="post">
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2">商品链接：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input type="text" readonly class="input-text no_click" value="http://{{$_SERVER['SERVER_NAME']}}/differenceGoods" />
                         </div>
                     </div>
                 </form>
