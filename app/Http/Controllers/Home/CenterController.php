@@ -675,7 +675,7 @@ class CenterController extends Controller
                 $order['invoice']=InvoiceManager::getInvoiceById($invoice_id);
                 $address_id=$order['address_id'];
                 $order['address']=AddressManager::getAddressById($address_id);
-                $order['logistics']=self::getlogisticsInfoByNo($order['logistics_company'],$order['logistics_no']);
+//                $order['logistics']=self::getlogisticsInfoByNo($order['logistics_company'],$order['logistics_no']);
             }
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
