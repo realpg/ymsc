@@ -85,7 +85,7 @@
 @yield('content')
 @section('footer')
     <footer class="style-home-footer">
-        <p>{{$common['base']['copyright']}}&nbsp;{{$common['base']['number']}}&nbsp;技术支持：沈阳艺萨艺术有限公司</p>
+        <p>{{$common['base']['copyright']}}&nbsp;{{$common['base']['number']}}&nbsp;</p>
         {{--<p></p>--}}
     </footer>
 @show
