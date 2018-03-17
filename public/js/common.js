@@ -321,6 +321,16 @@ function isArray(object) {
     return Object.prototype.toString.call(object) == '[object Array]';
 }
 
+// 判断是否未大于1的正整数
+function isPositiveInteger(count) {
+    if(/^\d+$/.test(count)&&count>0){
+        return true
+    }
+    else{
+        return false
+    }
+}
+
 
 // 七牛云图片裁剪
 function qiniuUrlTool(img_url, type) {

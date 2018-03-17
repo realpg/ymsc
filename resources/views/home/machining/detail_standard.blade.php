@@ -148,40 +148,50 @@
         //添加购物车调用函数
         function addShoppingCart(goods_id){
             var count=$('#text_box').val();
-            var param={
-                goods_id: goods_id,
-                count:count,
-                _token: "{{ csrf_token() }}"
-            }
-            console.log('addShoppingCart param is : '+JSON.stringify(param));
-            editShoppingCart('{{URL::asset('')}}', param, function (ret) {
-                if (ret.result == true) {
-                    layer.msg(ret.msg, {icon: 1, time: 3000});
-                    window.location.reload()
-                } else {
-                    layer.msg(ret.msg, {icon: 2, time: 3000})
+            if(isPositiveInteger(count)){
+                var param={
+                    goods_id: goods_id,
+                    count:count,
+                    _token: "{{ csrf_token() }}"
                 }
-            })
+                console.log('addShoppingCart param is : '+JSON.stringify(param));
+                editShoppingCart('{{URL::asset('')}}', param, function (ret) {
+                    if (ret.result == true) {
+                        layer.msg(ret.msg, {icon: 1, time: 3000});
+                        window.location.reload()
+                    } else {
+                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                    }
+                })
+            }
+            else{
+                layer.msg('数量一栏中请填写大于1的正整数', {icon: 2, time: 3000})
+            }
         }
 
         //结算
         function settlement(){
             var total=$('#total').text();
             var count=$('#text_box').val();
-            var param = {
-                goods_id: '{{$goods['id']}}',
-                total:total,
-                count:count,
-                _token: "{{ csrf_token() }}"
-            }
-            addGoodsOrder('{{URL::asset('')}}', param, function (ret) {
-                if (ret.result == true) {
-                    layer.msg(ret.msg, {icon: 1, time: 1000});
-                    window.location.href = "{{URL::asset('order')}}";
-                } else {
-                    layer.msg(ret.msg, {icon: 2, time: 3000})
+            if(isPositiveInteger(count)){
+                var param = {
+                    goods_id: '{{$goods['id']}}',
+                    total:total,
+                    count:count,
+                    _token: "{{ csrf_token() }}"
                 }
-            })
+                addGoodsOrder('{{URL::asset('')}}', param, function (ret) {
+                    if (ret.result == true) {
+                        layer.msg(ret.msg, {icon: 1, time: 1000});
+                        window.location.href = "{{URL::asset('order')}}";
+                    } else {
+                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                    }
+                })
+            }
+            else{
+                layer.msg('数量一栏中请填写大于1的正整数', {icon: 2, time: 3000})
+            }
         }
     </script>
 @endsection

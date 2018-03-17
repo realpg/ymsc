@@ -123,7 +123,7 @@ class OrderController
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
                 $order_data['count']=$data['count'];
                 $postage=self::POSTAGE;   //邮费
-                $order_data['total_fee']=$data['total']*100+$postage;
+                $order_data['total_fee']=$data['total']*$order_data['count']*100+$postage;
                 $order=OrderManager::setOrder($order,$order_data);
                 $order_result=$order->save();
                 if($order_result){
