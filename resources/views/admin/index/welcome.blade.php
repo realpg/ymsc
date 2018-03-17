@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="page-container">
-    <table class="table table-border table-bordered table-bg mt-20">
+    <table class="table table-border table-bordered table-bg">
         <thead>
         <tr>
             <th colspan="2" scope="col">服务器信息</th>
@@ -15,91 +15,55 @@
         </tr>
         <tr>
             <td>服务器IP地址</td>
-            <td>192.168.1.1</td>
+            <td>{{$_SERVER['SERVER_ADDR']}}</td>
         </tr>
         <tr>
             <td>服务器域名</td>
-            <td>www.h-ui.net</td>
+            <td>{{$_SERVER['SERVER_NAME']}}</td>
         </tr>
         <tr>
             <td>服务器端口 </td>
-            <td>80</td>
+            <td>{{$_SERVER['SERVER_PORT']}}</td>
         </tr>
         <tr>
-            <td>服务器IIS版本 </td>
-            <td>Microsoft-IIS/6.0</td>
-        </tr>
-        <tr>
-            <td>本文件所在文件夹 </td>
-            <td>D:\WebSite\HanXiPuTai.com\XinYiCMS.Web\</td>
+            <td>服务器版本 </td>
+            <td>{{php_uname('s').php_uname('r')}}</td>
         </tr>
         <tr>
             <td>服务器操作系统 </td>
-            <td>Microsoft Windows NT 5.2.3790 Service Pack 2</td>
+            <td>{{php_uname()}}</td>
         </tr>
         <tr>
-            <td>系统所在文件夹 </td>
-            <td>C:\WINDOWS\system32</td>
+            <td>php版本 </td>
+            <td>{{PHP_VERSION}}</td>
         </tr>
         <tr>
-            <td>服务器脚本超时时间 </td>
-            <td>30000秒</td>
-        </tr>
-        <tr>
-            <td>服务器的语言种类 </td>
-            <td>Chinese (People's Republic of China)</td>
-        </tr>
-        <tr>
-            <td>.NET Framework 版本 </td>
-            <td>2.050727.3655</td>
+            <td>PHP运行方式 </td>
+            <td>{{php_sapi_name()}}</td>
         </tr>
         <tr>
             <td>服务器当前时间 </td>
-            <td>2014-6-14 12:06:23</td>
+            <td>{{date("Y-m-d H:i:s")}}</td>
         </tr>
         <tr>
-            <td>服务器IE版本 </td>
-            <td>6.0000</td>
+            <td>最大上传限制 </td>
+            <td>{{get_cfg_var ("upload_max_filesize")?get_cfg_var ("upload_max_filesize"):"不允许" }}</td>
         </tr>
         <tr>
-            <td>服务器上次启动到现在已运行 </td>
-            <td>7210分钟</td>
+            <td>最大执行时间 </td>
+            <td>{{get_cfg_var("max_execution_time")."秒 "}}</td>
         </tr>
         <tr>
-            <td>逻辑驱动器 </td>
-            <td>C:\D:\</td>
+            <td>脚本运行占用最大内存 </td>
+            <td>{{get_cfg_var ("memory_limit")?get_cfg_var("memory_limit"):"无"}}</td>
         </tr>
         <tr>
-            <td>CPU 总数 </td>
-            <td>4</td>
+            <td>请求页面时通信协议的名称和版本 </td>
+            <td>{{$_SERVER['SERVER_PROTOCOL']}}</td>
         </tr>
         <tr>
-            <td>CPU 类型 </td>
-            <td>x86 Family 6 Model 42 Stepping 1, GenuineIntel</td>
-        </tr>
-        <tr>
-            <td>虚拟内存 </td>
-            <td>52480M</td>
-        </tr>
-        <tr>
-            <td>当前程序占用内存 </td>
-            <td>3.29M</td>
-        </tr>
-        <tr>
-            <td>Asp.net所占内存 </td>
-            <td>51.46M</td>
-        </tr>
-        <tr>
-            <td>当前Session数量 </td>
-            <td>8</td>
-        </tr>
-        <tr>
-            <td>当前SessionID </td>
-            <td>gznhpwmp34004345jz2q3l45</td>
-        </tr>
-        <tr>
-            <td>当前系统用户名 </td>
-            <td>NETWORK SERVICE</td>
+            <td>服务器语言 </td>
+            <td>{{$_SERVER['HTTP_ACCEPT_LANGUAGE']}}</td>
         </tr>
         </tbody>
     </table>
