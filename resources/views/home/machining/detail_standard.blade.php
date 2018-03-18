@@ -32,21 +32,24 @@
                         <h4 class="style-ellipsis-1 line-height-30">尺寸：{{$goods['attribute']['size']}}</h4>
                         <h3 class="style-ellipsis-1 line-height-30">
                             价 格：<span class="text-red">￥<span id="total">{{$goods['price']/100}}</span> / {{$goods['unit']}}</span>
+                            <span class="style-ellipsis-1 line-height-30 font-size-18 margin-left-5">库 存：{{$goods['stock']}} {{$goods['unit']}}</span>
                         </h3>
-                        <h4 class="style-ellipsis-1 line-height-30 margin-top-20">
-                            数量：
-                            <input id="min" name="" type="button" value="-" class="background-none border-div" />
-                            <input id="text_box" name="" type="text" value="1" class="border-div width-50px common-text-align-center"/>
-                            <input id="add" name="" type="button" value="+" class="background-none border-div" />
-                        </h4>
-                        <div class="row margin-top-20 margin-bottom-20">
-                            <div class="col-xs-6 col-sm-3">
-                                <button type="button" onclick="settlement()" class="btn btn-danger width-100 border-radius-0">购 买</button>
+                        @if($goods['stock']>0)
+                            <h4 class="style-ellipsis-1 line-height-30 margin-top-20">
+                                数量：
+                                <input id="min" name="" type="button" value="-" class="background-none border-div" />
+                                <input id="text_box" name="" type="text" value="1" class="border-div width-50px common-text-align-center"/>
+                                <input id="add" name="" type="button" value="+" class="background-none border-div" />
+                            </h4>
+                            <div class="row margin-top-20 margin-bottom-20">
+                                <div class="col-xs-6 col-sm-3">
+                                    <button type="button" onclick="settlement()" class="btn btn-danger width-100 border-radius-0">购 买</button>
+                                </div>
+                                <div class="col-xs-6 col-sm-3">
+                                    <button type="button" class="btn btn-default width-100 border-radius-0 background-none" onclick="addShoppingCart('{{$goods['id']}}')">加入购物车</button>
+                                </div>
                             </div>
-                            <div class="col-xs-6 col-sm-3">
-                                <button type="button" class="btn btn-default width-100 border-radius-0 background-none" onclick="addShoppingCart('{{$goods['id']}}')">加入购物车</button>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -133,10 +136,17 @@
         //数量增加操作
         $("#add").click(function(){
             // 给获取的val加上绝对值，避免出现负数
-            t.val(Math.abs(parseInt(t.val()))+1);
-            if (parseInt(t.val())!=1){
-                $('#min').attr('disabled',false);
-            };
+            var stock=Math.abs(parseInt('{{$goods['stock']}}'))
+            if((Math.abs(parseInt(t.val()))+1)<=stock){
+                t.val(Math.abs(parseInt(t.val()))+1);
+                if (parseInt(t.val())!=1){
+                    $('#min').attr('disabled',false);
+                };
+            }
+            else{
+                $('#max').attr('disabled',false);
+                layer.msg('数量已到上限', {icon: 2, time: 3000})
+            }
         })
         //数量减少操作
         $("#min").click(function(){
@@ -150,20 +160,25 @@
         function addShoppingCart(goods_id){
             var count=$('#text_box').val();
             if(isPositiveInteger(count)){
-                var param={
-                    goods_id: goods_id,
-                    count:count,
-                    _token: "{{ csrf_token() }}"
-                }
-                console.log('addShoppingCart param is : '+JSON.stringify(param));
-                editShoppingCart('{{URL::asset('')}}', param, function (ret) {
-                    if (ret.result == true) {
-                        layer.msg(ret.msg, {icon: 1, time: 3000});
-                        window.location.reload()
-                    } else {
-                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                var stock=Math.abs(parseInt('{{$goods['stock']}}'))
+                if(count<=stock){
+                    var param={
+                        goods_id: goods_id,
+                        count:count,
+                        _token: "{{ csrf_token() }}"
                     }
-                })
+                    editShoppingCart('{{URL::asset('')}}', param, function (ret) {
+                        if (ret.result == true) {
+                            layer.msg(ret.msg, {icon: 1, time: 3000});
+                            window.location.reload()
+                        } else {
+                            layer.msg(ret.msg, {icon: 2, time: 3000})
+                        }
+                    })
+                }
+                else{
+                    layer.msg('购买数量不能大于库存', {icon: 2, time: 3000})
+                }
             }
             else{
                 layer.msg('数量一栏中请填写大于1的正整数', {icon: 2, time: 3000})
@@ -175,20 +190,26 @@
             var total=$('#total').text();
             var count=$('#text_box').val();
             if(isPositiveInteger(count)){
-                var param = {
-                    goods_id: '{{$goods['id']}}',
-                    total:total,
-                    count:count,
-                    _token: "{{ csrf_token() }}"
-                }
-                addGoodsOrder('{{URL::asset('')}}', param, function (ret) {
-                    if (ret.result == true) {
-                        layer.msg(ret.msg, {icon: 1, time: 1000});
-                        window.location.href = "{{URL::asset('order')}}";
-                    } else {
-                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                var stock=Math.abs(parseInt('{{$goods['stock']}}'))
+                if(count<=stock){
+                    var param = {
+                        goods_id: '{{$goods['id']}}',
+                        total:total,
+                        count:count,
+                        _token: "{{ csrf_token() }}"
                     }
-                })
+                    addGoodsOrder('{{URL::asset('')}}', param, function (ret) {
+                        if (ret.result == true) {
+                            layer.msg(ret.msg, {icon: 1, time: 1000});
+                            window.location.href = "{{URL::asset('order')}}";
+                        } else {
+                            layer.msg(ret.msg, {icon: 2, time: 3000})
+                        }
+                    })
+                }
+                else{
+                    layer.msg('购买数量不能大于库存', {icon: 2, time: 3000})
+                }
             }
             else{
                 layer.msg('数量一栏中请填写大于1的正整数', {icon: 2, time: 3000})

@@ -136,37 +136,60 @@ class OrderController
         $return=null;
         if($user){
             if (array_key_exists('goods_id', $data)) {
-                //生成主订单
-                $order=new OrderModel();
-                $order_data['user_id']=$user['id'];
-                $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
-                $order_data['count']=$data['count'];
-                $postage=self::POSTAGE;   //邮费
-                $order_data['total_fee']=$data['total']*$order_data['count']*100+$postage;
-                $order=OrderManager::setOrder($order,$order_data);
-                $order_result=$order->save();
-                if($order_result){
-                    $trade_no=$order->trade_no;
-                    $suborder=new SuborderModel();
-                    $suborder_data['sub_trade_no']=self::ProduceOrderNumber($user['id']);
-                    $suborder_data['trade_no']=$trade_no;
-                    $suborder_data['user_id']=$user['id'];
-                    $suborder_data['goods_id']=$data['goods_id'];
-                    $goods=GoodsManager::getGoodsById($suborder_data['goods_id']);
-                    $suborder_data['goods_number']=$goods['number'];
-                    $suborder_data['goods_name']=$goods['name'];
-                    $suborder_data['goods_picture']=$goods['picture'];
-                    $suborder_data['total_fee']=$goods['price'];
-                    $suborder_data['goods_unit']=$goods['unit'];
-                    $suborder_data['count']=$data['count'];
-                    $suborder=SuborderManager::setSuborder($suborder,$suborder_data);
-                    $suborder_result=$suborder->save();
-                    $return['result']=true;
-                    $return['msg']='添加订单成功';
+                $check_goods=GoodsManager::getGoodsById($data['goods_id']);  //检验购买时商品的库存是否够用
+                if($check_goods['stock']>0){
+                    if($check_goods['stock']>=$data['count']){
+                        //生成主订单
+                        $order=new OrderModel();
+                        $order_data['user_id']=$user['id'];
+                        $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
+                        $order_data['count']=$data['count'];
+                        $postage=self::POSTAGE;   //邮费
+                        $order_data['total_fee']=$data['total']*$order_data['count']*100+$postage;
+                        $order=OrderManager::setOrder($order,$order_data);
+                        $order_result=$order->save();
+                        if($order_result){
+                            $trade_no=$order->trade_no;
+                            $suborder=new SuborderModel();
+                            $suborder_data['sub_trade_no']=self::ProduceOrderNumber($user['id']);
+                            $suborder_data['trade_no']=$trade_no;
+                            $suborder_data['user_id']=$user['id'];
+                            $suborder_data['goods_id']=$data['goods_id'];
+                            $goods=GoodsManager::getGoodsById($suborder_data['goods_id']);
+                            $suborder_data['goods_number']=$goods['number'];
+                            $suborder_data['goods_name']=$goods['name'];
+                            $suborder_data['goods_picture']=$goods['picture'];
+                            $suborder_data['total_fee']=$goods['price'];
+                            $suborder_data['goods_unit']=$goods['unit'];
+                            $suborder_data['count']=$data['count'];
+                            $suborder=SuborderManager::setSuborder($suborder,$suborder_data);
+                            $suborder_result=$suborder->save();
+                            if($suborder_result){
+                                $goods->stock=$goods['stock']-$data['count'];
+                                $goods->save();
+                                $return['result']=true;
+                                $return['msg']='添加订单成功';
+                            }
+                            else{
+                                $delete_order=OrderModel::find($order->id);
+                                $delete_order->delete();
+                                $return['result']=true;
+                                $return['msg']='添加订单失败';
+                            }
+                        }
+                        else{
+                            $return['result']=false;
+                            $return['msg']='添加订单失败';
+                        }
+                    }
+                    else{
+                        $return['result']=false;
+                        $return['msg']='添加订单的过程中，已有人购买了此商品。当前数量少于您的需求数量，请重新购买！请重新刷新页面更新信息！';
+                    }
                 }
                 else{
                     $return['result']=false;
-                    $return['msg']='添加订单失败';
+                    $return['msg']='添加订单失败，商品已被抢光现已下架，请重新刷新页面更新信息！';
                 }
             }
             else{

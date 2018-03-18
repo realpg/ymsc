@@ -15,11 +15,13 @@
                     <td class="background-detail">单价（元）</td>
                     <td class="background-detail">商品单位</td>
                     <td class="background-detail">数量</td>
+                    <td class="background-detail">库存</td>
                     <td class="background-detail">小计（元）</td>
                     <td class="background-detail">操作</td>
                 </tr>
                 @foreach($carts as $k=>$cart)
-                    <tr class="text-center">
+                    @if($cart['goods_info']['stock']>0||$cart['goods_id']==1)
+                        <tr class="text-center">
                         <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
                             <input type="checkbox" name="id_array" value="{{$cart['id']}}" class='checkSingle'>
                         </td>
@@ -62,16 +64,59 @@
                         <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">{{$cart['goods_info']['unit']}}</td>
                         <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
                             <input id="min_{{$cart['id']}}" onclick="minCount('{{$cart['id']}}')" name="" type="button" value="-" class="background-none border-div" />
-                            <input id="text_box_{{$cart['id']}}" name="count" type="text" value="{{$cart['count']}}" class="border-div width-50px common-text-align-center" readonly/>
+                            @if($cart['goods_id']!=1)
+                                <input id="text_box_{{$cart['id']}}" name="count" type="text" value="{{$cart['count']>$cart['goods_info']['stock']?$cart['goods_info']['stock']:$cart['count']}}" class="border-div width-50px common-text-align-center" readonly/>
+                            @else
+                                <input id="text_box_{{$cart['id']}}" name="count" type="text" value="{{$cart['count']}}" class="border-div width-50px common-text-align-center" readonly/>
+                            @endif
                             <input id="add_{{$cart['id']}}" onclick="addCount('{{$cart['id']}}')" name="" type="button" value="+" class="background-none border-div" />
                         </td>
-                        <td class="border-bottom-attribute text-red" style="display:table-cell;vertical-align:middle;" id="total_{{$cart['id']}}">{{$cart['goods_info']['price']/100*$cart['count']}}</td>
+                        @if($cart['goods_id']==1)
+                            <td class="border-bottom-attribute" id="stock_{{$cart['id']}}" style="display:table-cell;vertical-align:middle;">无限</td>
+                        @else
+                            <td class="border-bottom-attribute" id="stock_{{$cart['id']}}" style="display:table-cell;vertical-align:middle;">{{$cart['goods_info']['stock']}}</td>
+                        @endif
+                        <td class="border-bottom-attribute text-red" style="display:table-cell;vertical-align:middle;" id="total_{{$cart['id']}}">
+                            @if($cart['goods_id']!=1)
+                                @if($cart['count']<$cart['goods_info']['stock'])
+                                    {{$cart['goods_info']['price']/100*$cart['count']}}
+                                @else
+                                    {{$cart['goods_info']['price']/100*$cart['goods_info']['stock']}}
+                                @endif
+                            @else
+                                {{$cart['goods_info']['price']/100*$cart['count']}}
+                            @endif
+                        </td>
                         <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
                             <a href="javascript:" onclick="cart_del(this,'{{$cart['id']}}')" >
                                 删除
                             </a>
                         </td>
                     </tr>
+                    @else
+                        <tr class="text-center background-detail">
+                            <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
+                                失效
+                            </td>
+                            <td class="border-bottom-attribute"  style="display:table-cell;vertical-align:middle;">
+                                <img src="{{$cart['goods_info']['picture']}}" alt="{{$cart['goods_info']['name']}}" class="width-50px height-50" />
+                            </td>
+                            <td class="border-bottom-attribute width-250 text-left" style="display:table-cell;vertical-align:middle;">
+                                商品货号：{{$cart['goods_info']['number']}}<br />
+                                商品名称：{{$cart['goods_info']['name']}}
+                            </td>
+                            <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;" id="price_{{$cart['id']}}">{{$cart['goods_info']['price']/100}}</td>
+                            <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">{{$cart['goods_info']['unit']}}</td>
+                            <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">-</td>
+                            <td class="border-bottom-attribute" id="stock_{{$cart['id']}}" style="display:table-cell;vertical-align:middle;">0</td>
+                            <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;" id="total_{{$cart['id']}}">-</td>
+                            <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
+                                <a href="javascript:" onclick="cart_del(this,'{{$cart['id']}}')" >
+                                    删除
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </table>
             @if(count($carts)>0)
@@ -130,10 +175,26 @@
         var t=$("#text_box_"+id);
         $('#min_'+id).attr('disabled',true);
         var count=Math.abs(parseInt(t.val()))+1
-        if (parseInt(t.val())!=1){
-            $('#min_'+id).attr('disabled',false);
-        };
-        editShoppingCartCount(id,count)
+        var stock=$('#stock_'+id).text();
+        if(stock=='无限'){
+            if (parseInt(t.val())!=1){
+                $('#min_'+id).attr('disabled',false);
+            };
+            editShoppingCartCount(id,count)
+        }
+        else{
+            stock=Math.abs(parseInt(stock))
+            if(count<=stock){
+                if (parseInt(t.val())!=1){
+                    $('#min_'+id).attr('disabled',false);
+                };
+                editShoppingCartCount(id,count)
+            }
+            else{
+                $('#max').attr('disabled',false);
+                layer.msg('数量已到上限', {icon: 2, time: 3000})
+            }
+        }
     }
     function editShoppingCartCount(id,count){
         var param={

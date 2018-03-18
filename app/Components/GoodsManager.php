@@ -122,6 +122,9 @@ class GoodsManager
         if (array_key_exists('picture', $data)) {
             $goods->picture = array_get($data, 'picture');
         }
+        if (array_key_exists('stock', $data)) {
+            $goods->stock = array_get($data, 'stock');
+        }
         if (array_key_exists('drimecost', $data)) {
             $goods->drimecost = array_get($data, 'drimecost');
         }
