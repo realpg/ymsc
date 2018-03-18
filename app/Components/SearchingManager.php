@@ -118,4 +118,17 @@ class SearchingManager
         $searchings=SearchingModel::whereIn('id',$data)->get();
         return $searchings;
     }
+
+    /*
+     * 根据状态查找信息
+     *
+     * By zm
+     *
+     * 2018-03-18
+     *
+     */
+    public static function getSearchingsByStatus($status){
+        $searchings=SearchingModel::where('status',$status)->get();
+        return $searchings;
+    }
 }

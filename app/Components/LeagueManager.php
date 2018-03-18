@@ -93,4 +93,17 @@ class LeagueManager
         $leagues=LeagueModel::whereIn('id',$data)->get();
         return $leagues;
     }
+
+    /*
+     * 根据状态查找信息
+     *
+     * By zm
+     *
+     * 2018-03-18
+     *
+     */
+    public static function getLeaguesByStatus($status){
+        $leagues=LeagueModel::where('status',$status)->get();
+        return $leagues;
+    }
 }

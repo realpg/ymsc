@@ -91,4 +91,17 @@ class DrawingManager
             ->get($get);
         return $drawings;
     }
+
+    /*
+     * 根据状态查找信息
+     *
+     * By zm
+     *
+     * 2018-03-18
+     *
+     */
+    public static function getDrawingsByStatus($status){
+        $drawings=DrawingModel::where('status',$status)->get();
+        return $drawings;
+    }
 }

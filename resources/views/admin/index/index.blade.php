@@ -100,14 +100,50 @@
                 </dd>
             </dl>
             <dl id="menu-contact">
-                <dt><i class="Hui-iconfont">&#xe63b;</i> 互动模块管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                <dt><i class="Hui-iconfont">&#xe63b;</i> 互动模块管理<span class="badge badge-danger radius margin-left-2" id="count_messages" hidden></span><i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
                 </dt>
                 <dd>
                     <ul>
-                        <li><a data-href="{{ URL::asset('/admin/league/index') }}" data-title="加盟信息管理" href="javascript:void(0)">加盟信息管理</a></li>
-                        <li><a data-href="{{ URL::asset('/admin/advice/index') }}" data-title="建议反馈信息管理" href="javascript:void(0)">投诉建议信息管理</a></li>
-                        <li><a data-href="{{ URL::asset('/admin/searching/index') }}" data-title="帮你找货信息管理" href="javascript:void(0)">帮你找货信息管理</a></li>
-                        <li><a data-href="{{ URL::asset('/admin/drawing/index') }}" data-title="用户上传的图纸管理" href="javascript:void(0)">用户上传的图纸管理</a></li>
+                        <li>
+                            <a data-href="{{ URL::asset('/admin/league/index') }}" data-title="加盟信息管理" href="javascript:void(0)">
+                                加盟信息管理
+                                @if(count($leagues)>0)
+                                <span class="badge badge-danger radius margin-left-2" id="count_leagues">
+                                    {{count($leagues)}}
+                                </span>
+                                @endif
+                            </a>
+                        </li>
+                        <li>
+                            <a data-href="{{ URL::asset('/admin/advice/index') }}" data-title="建议反馈信息管理" href="javascript:void(0)">
+                                投诉建议信息管理
+                                @if(count($advices)>0)
+                                <span class="badge badge-danger radius margin-left-2" id="count_advices">
+                                    {{count($advices)}}
+                                </span>
+                                @endif
+                            </a>
+                        </li>
+                        <li>
+                            <a data-href="{{ URL::asset('/admin/searching/index') }}" data-title="帮你找货信息管理" href="javascript:void(0)">
+                                帮你找货信息管理
+                                @if(count($searchings)>0)
+                                <span class="badge badge-danger radius margin-left-2" id="count_searchings">
+                                    {{count($searchings)}}
+                                </span>
+                                @endif
+                            </a>
+                        </li>
+                        <li>
+                            <a data-href="{{ URL::asset('/admin/drawing/index') }}" data-title="用户上传的图纸管理" href="javascript:void(0)">
+                                用户图纸管理
+                                @if(count($drawings)>0)
+                                <span class="badge badge-danger radius margin-left-2" id="count_drawings">
+                                    {{count($drawings)}}
+                                </span>
+                                @endif
+                            </a>
+                        </li>
                     </ul>
                 </dd>
             </dl>
@@ -186,7 +222,11 @@
 @section('script')
     <script type="text/javascript">
         $(function () {
-
+            var count_messages='{{count($leagues)+count($advices)+count($searchings)+count($drawings)}}';
+            if(count_messages!='0'){
+                $('#count_messages').show();
+                $('#count_messages').text(count_messages);
+            }
         });
         /*资讯-添加*/
         function mysqlf_edit(title,url){

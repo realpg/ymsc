@@ -93,4 +93,17 @@ class AdviceManager
         $advices=AdviceModel::whereIn('id',$data)->get();
         return $advices;
     }
+
+    /*
+     * 根据状态查询信息
+     *
+     * By zm
+     *
+     * 2018-03-18
+     *
+     */
+    public static function getAdvicesByStatus($status){
+        $advices=AdviceModel::where('status',$status)->get();
+        return $advices;
+    }
 }
