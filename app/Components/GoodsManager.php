@@ -54,6 +54,44 @@ class GoodsManager
         if($menu['menu_id']){
             $goodses = GoodsModel::where('menu_id',$menu_id)->where(function ($goodses) use ($search) {
                 $goodses->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('region', 'like', '%'.$search.'%')
+                    ->orwhere('number', 'like', '%'.$search.'%');
+            })->orderBy('sort','desc')->get();
+        }
+        else{
+            $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
+            $menu_id_array=null;
+            foreach ($menus as $k=>$menu){
+                $menu_id_array[$k]=$menu['id'];
+            }
+            $goodses = GoodsModel::whereIn('menu_id',$menu_id_array)->where(function ($goodses) use ($search) {
+                $goodses->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('number', 'like', '%'.$search.'%');
+            })->orderBy('sort','desc')->get();
+        }
+        foreach ($goodses as $goods){
+            $menu_id=$goods['menu_id'];
+            $goods['menu']=MenuManager::getMenuById($menu_id);
+        }
+        return $goodses;
+    }
+
+    /*
+     * 通过模糊搜索获取第三方检测商品
+     *
+     * By zm
+     *
+     * 2018-03-18
+     *
+     */
+    public static function getAllTestingGoodsListsByMenuId($search ,$menu_id )
+    {
+        //判断menu_id是否为一级栏目
+        $menu=MenuManager::getMenuById($menu_id);
+        if($menu['menu_id']){
+            $goodses = GoodsModel::where('menu_id',$menu_id)->where(function ($goodses) use ($search) {
+                $goodses->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('region', 'like', '%'.$search.'%')
                     ->orwhere('number', 'like', '%'.$search.'%');
             })->orderBy('sort','desc')->get();
         }
@@ -139,6 +177,9 @@ class GoodsManager
         }
         if (array_key_exists('hot', $data)) {
             $goods->hot = array_get($data, 'hot');
+        }
+        if (array_key_exists('region', $data)) {
+            $goods->region = array_get($data, 'region');
         }
         if (array_key_exists('f_attribute_id', $data)) {
             $goods->f_attribute_id = array_get($data, 'f_attribute_id');
@@ -285,6 +326,7 @@ class GoodsManager
                     ->orwhere('sub_name', 'like', '%'.$search.'%')
                     ->orwhere('english_name', 'like', '%'.$search.'%')
                     ->orwhere('molecule','like','%'.$search.'%')
+                    ->orwhere('number','like','%'.$search.'%')
                     ->orwhere('cas', 'like', '%'.$search.'%');
             })->orderBy('sort','desc')->get();
         }
@@ -343,6 +385,7 @@ class GoodsManager
             'goods_info.menu_id as menu_id',
             'goods_info.name as name',
             'goods_info.number as number',
+            'goods_info.stock as stock',
             'goods_info.price as price',
             'goods_info.unit as unit',
             'f_attribute.name as brand',
@@ -979,6 +1022,7 @@ class GoodsManager
                     ->where('menu_info.status',1)
                     ->where(function($goodses) use ($search){
                     $goodses->where('goods_info.name','like','%'.$search.'%')
+                        ->orwhere('goods_info.region','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');
                 })
                 ->select($select)->paginate($paginate);
@@ -1220,7 +1264,7 @@ class GoodsManager
                 $goodses[$k]['column_status']=$menu['status'];
             }
             else if($menu['id']==$testing_menu_id){
-                $testing_goodses=self::getAllGoodsListsByMenuId($search,$testing_menu_id);
+                $testing_goodses=self::getAllTestingGoodsListsByMenuId($search,$testing_menu_id);
                 $goodses[$k]['goodses']=$testing_goodses;
                 $goodses[$k]['column']=$testing_column;
                 $goodses[$k]['column_id']=$testing_menu_id;

@@ -125,6 +125,12 @@
                         </div>
                     </div>
                     <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地域：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="region" name="region" type="text" class="input-text" value="{{ isset($data['region']) ? $data['region'] : '' }}" placeholder="请输入地域">
+                        </div>
+                    </div>
+                    <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>排序：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <input id="sort" name="sort" type="text" class="input-text" value="{{ isset($data['sort']) ? $data['sort'] : '' }}" placeholder="请输入排序，越大越靠前">
@@ -307,12 +313,6 @@
                     </div>
                 </div>
                 <div class="tabCon">
-                    <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地域：</label>
-                        <div class="formControls col-xs-8 col-sm-9">
-                            <input id="region" name="region" type="text" class="input-text" value="{{ isset($data['attribute']['region']) ? $data['attribute']['region'] : '' }}" placeholder="请输入地域">
-                        </div>
-                    </div>
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>实验室：</label>
                         <div class="formControls col-xs-8 col-sm-9">

@@ -142,9 +142,8 @@
             </div>
         </div>
     </footer>
-    <footer class="style-home-footer">
-        <p>{{$common['base']['copyright']}}&nbsp;{{$common['base']['number']}}&nbsp;</p>
-        {{--<p></p>--}}
+    <footer class="style-home-footer text-center">
+        {{$common['base']['copyright']}}&nbsp;{{$common['base']['number']}}
     </footer>
 @show
 <div id='style-home-right'>
@@ -619,6 +618,9 @@
         var column='{{$column}}'
         if(column=='chem'||column=='testing'||column=='machining'||column=='center'||column=='cart'){
             $('#menu-map').show();
+            $('footer').addClass('background-navy-blue');
+            $('.style-home-footer').addClass('border-top');
+            $('.style-home-footer').css('margin','0');
         }
     });
 

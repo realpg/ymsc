@@ -38,7 +38,8 @@
                 <th width="100">纯度</th>
                 <th width="100">规格</th>
                 <th width="100">价格</th>
-                <th width="150">栏目</th>
+                <th width="100">库存</th>
+                <th width="100">栏目</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
             </tr>
@@ -56,6 +57,7 @@
                     <td>{{$data['purity']}}</td>
                     <td>{{$data['spec']}}</td>
                     <td>￥{{$data['price']/100}}&nbsp;/{{$data['unit']}}</td>
+                    <td>{{$data['stock']}}</td>
                     <td>{{$data['menu']}}</td>
                     <td>{{$data['updated_at']}}</td>
                     <td class="td-manage">
@@ -85,7 +87,7 @@
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,9]}// 不参与排序的列
+            {"orderable":false,"aTargets":[0,10]}// 不参与排序的列
         ]
     });
 
