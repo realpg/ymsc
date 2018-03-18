@@ -168,6 +168,7 @@ class MachiningController
             if(array_key_exists('menu_id',$data)){
                 $goods=new GoodsModel();
                 $data['number']=self::ProduceCommodityNumber($data['menu_id']);
+                $data['price']=$data['price']*100;
                 $goods = GoodsManager::setGoods($goods,$data);
                 $result=$goods->save();
                 if($result){
@@ -256,6 +257,7 @@ class MachiningController
         else{
             $goods = GoodsManager::getGoodsById($data['id']);
         }
+        $data['price']=$data['price']*100;
         $goods = GoodsManager::setGoods($goods,$data);
         $result=$goods->save();
         if($result){
@@ -336,6 +338,7 @@ class MachiningController
         else{
             $goods = GoodsManager::getGoodsById($data['id']);
         }
+        $data['price']=$data['price']*100;
         $goods = GoodsManager::setGoods($goods,$data);
         $result=$goods->save();
         if($result){

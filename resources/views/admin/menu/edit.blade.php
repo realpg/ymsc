@@ -44,6 +44,20 @@
                     </div>
                 </div>
             @endif
+            @if(!isset($data['name'])||$data['menu_id']==0)
+                <div class="row cl" id="container">
+                    <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        @if($data['picture'])
+                            <img id="imagePrv" src="{{$data['picture'] }}" width="115" height="50" />
+                        @else
+                            <img id="imagePrv" src="{{ URL::asset('/img/upload.png') }}" width="115" height="50" />
+                        @endif
+                        <span class="c-red">*请上传115*50尺寸的图标</span>
+                        <input type="hidden" class="input-text" id="picture" name="picture" value="{{ isset($data['picture']) ? $data['picture'] : '' }}"  />
+                    </div>
+                </div>
+            @endif
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>排序：</label>
                 <div class="formControls col-xs-8 col-sm-9">

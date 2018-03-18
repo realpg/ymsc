@@ -315,6 +315,7 @@ class ChemController
                 else{
                     $goods = GoodsManager::getGoodsById($data['id']);
                 }
+                $data['price']=$data['price']*100;
                 $goods = GoodsManager::setGoods($goods,$data);
                 $result=$goods->save();
                 if($result){

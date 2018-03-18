@@ -186,6 +186,7 @@ class TestingController
             $goods_attribute=GoodsManager::setGoodsTestingAttribute($goods_attribute,$data_attribute);
             $goods_attribute->save();
         }
+        $data['price']=$data['price']*100;
         $goods = GoodsManager::setGoods($goods,$data);
         $result=$goods->save();
         if($result){

@@ -40,7 +40,7 @@
         <ul class="line-height-40 border-bottom-navy-blue row common-text-align-center" id="tab">
             <li class="tab_active col-md-12 col-lg-2 background-detail">案 例 展 示</li>
             <li class="col-md-12 col-lg-2 background-detail">设 备 详 情</li>
-            <li class="col-md-12 col-lg-2 background-detail">客 户 评 价</li>
+            {{--<li class="col-md-12 col-lg-2 background-detail">客 户 评 价</li>--}}
             <li class="col-md-12 col-lg-2 background-detail">开 发 和 收 费 情 况</li>
         </ul>
         <ul class="tab_content">
@@ -91,16 +91,16 @@
                     </div>
                 @endif
             </li>
-            <li>
-                @if(empty($goods['comments']))
-                    <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
-                        <img src="{{ URL::asset('img/nothing.png') }}"  />
-                    </div>
-                    <div class="margin-top-20 text-center index-font">
-                        还没有人对此商品进行评价
-                    </div>
-                @endif
-            </li>
+            {{--<li>--}}
+                {{--@if(empty($goods['comments']))--}}
+                    {{--<div class="margin-top-20 margin-right-10 margin-left-10 text-center">--}}
+                        {{--<img src="{{ URL::asset('img/nothing.png') }}"  />--}}
+                    {{--</div>--}}
+                    {{--<div class="margin-top-20 text-center index-font">--}}
+                        {{--还没有人对此商品进行评价--}}
+                    {{--</div>--}}
+                {{--@endif--}}
+            {{--</li>--}}
             <li>
                 @if($goods['attribute']['explain'])
                     {{$goods['attribute']['explain']}}

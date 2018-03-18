@@ -31,7 +31,7 @@
                         <h4 class="style-ellipsis-1 line-height-30">成分：{{$goods['attribute']['component']}}</h4>
                         <h4 class="style-ellipsis-1 line-height-30">尺寸：{{$goods['attribute']['size']}}</h4>
                         <h3 class="style-ellipsis-1 line-height-30">
-                            价 格：<span class="text-red">￥{{$goods['price']/100}} / {{$goods['unit']}}</span>
+                            价 格：<span class="text-red">￥<span id="total">{{$goods['price']/100}}</span> / {{$goods['unit']}}</span>
                         </h3>
                         <h4 class="style-ellipsis-1 line-height-30 margin-top-20">
                             数量：
