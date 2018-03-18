@@ -59,6 +59,7 @@
         "bStateSave": true,//状态保存
         "pading":false,
         "word" : false, //去掉搜索框
+        "searching" : false, //去掉搜索框
         "bLengthChange": false,   //去掉每页显示多少条数据方法
         "aoColumnDefs": [
             //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
