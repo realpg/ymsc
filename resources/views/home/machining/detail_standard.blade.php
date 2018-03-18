@@ -16,7 +16,7 @@
         </div>
         <div class="container margin-bottom-20" id="goods_lists">
             <div class="col-md-12 col-lg-9">
-                <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2 border-div min-height-content">
+                <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2 border-div min-height-content" style="min-height: 250px;">
                     <div class="col-md-12 col-lg-4 padding-10">
                         <div class="text-center margin-right-10 padding-bottom-10 padding-right-10 padding-left-10">
                             <div class="goods-lists-picture padding-top-40" style="width:100%;height:100%;">
