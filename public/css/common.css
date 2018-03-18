@@ -1293,6 +1293,33 @@ label.error {
     right:0px;
     position:absolute;
 }
+.dropdown-menu{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    /* padding: 5px 0; */
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #01061a;
+}
+.dropdown-menu > li > a{
+    color:#9d9d9d;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    background-image: none;
+    background-color: #01061a;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #01061a;
+}
 @media screen and (max-width: 1028px) {
     .style-home-index-search{
         width:25.5rem;

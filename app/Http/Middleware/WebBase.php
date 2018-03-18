@@ -9,6 +9,7 @@
 namespace app\Http\Middleware;
 
 use App\Components\BaseManager;
+use App\Components\MenuManager;
 use App\Components\ServiceManager;
 use App\Http\Controllers\ApiResponse;
 use Closure;
@@ -19,8 +20,10 @@ class WebBase
     {
         $base=BaseManager::getBaseInfo();
         $services=ServiceManager::getAllServices();
+        $cartes=MenuManager::getClassAMenuListswhichCanShow();
         $common['base']=$base;
         $common['services']=$services;
+        $common['cartes']=$cartes;
         $request['common']=$common;
         return $next($request);
     }

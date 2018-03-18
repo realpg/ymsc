@@ -43,8 +43,20 @@
             </div>
             <div class="navbar-collapse collapse" role="navigation">
                 <ul class="nav navbar-nav style-home-nav">
-                    <li class="hidden-sm hidden-md {{$column=='index'?'style-home-nav-active':''}}">
-                        <a href="{{ URL::asset('index') }}">首页</a>
+                    {{--<li class="hidden-sm hidden-md {{$column=='index'?'style-home-nav-active':''}}">--}}
+                        {{--<a href="{{ URL::asset('index') }}">首页</a>--}}
+                    {{--</li>--}}
+                    <li class="hidden-sm hidden-md dropdown {{$column=='index'?'style-home-nav-active':''}}" style="border:0;">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            栏目
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: #01061a;">
+                            <li style="border-bottom: 0px;padding:0;"><a href="{{ URL::asset('index') }}">首页</a></li>
+                            @foreach($common['cartes'] as $carte)
+                            <li style="border-bottom: 0px;"><a href="{{URL::asset($carte['route'])}}">{{$carte['name']}}</a></li>
+                            @endforeach
+                        </ul>
                     </li>
                     <li class=" {{$column=='league'?'style-home-nav-active':''}}">
                         <a href="{{ URL::asset('league') }}">合作与服务</a>
