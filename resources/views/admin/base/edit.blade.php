@@ -22,11 +22,11 @@
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>LOGO上传：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             @if($data['logo'])
-                                <img id="logoPrv" src="{{$data['logo'] }}" width="154" />
+                                <img id="logoPrv" src="{{$data['logo'] }}" width="150" />
                             @else
-                                <img id="logoPrv" src="{{ URL::asset('/img/upload.png') }}" width="154" />
+                                <img id="logoPrv" src="{{ URL::asset('/img/upload.png') }}" width="150" />
                             @endif
-                            <span class="c-red">*请上传154*105尺寸的图片</span>
+                            <span class="c-red">*请上传500*103尺寸的图片</span>
                             <input type="hidden" class="input-text" id="logo" name="logo" value="{{ isset($data['logo']) ? $data['logo'] : '' }}"  />
                         </div>
                     </div>
@@ -34,11 +34,11 @@
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>内页LOGO上传：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             @if($data['logo_page'])
-                                <img id="logoPagePrv" src="{{$data['logo_page'] }}" width="180" />
+                                <img id="logoPagePrv" src="{{$data['logo_page'] }}" width="60" />
                             @else
-                                <img id="logoPagePrv" src="{{ URL::asset('/img/upload.png') }}" width="180" />
+                                <img id="logoPagePrv" src="{{ URL::asset('/img/upload.png') }}" width="60" />
                             @endif
-                            <span class="c-red">*请上传180*32尺寸的图片</span>
+                            <span class="c-red">*请上传60*32尺寸的图片</span>
                             <input type="hidden" class="input-text" id="logo_page" name="logo_page" value="{{ isset($data['logo_page']) ? $data['logo_page'] : '' }}"  />
                         </div>
                     </div>
