@@ -32,7 +32,19 @@
             </h5>
             <div class="row padding-right-15">
                 <div class="col-sm-12 col-md-3 padding-right-0">
-                    <p><a class="btn btn-default style-home-index-btn" href="http://xueshu.baidu.com/" target="_blank" role="button" style="width:100%;">百度学术</a></p>
+                    @if($friendship)
+                        @if($friendship['picture'])
+                            <a class="btn btn-default style-home-index-btn" href="{{$friendship['link']}}" target="_blank" role="button" style="width:100%;height:48px;padding:0;">
+                                <img src="{{$friendship['picture']}}" class="width-100" style="height:48px;" />
+                            </a>
+                        @else
+                            <p>
+                                <a class="btn btn-default style-home-index-btn" href="{{$friendship['link']}}" target="_blank" role="button" style="width:100%;">
+                                    {{$friendship['name']}}
+                                </a>
+                            </p>
+                        @endif
+                    @endif
                 </div>
                 @foreach($menus as $menu)
                     @if($menu['status']==1)

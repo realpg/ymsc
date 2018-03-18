@@ -39,6 +39,10 @@ function delAdmin(url, param, callBack) {
 function delBanner(url, param, callBack) {
     ajaxRequest(url + "admin/banner/del", param, "GET", callBack);
 }
+//删除外链
+function delFriendship(url, param, callBack) {
+    ajaxRequest(url + "admin/friendship/del", param, "GET", callBack);
+}
 //加盟信息标记已联系
 function stampLeague(url, param, callBack) {
     $.post(url + "admin/league/stamp",param,callBack);

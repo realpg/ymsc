@@ -73,6 +73,7 @@
                     <ul>
                         <li><a data-href="{{ URL::asset('/admin/base/edit') }}" data-title="网站基本设置" href="javascript:void(0)">网站基本设置</a></li>
                         <li><a data-href="{{ URL::asset('/admin/word/index') }}" data-title="搜索关键字设置" href="javascript:void(0)">搜索关键字设置</a></li>
+                        <li><a data-href="{{ URL::asset('/admin/friendship/index') }}" data-title="外链管理" href="javascript:void(0)">外链管理</a></li>
                     </ul>
                 </dd>
             </dl>

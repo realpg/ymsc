@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Components\AdviceManager;
 use App\Components\CartManager;
+use App\Components\FriendshipManager;
 use App\Components\GoodsManager;
 use App\Components\HomeManager;
 use App\Components\LeagueManager;
@@ -38,6 +39,7 @@ class IndexController extends Controller
         $column='index';
         $menus=MenuManager::getClassAMenuLists();
         $words=WordManager::getAllWordsForIndex();
+        $friendship=FriendshipManager::getFriendshipById(1);
         if($user){
             $carts=CartManager::getCartsByUserId($user['id']);
             $param=array(
@@ -46,6 +48,7 @@ class IndexController extends Controller
                 'column'=>$column,
                 'user'=>$user,
                 'words'=>$words,
+                'friendship'=>$friendship,
                 'carts'=>$carts
             );
         }
@@ -55,7 +58,8 @@ class IndexController extends Controller
                 'menus'=>$menus,
                 'column'=>$column,
                 'user'=>$user,
-                'words'=>$words
+                'words'=>$words,
+                'friendship'=>$friendship,
             );
         }
         return view('home.index.index',$param);

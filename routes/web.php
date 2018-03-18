@@ -42,6 +42,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/banner/edit', 'Admin\BannerController@edit');  //创建或编辑Banner
     Route::post('/banner/edit', 'Admin\BannerController@editDo');  //创建或编辑Banner
 
+    //外链管理
+    Route::get('/friendship/index', 'Admin\FriendshipController@index');  //外链管理首页
+    Route::post('/friendship/index', 'Admin\FriendshipController@index');  //搜索外链
+    Route::get('/friendship/del', 'Admin\FriendshipController@del');  //删除外链
+    Route::get('/friendship/edit', 'Admin\FriendshipController@edit');  //创建或编辑外链
+    Route::post('/friendship/edit', 'Admin\FriendshipController@editDo');  //创建或编辑外链
+
     //网站基本设置
     Route::get('/base/edit', 'Admin\BaseController@edit');  //编辑网站基本设置
     Route::post('/baseInfo/edit', 'Admin\BaseController@baseInfoDo');  //编辑网站基本设置
