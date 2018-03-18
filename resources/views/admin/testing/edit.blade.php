@@ -72,13 +72,13 @@
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>售价（元）：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="price" name="price" type="text" class="input-text" value="{{ isset($data['price']) ? $data['price']/100 : '' }}" placeholder="请输入售价,以“分”为单位">
+                            <input id="price" name="price" type="text" class="input-text" value="{{ isset($data['price']) ? $data['price']/100 : '' }}" placeholder="请输入售价,以“元”为单位">
                         </div>
                     </div>
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品单位：</label>
                         <div class="formControls col-xs-8 col-sm-9">
-                            <input id="unit" name="unit" type="text" class="input-text" value="{{ isset($data['unit']) ? $data['unit'] : '' }}" placeholder="请输入价格单位">
+                            <input id="unit" name="unit" type="text" class="input-text" value="{{ isset($data['unit']) ? $data['unit'] : '' }}" placeholder="请输入商品单位">
                         </div>
                     </div>
                     <div class="row cl">
