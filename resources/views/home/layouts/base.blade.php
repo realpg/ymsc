@@ -43,9 +43,6 @@
             </div>
             <div class="navbar-collapse collapse" role="navigation">
                 <ul class="nav navbar-nav style-home-nav">
-                    {{--<li class="hidden-sm hidden-md {{$column=='index'?'style-home-nav-active':''}}">--}}
-                        {{--<a href="{{ URL::asset('index') }}">首页</a>--}}
-                    {{--</li>--}}
                     <li class="hidden-sm hidden-md dropdown {{$column=='index'?'style-home-nav-active':''}}" style="border:0;">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             商城
@@ -96,6 +93,55 @@
 @show
 @yield('content')
 @section('footer')
+    <footer class="background-navy-blue text-silver-grey padding-top-20 padding-bottom-20" id="menu-map" hidden>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <div class="col-xs-12 col-sm-5">
+                        <div class="text-left">
+                            <img src="{{$common['base']['logo']}}" class="width-90" />
+                        </div>
+                        <h5 class="margin-top-20">
+                            <i class="iconfont icon-dianhua"></i>
+                            {{$common['base']['phonenum']}}
+                        </h5>
+                        <h5 class="margin-top-10">
+                            <i class="iconfont icon-QQ"></i>
+                            {{$common['base']['qq']}}
+                        </h5>
+                        <h5 class="margin-top-10">
+                            <i class="iconfont icon-dingwei"></i>
+                            {{$common['base']['address']}}
+                        </h5>
+                    </div>
+                    @foreach($common['cartes'] as $cartes)
+                    <div class="col-xs-12 col-sm-2">
+                        <a href="{{URL::asset($cartes['route'])}}">
+                            <h5 class="font-size-16" style="margin-top:0;">{{$cartes['name']}}</h5>
+                        </a>
+                        <ul>
+                            @foreach($cartes['menus'] as $cartes['menu'])
+                                <li class="line-height-34">
+                                    <a href="{{URL::asset($cartes['column'].'/lists/'.$cartes['menu']['id'])}}">
+                                    {{$cartes['menu']['name']}}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="text-center">
+                        <img src="{{$common['base']['wechat']}}" />
+                    </div>
+                    <h4 class="text-center margin-top-20">
+                        扫描二维码，关注微信公众号
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </footer>
     <footer class="style-home-footer">
         <p>{{$common['base']['copyright']}}&nbsp;{{$common['base']['number']}}&nbsp;</p>
         {{--<p></p>--}}
@@ -568,6 +614,11 @@
         if(centerMenuLength){
             var center_height=$('#center-menu').height();
             $('#center-content').css('min-height',center_height);
+        }
+
+        var column='{{$column}}'
+        if(column=='chem'||column=='testing'||column=='machining'||column=='center'||column=='cart'){
+            $('#menu-map').show();
         }
     });
 

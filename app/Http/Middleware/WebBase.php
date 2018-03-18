@@ -20,7 +20,7 @@ class WebBase
     {
         $base=BaseManager::getBaseInfo();
         $services=ServiceManager::getAllServices();
-        $cartes=MenuManager::getClassAMenuListswhichCanShow();
+        $cartes=MenuManager::getMenuListswhichCanShow();
         $common['base']=$base;
         $common['services']=$services;
         $common['cartes']=$cartes;

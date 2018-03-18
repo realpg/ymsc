@@ -8,6 +8,9 @@
 
 namespace App\Components;
 
+use App\Http\Controllers\Home\ChemController;
+use App\Http\Controllers\Home\MachiningController;
+use App\Http\Controllers\Home\TestingController;
 use App\Models\MenuModel;
 
 class MenuManager
@@ -37,6 +40,33 @@ class MenuManager
     public static function getClassAMenuListswhichCanShow()
     {
         $menus = MenuModel::where('menu_id',0)->where('status',1)->orderBy('sort','desc')->get();
+        return $menus;
+    }
+
+    /*
+     * 获取一级栏目以及对应的二级栏目（“显示”状态）
+     *
+     * By zm
+     *
+     * 2018-01-28
+     *
+     */
+    public static function getMenuListswhichCanShow()
+    {
+        $menus = MenuModel::where('menu_id',0)->where('status',1)->orderBy('sort','desc')->get();
+        foreach ($menus as $menu){
+            $menu_id=$menu['id'];
+            $menu['menus']=MenuModel::where('menu_id',$menu_id)->where('status',1)->orderBy('sort','desc')->get();
+            if($menu_id==1){
+                $menu['column']=ChemController::COLUMN;
+            }
+            else if($menu_id==2){
+                $menu['column']=TestingController::COLUMN;
+            }
+            else if($menu_id==3){
+                $menu['column']=MachiningController::COLUMN;
+            }
+        }
         return $menus;
     }
 

@@ -53,6 +53,9 @@ class BaseManager
         if (array_key_exists('qq', $data)) {
             $banner->qq = array_get($data, 'qq');
         }
+        if (array_key_exists('wechat', $data)) {
+            $banner->wechat = array_get($data, 'wechat');
+        }
         if (array_key_exists('address', $data)) {
             $banner->address = array_get($data, 'address');
         }
