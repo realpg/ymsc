@@ -675,7 +675,8 @@ class CenterController extends Controller
                 $order['invoice']=InvoiceManager::getInvoiceById($invoice_id);
                 $address_id=$order['address_id'];
                 $order['address']=AddressManager::getAddressById($address_id);
-//                $order['logistics']=self::getlogisticsInfoByNo($order['logistics_company'],$order['logistics_no']);
+                $order['logistics']=self::getlogisticsInfoByNo($order['logistics_company'],$order['logistics_no']);
+                $order['logistics']=$order['logistics'];
             }
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -704,8 +705,8 @@ class CenterController extends Controller
             'no' => $no,//物流单号
         );
         $result = Utils::curl('http://common.isart.me/api/common/express/getByNo', $param, true);   //访问接口
-        if($result['result']){
-            $result = json_decode($result['ret']['result'], true);   //因为返回的已经是json数据，为了适配makeResponse方法，所以进行json转数组操作
+        if($result){
+            $result = json_decode($result, true);   //因为返回的已经是json数据，为了适配makeResponse方法，所以进行json转数组操作
         }
         return $result;
     }

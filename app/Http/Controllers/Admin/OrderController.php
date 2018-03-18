@@ -12,6 +12,7 @@ use App\Components\AddressManager;
 use App\Components\InvoiceManager;
 use App\Components\OrderManager;
 use App\Components\SuborderManager;
+use App\Components\Utils;
 use Illuminate\Http\Request;
 
 class OrderController
@@ -57,6 +58,11 @@ class OrderController
         $order['address']=AddressManager::getAddressById($order['address_id']);
         $order['invoice']=InvoiceManager::getInvoiceById($order['invoice_id']);
         $order['suborders']=SuborderManager::getSubordersByTradeNo($order['trade_no']);
+        $order['expressComs']=self::getExpressComs();
+        $order['expressComs']=$order['expressComs']['ret']['result'];
+        if($order['logistics_company']&&$order['logistics_no']){
+            $order['logistics']=self::getlogisticsInfoByNo($order['logistics_company'],$order['logistics_no']);
+        }
         $param=array(
             'admin'=>$admin,
             'data'=>$order,
@@ -96,6 +102,22 @@ class OrderController
             return view('admin.index.error500', $param);
         }
         return $return;
+    }
+
+    /*
+     * 获取物流信息
+     */
+    public function getlogisticsInfoByNo($com, $no){
+        $param = array(
+            'pro_code' => Utils::PRO_CODE,       //项目pro_code应该统一管理，建议在Utils中定义一个通用变量
+            'com' => $com,//物流公司编号
+            'no' => $no,//物流单号
+        );
+        $result = Utils::curl('http://common.isart.me/api/common/express/getByNo', $param, true);   //访问接口
+        if($result){
+            $result = json_decode($result, true);   //因为返回的已经是json数据，为了适配makeResponse方法，所以进行json转数组操作
+        }
+        return $result;
     }
 
     //点击退款成功
@@ -172,8 +194,8 @@ class OrderController
             'pro_code' => Utils::PRO_CODE,       //项目pro_code应该统一管理，建议在Utils中定义一个通用变量
         );
         $result = Utils::curl('http://common.isart.me/api/common/express/getExpressComs', $param, true);   //访问接口
-        if($result['result']){
-            $result = json_decode($result['ret']['result'], true);   //因为返回的已经是json数据，为了适配makeResponse方法，所以进行json转数组操作
+        if($result){
+            $result = json_decode($result, true);   //因为返回的已经是json数据，为了适配makeResponse方法，所以进行json转数组操作
         }
         return $result;
     }

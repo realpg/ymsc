@@ -310,44 +310,63 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     <h4>物流信息</h4>
                                 </div>
-                                <div class="modal-body max-height-modal overflow-y-scroll">
-                                    <div class="position-relative margin-top-10 margin-left-10 margin-right-10 padding-bottom-10 border-box-active">
-                                        <div class="row position-relative margin-top-10 font-size-14">
-                                            <div class="col-xs-6 col-sm-3 text-right">物 流 公 司：</div>
-                                            <div class="col-xs-6 col-sm-9">
-                                                @if($order['logistics_company']=='ST')
-                                                    申通
-                                                @elseif($order['logistics_company']=='YT')
-                                                    圆通
-                                                @endif
+                                @if($order['logistics_company']&&$order['logistics_no'])
+                                    <div class="modal-body max-height-modal overflow-y-scroll">
+                                        <div class="position-relative margin-top-10 margin-left-10 margin-right-10 padding-bottom-10 border-box-active">
+                                            <div class="row position-relative margin-top-10 font-size-14">
+                                                <div class="col-xs-6 col-sm-3 text-right">物 流 公 司：</div>
+                                                <div class="col-xs-6 col-sm-9">
+                                                    {{$order['logistics']['ret']['result']['company']}}
+                                                </div>
+                                            </div>
+                                            <div class="row position-relative margin-top-10">
+                                                <div class="col-xs-6 col-sm-3 text-right">物 流 单 号：</div>
+                                                <div class="col-xs-6 col-sm-9">{{$order['logistics_no']}}</div>
+                                            </div>
+                                            <div class="row position-relative margin-top-10">
+                                                <div class="col-xs-6 col-sm-3 text-right">收 货 地 址：</div>
+                                                <div class="col-xs-6 col-sm-9">
+                                                    {{$order['address']['province']}} {{$order['address']['city']}} {{$order['address']['town']}}
+                                                    {{$order['address']['detail']}}<br />
+                                                    <span class="margin-right-50">收货人：{{$order['address']['name']}}</span>联系电话：{{$order['address']['phonenum']}}<br />
+                                                    @if($order['address']['phone'])
+                                                        <span class="margin-right-50">收货人：固定电话：{{$order['address']['phone']}}</span>
+                                                    @endif
+                                                    @if($order['address']['code'])
+                                                        邮编：{{$order['address']['code']}}
+                                                    @endif
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row position-relative margin-top-10">
-                                            <div class="col-xs-6 col-sm-3 text-right">物 流 单 号：</div>
-                                            <div class="col-xs-6 col-sm-9">{{$order['logistics_no']}}</div>
-                                        </div>
-                                        <div class="row position-relative margin-top-10">
-                                            <div class="col-xs-6 col-sm-3 text-right">收 货 地 址：</div>
-                                            <div class="col-xs-6 col-sm-9">
-                                                {{$order['address']['province']}} {{$order['address']['city']}} {{$order['address']['town']}}
-                                                {{$order['address']['detail']}}<br />
-                                                <span class="margin-right-50">收货人：{{$order['address']['name']}}</span>联系电话：{{$order['address']['phonenum']}}<br />
-                                                @if($order['address']['phone'])
-                                                    <span class="margin-right-50">收货人：固定电话：{{$order['address']['phone']}}</span>
-                                                @endif
-                                                @if($order['address']['code'])
-                                                    邮编：{{$order['address']['code']}}
-                                                @endif
+                                        @if($order['logistics']['ret']['resultcode']==200)
+                                            <ul class="margin-top-20 margin-bottom-20 font-size-14 padding-left-10 padding-right-10">
+                                                @foreach($order['logistics']['ret']['result']['list'] as $list)
+                                                    <li>
+                                                        <span class="glyphicon glyphicon-play margin-right-20" aria-hidden="true"></span>
+                                                        <span class="margin-right-20">{{$list['datetime']}}</span>{{$list['remark']}}
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            {{--<div class="margin-top-10 margin-right-10 margin-left-10 text-center">--}}
+                                                {{--<img src="{{ URL::asset('img/nothing.png') }}"  />--}}
+                                            {{--</div>--}}
+                                            <div class="margin-top-20 text-center index-font">
+                                                {{$order['logistics']['ret']['reason']}}
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
-                                    <div class="margin-top-10 margin-bottom-10 text-center">
-                                        暂未上传物流信息
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                </div>
+                                @else
+                                    <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
+                                        <img src="{{ URL::asset('img/nothing.png') }}"  />
+                                    </div>
+                                    <div class="margin-top-20 text-center index-font">
+                                        查不到物流信息！
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

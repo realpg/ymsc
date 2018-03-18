@@ -303,8 +303,9 @@
                         <div class="formControls col-xs-8 col-sm-9">
                             <span class="select-box">
                                 <select id="type" name="logistics_company" id="logistics_company" class="select">
-                                    <option value="ST" {{$data['logistics_company']=='ST'?'selected':''}}>申通</option>
-                                    <option value="YT" {{$data['logistics_company']=='YT'?'selected':''}}>圆通</option>
+                                    @foreach($data['expressComs'] as $expressCom)
+                                        <option value="{{$expressCom['no']}}" {{$data['logistics_company']==$expressCom['no']?'selected':''}}>{{$expressCom['com']}}</option>
+                                    @endforeach
                                 </select>
                             </span>
                         </div>
@@ -321,6 +322,22 @@
                             <span class="c-red">*物流信息一旦保存，禁止修改！请核对后再点击保存</span>
                         </div>
                     </div>
+                    @if($data['logistics_company']&&$data['logistics_no'])
+                        @if($data['logistics']['ret']['resultcode']==200)
+                            @foreach($data['logistics']['ret']['result']['list'] as $list)
+                                <div class="row cl">
+                                    <label class="form-label col-xs-6 col-sm-4">{{$list['datetime']}}</label>
+                                    <div class="formControls col-xs-6 col-sm-8">
+                                        <span>{{$list['remark']}}</span>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="margin-top-20 index-font col-xs-12 col-sm-12 text-c">
+                                {{$data['logistics']['ret']['reason']}}
+                            </div>
+                        @endif
+                    @endif
                     <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             @if(($data['status']==2||$data['status']==6)&&empty($data['logistics_company'])&&empty($data['logistics_no']))
