@@ -48,7 +48,7 @@
                     {{--</li>--}}
                     <li class="hidden-sm hidden-md dropdown {{$column=='index'?'style-home-nav-active':''}}" style="border:0;">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            栏目
+                            商城
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" style="background-color: #01061a;">
