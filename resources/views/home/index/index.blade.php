@@ -10,10 +10,10 @@
         </div>
         <div class="style-home-index-search padding-top-50" style="width:640px;">
             <form class="form-search-all" method="get" action="{{ URL::asset($column.'/search/') }}" id="form-search-all">
-                <div style="width:540px;float: left;">
+                <div class="style-home-index-search-input" style="width:540px;float: left;">
                     <input type="text" id="search" name="search" class="style-home-index-form-control width-100" style="height:36px;" placeholder="输入搜索内容" />
                 </div>
-                <div style="width:100px;float: left;">
+                <div class="style-home-index-search-btn" style="width:100px;float: left;">
                     <button type="submit" class="btn-default style-home-index-form-control-button glyphicon glyphicon-search width-100" style="height:36px;"></button>
                 </div>
             </form>
@@ -93,6 +93,14 @@
             CanvasParticle(config);
 
             $('#logo').css('padding-top',winHeight*0.3)
+
+            if(winWidth<500){
+                $('#logo img').css('width','80%');
+                $('#logo img').css('height','auto');
+                $('.style-home-index-search').css('width','80%');
+                $('.style-home-index-search .style-home-index-search-input').css('width','80%');
+                $('.style-home-index-search .style-home-index-search-btn').css('width','20%');
+            }
         });
         function choiceWord(name){
             $('#search').val(name)

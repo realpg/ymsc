@@ -622,6 +622,12 @@
             $('.style-home-footer').addClass('border-top');
             $('.style-home-footer').css('margin','0');
         }
+        var winWidth=$(window).width();
+        if(winWidth<500){
+            $('#style-layouts-header-search .detail-logo').css('display','none')
+            $('#style-layouts-header-search input').css('margin-top','10px')
+            $('#style-layouts-header-search button').css('margin-top','10px')
+        }
     });
 
     //删除购物车
