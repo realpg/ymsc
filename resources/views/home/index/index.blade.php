@@ -30,8 +30,8 @@
                     &nbsp;
                 @endif
             </h5>
-            <div class="row padding-right-15">
-                <div class="col-sm-12 col-md-3 padding-right-0">
+            <div class="row padding-right-15" id="menu-card">
+                <div class="col-sm-3 col-md-3 padding-right-0">
                     @if($friendship)
                         @if($friendship['picture'])
                             <a class="btn btn-default style-home-index-btn" href="{{$friendship['link']}}" target="_blank" role="button" style="width:100%;height:48px;padding:0;">
@@ -48,7 +48,7 @@
                 </div>
                 @foreach($menus as $menu)
                     @if($menu['status']==1)
-                    <div class="col-sm-12 col-md-3 padding-right-0">
+                    <div class="col-sm-3 col-md-3 padding-right-0">
                         @if($menu['picture'])
                             <a class="btn btn-default style-home-index-btn" href="{{URL::asset($menu['route'])}}" role="button" style="width:100%;height:48px;padding:0;">
                                 <img src="{{$menu['picture']}}" class="width-100" style="height:48px;" />

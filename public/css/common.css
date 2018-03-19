@@ -1335,6 +1335,10 @@ label.error {
     .style-home-index-btn{
         width:25.5rem;
     }
+    #menu-card{
+        display:none;
+    }
+
 }
 @media screen and (max-width:992px) {
     #style-home-league-contact-company{
