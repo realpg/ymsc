@@ -3,7 +3,7 @@
         <div class="style-home-header-container">
             <div class="col-xs-0 col-sm-4 col-lg-4 text-center detail-logo" >
                 <a href="{{URL::asset('/')}}">
-                    <img src="{{ URL::asset($common['base']['logo_page']) }}" class="width-100"  />
+                    <img src="{{ URL::asset($common['base']['logo_page']) }}?imageView2/2/w/200"   />
                 </a>
             </div>
             <div class="col-xs-12 col-sm-8 col-lg-8 padding-top-22 padding-bottom-22 detail-search">

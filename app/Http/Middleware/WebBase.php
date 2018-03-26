@@ -1,21 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2018/2/1
- * Time: 10:15
- */
 
-namespace app\Http\Middleware;
+namespace App\Http\Middleware;
 
+use App\Components\BannerManager;
 use App\Components\BaseManager;
 use App\Components\MenuManager;
 use App\Components\ServiceManager;
-use App\Http\Controllers\ApiResponse;
 use Closure;
 
 class WebBase
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
     public function handle($request, Closure $next)
     {
         $base=BaseManager::getBaseInfo();
