@@ -175,19 +175,37 @@
         var t = $("#text_box");
         //初始化数量为1,并失效减
         $('#min').attr('disabled',true);
+        $('#min').addClass('no_click');
+        // 判断库存是否为1，如果为1就不能点击
+        var stock=Math.abs(parseInt('{{$goods['stock']}}'))
+        if(stock==1){
+            $('#add').addClass('no_click');
+            $('#add').attr('disabled',true);
+        }
         //数量增加操作
         $("#add").click(function(){
             // 给获取的val加上绝对值，避免出现负数
-            var stock=Math.abs(parseInt('{{$goods['stock']}}'))
-            if((Math.abs(parseInt(t.val()))+1)<=stock){
+            {{--var stock=Math.abs(parseInt('{{$goods['stock']}}'))--}}
+            if((Math.abs(parseInt(t.val()))+1)<stock){
                 t.val(Math.abs(parseInt(t.val()))+1);
                 if (parseInt(t.val())!=1){
                     $('#min').attr('disabled',false);
+                    $('#min').removeClass('no_click');
                 };
             }
+            else if((Math.abs(parseInt(t.val()))+1)==stock){
+                t.val(Math.abs(parseInt(t.val()))+1);
+                if (parseInt(t.val())!=1){
+                    $('#min').attr('disabled',false);
+                    $('#min').removeClass('no_click');
+                };
+                $('#add').attr('disabled',true);
+                $('#add').addClass('no_click');
+            }
             else{
-                $('#max').attr('disabled',false);
-                layer.msg('数量已到上限', {icon: 2, time: 3000})
+                $('#add').attr('disabled',true);
+                $('#add').addClass('no_click');
+                // layer.msg('数量已到上限', {icon: 2, time: 3000})
             }
         })
         //数量减少操作
@@ -195,7 +213,22 @@
             t.val(Math.abs(parseInt(t.val()))-1);
             if (parseInt(t.val())==1){
                 $('#min').attr('disabled',true);
-            };
+                $('#min').addClass('no_click');
+                // layer.msg('数量必须大于1', {icon: 2, time: 3000})
+            }
+            else{
+                $('#min').removeClass('no_click');
+            }
+            // 判断是否等于库存，如果不等于就移除样式改为可以点击
+            {{--            var stock=Math.abs(parseInt('{{$goods['stock']}}'))--}}
+            if(parseInt(t.val())==stock){
+                $('#add').addClass('no_click');
+                $('#add').attr('disabled',true);
+            }
+            else{
+                $('#add').removeClass('no_click');
+                $('#add').attr('disabled',false);
+            }
         })
     });
 

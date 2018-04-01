@@ -63,13 +63,17 @@
                         <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;" id="price_{{$cart['id']}}">{{$cart['goods_info']['price']/100}}</td>
                         <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">{{$cart['goods_info']['unit']}}</td>
                         <td class="border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
-                            <input id="min_{{$cart['id']}}" onclick="minCount('{{$cart['id']}}')" name="" type="button" value="-" class="background-none border-div" />
+                            <input id="min_{{$cart['id']}}" onclick="minCount('{{$cart['id']}}')" name="" type="button" value="-" class="background-none border-div {{$cart['count']==1?'no_click':''}}" {{$cart['count']==1?'disabled':''}} />
                             @if($cart['goods_id']!=1)
                                 <input id="text_box_{{$cart['id']}}" name="count" type="text" value="{{$cart['count']>$cart['goods_info']['stock']?$cart['goods_info']['stock']:$cart['count']}}" class="border-div width-50px common-text-align-center" readonly/>
                             @else
                                 <input id="text_box_{{$cart['id']}}" name="count" type="text" value="{{$cart['count']}}" class="border-div width-50px common-text-align-center" readonly/>
                             @endif
-                            <input id="add_{{$cart['id']}}" onclick="addCount('{{$cart['id']}}')" name="" type="button" value="+" class="background-none border-div" />
+                            @if($cart['goods_id']!=1)
+                                <input id="add_{{$cart['id']}}" onclick="addCount('{{$cart['id']}}')" name="" type="button" value="+" class="background-none border-div {{$cart['count']==$cart['goods_info']['stock']?'no_click':''}}" {{$cart['count']==$cart['goods_info']['stock']?'disabled':''}} />
+                            @else
+                                <input id="add_{{$cart['id']}}" onclick="addCount('{{$cart['id']}}')" name="" type="button" value="+" class="background-none border-div" />
+                            @endif
                         </td>
                         @if($cart['goods_id']==1)
                             <td class="border-bottom-attribute" id="stock_{{$cart['id']}}" style="display:table-cell;vertical-align:middle;">无限</td>
@@ -164,6 +168,7 @@
         var t=$("#text_box_"+id);
         var count=Math.abs(parseInt(t.val()))-1
         if (parseInt(t.val())==1){
+            layer.msg('数量必须大于1', {icon: 2, time: 3000})
             $('#min_'+id).attr('disabled',true);
         }
         else{
@@ -173,7 +178,7 @@
     }
     function addCount(id){
         var t=$("#text_box_"+id);
-        $('#min_'+id).attr('disabled',true);
+        // $('#min_'+id).attr('disabled',true);
         var count=Math.abs(parseInt(t.val()))+1
         var stock=$('#stock_'+id).text();
         if(stock=='无限'){
@@ -191,7 +196,7 @@
                 editShoppingCartCount(id,count)
             }
             else{
-                $('#max').attr('disabled',false);
+                $('#add_'+id).attr('disabled',false);
                 layer.msg('数量已到上限', {icon: 2, time: 3000})
             }
         }
@@ -210,7 +215,30 @@
                 var price=parseFloat($('#price_'+id).text());
                 var total=(price*count).toFixed(2);
                 $('#total_'+id).text(total);
+
+                //判断数量的状态，如果小于1失效减，如果大于库存失效加
+                var stock=$('#stock_'+id).text();
+                stock=Math.abs(parseInt(stock))
+                if(count>=stock){
+                    $('#add_'+id).addClass('no_click');
+                    $('#add_'+id).attr('disabled',true);
+                }
+                else{
+                    $('#add_'+id).removeClass('no_click');
+                    $('#add_'+id).attr('disabled',false);
+                }
+                if(count<=1){
+                    $('#min_'+id).addClass('no_click');
+                    $('#min_'+id).attr('disabled',true);
+                }
+                else{
+                    $('#min_'+id).removeClass('no_click');
+                    $('#min_'+id).attr('disabled',false);
+                }
+
                 statistics()
+
+
             }
             else{
                 layer.msg('操作失败', {icon: 2, time: 3000})

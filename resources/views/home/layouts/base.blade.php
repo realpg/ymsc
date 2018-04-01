@@ -281,14 +281,15 @@
                             <input type="text" class="form-control" name="searching_count" id="searching_count" placeholder="采购数量">
                         </div>
                         <div class=" col-xs-6 col-sm-6 padding-left-0">
-                            <select name="searching_unit" class="form-control">
-                                <option value="g">g</option>
-                                <option value="ton">ton</option>
-                                <option value="kg">kg</option>
-                                <option value="mg">mg</option>
-                                <option value="L">L</option>
-                                <option value="ml">ml</option>
-                            </select>
+                            <input type="text" class="form-control" name="searching_unit" id="searching_unit" placeholder="单位">
+                            {{--<select name="searching_unit" class="form-control">--}}
+                                {{--<option value="g">g</option>--}}
+                                {{--<option value="ton">ton</option>--}}
+                                {{--<option value="kg">kg</option>--}}
+                                {{--<option value="mg">mg</option>--}}
+                                {{--<option value="L">L</option>--}}
+                                {{--<option value="ml">ml</option>--}}
+                            {{--</select>--}}
                         </div>
                     </div>
                     <div class="margin-top-5 col-xs-12 col-sm-12 ">
@@ -535,15 +536,15 @@
                 maxlength:11,
                 minlength:11,
             },
-            searching_province:{
-                required:true,
-            },
-            searching_city:{
-                required:true,
-            },
-            searching_address:{
-                required:true,
-            },
+            // searching_province:{
+            //     required:true,
+            // },
+            // searching_city:{
+            //     required:true,
+            // },
+            // searching_address:{
+            //     required:true,
+            // },
         },
         onkeyup: false,
         focusCleanup: false,

@@ -194,8 +194,8 @@
                                     <tr class="line-height-40" id="row_{{$invoice['id']}}">
                                         <td class="text-center style-ellipsis-1 border-bottom-attribute">普通</td>
                                         <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['name']}}</td>
-                                        <td class="style-ellipsis-1 border-bottom-attribute">{{$invoice['phonenum']}}</td>
-                                        <td class="style-ellipsis-1 border-bottom-attribute">{{$invoice['address']}}</td>
+                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['phonenum']}}</td>
+                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['address']}}</td>
                                         <td class="text-center style-ellipsis-1 border-bottom-attribute">
                                             <a href="" data-toggle="modal" data-target="#invoiceModel_{{$invoice['id']}}" >
                                                 <span class="text-blue padding-left-5 padding-right-5">详 情</span>
@@ -262,8 +262,8 @@
                                     <tr class="line-height-40" id="row_{{$invoice['id']}}">
                                         <td class="text-center style-ellipsis-1 border-bottom-attribute">专用</td>
                                         <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['name']}}</td>
-                                        <td class="style-ellipsis-1 border-bottom-attribute">{{$invoice['phonenum']}}</td>
-                                        <td class="style-ellipsis-1 border-bottom-attribute">{{$invoice['address']}}</td>
+                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['phonenum']}}</td>
+                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['address']}}</td>
                                         <td class="text-center style-ellipsis-1 border-bottom-attribute">
                                             <a href="" data-toggle="modal" data-target="#invoiceModel_{{$invoice['id']}}" >
                                                 <span class="text-blue padding-left-5 padding-right-5">详 情</span>

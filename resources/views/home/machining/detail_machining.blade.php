@@ -31,7 +31,9 @@
                 <h4 class="style-ellipsis-1 line-height-30">产品材料：{{$goods['attribute']['material']?$goods['attribute']['material']:'未设置'}}</h4>
                 <div class="row margin-top-20 margin-bottom-20">
                     <div class="col-md-6 col-lg-3">
+                        <a href="tencent://message/?Menu=yes&uin={{$service['qq']}}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45">
                         <button type="button" class="btn btn-default width-100 border-radius-0 background-none">立 即 咨 询</button>
+                        </a>
                     </div>
                 </div>
             </div>

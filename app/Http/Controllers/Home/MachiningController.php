@@ -15,6 +15,7 @@ use App\Components\DrawingManager;
 use App\Components\GoodsManager;
 use App\Components\MenuManager;
 use App\Components\QNManager;
+use App\Components\ServiceManager;
 use App\Http\Controllers\Controller;
 use App\Models\DrawingModel;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class MachiningController extends Controller
 {
     const MENU_ID = 3;  //一级栏目
     const COLUMN = 'machining';
+    const SERVICE_ID = 3;  //客服id
     public function index(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
@@ -38,6 +40,8 @@ class MachiningController extends Controller
         }
         //生成七牛token
         $upload_token = QNManager::uploadToken();
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -49,7 +53,8 @@ class MachiningController extends Controller
                 'channel'=>$channel,
                 'banners'=>$banners,
                 'upload_token'=>$upload_token,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -60,7 +65,8 @@ class MachiningController extends Controller
                 'menus'=>$menus,
                 'channel'=>$channel,
                 'banners'=>$banners,
-                'upload_token'=>$upload_token
+                'upload_token'=>$upload_token,
+                'service'=>$service
             );
         }
         return view('home.machining.index',$param);
@@ -83,6 +89,8 @@ class MachiningController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getMachiningClassByMenuId($goods_param);
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user){
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -95,7 +103,8 @@ class MachiningController extends Controller
                 'goodses'=>$goodses,
                 'f_attribute_id'=>$f_attribute_id,
                 's_attribute_id'=>$s_attribute_id,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -107,7 +116,8 @@ class MachiningController extends Controller
                 'attributes'=>$attributes,
                 'goodses'=>$goodses,
                 'f_attribute_id'=>$f_attribute_id,
-                's_attribute_id'=>$s_attribute_id
+                's_attribute_id'=>$s_attribute_id,
+                'service'=>$service
             );
         }
         return view('home.machining.lists',$param);
@@ -131,6 +141,8 @@ class MachiningController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getMachiningClassBysearch($goods_param);
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -144,7 +156,8 @@ class MachiningController extends Controller
                 'f_attribute_id'=>$f_attribute_id,
                 's_attribute_id'=>$s_attribute_id,
                 'search'=>$search,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -157,7 +170,8 @@ class MachiningController extends Controller
                 'goodses'=>$goodses,
                 'f_attribute_id'=>$f_attribute_id,
                 's_attribute_id'=>$s_attribute_id,
-                'search'=>$search
+                'search'=>$search,
+                'service'=>$service
             );
         }
         return view('home.machining.search',$param);
@@ -178,6 +192,8 @@ class MachiningController extends Controller
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $goods['cases']=GoodsManager::getGoodsCaseByGoodsId($goods_id);
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -187,7 +203,8 @@ class MachiningController extends Controller
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -196,7 +213,8 @@ class MachiningController extends Controller
                 'column'=>$column,
                 'user'=>$user,
                 'channel'=>$channel,
-                'goods'=>$goods
+                'goods'=>$goods,
+                'service'=>$service
             );
         }
         return view('home.machining.detail_machining',$param);
@@ -217,6 +235,8 @@ class MachiningController extends Controller
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $goods['other_goodses']=GoodsManager::getStandardListsByComponent($goods['attribute']['id'],$goods['attribute']['component']);
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -226,7 +246,8 @@ class MachiningController extends Controller
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -235,7 +256,8 @@ class MachiningController extends Controller
                 'column'=>$column,
                 'user'=>$user,
                 'channel'=>$channel,
-                'goods'=>$goods
+                'goods'=>$goods,
+                'service'=>$service
             );
         }
         return view('home.machining.detail_standard',$param);

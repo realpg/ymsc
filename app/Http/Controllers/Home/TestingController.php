@@ -13,6 +13,7 @@ use App\Components\AttributeManager;
 use App\Components\BannerManager;
 use App\Components\GoodsManager;
 use App\Components\MenuManager;
+use App\Components\ServiceManager;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class TestingController extends Controller
 {
     const MENU_ID = 2;  //一级栏目
     const COLUMN = 'testing';
+    const SERVICE_ID = 2;  //客服id
     public function index(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
@@ -33,6 +35,8 @@ class TestingController extends Controller
             $menu_id=$menu['id'];
             $menu['testing_goodses']=GoodsManager::getTestingGoodsesWithHot($menu_id);
         }
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -43,7 +47,8 @@ class TestingController extends Controller
                 'menus'=>$menus,
                 'channel'=>$channel,
                 'banners'=>$banners,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -53,7 +58,8 @@ class TestingController extends Controller
                 'user'=>$user,
                 'menus'=>$menus,
                 'channel'=>$channel,
-                'banners'=>$banners
+                'banners'=>$banners,
+                'service'=>$service
             );
         }
         return view('home.testing.index',$param);
@@ -76,6 +82,8 @@ class TestingController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getTestingClassByMenuId($goods_param);
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -88,7 +96,8 @@ class TestingController extends Controller
                 'goodses'=>$goodses,
                 'f_attribute_id'=>$f_attribute_id,
                 's_attribute_id'=>$s_attribute_id,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -100,7 +109,8 @@ class TestingController extends Controller
                 'attributes'=>$attributes,
                 'goodses'=>$goodses,
                 'f_attribute_id'=>$f_attribute_id,
-                's_attribute_id'=>$s_attribute_id
+                's_attribute_id'=>$s_attribute_id,
+                'service'=>$service
             );
         }
         return view('home.testing.lists',$param);
@@ -124,6 +134,8 @@ class TestingController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getTestingClassBysearch($goods_param);
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -137,7 +149,8 @@ class TestingController extends Controller
                 'f_attribute_id'=>$f_attribute_id,
                 's_attribute_id'=>$s_attribute_id,
                 'search'=>$search,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -150,7 +163,8 @@ class TestingController extends Controller
                 'goodses'=>$goodses,
                 'f_attribute_id'=>$f_attribute_id,
                 's_attribute_id'=>$s_attribute_id,
-                'search'=>$search
+                'search'=>$search,
+                'service'=>$service
             );
         }
         return view('home.testing.search',$param);
@@ -171,6 +185,8 @@ class TestingController extends Controller
         $channel=MenuManager::getMenuById($goods['menu_id']);
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
+        //QQ客服
+        $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -180,7 +196,8 @@ class TestingController extends Controller
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'service'=>$service
             );
         }
         else{
@@ -189,7 +206,8 @@ class TestingController extends Controller
                 'column'=>$column,
                 'user'=>$user,
                 'channel'=>$channel,
-                'goods'=>$goods
+                'goods'=>$goods,
+                'service'=>$service
             );
         }
         return view('home.testing.detail',$param);

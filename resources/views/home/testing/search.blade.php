@@ -20,7 +20,9 @@
                             <div class="goods-lists-picture">
                                 <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">
                             </div>
+                            <a href="tencent://message/?Menu=yes&uin={{$service['qq']}}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45">
                             <button type="button" class="btn btn-info margin-top-10 margin-bottom-10">立 即 咨 询</button>
+                            </a>
                             @if($goods['goods_attribute']['lab'])
                                 <h4 class="style-ellipsis-1">实验室：{{$goods['goods_attribute']['lab']}}</h4>
                             @else
