@@ -57,6 +57,9 @@
             else if($('#league-body').height()>800){
                 $('#league-content').css('padding-top','200px');
             }
+            else if($('#league-body').height()>900){
+                $('#league-content').css('padding-top','250px');
+            }
             //编辑网站基本信息
             $("#form-league-edit").validate({
                 rules: {
