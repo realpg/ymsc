@@ -53,13 +53,13 @@
 
             var bodyHeight=$('#league-body').height();
             if(bodyHeight>700&&bodyHeight<=800){
-                $('#league-content').css('padding-top','100px');
+                $('#league-content').css('padding-top','40px');
             }
             else if(bodyHeight>800&&bodyHeight<=900){
-                $('#league-content').css('padding-top','200px');
+                $('#league-content').css('padding-top','140px');
             }
             else if(bodyHeight>900){
-                $('#league-content').css('padding-top','300px');
+                $('#league-content').css('padding-top','240px');
             }
             //编辑网站基本信息
             $("#form-league-edit").validate({
