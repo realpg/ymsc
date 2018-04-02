@@ -1,6 +1,6 @@
 @extends('home.layouts.base')
 @section('content')
-    <div id="league-body" style="max-height:813px;">
+    <div id="league-body" >
         <div class="style-home-nav-station"></div>
         <div class="container">
             <div class="row">
