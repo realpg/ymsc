@@ -52,7 +52,7 @@
             $('#league-body').css('height',winHeight-45);
 
             if(winHeight-45>600){
-                $('#league-content').css('margin-top','100px;');
+                $('#league-content').css('padding-top','100px;');
             }
             //编辑网站基本信息
             $("#form-league-edit").validate({
