@@ -1,12 +1,5 @@
 @extends('home.layouts.base')
 @section('content')
-    <style>
-        @media screen and (min-width: 1370px){
-            #league-content{
-                margin-top:10px;
-            }
-        }
-    </style>
     <div id="league-body" style="min-height:592px;">
         <div class="style-home-nav-station"></div>
         <div class="container" id="league-content">
@@ -57,6 +50,10 @@
             var winHeight=$(window).height();
             $('#league-body').css('width',winWidth);
             $('#league-body').css('height',winHeight-45);
+
+            if(winHeight-45>600){
+                $('#league-content').css('margin-top','100px;');
+            }
             //编辑网站基本信息
             $("#form-league-edit").validate({
                 rules: {
