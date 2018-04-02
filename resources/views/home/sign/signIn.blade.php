@@ -52,13 +52,13 @@
             $('#sign-body').css('height',winHeight-45);
             var bodyHeight=$('#sign-body').height();
             if(bodyHeight>700&&bodyHeight<=800){
-                $('#sign-form').css('padding-top','100px');
+                $('#sign-form').css('padding-top','80px');
             }
             else if(bodyHeight>800&&bodyHeight<=900){
-                $('#sign-form').css('padding-top','200px');
+                $('#sign-form').css('padding-top','120px');
             }
             else if(bodyHeight>900){
-                $('#sign-form').css('padding-top','300px');
+                $('#sign-form').css('padding-top','180px');
             }
             //编辑网站基本信息
             $("#form-signIn").validate({
