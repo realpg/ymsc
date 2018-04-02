@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xs-12 col-md-8"></div>
                 <div class="col-xs-12 col-md-4">
-                    <div class="padding-top-50">
+                    <div class="padding-top-50" id="sign-form">
                         <div class="panel panel-default" style="height:413px;">
                             <div class="panel-body">
                                 <ul class="nav nav-tabs">
@@ -51,6 +51,16 @@
             var winHeight=$(window).height();
             $('#sign-body').css('width',winWidth);
             $('#sign-body').css('height',winHeight-45);
+            var bodyHeight=$('#sign-body').height();
+            if(bodyHeight>700&&bodyHeight<=800){
+                $('#sign-form').css('padding-top','80px');
+            }
+            else if(bodyHeight>800&&bodyHeight<=900){
+                $('#sign-form').css('padding-top','120px');
+            }
+            else if(bodyHeight>900){
+                $('#sign-form').css('padding-top','180px');
+            }
             //编辑网站基本信息
             $("#form-signUp-email").validate({
                 rules: {
