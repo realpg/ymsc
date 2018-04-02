@@ -1200,6 +1200,7 @@ label.error {
 }
 #sign-body{
     background:url(../img/bg_sign.png)no-repeat;
+    background-size: cover;
 }
 .nav-tabs > li > a:hover{
     background: #ddd;
