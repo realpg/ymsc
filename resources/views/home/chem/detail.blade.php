@@ -56,6 +56,21 @@
                             <button type="button" class="btn btn-default width-100 border-radius-0 background-none" onclick="addShoppingCart('{{$goods['id']}}')">加入购物车</button>
                         </div>
                     </div>
+                @else
+                    <h4 class="style-ellipsis-1 line-height-30 margin-top-20">
+                        数量：
+                        <input id="min" name="" type="button" value="-" class="background-none border-div no_click" disabled="true" />
+                        <input id="text_box" name="" type="text" value="0" class="border-div width-50px common-text-align-center no_click" readonly/>
+                        <input id="add" name="" type="button" value="+" class="background-none border-div no_click" disabled="true" />
+                    </h4>
+                    <div class="row margin-top-20 margin-bottom-20">
+                        <div class="col-xs-6 col-sm-3">
+                            <button type="button" onclick="getNotice()" class="btn btn-danger width-100 border-radius-0">购 买</button>
+                        </div>
+                        <div class="col-xs-6 col-sm-3">
+                            <button type="button" class="btn btn-default width-100 border-radius-0 background-none" onclick="getNotice()">加入购物车</button>
+                        </div>
+                    </div>
                 @endif
             </div>
             <div class="clear"></div>
@@ -290,6 +305,11 @@
         else{
             layer.msg('数量一栏中请填写大于1的正整数', {icon: 2, time: 3000})
         }
+    }
+
+    //库存为0时的警告
+    function getNotice(){
+        layer.msg('此商品库存已空，商城正在进货中...', {icon: 2, time: 3000})
     }
 </script>
 @endsection
