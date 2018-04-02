@@ -1,8 +1,15 @@
 @extends('home.layouts.base')
 @section('content')
-    <div id="league-body">
+    <style>
+        @media screen and (min-width: 1370px){
+            #league-content{
+                margin-top:10px;
+            }
+        }
+    </style>
+    <div id="league-body" style="min-height:592px;">
         <div class="style-home-nav-station"></div>
-        <div class="container">
+        <div class="container" id="league-content">
             <div class="row">
                 <div class="col-xs-12 col-md-8" id="style-home-league-contact-company">
                     <div class="style-home-league-contact">
