@@ -51,7 +51,8 @@
             $('#league-body').css('width',winWidth);
             $('#league-body').css('height',winHeight-45);
 
-            if((winHeight-45)>600){
+            if($('#league-body').height()>600){
+                alert(1)
                 $('#league-content').css('padding-top','100px;');
             }
             //编辑网站基本信息
