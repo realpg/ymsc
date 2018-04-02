@@ -16,10 +16,6 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap/bootstrap.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/bootstrap/bootstrap-theme.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/iconfont/iconfont.css') }}"/>
-    {{--页面加载--}}
-    <link href="{{URL::asset('css/loading/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('css/loading/Icomoon/style.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{URL::asset('css/loading/default.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/common.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/right.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('/css/carousel.css') }}"/>
@@ -34,20 +30,6 @@
     @show
 </head>
 <body>
-<div id="loading">
-    <div id="loading-center">
-        <div id="loading-center-absolute">
-            <div class="object" id="object_one"></div>
-            <div class="object" id="object_two"></div>
-            <div class="object" id="object_three"></div>
-            <div class="object" id="object_four"></div>
-            <div class="object" id="object_five"></div>
-            <div class="object" id="object_six"></div>
-            <div class="object" id="object_seven"></div>
-            <div class="object" id="object_eight"></div>
-        </div>
-    </div>
-</div>
 @section('header')
     <header class="navbar navbar-inverse navbar-fixed-top style-home-nav-background">
         <div class="container">
@@ -491,8 +473,6 @@
 <script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/area.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/searching-select.js') }}"></script>
 <script type="text/javascript" src="{{URL::asset('js/carousel.js')}}"></script>
-{{--页面加载--}}
-<script type="text/javascript" src="{{URL::asset('js/loading/main.js')}}"></script>
 {{--common.js--}}
 <script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
 <script>

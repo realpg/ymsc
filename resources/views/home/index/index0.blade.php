@@ -2,7 +2,7 @@
 
 @section('content')
     <style>
-        body{background-color: #011931;}
+        body{background-color: #011931}
     </style>
     <div id="mydiv">
         <div class="text-center" id="logo">
