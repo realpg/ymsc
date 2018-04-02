@@ -51,13 +51,14 @@
             $('#league-body').css('width',winWidth);
             $('#league-body').css('height',winHeight-45);
 
-            if($('#league-body').height()>700){
+            var bodyHeight=$('#league-body').height();
+            if(bodyHeight>700&&bodyHeight<=800){
                 $('#league-content').css('padding-top','100px');
             }
-            else if($('#league-body').height()>800){
+            else if(bodyHeight>800&&bodyHeight<=900){
                 $('#league-content').css('padding-top','200px');
             }
-            else if($('#league-body').height()>900){
+            else if(bodyHeight>900){
                 $('#league-content').css('padding-top','300px');
             }
             //编辑网站基本信息
