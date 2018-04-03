@@ -505,7 +505,16 @@ class OrderController
         if($user){
             if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
                 $order=OrderManager::getOrderByUserIdAndTradeNoWithoutSuborderForPay($user['id'],$data['trade_no']);
-
+                //如果支付成功，给商城管理者发送短信通知
+                if($order['status']==2){
+                    $sms_param=array(
+                        'phonenum'=>'13065239441',
+                        'template_id'=>Utils::TEMPLATE_ID,
+                        'pro_code'=>Utils::PRO_CODE,
+                        'sms_txt'=>'您好，商城产生新的订单'.$data['trade_no'].'，请尽快登录系统管理后台查看。'
+                    );
+                    $result=Utils::curl('http://common.isart.me/api/common/sms/sendSMS',$sms_param,1);
+                }
                 $return['result']=true;
                 $return['code']=$order['status'];
                 $return['msg']='查询成功';

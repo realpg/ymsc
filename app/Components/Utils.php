@@ -21,6 +21,7 @@ class Utils
     const ORDER_REFUNDFAILED = "6";    //退款失败
 
     const PRO_CODE='Hh58wm8f51QGjsYxlnJhDbethlJu3nxB';   //项目pro_code应该统一管理
+    const TEMPLATE_ID='198609885'; //短信模板id
 
 
     /*
