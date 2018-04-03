@@ -390,18 +390,6 @@ class OrderController
                 }
                 else{
                     return redirect('center/order');
-//                    $column='center';
-//                    $column_child='order';
-//                    $orders=OrderManager::getOrdersByUserId($user['id']);
-//                    $param=array(
-//                        'common'=>$common,
-//                        'column'=>$column,
-//                        'column_child'=>$column_child,
-//                        'user'=>$user,
-//                        'orders'=>$orders,
-//                        'carts'=>$carts
-//                    );
-//                    return view('home.center.order',$param);
                 }
             }
             else{
@@ -412,6 +400,40 @@ class OrderController
         else{
             $return['result']=false;
             $return['msg']='支付失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+
+    /*
+     * 查询支付状态
+     */
+    public function getOrderState(Request $request){
+        $data=$request->all();
+        unset($data['common']);
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
+                $order=OrderManager::getOrderByUserIdAndTradeNoWithoutSuborderForPay($user['id'],$data['trade_no']);
+                if($order['status']==2){
+                    $return['result']=true;
+                    $return['code']=1;
+                    $return['msg']='支付成功';
+                }
+                else{
+                    $return['result']=true;
+                    $return['code']=0;
+                    $return['msg']='支付失败';
+                }
+            }
+            else{
+                $return['result'] = false;
+                $return['msg'] = '合规校验失败，缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='查询失败，用户信息已过期或已经被清除，请重新登录';
         }
         return $return;
     }

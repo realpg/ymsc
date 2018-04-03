@@ -250,6 +250,10 @@ function payOrder(url, param, callBack) {
 function getTheResultOfPayment(url, param, callBack) {
     ajaxRequest(url + "order/pay/result", param, "GET", callBack);
 }
+//查询支付结果
+function getOrderState(url, param, callBack) {
+    ajaxRequest(url + "order/pay/orderStatus", param, "GET", callBack);
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
