@@ -66,7 +66,6 @@
                     trade_no: '{{$order['trade_no']}}',
                     _token: "{{ csrf_token() }}"
                 }
-                // console.log('getQrcodeState param is : '+JSON.stringify(param))
                 getOrderState('{{URL::asset('')}}', param, function (ret) {
                     console.log('getOrderState is : '+JSON.stringify(ret))
                     if (ret.result == true) {
