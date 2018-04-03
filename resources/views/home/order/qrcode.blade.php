@@ -7,7 +7,7 @@
             @if($order['suborders'])
                 <div class="border-box-active margin-top-20 margin-bottom-50 padding-20 width-100" style="min-height:300px;" id="payInfo">
                     <div class="col-xs-12 col-sm-6">
-                        <h5>距离二维码过期还剩<span class="font-size-18 text-red" id="time">5</span>秒，过期后请重新刷新页面进行支付</h5>
+                        <h5>距离二维码过期还剩<span class="font-size-18 text-red" id="time">45</span>秒，过期后请重新刷新页面进行支付</h5>
                         <div id="output" class="margin-top-20 margin-bottom-20"></div>
                         <div style="width:256px;margin:0 auto;">
                             <h4>请打开微信扫一扫</h4>
