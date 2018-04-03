@@ -415,16 +415,10 @@ class OrderController
         if($user){
             if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
                 $order=OrderManager::getOrderByUserIdAndTradeNoWithoutSuborderForPay($user['id'],$data['trade_no']);
-                if($order['status']==2){
-                    $return['result']=true;
-                    $return['code']=1;
-                    $return['msg']='支付成功';
-                }
-                else{
-                    $return['result']=true;
-                    $return['code']=0;
-                    $return['msg']='支付失败';
-                }
+
+                $return['result']=true;
+                $return['code']=$order['status'];
+                $return['msg']='查询成功';
             }
             else{
                 $return['result'] = false;

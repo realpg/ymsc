@@ -70,11 +70,8 @@
                 getOrderState('{{URL::asset('')}}', param, function (ret) {
                     console.log('getOrderState is : '+JSON.stringify(ret))
                     if (ret.result == true) {
-                        if(ret.code==1){
+                        if(ret.code==2){
                             location.href="{{URL::asset('order/pay/success')}}"
-                        }
-                        else if(ret.code==0){
-                            location.href="{{URL::asset('order/pay/fail/'.$order['trade_no'])}}"
                         }
                     }
                     else {
