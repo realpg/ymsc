@@ -242,9 +242,13 @@ function addOrder(url, param, callBack) {
 function addGoodsOrder(url, param, callBack) {
     $.post(url + "order/addGoods",param,callBack);
 }
-//支付
+//微信支付
 function payOrder(url, param, callBack) {
     $.post(url + "order/pay",param,callBack);
+}
+//支付宝支付
+function payOrderByAli(url, param, callBack) {
+    $.post(url + "order/alipay",param,callBack);
 }
 //支付结果
 function getTheResultOfPayment(url, param, callBack) {

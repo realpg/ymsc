@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 //});
 //用户类路由
 Route::group(['prefix' => '', 'middleware' => ['BeforeRequest']], function () {
-    //支付结果通知    请勿调用
+    //微信支付结果通知    请勿调用
     Route::any('order/notify', 'API\WechatController@wechatNotify');
+    //支付宝支付结果通知    请勿调用
+    Route::any('order/aliNotify', 'API\WechatController@aliNotify');
 });

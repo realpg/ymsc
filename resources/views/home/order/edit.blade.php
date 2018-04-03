@@ -451,16 +451,21 @@
                         <div class="border-callout-info padding-left-10">
                             <h4>支付方式</h4>
                         </div>
+                        <input type="hidden" id="pay_type" value="wx" />
                         <div class="row margin-bottom-20 padding-left-20 padding-right-20 border-bottom-detail">
                             <div class="col-xs-12 col-sm-2">
-                                <div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box-active height-50" style="text-align: center;">
-                                    <img src="{{URL::asset('img/wechat.png')}}" class="height-100" />
-                                </div>
+                                <a href="javascript:" onclick="switchPaymentMethod('wx')">
+                                    <div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box border-box-active height-50" style="text-align: center;" id="wx">
+                                        <img src="{{URL::asset('img/wechat.png')}}" class="height-100" />
+                                    </div>
+                                </a>
                             </div>
                             {{--<div class="col-xs-12 col-sm-2">--}}
-                                {{--<div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box height-80" style="text-align: center;">--}}
-                                    {{--<img src="{{URL::asset('img/alipay.png')}}" class="height-100" />--}}
-                                {{--</div>--}}
+                                {{--<a href="javascript:" onclick="switchPaymentMethod('ali')">--}}
+                                    {{--<div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box height-50" style="text-align: center;" id="ali">--}}
+                                        {{--<img src="{{URL::asset('img/alipay.png')}}" class="height-100" />--}}
+                                    {{--</div>--}}
+                                {{--</a>--}}
                             {{--</div>--}}
                         </div>
                     </div>
@@ -697,20 +702,51 @@
         var invoice_id=$("input[name='invoice_id']:checked").val();
         var trade_no=$('#trade_no').text();
         var content=$('#content').val();
-        var param = {
-            address_id: address_id,
-            invoice_id:invoice_id,
-            trade_no:trade_no,
-            content:content,
-            _token: "{{ csrf_token() }}"
-        }
-        payOrder('{{URL::asset('')}}', param, function (ret) {
-            if (ret.result == true) {
-                window.location.href = "{{URL::asset('order/pay/qrcode')}}"+"/"+trade_no;
-            } else {
-                layer.msg(ret.msg, {icon: 2, time: 3000})
+        var pay_type=$('#pay_type').val();
+        if(pay_type=='wx'){
+            var param = {
+                address_id: address_id,
+                invoice_id:invoice_id,
+                trade_no:trade_no,
+                content:content,
+                _token: "{{ csrf_token() }}"
             }
-        })
+            payOrder('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    window.location.href = "{{URL::asset('order/pay/qrcode')}}"+"/"+trade_no;
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
+            })
+        }
+        else if(pay_type=='ali'){
+            var param = {
+                address_id: address_id,
+                invoice_id:invoice_id,
+                trade_no:trade_no,
+                content:content,
+                _token: "{{ csrf_token() }}"
+            }
+            payOrderByAli('{{URL::asset('')}}', param, function (ret) {
+                if (ret.result == true) {
+                    window.location.href = "{{URL::asset('order/pay/qrcode')}}"+"/"+trade_no;
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
+            })
+        }
+    }
+
+    //切换支付方式
+    function switchPaymentMethod(method){
+        if(method=='ali'){
+            layer.msg('此功能还在开发中...', {icon: 2, time: 3000})
+        }
+        else{
+            $('.border-box-active').removeClass('border-box-active');
+            $('#'+method).addClass('border-box-active');
+            $('#pay_type').val(method)
+        }
     }
 </script>
 @endsection

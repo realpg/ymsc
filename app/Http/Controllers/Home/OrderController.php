@@ -46,6 +46,11 @@ class OrderController
 //        ];
 //        return $config;
 //    }
+
+
+    /*
+     * 配置微信支付
+     */
     private function getConfig()
     {
         $config = [
@@ -60,6 +65,24 @@ class OrderController
             'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
             'log' => [ // optional
                 'file' => app_path() . '/../storage/logs/wechat.log',
+                'level' => 'debug'
+            ]
+        ];
+        return $config;
+    }
+
+    /*
+     * 配置支付宝支付
+     */
+    private function getConfigForAli()
+    {
+        $config = [
+            'appid' => '', // APP APPID
+            'notify_url' => 'http://ymsc.isart.me/api/order/aliNotify',
+            'ali_public_key' => '',     // 支付宝公钥，1行填写
+            'private_key' => '',        // 自己的私钥，1行填写
+            'log' => [ // optional
+                'file' => app_path() . '/../storage/logs/ali.log',
                 'level' => 'debug'
             ]
         ];
@@ -293,7 +316,7 @@ class OrderController
     }
 
     /*
-     * 执行编辑订单
+     * 执行编辑订单（微信）
      */
     public function payDo(Request $request){
         $data=$request->all();
@@ -331,6 +354,73 @@ class OrderController
                 //配置config
                 $config = self::getConfig();
                 $result = Pay::wechat($config)->scan($pay_order);
+//                dd($result);
+                if($result['return_code']){
+//                    设置微信预付订单id（prepay_id）
+                    $order->prepay_id = $result['prepay_id'];
+                    $order->code_url = $result['code_url'];
+                    $order->save();
+//                    //更改会员积分
+//                    $member=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+//                    $member_data['score']=$member['$member']+(int)($order->total_fee/100);
+//                    $member=MemberManager::setUser($member,$member_data);
+//                    $member->save();
+                    $return['result']=true;
+                    $return['msg']='支付二维码生成成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='支付失败';
+                }
+            }
+            else{
+                $return['result'] = false;
+                $return['msg'] = '合规校验失败，缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='支付失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
+    }
+
+    /*
+     * 执行编辑订单（支付宝）
+     */
+    public function aliPayDo(Request $request){
+        $data=$request->all();
+        unset($data['common']);
+        $user=$request->cookie('user');
+        $return=null;
+        if($user){
+            if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
+                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+                if($data['invoice_id']){
+                    $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
+                    $data['invoice_type']=$invoice['type'];
+                }
+                $order=OrderManager::setOrder($order,$data);
+                unset($order['suborders']);
+                $result=$order->save();
+//                dd($result);
+                $suborders=SuborderManager::getSubordersByTradeNo($order->trade_no);
+                $goods_ids='';
+                if($goods_ids){
+                    $goods_ids=substr($goods_ids,0,strlen($goods_ids)-1);
+                }
+                foreach ($suborders as $suborder){
+                    $goods_ids.=$suborder['goods_id'].',';
+                }
+                //进行总订单支付
+                $pay_order = [
+                    'out_trade_no' => $order->trade_no,
+                    'total_amount' => ($order->total_fee)/100,    //支付宝以“元”为单位
+                    'subject' => '优迈商城订单',
+                ];
+                //配置config
+                $config = self::getConfigForAli();
+                $result = Pay::alipay($config)->scan($pay_order);
 //                dd($result);
                 if($result['return_code']){
 //                    设置微信预付订单id（prepay_id）
