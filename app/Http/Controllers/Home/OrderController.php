@@ -389,7 +389,7 @@ class OrderController
                     return view('home.order.qrcode',$param);
                 }
                 else{
-                    return redirect('/order/index');
+                    return redirect('center/order');
 //                    $column='center';
 //                    $column_child='order';
 //                    $orders=OrderManager::getOrdersByUserId($user['id']);
