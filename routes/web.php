@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/baseInfo/edit', 'Admin\BaseController@baseInfoDo');  //编辑网站基本设置
     Route::post('/baseAbout/edit', 'Admin\BaseController@baseAboutDo');  //编辑关于我们
     Route::post('/baseSeo/edit', 'Admin\BaseController@baseSeoDo');  //编辑SEO
+    Route::post('/baseSetting/edit', 'Admin\BaseController@baseSettingDo');  //编辑系统设置
 
     //搜索关键字设置
     Route::get('/word/index', 'Admin\WordController@index');  //关键字管理首页

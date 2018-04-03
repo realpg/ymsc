@@ -81,4 +81,22 @@ class BaseController
         }
         return $return;
     }
+    //编辑系统设置
+    public function baseSettingDo(Request $request){
+        $data = $request->all();
+        $admin = $request->session()->get('admin');
+        $return=null;
+        $base = BaseManager::getBaseInfo();
+        $base = BaseManager::setBase($base,$data);
+        $result=$base->save();
+        if($result){
+            $return['result']=true;
+            $return['msg']='编辑系统设置成功';
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='编辑系统设置失败';
+        }
+        return $return;
+    }
 }

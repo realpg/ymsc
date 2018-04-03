@@ -7,6 +7,7 @@
                 <span>网站基本信息</span>
                 <span>关于我们设置</span>
                 <span>首页SEO设置</span>
+                <span>系统设置</span>
                 <span>补差价商品链接</span>
             </div>
             <div class="tabCon">
@@ -163,6 +164,23 @@
                 </form>
             </div>
             <div class="tabCon">
+                <form class="form form-horizontal" method="post" id="form-baseSetting-edit">
+                    {{csrf_field()}}
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>接收订单通知的手机号：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="sms_phone" name="sms_phone" type="text" class="input-text" value="{{ isset($data['sms_phone']) ? $data['sms_phone'] : '' }}" placeholder="请输入接收订单通知的手机号">
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                            <button onClick="layer_close();" class="btn btn-default radius" type="button">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tabCon">
                 <form class="form form-horizontal" method="post">
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2">商品链接：</label>
@@ -293,6 +311,38 @@
                     $(form).ajaxSubmit({
                         type: 'POST',
                         url: "{{ URL::asset('/admin/baseSeo/edit')}}",
+                        success: function (ret) {
+                            console.log(JSON.stringify(ret));
+                            if (ret.result) {
+                                layer.msg(ret.msg, {icon: 1, time: 2000});
+                            } else {
+                                layer.msg(ret.msg, {icon: 2, time: 2000});
+                            }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('保存失败', {icon: 1, time: 2000});
+                            console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                            console.log("textStatus:" + textStatus);
+                            console.log("errorThrown:" + errorThrown);
+                        }
+                    });
+                }
+
+            });
+            //编辑系统设置
+            $("#form-baseSetting-edit").validate({
+                rules: {
+                    sms_phone:{
+                        required:true,
+                    }
+                },
+                onkeyup: false,
+                focusCleanup: false,
+                success: "valid",
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        type: 'POST',
+                        url: "{{ URL::asset('/admin/baseSetting/edit')}}",
                         success: function (ret) {
                             console.log(JSON.stringify(ret));
                             if (ret.result) {

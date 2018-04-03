@@ -499,6 +499,7 @@ class OrderController
      */
     public function getOrderState(Request $request){
         $data=$request->all();
+        $common=$data['common'];
         unset($data['common']);
         $user=$request->cookie('user');
         $return=null;
@@ -508,13 +509,12 @@ class OrderController
                 //如果支付成功，给商城管理者发送短信通知
                 if($order['status']==2){
                     $sms_param=array(
-                        'phonenum'=>'13065239441',
+                        'phonenum'=>$common['base']['sms_phone'],
                         'template_id'=>Utils::TEMPLATE_ID,
                         'pro_code'=>Utils::PRO_CODE,
                         'sms_txt'=>'您好，商城产生新的订单'.$data['trade_no'].'，请尽快登录系统管理后台查看。'
                     );
                     $result=Utils::curl('http://common.isart.me/api/common/sms/sendSMS',$sms_param,1);
-                    
                 }
                 $return['result']=true;
                 $return['code']=$order['status'];

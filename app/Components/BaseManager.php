@@ -62,6 +62,9 @@ class BaseManager
         if (array_key_exists('time', $data)) {
             $banner->time = array_get($data, 'time');
         }
+        if (array_key_exists('sms_phone', $data)) {
+            $banner->sms_phone = array_get($data, 'sms_phone');
+        }
         if (array_key_exists('copyright', $data)) {
             $banner->copyright = array_get($data, 'copyright');
         }
