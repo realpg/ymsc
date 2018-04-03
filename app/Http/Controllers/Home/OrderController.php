@@ -389,18 +389,19 @@ class OrderController
                     return view('home.order.qrcode',$param);
                 }
                 else{
-                    $column='center';
-                    $column_child='order';
-                    $orders=OrderManager::getOrdersByUserId($user['id']);
-                    $param=array(
-                        'common'=>$common,
-                        'column'=>$column,
-                        'column_child'=>$column_child,
-                        'user'=>$user,
-                        'orders'=>$orders,
-                        'carts'=>$carts
-                    );
-                    return view('home.center.order',$param);
+                    dd($order);
+//                    $column='center';
+//                    $column_child='order';
+//                    $orders=OrderManager::getOrdersByUserId($user['id']);
+//                    $param=array(
+//                        'common'=>$common,
+//                        'column'=>$column,
+//                        'column_child'=>$column_child,
+//                        'user'=>$user,
+//                        'orders'=>$orders,
+//                        'carts'=>$carts
+//                    );
+//                    return view('home.center.order',$param);
                 }
             }
             else{

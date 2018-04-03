@@ -17,7 +17,9 @@
                     <span>商品详情</span>
                     @if($data['status']!=1)
                     <span>收货地址</span>
-                    <span>发票信息</span>
+                        @if($data['invoice_id'])
+                        <span>发票信息</span>
+                        @endif
                         @if($data['status']==2||$data['status']==6)
                         <span>物流信息</span>
                         @endif
