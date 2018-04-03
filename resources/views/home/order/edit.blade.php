@@ -97,7 +97,7 @@
                                                     <input type="radio" name="address_id" value="{{$address['id']}}" {{$address['status']==1?'checked':''}} />
                                                 </td>
                                                 <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$address['name']}}</td>
-                                                <td class="style-ellipsis-1 border-bottom-attribute">
+                                                <td class="text-center style-ellipsis-1 border-bottom-attribute">
                                                     {{$address['province']}} {{$address['city']}} {{$address['town']}}  {{$address['detail']}}
                                                 </td>
                                                 <td class="text-center style-ellipsis-1 border-bottom-attribute">
@@ -169,174 +169,34 @@
                             @endif
                         </div>
                     </div>
-                    <div>
-                        <div class="border-callout-info padding-left-10">
-                            <h4>发票信息</h4>
-                        </div>
-                        <div class="row margin-bottom-20 padding-left-20 padding-right-20 border-bottom-detail center-address">
-                            @if(count($invoices)==0)
-                                <ul class="line-height-40 border-bottom-navy-blue common-text-align-center row margin-left-0 margin-right-0" id="tab">
-                                    <li class="tab_active col-xs-12 col-sm-2 background-detail ">增值税普通发票</li>
-                                    <li class="col-xs-12 col-sm-2 background-detail">增值税专用发票</li>
-                                </ul>
-                                <ul class="tab_content">
-                                    <li style="display: block;">
-                                        <div class="row">
-                                            <form method="post" id="form-center-invoice-ordinary-edit">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="type" id="type" value="editOrdinaryInvoice" class="form-control" />
-                                                <div class="col-xs-12 col-sm-8">
-                                                    <div class="row position-relative margin-top-20">
-                                                        <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 发 票 抬 头：</div>
-                                                        <div class="col-xs-6 col-sm-8">
-                                                            <input type="text" name="title" id="title" class="form-control" placeholder="请输入发票抬头">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row position-relative margin-top-20">
-                                                        <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 税 号 / 信 用 代 码：</div>
-                                                        <div class="col-xs-6 col-sm-8">
-                                                            <input type="text" name="credit" id="credit" class="form-control" placeholder="请输入税号/信用代码">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row position-relative margin-top-20">
-                                                        <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 姓 名：</div>
-                                                        <div class="col-xs-6 col-sm-8">
-                                                            <input type="text" name="name" id="invoice_name" class="form-control" placeholder="请输入收票人姓名">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row position-relative margin-top-20">
-                                                        <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 电 话：</div>
-                                                        <div class="col-xs-6 col-sm-8">
-                                                            <input type="text" name="phonenum" id="invoice_phonenum" class="form-control" placeholder="请输入收票人电话">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row position-relative margin-top-20">
-                                                        <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 地 址：</div>
-                                                        <div class="col-xs-6 col-sm-8">
-                                                            <input type="text" name="address" id="invoice_address" class="form-control" placeholder="请输入收票人地址">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row position-relative margin-top-20">
-                                                        <div class="col-xs-6 col-sm-4 text-right"></div>
-                                                        <div class="col-xs-6 col-sm-8">
-                                                            <input type="hidden" name="status" id="status" value="1" readonly />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row position-relative margin-top-20 margin-bottom-20">
-                                                        <div class="col-xs-2 col-sm-4 text-right"></div>
-                                                        <div class="col-xs-10 col-sm-8">
-                                                            <button type="submint" class="btn btn-info border-radius-0 margin-right-10">确 认 添 加</button>
-                                                            <button type="reset" class="btn btn-default border-radius-0">取 消</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="row">
-                                            <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
-                                                <img src="{{ URL::asset('img/nothing.png') }}"  />
-                                            </div>
-                                            <div class="margin-top-20 text-center text-left index-font line-height-40">
-                                                由于增值税专用发票需要进过平台审核通过后才可以使用，所以不能在此及时添加并使用。<br />
-                                                请在我的优迈->发票管理（或<a href='{{URL::asset('center/invoice')}}'><span class="text-blue">点击此链接</span></a>）中对增值税专用发票进行设置，经审核通过后再使用。
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            @else
+                    @if(count($invoices)>0)
+                        <div>
+                            <div class="border-callout-info padding-left-10">
+                                <h4>发票信息</h4>
+                            </div>
+                            <div class="row margin-bottom-20 padding-left-20 padding-right-20 border-bottom-detail center-address">
                                 <div class="row margin-bottom-20 padding-left-20 padding-right-20">
-                                    <div class="table-responsive">
-                                        <table class="table border-0">
-                                            <tr>
-                                                <td class="background-detail style-ellipsis-1 line-height-40 text-center">选择</td>
-                                                <td class="background-detail style-ellipsis-1 line-height-40 text-center">类型</td>
-                                                <td class="background-detail style-ellipsis-1 line-height-40 text-center">收票人姓名</td>
-                                                <td class="background-detail style-ellipsis-1 line-height-40 text-center">收票人电话</td>
-                                                <td class="background-detail style-ellipsis-1 line-height-40 text-center">收票人地址</td>
-                                                <td class="background-detail style-ellipsis-1 line-height-40 text-center">状态</td>
-                                                <td class="background-detail style-ellipsis-1 line-height-40 text-center">详情</td>
-                                            </tr>
-                                            @foreach($invoices as $invoice)
-                                                @if($invoice['type']==0)
-                                                    <tr class="line-height-40" id="row_{{$invoice['id']}}">
-                                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">
-                                                            <input type="radio" name="invoice_id" value="{{$invoice['id']}}" {{$invoice['status']==1?'checked':''}} />
-                                                        </td>
-                                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">普通</td>
-                                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['name']}}</td>
-                                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['phonenum']}}</td>
-                                                        <td class="style-ellipsis-1 border-bottom-attribute">
-                                                            {{$invoice['address']}}
-                                                        </td>
-                                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">
-                                                            @if($invoice['status'])
-                                                                <span class="label label-danger padding-left-5 padding-right-5">默 认 发 票 </span>
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-center style-ellipsis-1 border-bottom-attribute">
-                                                            <a href="" data-toggle="modal" data-target="#invoiceModel_{{$invoice['id']}}" >
-                                                                <span class="text-blue padding-left-5 padding-right-5">详 情</span>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <!-- Modal -->
-                                                    <div class="modal fade" id="invoiceModel_{{$invoice['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                    <h4>发票详情</h4>
-                                                                </div>
-                                                                <div class="modal-body max-height-modal overflow-y-scroll">
-                                                                    <div class="row position-relative margin-top-20">
-                                                                        <div class="col-xs-6 col-sm-4 text-right">发 票 抬 头：</div>
-                                                                        <div class="col-xs-6 col-sm-8">
-                                                                            {{$invoice['title']}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row position-relative margin-top-20">
-                                                                        <div class="col-xs-6 col-sm-4 text-right">税 号 / 信 用 代 码：</div>
-                                                                        <div class="col-xs-6 col-sm-8">
-                                                                            {{$invoice['credit']}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row position-relative margin-top-20">
-                                                                        <div class="col-xs-6 col-sm-4 text-right">收 票 人 姓 名：</div>
-                                                                        <div class="col-xs-6 col-sm-8">
-                                                                            {{$invoice['name']}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row position-relative margin-top-20">
-                                                                        <div class="col-xs-6 col-sm-4 text-right">收 票 人 电 话：</div>
-                                                                        <div class="col-xs-6 col-sm-8">
-                                                                            {{$invoice['phonenum']}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row position-relative margin-top-20">
-                                                                        <div class="col-xs-6 col-sm-4 text-right">收 票 人 地 址：</div>
-                                                                        <div class="col-xs-6 col-sm-8">
-                                                                            {{$invoice['address']}}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @elseif($invoice['type']==1)
-                                                    @if($invoice['examine']==1)
+                                        <div class="table-responsive">
+                                            <table class="table border-0">
+                                                <tr>
+                                                    <td class="background-detail style-ellipsis-1 line-height-40 text-center">选择</td>
+                                                    {{--<td class="background-detail style-ellipsis-1 line-height-40 text-center">类型</td>--}}
+                                                    <td class="background-detail style-ellipsis-1 line-height-40 text-center">收票人姓名</td>
+                                                    <td class="background-detail style-ellipsis-1 line-height-40 text-center">收票人电话</td>
+                                                    <td class="background-detail style-ellipsis-1 line-height-40 text-center">收票人地址</td>
+                                                    <td class="background-detail style-ellipsis-1 line-height-40 text-center">状态</td>
+                                                    <td class="background-detail style-ellipsis-1 line-height-40 text-center">详情</td>
+                                                </tr>
+                                                @foreach($invoices as $invoice)
+                                                    @if($invoice['type']==0)
                                                         <tr class="line-height-40" id="row_{{$invoice['id']}}">
                                                             <td class="text-center style-ellipsis-1 border-bottom-attribute">
                                                                 <input type="radio" name="invoice_id" value="{{$invoice['id']}}" {{$invoice['status']==1?'checked':''}} />
                                                             </td>
-                                                            <td class="text-center style-ellipsis-1 border-bottom-attribute">专用</td>
+                                                            {{--<td class="text-center style-ellipsis-1 border-bottom-attribute">普通</td>--}}
                                                             <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['name']}}</td>
                                                             <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['phonenum']}}</td>
-                                                            <td class="style-ellipsis-1 border-bottom-attribute">
+                                                            <td class="text-center style-ellipsis-1 border-bottom-attribute">
                                                                 {{$invoice['address']}}
                                                             </td>
                                                             <td class="text-center style-ellipsis-1 border-bottom-attribute">
@@ -360,69 +220,17 @@
                                                                     </div>
                                                                     <div class="modal-body max-height-modal overflow-y-scroll">
                                                                         <div class="row position-relative margin-top-20">
-                                                                            <div class="col-xs-6 col-sm-4 text-right">单 位 名 称：</div>
+                                                                            <div class="col-xs-6 col-sm-4 text-right">发 票 抬 头：</div>
                                                                             <div class="col-xs-6 col-sm-8">
                                                                                 {{$invoice['title']}}
                                                                             </div>
                                                                         </div>
                                                                         <div class="row position-relative margin-top-20">
-                                                                            <div class="col-xs-6 col-sm-4 text-right">纳 税 人 识 别 码：</div>
+                                                                            <div class="col-xs-6 col-sm-4 text-right">税 号 / 信 用 代 码：</div>
                                                                             <div class="col-xs-6 col-sm-8">
                                                                                 {{$invoice['credit']}}
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row position-relative margin-top-20">
-                                                                            <div class="col-xs-6 col-sm-4 text-right">注 册 地 址：</div>
-                                                                            <div class="col-xs-6 col-sm-8">
-                                                                                {{$invoice['company_address']}}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row position-relative margin-top-20">
-                                                                            <div class="col-xs-6 col-sm-4 text-right">注 册 电 话：</div>
-                                                                            <div class="col-xs-6 col-sm-8">
-                                                                                {{$invoice['company_tel']}}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row position-relative margin-top-20">
-                                                                            <div class="col-xs-6 col-sm-4 text-right">开 户 银 行：</div>
-                                                                            <div class="col-xs-6 col-sm-8">
-                                                                                {{$invoice['bank']}}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row position-relative margin-top-20">
-                                                                            <div class="col-xs-6 col-sm-4 text-right">银 行 账 号：</div>
-                                                                            <div class="col-xs-6 col-sm-8">
-                                                                                {{$invoice['number']}}
-                                                                            </div>
-                                                                        </div>
-                                                                        {{--<div class="row position-relative margin-top-20">--}}
-                                                                            {{--<div class="col-xs-6 col-sm-4 text-right">公 司 证 照：</div>--}}
-                                                                            {{--<div class="col-xs-6 col-sm-8">--}}
-                                                                                {{--@if($invoice['licence']==0)--}}
-                                                                                    {{--<div class="row height-150 text-center">--}}
-                                                                                        {{--<div class="col-xs-12 col-sm-4">--}}
-                                                                                            {{--<img src="{{$invoice['business_license']}}" class="width-100 height-150" />--}}
-                                                                                            {{--<p>营业执照</p>--}}
-                                                                                        {{--</div>--}}
-                                                                                        {{--<div class="col-xs-12 col-sm-4">--}}
-                                                                                            {{--<img src="{{$invoice['account_opening_permit']}}" class="width-100 height-150" />--}}
-                                                                                            {{--<p>开户许可证</p>--}}
-                                                                                        {{--</div>--}}
-                                                                                        {{--<div class="col-xs-12 col-sm-4">--}}
-                                                                                            {{--<img src="{{$invoice['tax_registration_certificate']}}" class="width-100 height-150" />--}}
-                                                                                            {{--<p>税务登记证</p>--}}
-                                                                                        {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                {{--@else--}}
-                                                                                    {{--<div class="row height-150 text-center">--}}
-                                                                                        {{--<div class="col-xs-12 col-sm-4">--}}
-                                                                                            {{--<img src="{{$invoice['business_license']}}" class="width-100 height-150" />--}}
-                                                                                            {{--<p>营业执照</p>--}}
-                                                                                        {{--</div>--}}
-                                                                                    {{--</div>--}}
-                                                                                {{--@endif--}}
-                                                                            {{--</div>--}}
-                                                                        {{--</div>--}}
                                                                         <div class="row position-relative margin-top-20">
                                                                             <div class="col-xs-6 col-sm-4 text-right">收 票 人 姓 名：</div>
                                                                             <div class="col-xs-6 col-sm-8">
@@ -448,15 +256,197 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    @elseif($invoice['type']==1)
+                                                        @if($invoice['examine']==1)
+                                                            <tr class="line-height-40" id="row_{{$invoice['id']}}">
+                                                                <td class="text-center style-ellipsis-1 border-bottom-attribute">
+                                                                    <input type="radio" name="invoice_id" value="{{$invoice['id']}}" {{$invoice['status']==1?'checked':''}} />
+                                                                </td>
+                                                                {{--<td class="text-center style-ellipsis-1 border-bottom-attribute">专用</td>--}}
+                                                                <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['name']}}</td>
+                                                                <td class="text-center style-ellipsis-1 border-bottom-attribute">{{$invoice['phonenum']}}</td>
+                                                                <td class="text-center style-ellipsis-1 border-bottom-attribute">
+                                                                    {{$invoice['address']}}
+                                                                </td>
+                                                                <td class="text-center style-ellipsis-1 border-bottom-attribute">
+                                                                    @if($invoice['status'])
+                                                                        <span class="label label-danger padding-left-5 padding-right-5">默 认 发 票 </span>
+                                                                    @endif
+                                                                </td>
+                                                                <td class="text-center style-ellipsis-1 border-bottom-attribute">
+                                                                    <a href="" data-toggle="modal" data-target="#invoiceModel_{{$invoice['id']}}" >
+                                                                        <span class="text-blue padding-left-5 padding-right-5">详 情</span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <!-- Modal -->
+                                                            <div class="modal fade" id="invoiceModel_{{$invoice['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                            <h4>发票详情</h4>
+                                                                        </div>
+                                                                        <div class="modal-body max-height-modal overflow-y-scroll">
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">单 位 名 称：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['title']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">纳 税 人 识 别 码：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['credit']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">注 册 地 址：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['company_address']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">注 册 电 话：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['company_tel']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">开 户 银 行：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['bank']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">银 行 账 号：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['number']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">收 票 人 姓 名：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['name']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">收 票 人 电 话：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['phonenum']}}
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row position-relative margin-top-20">
+                                                                                <div class="col-xs-6 col-sm-4 text-right">收 票 人 地 址：</div>
+                                                                                <div class="col-xs-6 col-sm-8">
+                                                                                    {{$invoice['address']}}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endif
                                                     @endif
-                                                @endif
-                                            @endforeach
-                                        </table>
+                                                @endforeach
+                                                <tr class="line-height-40" id="row_{{$invoice['id']}}">
+                                                    <td class="text-center style-ellipsis-1 border-bottom-attribute">
+                                                        <input type="radio" name="invoice_id" value="" />
+                                                    </td>
+                                                    {{--<td class="text-center style-ellipsis-1 border-bottom-attribute"></td>--}}
+                                                    <td class="text-center style-ellipsis-1 border-bottom-attribute">不开发票</td>
+                                                    <td class="text-center style-ellipsis-1 border-bottom-attribute"></td>
+                                                    <td class="text-center style-ellipsis-1 border-bottom-attribute"></td>
+                                                    <td class="text-center style-ellipsis-1 border-bottom-attribute"></td>
+                                                    <td class="text-center style-ellipsis-1 border-bottom-attribute"></td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                            @endif
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        {{--<div>--}}
+                            {{--<div class="border-callout-info padding-left-10">--}}
+                                {{--<h4>发票信息</h4>--}}
+                            {{--</div>--}}
+                            {{--<div class="row margin-bottom-20 padding-left-20 padding-right-20 border-bottom-detail center-address">--}}
+                                {{--<ul class="line-height-40 border-bottom-navy-blue common-text-align-center row margin-left-0 margin-right-0" id="tab">--}}
+                                    {{--<li class="tab_active col-xs-12 col-sm-2 background-detail ">增值税普通发票</li>--}}
+                                    {{--<li class="col-xs-12 col-sm-2 background-detail">增值税专用发票</li>--}}
+                                {{--</ul>--}}
+                                {{--<ul class="tab_content">--}}
+                                    {{--<li style="display: block;">--}}
+                                        {{--<div class="row">--}}
+                                            {{--<form method="post" id="form-center-invoice-ordinary-edit">--}}
+                                                {{--{{ csrf_field() }}--}}
+                                                {{--<input type="hidden" name="type" id="type" value="editOrdinaryInvoice" class="form-control" />--}}
+                                                {{--<div class="col-xs-12 col-sm-8">--}}
+                                                    {{--<div class="row position-relative margin-top-20">--}}
+                                                        {{--<div class="col-xs-6 col-sm-4 text-right"><i>*</i> 发 票 抬 头：</div>--}}
+                                                        {{--<div class="col-xs-6 col-sm-8">--}}
+                                                            {{--<input type="text" name="title" id="title" class="form-control" placeholder="请输入发票抬头">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row position-relative margin-top-20">--}}
+                                                        {{--<div class="col-xs-6 col-sm-4 text-right"><i>*</i> 税 号 / 信 用 代 码：</div>--}}
+                                                        {{--<div class="col-xs-6 col-sm-8">--}}
+                                                            {{--<input type="text" name="credit" id="credit" class="form-control" placeholder="请输入税号/信用代码">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row position-relative margin-top-20">--}}
+                                                        {{--<div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 姓 名：</div>--}}
+                                                        {{--<div class="col-xs-6 col-sm-8">--}}
+                                                            {{--<input type="text" name="name" id="invoice_name" class="form-control" placeholder="请输入收票人姓名">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row position-relative margin-top-20">--}}
+                                                        {{--<div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 电 话：</div>--}}
+                                                        {{--<div class="col-xs-6 col-sm-8">--}}
+                                                            {{--<input type="text" name="phonenum" id="invoice_phonenum" class="form-control" placeholder="请输入收票人电话">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row position-relative margin-top-20">--}}
+                                                        {{--<div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 地 址：</div>--}}
+                                                        {{--<div class="col-xs-6 col-sm-8">--}}
+                                                            {{--<input type="text" name="address" id="invoice_address" class="form-control" placeholder="请输入收票人地址">--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row position-relative margin-top-20">--}}
+                                                        {{--<div class="col-xs-6 col-sm-4 text-right"></div>--}}
+                                                        {{--<div class="col-xs-6 col-sm-8">--}}
+                                                            {{--<input type="hidden" name="status" id="status" value="1" readonly />--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row position-relative margin-top-20 margin-bottom-20">--}}
+                                                        {{--<div class="col-xs-2 col-sm-4 text-right"></div>--}}
+                                                        {{--<div class="col-xs-10 col-sm-8">--}}
+                                                            {{--<button type="submint" class="btn btn-info border-radius-0 margin-right-10">确 认 添 加</button>--}}
+                                                            {{--<button type="reset" class="btn btn-default border-radius-0">取 消</button>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</form>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
+                                    {{--<li>--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="margin-top-20 margin-right-10 margin-left-10 text-center">--}}
+                                                {{--<img src="{{ URL::asset('img/nothing.png') }}"  />--}}
+                                            {{--</div>--}}
+                                            {{--<div class="margin-top-20 text-center text-left index-font line-height-40">--}}
+                                                {{--由于增值税专用发票需要进过平台审核通过后才可以使用，所以不能在此及时添加并使用。<br />--}}
+                                                {{--请在我的优迈->发票管理（或<a href='{{URL::asset('center/invoice')}}'><span class="text-blue">点击此链接</span></a>）中对增值税专用发票进行设置，经审核通过后再使用。--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</li>--}}
+                                {{--</ul>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    @endif
                     <div>
                         <div class="border-callout-info padding-left-10">
                             <h4>支付方式</h4>
@@ -533,7 +523,7 @@
                             @endforeach
                         </table>
                         <div>
-                            <textarea name="content" id="content" class="form-control" rows="3" style="resize: none;" placeholder="请填写备注"></textarea>
+                            <textarea name="content" id="content" class="form-control" rows="3" style="resize: none;" placeholder="请填写备注">{{$order['content']}}</textarea>
                         </div>
                     </div>
                 </div>

@@ -92,9 +92,13 @@
                             <tr class="line-height-40 text-center">
                                 <td class="text-left text-blue width-250 border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
                                     <div class="float-left">
-                                        <a href=""  data-toggle="modal" data-target="#invoiceModel_{{$order['invoice_id']}}"  />
-                                            发票详情
-                                        </a>
+                                        @if($order['invoice_id'])
+                                            <a href=""  data-toggle="modal" data-target="#invoiceModel_{{$order['invoice_id']}}"  />
+                                                发票详情
+                                            </a>
+                                        @else
+                                            <span class="no_click background-none">未选择开发票</span>
+                                        @endif
                                     </div>
                                     @if($order['status']!=1&&$order['logistics_company']&&$order['logistics_no'])
                                         <div class="float-right">

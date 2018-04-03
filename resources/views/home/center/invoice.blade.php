@@ -12,7 +12,7 @@
             <div class="margin-bottom-20 margin-top-20">
                 <ul class="line-height-40 border-bottom-navy-blue common-text-align-center row margin-left-0 margin-right-0" id="tab">
                     <li class="tab_active col-xs-12 col-sm-2 background-detail ">增值税普通发票</li>
-                    <li class="col-xs-12 col-sm-2 background-detail">增值税专用发票</li>
+                    {{--<li class="col-xs-12 col-sm-2 background-detail">增值税专用发票</li>--}}
                 </ul>
                 <ul class="tab_content">
                     <li style="display: block;">

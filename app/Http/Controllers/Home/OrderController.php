@@ -303,11 +303,14 @@ class OrderController
         if($user){
             if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
                 $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
-                $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
-                $data['invoice_type']=$invoice['type'];
+                if($data['invoice_id']){
+                    $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
+                    $data['invoice_type']=$invoice['type'];
+                }
                 $order=OrderManager::setOrder($order,$data);
                 unset($order['suborders']);
                 $result=$order->save();
+//                dd($result);
                 $suborders=SuborderManager::getSubordersByTradeNo($order->trade_no);
                 $goods_ids='';
                 if($goods_ids){
