@@ -151,7 +151,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <div class="text-center">
-                        <img src="{{$common['base']['wechat']}}" />
+                        <img src="{{$common['base']['wechat']}}" width="100px"/>
                     </div>
                     <h4 class="text-center margin-top-20">
                         扫描二维码，关注微信公众号

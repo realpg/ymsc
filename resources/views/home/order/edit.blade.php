@@ -460,13 +460,13 @@
                                     </div>
                                 </a>
                             </div>
-                            {{--<div class="col-xs-12 col-sm-2">--}}
-                                {{--<a href="javascript:" onclick="switchPaymentMethod('ali')">--}}
-                                    {{--<div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box height-50" style="text-align: center;" id="ali">--}}
-                                        {{--<img src="{{URL::asset('img/alipay.png')}}" class="height-100" />--}}
-                                    {{--</div>--}}
-                                {{--</a>--}}
-                            {{--</div>--}}
+                            <div class="col-xs-12 col-sm-2">
+                                <a href="javascript:" onclick="switchPaymentMethod('ali')">
+                                    <div class="margin-top-10 margin-bottom-10 margin-right-10 padding-10 border-box height-50" style="text-align: center;" id="ali">
+                                        <img src="{{URL::asset('img/alipay.png')}}" class="height-100" />
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="table-responsive">

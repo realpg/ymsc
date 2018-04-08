@@ -420,7 +420,7 @@ class OrderController
                 ];
                 //配置config
                 $config = self::getConfigForAli();
-                $result = Pay::alipay($config)->scan($pay_order);
+                $result = Pay::alipay($config)->gateway('web')->scan($pay_order);
 //                dd($result);
                 if($result['return_code']){
 //                    设置微信预付订单id（prepay_id）
