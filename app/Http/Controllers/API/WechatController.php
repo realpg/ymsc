@@ -68,11 +68,11 @@ class WechatController extends Controller
             'key' => Utils::WECHAT_KEY,  // 微信支付签名秘钥
             'notify_url' => Utils::WECHAT_NOTIFY_URL,
             'trade_type'=>Utils::WECHAT_TRADE_TYPE,
-            'cert_client' => Utils::WECHAT_CERT_CLIENT,        // 客户端证书路径，退款时需要用到
-            'cert_key' => Utils::WECHAT_CERT_KEY,             // 客户端秘钥路径，退款时需要用到
+            'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
+            'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
             'log' => [ // optional
-                'file' => Utils::WECHAT_LOG_FILE,
-                'level' => Utils::WECHAT_LOG_LEVEL
+                'file' => app_path() . '/../storage/logs/wechat.log',
+                'level' => 'debug'
             ]
         ];
         return $config;

@@ -31,9 +31,9 @@ class Utils
     const WECHAT_KEY = "dm0ZHUfYJxOIVnajfCA4ZFZHrcLqqCFk";   //微信支付签名秘钥
     const WECHAT_NOTIFY_URL = "http://ymsc.isart.me/api/order/notify";   //微信支付回调链接
     const WECHAT_TRADE_TYPE = "NATIVE";   //微信支付类型
-    const WECHAT_CERT_CLIENT = app_path() . '/cert/apiclient_cert.pem';   //客户端证书路径，退款时需要用到
-    const WECHAT_CERT_KEY = app_path() . '/cert/apiclient_key.pem';  // 客户端秘钥路径，退款时需要用到
-    const WECHAT_LOG_FILE = app_path() . '/../storage/logs/wechat.log';   //log的位置
+//    const WECHAT_CERT_CLIENT = app_path() . '/cert/apiclient_cert.pem';   //客户端证书路径，退款时需要用到
+//    const WECHAT_CERT_KEY = app_path() . '/cert/apiclient_key.pem';  // 客户端秘钥路径，退款时需要用到
+//    const WECHAT_LOG_FILE = app_path() . '/../storage/logs/wechat.log';   //log的位置
     const WECHAT_LOG_LEVEL = 'debug';
 
 
