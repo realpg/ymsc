@@ -27,13 +27,13 @@ class AliController extends Controller
     private function getConfigForAli()
     {
         $config = [
-            'appid' => '2018040802517697', // APP APPID
-            'notify_url' => 'http://ymsc.isart.me/api/order/aliNotify',
-            'ali_public_key' => 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApVtiVVrGOKwpiMpWpw4QMc+BHlMzQoBiMOJFfNFyhYjgA2KsZN9MqwlzmaQLYS/H2U7ahAqIv6qcMTIbaGLYi15xqdZUkqjBXRCFpcC4H/7tEMvFT2h3WpR6iCG6OPc99TdprLwJQkqK/9ZYs6TuyA/gOMboCYrGRXS85sR2U0yfNSBWzDMzgYCINrjGcEARG/gjo5aIR380a3Xmc2it5bl9E9HMrmqWL6GamNlHeeDCz/Vj5MaaAB3uDijpJxWcjmUvJTDIIApc7YO96iASZFaVlXuKo5/GekfCKHGDuzzsLeEQ7PiLMAcIMjxy4mcHmoqHow+zpO4GVP7nMMiHqwIDAQAB',     // 支付宝公钥，1行填写
-            'private_key' => 'MIIEowIBAAKCAQEApVtiVVrGOKwpiMpWpw4QMc+BHlMzQoBiMOJFfNFyhYjgA2KsZN9MqwlzmaQLYS/H2U7ahAqIv6qcMTIbaGLYi15xqdZUkqjBXRCFpcC4H/7tEMvFT2h3WpR6iCG6OPc99TdprLwJQkqK/9ZYs6TuyA/gOMboCYrGRXS85sR2U0yfNSBWzDMzgYCINrjGcEARG/gjo5aIR380a3Xmc2it5bl9E9HMrmqWL6GamNlHeeDCz/Vj5MaaAB3uDijpJxWcjmUvJTDIIApc7YO96iASZFaVlXuKo5/GekfCKHGDuzzsLeEQ7PiLMAcIMjxy4mcHmoqHow+zpO4GVP7nMMiHqwIDAQABAoIBAQCKWssNJdWjB5H9DWexgVfVhYzAhdbm9qqxwjFn/Yt35Y2h54bdI+VvWoop7JNE7wilb4/wWSwQSr1DgGxkTAhpnE04UMgUqjSYHMHmbTjiNJfArO7bwUnUNVXM34OENILX0VSPHgoVOG/THlK7hO3x4S638t2lVkMNTF7eK1Xh3WsHBnKQvK8UXpJ2C/MwcUnhu6dxV2hc07AXAVcth5HN2VnvNiXu+sZHrsq6KMr63PXyaglIEe7xkMf9jqZSeNtgd4hXHCkatZAz0sZmCEHD+ErnIEqJZ0PqsqhlvN/jPkpFRyDR/luU7d0Blc4SA8yM8Ab6FO4yUDtD/t9eSHoRAoGBANQTFozX8YcEy7Ej0KXUclvD3mQE0ARBTDep6KjGO57LdcAfDVdfBEymxUHyV2PnNbVEY1n68ca2YTue6/Xz0lwqjWa5zVLbTH1m8REPpr3QxN3t1YIEXbvatixPCMxi3K+mciwYAGZN34vWFjUH9RShROMJQtyWf3A6YX8u86NZAoGBAMebK8EnLg/ij9LwddN93KVvAbRkcoB5mwMq27RUC5MYNuHGPE8BDHL4dRqiNIj7NhjluZUwlj9+TmeRbEL8NwjdjDuNYyFaF6/oyQ2vSpz2Fa8WDK/2i/sDCL64d2tRO3Ij2LEu47KjUXE99qIidnmXtewJ11VrPaN4DiZsMPajAoGAZrjYM2BlnQC1qRev+KLuwYQeNFQgbe8y+8NQ7m8WcdQbNPPVgnyDmJ0u7sJzkfBsE2EMvojOk3HDpx1TLc7sFbiGxTs6OOgAJL24BouOOGLm+Jg60r9Kp7NIii2+FUHNo0b8Bl+Z0fPmU9Ve7FDuZQ+4TkAuIqrDD5k3oGMdoAECgYAdSl7sVCSFPjjeulx/8Xs8Z4K3hvnqcm3V1CczWhXsuuPq050r9rpt8Jm2k9DjvQFeO++0vdF+dblpp0RcvAgTa/dVEdVXIpJRRPaj5HItgEsES1cHR0WZSwOwgP89J0ly4WG99mSBZUfhNzeG6Um7ZBDVF0ibB0afQ1HIP54bwwKBgA38rcC67IY8Hby82ws8jYvUJki77Q4voWUxuiKrn1MIfFProfVVZmLCyfQQXmpy94Ml8lBYaPYSUPQzbmZG025KSCxKCaytdi5kOofQnqeuHwXfdNC6UzTOkz8EltqvQkGZLTm4CVs6Bjz9kOA6Wps12ewNYa4Hc4Ukm1cLEjLj',        // 自己的私钥，1行填写
+            'appid' => Utils::ALIPAY_APPID, // APP APPID
+            'notify_url' => Utils::ALIPAY_NOTIFY_URL,
+            'ali_public_key' => Utils::ALIPAY_PUBLIC_KEY,     // 支付宝公钥，1行填写
+            'private_key' => Utils::ALIPAY_PRIVATE_KEY,        // 自己的私钥，1行填写
             'log' => [ // optional
-                'file' => app_path() . '/../storage/logs/ali.log',
-                'level' => 'debug'
+                'file' => app_path() . Utils::ALIPAY_LOG_FILE,
+                'level' => Utils::ALIPAY_LOG_LEVEL
             ]
         ];
         return $config;
