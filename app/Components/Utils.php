@@ -23,6 +23,19 @@ class Utils
     const PRO_CODE='Hh58wm8f51QGjsYxlnJhDbethlJu3nxB';   //项目pro_code应该统一管理
     const TEMPLATE_ID='198609885'; //短信模板id
 
+    //支付部分的参数
+    const WECHAT_APPID = "";   //APP APPID
+    const WECHAT_APP_ID = "wxe56af7ffb1ffb155";   //微信公众号id(app_id)
+    const WECHAT_MINIAPP_ID = "";   //小程序 APPID
+    const WECHAT_MCH_ID = "1497102892";   //微信商户号
+    const WECHAT_KEY = "dm0ZHUfYJxOIVnajfCA4ZFZHrcLqqCFk";   //微信支付签名秘钥
+    const WECHAT_NOTIFY_URL = "http://ymsc.isart.me/api/order/notify";   //微信支付回调链接
+    const WECHAT_TRADE_TYPE = "NATIVE";   //微信支付类型
+    const WECHAT_CERT_CLIENT = app_path() . '/cert/apiclient_cert.pem';   //客户端证书路径，退款时需要用到
+    const WECHAT_CERT_KEY = app_path() . '/cert/apiclient_key.pem';  // 客户端秘钥路径，退款时需要用到
+    const WECHAT_LOG_FILE = app_path() . '/../storage/logs/wechat.log';   //log的位置
+    const WECHAT_LOG_LEVEL = 'debug';
+
 
     /*
      * 判断一个对象是不是空
