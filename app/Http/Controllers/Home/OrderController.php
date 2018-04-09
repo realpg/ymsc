@@ -45,12 +45,6 @@ class OrderController
                 'file' => app_path() . Utils::WECHAT_LOG_FILE,
                 'level' => Utils::WECHAT_LOG_LEVEL
             ]
-//            'cert_client' => app_path() . '/cert/apiclient_cert.pem',        // 客户端证书路径，退款时需要用到
-//            'cert_key' => app_path() . '/cert/apiclient_key.pem',             // 客户端秘钥路径，退款时需要用到
-//            'log' => [ // optional
-//                'file' => app_path() . '/../storage/logs/wechat.log',
-//                'level' => 'debug'
-//            ]
         ];
         return $config;
     }
@@ -387,7 +381,6 @@ class OrderController
                 $order=OrderManager::setOrder($order,$data);
                 unset($order['suborders']);
                 $result=$order->save();
-//                dd($result);
                 $suborders=SuborderManager::getSubordersByTradeNo($order->trade_no);
                 $goods_ids='';
                 if($goods_ids){
@@ -404,8 +397,12 @@ class OrderController
                 ];
                 //配置config
                 $config = self::getConfigForAli();
-                $result = Pay::alipay($config)->gateway('web')->scan($pay_order);
-//                dd($result);
+                $pay = new Pay($config);
+//                $result= $pay->driver('alipay')->gateway('web')->pay($pay_order);
+//                $result = Pay::alipay($config)->gateway('web')->pay($pay_order);
+                $result = Pay::alipay($config)->app($pay_order);
+                $resultCode = $result->$responseNode->code;
+                return $resultCode;
                 if($result['return_code']){
 //                    设置微信预付订单id（prepay_id）
                     $order->prepay_id = $result['prepay_id'];

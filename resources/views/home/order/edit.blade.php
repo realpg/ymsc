@@ -729,11 +729,11 @@
             }
             payOrderByAli('{{URL::asset('')}}', param, function (ret) {
                 console.log('payOrderByAli ret is : '+JSON.stringify(ret))
-                if (ret.result == true) {
-                    window.location.href = "{{URL::asset('order/pay/qrcode')}}"+"/"+trade_no;
-                } else {
-                    layer.msg(ret.msg, {icon: 2, time: 3000})
-                }
+                {{--if (ret.result == true) {--}}
+                    {{--window.location.href = "{{URL::asset('order/pay/qrcode')}}"+"/"+trade_no;--}}
+                {{--} else {--}}
+                    {{--layer.msg(ret.msg, {icon: 2, time: 3000})--}}
+                {{--}--}}
             })
         }
     }
