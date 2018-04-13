@@ -173,7 +173,17 @@ function refundFailDo(url, param, callBack) {
     ajaxRequest(url + "admin/order/refund/fail", param, "GET", callBack);
 }
 
+//审核评论
+function examineComment(url, param, callBack) {
+    $.post(url + "admin/comment/examine",param,callBack);
+}
+//删除评论
+function delComment(url, param, callBack) {
+    ajaxRequest(url + "admin/comment/del/" + param.id, param, "GET", callBack);
+}
 
+
+//+++++++++++++++++++++++++++++++++++前台++++++++++++++++++++++++++++++//
 //下发短信验证码
 function sendSMSCode(url, param, callBack) {
     ajaxRequest(url + "smscode", param, "GET", callBack);

@@ -28,12 +28,6 @@
                                 <li><a href="{{ URL::asset('/admin/loginout') }}">退出</a></li>
                             </ul>
                         </li>
-                        {{--<li id="Hui-msg">--}}
-                            {{--<a href="#" title="消息">--}}
-                                {{--<span class="badge badge-danger">1</span>--}}
-                                {{--<i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i>--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
                         <li id="Hui-skin" class="dropDown right dropDown_hover">
                             <a href="javascript:;" class="dropDown_A" title="换肤">
                                 <i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i>
@@ -176,15 +170,15 @@
                     </ul>
                 </dd>
             </dl>
-            {{--<dl id="menu-comment">--}}
-                {{--<dt><i class="Hui-iconfont">&#xe6b3;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>--}}
-                {{--</dt>--}}
-                {{--<dd>--}}
-                    {{--<ul>--}}
-                        {{--<li><a data-href="{{ URL::asset('/admin/comment/index') }}" data-title="评论管理" href="javascript:void(0)">评论管理</a></li>--}}
-                    {{--</ul>--}}
-                {{--</dd>--}}
-            {{--</dl>--}}
+            <dl id="menu-comment">
+                <dt><i class="Hui-iconfont">&#xe6b3;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i>
+                </dt>
+                <dd>
+                    <ul>
+                        <li><a data-href="{{ URL::asset('/admin/comment/index') }}" data-title="评论管理" href="javascript:void(0)">评论管理</a></li>
+                    </ul>
+                </dd>
+            </dl>
         </div>
     </aside>
     <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a>

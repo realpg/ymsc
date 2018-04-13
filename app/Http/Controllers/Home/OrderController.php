@@ -57,6 +57,7 @@ class OrderController
         $config = [
             'appid' => Utils::ALIPAY_APPID, // APP APPID
             'notify_url' => Utils::ALIPAY_NOTIFY_URL,
+//            'return_url' => "http://localhost/ymsc/public/api/order/aliReturn",
             'ali_public_key' => Utils::ALIPAY_PUBLIC_KEY,     // 支付宝公钥，1行填写
             'private_key' => Utils::ALIPAY_PRIVATE_KEY,        // 自己的私钥，1行填写
             'log' => [ // optional
@@ -338,11 +339,6 @@ class OrderController
                     $order->prepay_id = $result['prepay_id'];
                     $order->code_url = $result['code_url'];
                     $order->save();
-//                    //更改会员积分
-//                    $member=MemberManager::getUserInfoByIdWithNotToken($user['id']);
-//                    $member_data['score']=$member['$member']+(int)($order->total_fee/100);
-//                    $member=MemberManager::setUser($member,$member_data);
-//                    $member->save();
                     $return['result']=true;
                     $return['msg']='支付二维码生成成功';
                 }
@@ -397,12 +393,9 @@ class OrderController
                 ];
                 //配置config
                 $config = self::getConfigForAli();
-                $pay = new Pay($config);
-//                $result= $pay->driver('alipay')->gateway('web')->pay($pay_order);
-//                $result = Pay::alipay($config)->gateway('web')->pay($pay_order);
-                $result = Pay::alipay($config)->app($pay_order);
-                $resultCode = $result->$responseNode->code;
-                return $resultCode;
+                $result = Pay::alipay($config)->scan($pay_order);
+//                return $result;
+
                 if($result['return_code']){
 //                    设置微信预付订单id（prepay_id）
                     $order->prepay_id = $result['prepay_id'];

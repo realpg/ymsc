@@ -137,7 +137,7 @@
                                     </td>
                                 @elseif($order['status']==3)
                                     <td class="width-110 text-blue cart-settlement border-bottom-attribute" style="display:table-cell;vertical-align:middle;padding:0px;" >
-                                        <a href="javascript:" class="line-height-40">
+                                        <a href="{{URL::asset('center/comment/'.$order['id'])}}" class="line-height-40">
                                             评价
                                         </a>
                                     </td>

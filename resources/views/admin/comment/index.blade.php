@@ -3,15 +3,32 @@
 @section('content')
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 评论管理 <span class="c-gray en">&gt;</span>评论列表 <a class="btn btn-success radius btn-refresh r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" onclick="location.replace('{{URL::asset('/admin/comment/index')}}');" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
+    <div class="text-c">
+        <form action="{{URL::asset('/admin/comment/index')}}" method="post" class="form-horizontal">
+            {{csrf_field()}}
+            <span class="select-box" style="width:200px;">
+              <select class="select" size="1" name="status">
+                  <option value="">全部</option>
+                  <option value="1" {{$status==1?'selected':''}}>审核通过</option>
+                  <option value="0" {{$status==0?'selected':''}}>待审核</option>
+              </select>
+            </span>
+            <input id="search" name="search" type="text" class="input-text" style="width:250px" placeholder="评论内容关键字" value="{{$search}}">
+            <button type="submit" class="btn btn-success">
+                <i class="Hui-iconfont">&#xe665;</i> 搜索
+            </button>
+        </form>
+    </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-bg table-hover table-sort" id="table-sort">
             <thead>
             <tr class="text-c">
                 <th width="80">ID</th>
-                <th>头像</th>
-                <th>昵称</th>
+                <th width="100">头像</th>
+                <th width="100">昵称</th>
+                <th width="200">商品</th>
                 <th>评论内容</th>
-                <th width="150">审核状态</th>
+                <th width="80">审核状态</th>
                 <th width="150">更新时间</th>
                 <th width="100">操作</th>
             </tr>
@@ -25,13 +42,14 @@
                              class="img-rect-30 radius-5">
                     </td>
                     <td>{{$data['user_id']['nick_name']}}</td>
+                    <td class="text-l">商品编号：{{$data['goods_id']['number']}}<br />商品名称：{{$data['goods_id']['name']}}</td>
                     <td class="text-l">{{$data['content']}}</td>
-                    @if($data['examine'])
-                        <th width="150">
+                    @if($data['status'])
+                        <th>
                             <span class="label label-success radius">通过</span>
                         </th>
                     @else
-                        <th width="150">
+                        <th>
                             <span class="label label-danger radius">待审核</span>
                         </th>
                     @endif

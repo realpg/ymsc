@@ -94,17 +94,10 @@ class AliController extends Controller
         $ali = new Pay($config);
         $user=$request->cookie('user');
         try {
-            $data = $ali->driver('alipay')->gateway()->verify($request->all());
+            $data = Pay::alipay($config)->verify(); // 是的，验签就这么简单！
             Log::info('Ali notify', $data->all());
-            $data=$data->alipay_trade_precreate_response;
             //支付成功
             if ($data) {
-                file_put_contents(storage_path('notify.txt'), "收到来自支付宝的异步通知\r\n", FILE_APPEND);
-                file_put_contents(storage_path('notify.txt'), '订单号：' . $data->out_trade_no . "\r\n", FILE_APPEND);
-                file_put_contents(storage_path('notify.txt'), '订单金额：' . $data->total_amount . "\r\n\r\n", FILE_APPEND);
-
-
-
                 //总订单out_trade_no
                 $out_trade_no = $data->out_trade_no;
                 Log::info('order out_trade_no:'.$data->out_trade_no);
@@ -119,8 +112,8 @@ class AliController extends Controller
                     Log::info('order trade_no:'.$order->trade_no);
                     //会员积分变更
                     $member=UserModel::find($order['user_id']);
-                    $member_data['score']=$member['score']+floor($order['total_fee']/100);       //积分按元取整来算
-//                    $member_data['score']=$member['score']+$order['total_fee'];       //积分按分来算
+                    $member_data['score']=$member['score']+floor($order['total_amount']);       //积分按元取整来算
+//                    $member_data['score']=$member['score']+$order['total_amount'];       //积分按分来算
                     $member=MemberManager::setUser($member,$member_data);
                     $member->save();
                 }
@@ -131,5 +124,13 @@ class AliController extends Controller
         } catch (Exception $e) {
             Log::info($e->getMessage());
         }
+    }
+
+
+    public function aliReturn(Request $request)
+    {
+        $config = $this->getConfigForAli();
+
+        return Pay::alipay($config)->verify(); // 是的，验签就这么简单！;
     }
 }

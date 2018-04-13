@@ -176,12 +176,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/order/logistics', 'Admin\OrderController@logisticsDo');  //编辑物流信息
     Route::get('/order/refund/success', 'Admin\OrderController@refundSuccessDo');  //点击退款成功
     Route::get('/order/refund/fail', 'Admin\OrderController@refundFailDo');  //点击退款失败
-//
-//    //评论管理
-//    Route::get('/comment/index', 'Admin\CommentController@index');  //评论管理首页
-//    Route::get('/comment/edit', 'Admin\CommentController@edit');  //查看评论详情
-//    Route::post('/comment/examine', 'Admin\CommentController@examine');  //审核评论
-//    Route::get('/comment/del/{id}', 'Admin\CommentController@del');  //删除评论
+
+    //评论管理
+    Route::get('/comment/index', 'Admin\CommentController@index');  //评论管理首页
+    Route::post('/comment/index', 'Admin\CommentController@index');  //评论管理首页
+    Route::get('/comment/edit', 'Admin\CommentController@edit');  //查看评论详情
+    Route::post('/comment/examine', 'Admin\CommentController@examine');  //审核评论
+    Route::get('/comment/del/{id}', 'Admin\CommentController@del');  //删除评论
 });
 
 //前台
@@ -273,6 +274,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('center/order/confirm', 'Home\CenterController@orderConfirm');        //订单确认收货
     Route::get('center/order/refund', 'Home\CenterController@orderRefund');        //订单申请退款
     Route::get('center/refundorder', 'Home\CenterController@refundOrder');        //退款单管理
+    Route::get('center/comment/{order_id}', 'Home\CenterController@comment');        //评价
 
     //购物车
     Route::get('cart', 'Home\CartController@index');        //购物车页面
@@ -292,7 +294,14 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('order/pay/result', 'Home\OrderController@result');        //支付结果
     Route::get('order/pay/success', 'Home\OrderController@success');        //付款成功
     Route::get('order/pay/fail/{trade_no}', 'Home\OrderController@fail');        //付款失败
+
+
+    //支付测试
+//    Route::get('alipay/alipay', 'Home\AlipayTestController@aliPayDo');        //支付宝付款
+
+
 });
+
 
 Auth::routes();
 
