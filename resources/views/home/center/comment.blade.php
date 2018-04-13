@@ -7,8 +7,14 @@
         @include('home.layouts.center')
         <div class="col-xs-12 col-sm-10 border-center-menu padding-top-10 padding-bottom-10  line-height-34 center-address" id="center-content">
             <div class="member-nav">
-                <span class="font-size-16"><b>订单{{$order['trade_no']}}评价</b></span>
+                <span class="font-size-16 float-left"><b>订单{{$order['trade_no']}}评价</b></span>
+                <span class="font-size-16 float-right">
+                    <a href="javascript:history.go(-1)">
+                        <b class="text-blue">返回</b>
+                    </a>
+                </span>
             </div>
+            <div class="clear"></div>
             <div class="margin-top-20">
                 @foreach($suborders as $k=>$suborder)
                     <div class="table-responsive">
@@ -64,19 +70,15 @@
                             </tr>
                             <tr>
                                 <td colspan="6" class="border-bottom-attribute">
-                                    <input type="hidden" name="goods_{{$k}}" value="{{$suborder['goods_id']}}" />
-                                    <textarea name="content" name="content_{{$k}}" class="form-control" rows="3" style="resize: none;" placeholder="请对此商品添加评论"></textarea>
+                                    <textarea name="content" id="content_{{$suborder['goods_id']}}" class="form-control" rows="3" style="resize: none;" placeholder="请对此商品添加评论"></textarea>
+                                    <div class="margin-top-10">
+                                        <button type="button" onclick="submitComment({{$suborder['goods_id']}})" class="btn btn-info border-radius-0 float-right">提 交 评 论</button>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 @endforeach
-                <div class="margin-top-20 margin-bottom-20">
-                    <button type="button" class="btn btn-info border-radius-0 float-right">提 交 评 论</button>
-                    <a href="javascript:history.go(-1)">
-                        <button type="button" class="btn btn-default border-radius-0 float-right margin-right-10">返 回</button>
-                    </a>
-                </div>
             </div>
         </div>
     </div>
@@ -86,26 +88,6 @@
 @section('script')
 <script type="text/javascript" src="{{ URL::asset('/js/jQueryProvinces/address-select.js') }}"></script>
 <script type="text/javascript">
-
-    //删除订单
-    function order_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //进行后台删除
-            var param = {
-                id: id,
-                _token: "{{ csrf_token() }}"
-            }
-            delOrder('{{URL::asset('')}}', param, function (ret) {
-                if (ret.result == true) {
-                    layer.msg(ret.msg, {icon: 1, time: 1000});
-                    $(obj).parents("table").remove();
-                } else {
-                    layer.msg(ret.msg, {icon: 2, time: 1000})
-                }
-            })
-        });
-    }
-
     //确认收货
     function confirmReceipt(obj,id){
         layer.confirm('确认已经收货了吗？',function(index){
@@ -124,24 +106,28 @@
             })
         });
     }
-
-    //申请退款
-    function applicationForRefund(obj,id){
-        layer.confirm('确认要申请退款吗？',function(index){
-            //进行后台删除
+    //提交评论
+    function submitComment(goods_id){
+        var content=$('#content_'+goods_id).val()
+        if(content){
             var param = {
-                id: id,
+                goods_id: goods_id,
+                content: content,
                 _token: "{{ csrf_token() }}"
             }
-            refundOrder('{{URL::asset('')}}', param, function (ret) {
-                if (ret.result == true) {
-                    layer.msg(ret.msg, {icon: 1, time: 1000});
-                    window.location.reload();
-                } else {
-                    layer.msg(ret.msg, {icon: 2, time: 1000})
-                }
+            editComment('{{URL::asset('')}}', param, function (ret) {
+                console.log('editComment is : '+JSON.stringify(ret))
+                // if (ret.result == true) {
+                //     layer.msg(ret.msg, {icon: 1, time: 1000});
+                //     window.location.reload();
+                // } else {
+                //     layer.msg(ret.msg, {icon: 2, time: 1000})
+                // }
             })
-        });
+        }
+        else{
+            layer.msg('请对商品进行评价', {icon: 2, time: 1000})
+        }
     }
 </script>
 @endsection

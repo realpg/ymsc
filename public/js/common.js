@@ -244,6 +244,12 @@ function delMoreShoppingCart(url, param, callBack) {
     ajaxRequest(url + "cart/delMore", param, "GET", callBack);
 }
 
+//添加评价
+function editComment(url, param, callBack) {
+    $.post(url + "comment/edit",param,callBack);
+}
+
+
 //购物车立即结算
 function addOrder(url, param, callBack) {
     $.post(url + "order/add",param,callBack);
