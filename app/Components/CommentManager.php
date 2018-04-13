@@ -15,7 +15,7 @@ use App\Models\CommentReplie;
 
 class CommentManager
 {
-
+    const PAGEINATE = 20;  //分页数目
     /*
      * 获取产品的评论的总数
      *
@@ -127,5 +127,26 @@ class CommentManager
         $comment=self::setComment($comment,$data);
         $result=$comment->save();
         return $result;
+    }
+
+    /*
+     * 获取产品的评论的评价
+     *
+     * by zm
+     *
+     * 2017-12-22
+     *
+     */
+    public static function getGoodsCommentsByGoodsId($goods_id){
+        $paginate=self::PAGEINATE;
+        $where=array(
+            'goods_id'=>$goods_id,
+            'status'=>1
+        );
+        $comments=CommentModel::where($where)->orderBy('id','desc')->paginate($paginate);
+        foreach ($comments as $comment){
+            $comment['user']=MemberManager::getUserInfoByIdWithNotToken($comment['user_id']);
+        }
+        return $comments;
     }
 }

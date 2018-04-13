@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Home;
 use App\Components\CartManager;
 use App\Components\AttributeManager;
 use App\Components\BannerManager;
+use App\Components\CommentManager;
 use App\Components\DrawingManager;
 use App\Components\GoodsManager;
 use App\Components\MenuManager;
@@ -220,7 +221,7 @@ class MachiningController extends Controller
         return view('home.machining.detail_machining',$param);
     }
     /*
-     * 机加工加工类型详情页
+     * 国标商品详情页
      */
     public function standardDetail(Request $request, $goods_id){
         $data=$request->all();
@@ -235,6 +236,7 @@ class MachiningController extends Controller
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $goods['other_goodses']=GoodsManager::getStandardListsByComponent($goods['attribute']['id'],$goods['attribute']['component']);
+        $comments=CommentManager::getGoodsCommentsByGoodsId($goods['id']);
         //QQ客服
         $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
@@ -247,7 +249,8 @@ class MachiningController extends Controller
                 'channel'=>$channel,
                 'goods'=>$goods,
                 'carts'=>$carts,
-                'service'=>$service
+                'service'=>$service,
+                'comments'=>$comments
             );
         }
         else{
@@ -257,7 +260,8 @@ class MachiningController extends Controller
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,
-                'service'=>$service
+                'service'=>$service,
+                'comments'=>$comments
             );
         }
         return view('home.machining.detail_standard',$param);

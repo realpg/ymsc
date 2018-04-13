@@ -101,13 +101,17 @@
                         @endif
                     </li>
                     <li>
-                        @if(empty($goods['comments']))
+                        @if(empty($comments))
                             <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                                 <img src="{{ URL::asset('img/nothing.png') }}"  />
                             </div>
                             <div class="margin-top-20 text-center index-font">
                                 还没有人对此商品进行评价
                             </div>
+                        @else
+                            {{--@foreach($comments as $comment)--}}
+                                {{----}}
+                            {{--@endforeach--}}
                         @endif
                     </li>
                 </ul>
