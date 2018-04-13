@@ -275,6 +275,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('center/order/refund', 'Home\CenterController@orderRefund');        //订单申请退款
     Route::get('center/refundorder', 'Home\CenterController@refundOrder');        //退款单管理
     Route::get('center/comment/{order_id}', 'Home\CenterController@comment');        //评价
+    Route::post('center/comment/edit', 'Home\CenterController@commentDo');        //编辑评价
 
     //评价
     Route::post('comment/edit', 'Home\CommentController@editDo');        //编辑评价

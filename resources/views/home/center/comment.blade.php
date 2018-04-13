@@ -72,7 +72,7 @@
                                 <td colspan="6" class="border-bottom-attribute">
                                     <textarea name="content" id="content_{{$suborder['goods_id']}}" class="form-control" rows="3" style="resize: none;" placeholder="请对此商品添加评论"></textarea>
                                     <div class="margin-top-10">
-                                        <button type="button" onclick="submitComment({{$suborder['goods_id']}})" class="btn btn-info border-radius-0 float-right">提 交 评 论</button>
+                                        <button type="button" onclick="submitComment(this,'{{$suborder['goods_id']}}')" class="btn btn-info border-radius-0 float-right">提 交 评 论</button>
                                     </div>
                                 </td>
                             </tr>
@@ -107,7 +107,7 @@
         });
     }
     //提交评论
-    function submitComment(goods_id){
+    function submitComment(obj,goods_id){
         var content=$('#content_'+goods_id).val()
         if(content){
             var param = {
@@ -117,12 +117,13 @@
             }
             editComment('{{URL::asset('')}}', param, function (ret) {
                 console.log('editComment is : '+JSON.stringify(ret))
-                // if (ret.result == true) {
-                //     layer.msg(ret.msg, {icon: 1, time: 1000});
-                //     window.location.reload();
-                // } else {
-                //     layer.msg(ret.msg, {icon: 2, time: 1000})
-                // }
+                if (ret.result == true) {
+                    layer.msg(ret.msg, {icon: 1, time: 1000});
+                    $(obj).parents("tr").remove();
+                    // window.location.reload();
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                }
             })
         }
         else{

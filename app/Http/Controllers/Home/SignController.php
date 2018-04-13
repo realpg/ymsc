@@ -28,12 +28,26 @@ class SignController extends Controller
         $common=$data['common'];
         $column='signUp';
         $menus=MenuManager::getClassAMenuLists();
-        $param=array(
-            'common'=>$common,
-            'menus'=>$menus,
-            'column'=>$column,
-            'user'=>$user
-        );
+
+        if($user){
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+            );
+        }
         if(array_key_exists('type',$data)){
             $type=$data['type'];
         }
@@ -143,15 +157,33 @@ class SignController extends Controller
     public function signIn(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
-        $common=$data['common'];
-        $column='signIn';
-        $menus=MenuManager::getClassAMenuLists();
-        $param=array(
-            'common'=>$common,
-            'menus'=>$menus,
-            'column'=>$column,
-            'user'=>$user
-        );
+        if($user){
+            return redirect('center');
+        }
+        else{
+            $common=$data['common'];
+            $column='signIn';
+            $menus=MenuManager::getClassAMenuLists();
+            //二次验证（确保不出BUG）
+            if($user){
+                //购物车信息
+                $carts = CartManager::getCartsByUserId($user['id']);
+                $param=array(
+                    'common'=>$common,
+                    'menus'=>$menus,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'carts'=>$carts
+                );
+            }
+            else{
+                $param=array(
+                    'common'=>$common,
+                    'menus'=>$menus,
+                    'column'=>$column,
+                    'user'=>$user,
+                );
+            }
 //        if(array_key_exists('type',$data)){
 //            $type=$data['type'];
 //        }
@@ -164,6 +196,7 @@ class SignController extends Controller
 //        else{
             return view('home.sign.signIn',$param);
 //        }
+        }
     }
 
     /*

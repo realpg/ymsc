@@ -246,7 +246,7 @@ function delMoreShoppingCart(url, param, callBack) {
 
 //添加评价
 function editComment(url, param, callBack) {
-    $.post(url + "comment/edit",param,callBack);
+    $.post(url + "center/comment/edit",param,callBack);
 }
 
 

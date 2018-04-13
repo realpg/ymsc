@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Components\CartManager;
 use App\Components\AddressManager;
+use App\Components\CommentManager;
 use App\Components\GoodsManager;
 use App\Components\InvoiceManager;
 use App\Components\MemberManager;
@@ -20,6 +21,7 @@ use App\Components\Utils;
 use App\Components\VertifyManager;
 use App\Http\Controllers\Controller;
 use App\Models\AddressModel;
+use App\Models\CommentModel;
 use App\Models\InvoiceModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -901,5 +903,39 @@ class CenterController extends Controller
         else{
             return redirect('signIn');
         }
+    }
+    /*
+     * 编辑评价
+     */
+    public function commentDo(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        unset($data['common']);
+        $return=null;
+        if($user){
+            $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            if(array_key_exists('goods_id',$data)&&array_key_exists('content',$data)){
+                $comment=new CommentModel();
+                $commont=CommentManager::setComment($comment,$data);
+                $comment=$comment->save();
+                if($comment){
+                    $return['result']=true;
+                    $return['msg']='评价成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='评价失败';
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='评价失败，用户信息已过期或已经被清除，请重新登录';
+        }
+        return $return;
     }
 }
