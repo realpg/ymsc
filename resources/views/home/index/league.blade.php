@@ -63,46 +63,68 @@
             }
             //编辑网站基本信息
             $("#form-league-edit").validate({
-                rules: {
-                    name: {
-                        required: true,
-                    },
-                    phonenum:{
-                        required:true,
-                        maxlength:11,
-                        minlength:11
-                    },
-                    email:{
-                        required:true,
-                        email:true
-                    },
-                    content:{
-                        required:true,
-                    }
-                },
+                // rules: {
+                //     name: {
+                //         required: true,
+                //     },
+                //     phonenum:{
+                //         required:true,
+                //         maxlength:11,
+                //         minlength:11
+                //     },
+                //     email:{
+                //         required:true,
+                //         email:true
+                //     },
+                //     content:{
+                //         required:true,
+                //     }
+                // },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        type: 'POST',
-                        url: "{{ URL::asset('league')}}",
-                        success: function (ret) {
-                            // console.log(JSON.stringify(ret));
-                            if (ret.result) {
-                                layer.msg(ret.msg, {icon: 1, time: 3000});
-                                window.location.reload();
-                            } else {
-                                layer.msg(ret.msg, {icon: 2, time: 3000});
+                    var name=$('#name').val();
+                    var email=$('#email').val();
+                    var phonenum=$('#phonenum').val();
+                    var content=$('#content').val();
+                    if(!name){
+                        layer.msg('请输入姓名', {icon: 2, time: 2000});
+                        $('#name').focus();
+                    }
+                    else if(!isEmail(email)){
+                        layer.msg('请输入正确的邮箱', {icon: 2, time: 2000});
+                        $('#email').focus();
+                    }
+                    else if(!isPoneAvailable(phonenum)){
+                        layer.msg('请输入正确的电话', {icon: 2, time: 2000});
+                        $('#phonenum').focus();
+                    }
+                    else if(!content){
+                        layer.msg('请输入内容', {icon: 2, time: 2000});
+                        $('#content').focus();
+                    }
+                    else{
+                        $(form).ajaxSubmit({
+                            type: 'POST',
+                            url: "{{ URL::asset('league')}}",
+                            success: function (ret) {
+                                // console.log(JSON.stringify(ret));
+                                if (ret.result) {
+                                    layer.msg(ret.msg, {icon: 1, time: 3000});
+                                    window.location.reload();
+                                } else {
+                                    layer.msg(ret.msg, {icon: 2, time: 3000});
+                                }
+                            },
+                            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                                layer.msg('保存失败', {icon: 2, time: 3000});
+                                console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                                console.log("textStatus:" + textStatus);
+                                console.log("errorThrown:" + errorThrown);
                             }
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('保存失败', {icon: 2, time: 3000});
-                            console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
-                            console.log("textStatus:" + textStatus);
-                            console.log("errorThrown:" + errorThrown);
-                        }
-                    });
+                        });
+                    }
                 }
 
             });
