@@ -83,33 +83,34 @@
             }
             //编辑网站基本信息
             $("#form-signUp-phonenum").validate({
-                rules: {
-                    phonenum:{
-                        required:true,
-                        minlength:11,
-                        maxlength:11
-                    },
-                    password:{
-                        required:true,
-                        minlength:6,
-                        maxlength:12
-                    },
-                },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
+                    var phonenum=$('#phonenum').val();
+                    var password=$('#password').val();
                     var verificationCode=$('#verificationCode').val();
                     var agree = $('#agree').prop('checked');
-                    if(verificationCode==''){
-                        layer.msg('注册失败，请填写验证码', {icon: 2, time: 2000});
+                    if(!isPoneAvailable(phonenum)){
+                        layer.msg('请输入正确的手机号', {icon: 2, time: 2000});
+                        $('#phonenum').focus();
+                    }
+                    else if(!password){
+                        layer.msg('请输入密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(password.length<6||password.length>12){
+                        layer.msg('请输入6-12位密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(!verificationCode){
+                        layer.msg('注册失败，请输入验证码', {icon: 2, time: 2000});
                     }
                     else{
                         if(agree==''){
                             layer.msg('只有阅读并同意用户服务协议才可以注册', {icon: 2, time: 2000});
                         }
                         else{
-                            var password=$('#password').val();
                             $("#password").val(hex_md5(password));
                             $(form).ajaxSubmit({
                                 type: 'POST',

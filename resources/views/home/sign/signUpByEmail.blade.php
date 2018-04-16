@@ -83,32 +83,45 @@
             }
             //编辑网站基本信息
             $("#form-signUp-email").validate({
-                rules: {
-                    email:{
-                        required:true,
-                        email:true
-                    },
-                    password:{
-                        required:true,
-                        minlength:6,
-                        maxlength:12
-                    },
-                },
+                // rules: {
+                //     email:{
+                //         required:true,
+                //         email:true
+                //     },
+                //     password:{
+                //         required:true,
+                //         minlength:6,
+                //         maxlength:12
+                //     },
+                // },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
+                    var email=$('#email').val();
+                    var password=$('#password').val();
                     var verificationCode=$('#verificationCode').val();
                     var agree = $('#agree').prop('checked');
-                    if(verificationCode==''){
-                        layer.msg('注册失败，请填写验证码', {icon: 2, time: 2000});
+                    if(!isEmail(email)){
+                        layer.msg('请输入正确的邮箱', {icon: 2, time: 2000});
+                        $('#email').focus();
+                    }
+                    else if(!password){
+                        layer.msg('请输入密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(password.length<6||password.length>12){
+                        layer.msg('请输入6-12位密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(!verificationCode){
+                        layer.msg('注册失败，请输入验证码', {icon: 2, time: 2000});
                     }
                     else{
                         if(agree==''){
                             layer.msg('只有阅读并同意用户服务协议才可以注册', {icon: 2, time: 2000});
                         }
                         else{
-                            var password=$('#password').val();
                             $("#password").val(hex_md5(password));
                             $(form).ajaxSubmit({
                                 type: 'POST',
@@ -140,28 +153,23 @@
         function showtime(){
             var email=$('#email').val();
             if(isEmail(email)){
-                if(email){
-                    var param={
-                        _token: "{{ csrf_token() }}",
-                        email:email,
-                    }
-                    sendEmailCode('{{URL::asset('')}}', param, function(ret){
-                        if(ret.result){
-                            layer.msg(ret.msg, {icon: 1, time: 2000});
-                        }
-                        else{
-                            layer.msg(ret.msg, {icon: 2, time: 2000});
-                        }
-                    })
-                    //倒计时
-                    document.signUpByEmail.send.disabled=true;
-                    var t=60;
-                    for(i=1;i<=t;i++) {
-                        window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
-                    }
+                var param={
+                    _token: "{{ csrf_token() }}",
+                    email:email,
                 }
-                else{
-                    layer.msg('请填写邮箱', {icon: 2, time: 2000});
+                sendEmailCode('{{URL::asset('')}}', param, function(ret){
+                    if(ret.result){
+                        layer.msg(ret.msg, {icon: 1, time: 2000});
+                    }
+                    else{
+                        layer.msg(ret.msg, {icon: 2, time: 2000});
+                    }
+                })
+                //倒计时
+                document.signUpByEmail.send.disabled=true;
+                var t=60;
+                for(i=1;i<=t;i++) {
+                    window.setTimeout("update_p(" + i + ","+t+")", i * 1000);
                 }
             }
             else{

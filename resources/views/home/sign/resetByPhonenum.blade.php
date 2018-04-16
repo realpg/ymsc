@@ -61,26 +61,28 @@
             else if(bodyHeight>900){
                 $('#sign-form').css('padding-top','180px');
             }
-            //编辑网站基本信息
+            //编辑
             $("#form-reset-phonenum").validate({
-                rules: {
-                    phonenum:{
-                        required:true,
-                        minlength:11,
-                        maxlength:11
-                    },
-                    password:{
-                        required:true,
-                        minlength:6,
-                        maxlength:12
-                    },
-                },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
+                    var phonenum=$('#phonenum').val();
+                    var password=$('#password').val();
                     var verificationCode=$('#verificationCode').val();
-                    if(verificationCode==''){
+                    if(!isPoneAvailable(phonenum)){
+                        layer.msg('请输入正确的手机号', {icon: 2, time: 2000});
+                        $('#phonenum').focus();
+                    }
+                    else if(!password){
+                        layer.msg('请输入密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(password.length<6||password.length>12){
+                        layer.msg('请输入6-12位密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(!verificationCode){
                         layer.msg('修改密码失败，请填写验证码', {icon: 2, time: 2000});
                     }
                     else{

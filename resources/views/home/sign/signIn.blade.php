@@ -62,35 +62,46 @@
             }
             //编辑网站基本信息
             $("#form-signIn").validate({
-                rules: {
-                    phonenum:{
-                        required:true,
-                    },
-                    password:{
-                        required:true,
-                        minlength:6,
-                        maxlength:12
-                    },
-                },
+                // rules: {
+                //     phonenum:{
+                //         required:true,
+                //     },
+                //     password:{
+                //         required:true,
+                //         minlength:6,
+                //         maxlength:12
+                //     },
+                // },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
+                    var phonenum=$('#phonenum').val();
+                    var password=$('#password').val();
                     var verificationCode=$('#verificationCode').val();
-                    if(verificationCode==''){
-                        layer.msg('登录失败，请填写验证码', {icon: 2, time: 3000});
+                    if(!phonenum){
+                        layer.msg('请输入手机号或邮箱', {icon: 2, time: 2000});
+                        $('#phonenum').focus();
+                    }
+                    else if(!password){
+                        layer.msg('请输入密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(password.length<6||password.length>12){
+                        layer.msg('请输入6-12位密码', {icon: 2, time: 2000});
+                        $('#password').focus();
+                    }
+                    else if(!verificationCode){
+                        layer.msg('登录失败，请填写验证码', {icon: 2, time: 2000});
                     }
                     else{
-                        var password=$('#password').val();
                         $("#password").val(hex_md5(password));
                         $(form).ajaxSubmit({
                             type: 'POST',
                             url: "{{ URL::asset('signIn')}}",
                             success: function (ret) {
-                                // console.log(JSON.stringify(ret));
                                 if (ret.result) {
                                     layer.msg(ret.msg, {icon: 1, time: 2000});
-                                    // window.location.reload();
                                     location.href="{{ URL::asset('index')}}"
                                 } else {
                                     $("#password").val('');
