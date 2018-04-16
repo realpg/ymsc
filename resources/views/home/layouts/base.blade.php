@@ -300,14 +300,6 @@
                         </div>
                         <div class=" col-xs-6 col-sm-6 padding-left-0">
                             <input type="text" class="form-control" name="searching_unit" id="searching_unit" placeholder="单位">
-                            {{--<select name="searching_unit" class="form-control">--}}
-                                {{--<option value="g">g</option>--}}
-                                {{--<option value="ton">ton</option>--}}
-                                {{--<option value="kg">kg</option>--}}
-                                {{--<option value="mg">mg</option>--}}
-                                {{--<option value="L">L</option>--}}
-                                {{--<option value="ml">ml</option>--}}
-                            {{--</select>--}}
                         </div>
                     </div>
                     <div class="margin-top-5 col-xs-12 col-sm-12 ">
@@ -543,35 +535,55 @@
 
     });
     $("#form-searching").validate({
-        rules: {
-            searching_goods:{
-                required:true,
-            },
-            searching_count:{
-                required:true,
-                number:true
-            },
-            searching_phonenum:{
-                required:true,
-                maxlength:11,
-                minlength:11,
-            },
-            // searching_province:{
-            //     required:true,
-            // },
-            // searching_city:{
-            //     required:true,
-            // },
-            // searching_address:{
-            //     required:true,
-            // },
-        },
+        // rules: {
+        //     searching_goods:{
+        //         required:true,
+        //     },
+        //     searching_count:{
+        //         required:true,
+        //         number:true
+        //     },
+        //     searching_phonenum:{
+        //         required:true,
+        //         maxlength:11,
+        //         minlength:11,
+        //     },
+        // },
         onkeyup: false,
         focusCleanup: false,
         success: "valid",
         submitHandler: function (form) {
-            var phonenum=$('#searching_phonenum').val();
-            if(isPoneAvailable(phonenum)){
+            var searching_goods=$('#searching_goods').val();
+            var searching_count=$('#searching_count').val();
+            var searching_unit=$('#searching_unit').val();
+            var searching_phonenum=$('#searching_phonenum').val();
+            var searching_province=$('#searching_province').val();
+            var searching_city=$('#searching_city').val();
+            if(!searching_goods){
+                layer.msg('请填写需要采购的商品', {icon: 2, time: 2000});
+                $('#searching_goods').focus();
+            }
+            else if(!searching_count){
+                layer.msg('请填写采购数量', {icon: 2, time: 2000});
+                $('#searching_count').focus();
+            }
+            else if(!searching_unit){
+                layer.msg('请填写采购单位', {icon: 2, time: 2000});
+                $('#searching_unit').focus();
+            }
+            else if(!isPoneAvailable(searching_phonenum)){
+                layer.msg('请填写正确的手机号', {icon: 2, time: 2000});
+                $('#searching_phonenum').focus();
+            }
+            else if(!searching_province){
+                layer.msg('请选择省份', {icon: 2, time: 2000});
+                $('#searching_province').focus();
+            }
+            else if(!searching_city){
+                layer.msg('请选择城市', {icon: 2, time: 2000});
+                $('#searching_city').focus();
+            }
+            else{
                 $(form).ajaxSubmit({
                     type: 'POST',
                     url: "{{ URL::asset('searching')}}",
@@ -591,9 +603,6 @@
                         console.log("errorThrown:" + errorThrown);
                     }
                 });
-            }
-            else{
-                layer.msg('请填写正确的手机号', {icon: 2, time: 2000});
             }
         }
 
