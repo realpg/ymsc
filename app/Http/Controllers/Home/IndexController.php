@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Home;
 
 use App\Components\AdviceManager;
 use App\Components\CartManager;
+use App\Components\CommentManager;
 use App\Components\FriendshipManager;
 use App\Components\GoodsManager;
 use App\Components\HomeManager;
@@ -19,9 +20,9 @@ use App\Components\SearchingManager;
 use App\Components\WordManager;
 use App\Http\Controllers\Controller;
 use App\Models\AdviceModel;
+use App\Models\GoodsMachiningAttributeModel;
 use App\Models\LeagueModel;
 use App\Models\SearchingModel;
-use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -315,5 +316,60 @@ class IndexController extends Controller
             );
         }
         return view('home.index.differenceGoods',$param);
+    }
+
+    /*
+     * 评价
+     */
+    public function comment(Request $request,$goods_id=''){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='index';
+        $goods=GoodsManager::getGoodsById($goods_id);
+        if($goods){
+            $goods['goods_menu']=MenuManager::getMenuById($goods['menu_id']);
+            if($goods['goods_menu']['menu_id']==1){
+                $goods['goods_column']=ChemController::COLUMN;
+            }
+            else if($goods['goods_menu']['menu_id']==2){
+                $goods['goods_column']=TestingController::COLUMN;
+            }
+            else if($goods['goods_menu']['menu_id']==3){
+                $goods['goods_column']=MachiningController::COLUMN;
+                $attribute=GoodsMachiningAttributeModel::where('goods_id',$goods_id)->first();
+                if($attribute){
+                    $goods['goods_type']=0;
+                }
+                else{
+                    $goods['goods_type']=1;
+                }
+            }
+            $comments=CommentManager::getGoodsCommentsByGoodsId($goods_id);
+            if($user){
+                $carts=CartManager::getCartsByUserId($user['id']);
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'carts'=>$carts,
+                    'goods'=>$goods,
+                    'comments'=>$comments
+                );
+            }
+            else{
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'goods'=>$goods,
+                    'comments'=>$comments
+                );
+            }
+            return view('home.index.comment',$param);
+        }
+        else{
+            echo "参数无效";
+        }
     }
 }

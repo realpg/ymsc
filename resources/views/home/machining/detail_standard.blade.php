@@ -101,17 +101,42 @@
                         @endif
                     </li>
                     <li>
-                        @if(empty($comments))
+                        @if(count($comments)==0)
                             <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                                 <img src="{{ URL::asset('img/nothing.png') }}"  />
                             </div>
                             <div class="margin-top-20 text-center index-font">
-                                还没有人对此商品进行评价
+                                还没有人对此商品进行评价!
                             </div>
                         @else
-                            {{--@foreach($comments as $comment)--}}
-                                {{----}}
-                            {{--@endforeach--}}
+                            @foreach($comments as $comment)
+                                <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2 border-div min-height-content" style="min-height: 100px;">
+                                    <div class="col-md-2 col-lg-2 padding-10">
+                                        <div class="common-text-align-center">
+                                            <img src="{{$comment['user']['avatar']}}" class="width-50px height-50 border-radius-100" />
+                                        </div>
+                                        <div class="common-text-align-center margin-top-10 text-oneline">
+                                            {{$comment['user']['nick_name']}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10 col-lg-10 padding-10">
+                                        <div class="text-grey">
+                                            {{$comment['created_at']}}
+                                        </div>
+                                        <div>
+                                            {{$comment['content']}}
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            @endforeach
+                            @if(count($comments)>=20)
+                            <a href="{{URL::asset('comment/'.$goods['id'])}}">
+                                <div class="line-height-30 row common-text-align-center background-detail">
+                                    查看更多
+                                </div>
+                            </a>
+                            @endif
                         @endif
                     </li>
                 </ul>
