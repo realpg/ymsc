@@ -540,7 +540,11 @@ class CenterController extends Controller
                 }
                 else if($data['type']=='editSpecialInvoice'){
                     $data['type']=1;
+                    $data['title']=$data['special_title'];
+                    $data['credit']=$data['special_credit'];
+                    $data['name']=$data['special_name'];
                     $data['phonenum']=$data['special_phonenum'];
+                    $data['address']=$data['special_address'];
                     if($data['licence']==1){
                         unset($data['business_license']);
                         unset($data['account_opening_permit']);

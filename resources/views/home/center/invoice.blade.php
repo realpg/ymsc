@@ -77,13 +77,13 @@
                                 <div class="row position-relative margin-top-20">
                                     <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 单 位 名 称：</div>
                                     <div class="col-xs-6 col-sm-8">
-                                        <input type="text" name="title" id="title" class="form-control" placeholder="请输入单位名称">
+                                        <input type="text" name="special_title" id="special_title" class="form-control" placeholder="请输入单位名称">
                                     </div>
                                 </div>
                                 <div class="row position-relative margin-top-20">
                                     <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 纳 税 人 识 别 码：</div>
                                     <div class="col-xs-6 col-sm-8">
-                                        <input type="text" name="credit" id="credit" class="form-control" placeholder="请输入纳税人识别码">
+                                        <input type="text" name="special_credit" id="special_credit" class="form-control" placeholder="请输入纳税人识别码">
                                     </div>
                                 </div>
                                 <div class="row position-relative margin-top-20">
@@ -150,7 +150,7 @@
                                 <div class="row position-relative margin-top-20">
                                     <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 姓 名：</div>
                                     <div class="col-xs-6 col-sm-8">
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="请输入收票人姓名">
+                                        <input type="text" name="special_name" id="special_name" class="form-control" placeholder="请输入收票人姓名">
                                     </div>
                                 </div>
                                 <div class="row position-relative margin-top-20">
@@ -162,7 +162,7 @@
                                 <div class="row position-relative margin-top-20">
                                     <div class="col-xs-6 col-sm-4 text-right"><i>*</i> 收 票 人 地 址：</div>
                                     <div class="col-xs-6 col-sm-8">
-                                        <input type="text" name="address" id="address" class="form-control" placeholder="请输入收票人地址">
+                                        <input type="text" name="special_address" id="special_address" class="form-control" placeholder="请输入收票人地址">
                                     </div>
                                 </div>
                                 <div class="row position-relative margin-top-20 margin-bottom-20">
@@ -416,37 +416,45 @@
             $('.tab_content').find('li').eq(index).show().siblings().hide();
         })
         $("#form-center-invoice-ordinary-edit").validate({
-            rules: {
-                type:{
-                    required:true,
-                },
-                title:{
-                    required:true,
-                },
-                credit:{
-                    required:true,
-                },
-                name:{
-                    required:true,
-                },
-                phonenum:{
-                    required:true,
-                },
-                address:{
-                    required:true,
-                },
-            },
             onkeyup: false,
             focusCleanup: false,
             success: "valid",
             submitHandler: function (form) {
+                var type=$('#type').val();
+                var title=$('#title').val();
+                var credit=$('#credit').val();
+                var name=$('#name').val();
                 var phonenum=$('#phonenum').val();
-                if(isPhone(phonenum)){
+                var address=$('#address').val();
+                if(!type){
+                    layer.msg('缺少参数', {icon: 2, time: 2000});
+                }
+                else if(!title){
+                    layer.msg('请输入发票抬头', {icon: 2, time: 2000});
+                    $('#title').focus();
+                }
+                else if(!credit){
+                    layer.msg('请输入税号/信用代码', {icon: 2, time: 2000});
+                    $('#credit').focus();
+                }
+                else if(!name){
+                    layer.msg('请输入收票人姓名', {icon: 2, time: 2000});
+                    $('#name').focus();
+                }
+                else if(!isPhone(phonenum)){
+                    layer.msg('请输入正确的收票人电话', {icon: 2, time: 2000});
+                    $('#phonenum').focus();
+                }
+                else if(!address){
+                    layer.msg('请输入收票人地址', {icon: 2, time: 2000});
+                    $('#address').focus();
+                }
+                else{
                     $(form).ajaxSubmit({
                         type: 'POST',
                         url: "{{ URL::asset('center/invoice')}}",
                         success: function (ret) {
-                            console.log(JSON.stringify(ret));
+                            // console.log(JSON.stringify(ret));
                             if (ret.result) {
                                 layer.msg(ret.msg, {icon: 1, time: 2000});
                                 window.location.reload()
@@ -462,53 +470,75 @@
                         }
                     });
                 }
-                else{
-                    layer.msg('请填写正确的电话号码', {icon: 2, time: 2000});
-                }
             }
 
         });
         $("#form-center-invoice-special-edit").validate({
-            rules: {
-                type:{
-                    required:true,
-                },
-                title:{
-                    required:true,
-                },
-                credit:{
-                    required:true,
-                },
-                company_address:{
-                    required:true,
-                },
-                company_tel:{
-                    required:true,
-                },
-                bank:{
-                    required:true,
-                },
-                number:{
-                    required:true,
-                },
-                name:{
-                    required:true,
-                },
-                special_phonenum:{
-                    required:true,
-                },
-                address:{
-                    required:true,
-                },
-            },
             onkeyup: false,
             focusCleanup: false,
             success: "valid",
             submitHandler: function (form) {
-                var company_tel=$('#company_tel').val();
-                var special_phonenum=$('#special_phonenum').val();
-                if(isPhone(company_tel)){
-                    if(isPhone(special_phonenum)){
+                var type = $('#type').val();
+                var special_title = $('#special_title').val();
+                var special_credit = $('#special_credit').val();
+                var company_address = $('#company_address').val();
+                var company_tel = $('#company_tel').val();
+                var bank = $('#bank').val();
+                var number = $('#number').val();
+                var special_name = $('#special_name').val();
+                var special_phonenum = $('#special_phonenum').val();
+                var special_address = $('#special_address').val();
+                var licence = $('#licence').val();
+                var business_license=$('#business_license').val();
+                var account_opening_permit=$('#account_opening_permit').val();
+                var tax_registration_certificate=$('#tax_registration_certificate').val();
+                if (!type) {
+                    layer.msg('缺少参数', {icon: 2, time: 2000});
+                }
+                else if (!special_title) {
+                    layer.msg('请输入单位名称', {icon: 2, time: 2000});
+                    $('#special_title').focus();
+                }
+                else if (!special_credit) {
+                    layer.msg('请输入纳税人识别码', {icon: 2, time: 2000});
+                    $('#special_credit').focus();
+                }
+                else if (!company_address) {
+                    layer.msg('请输入注册地址', {icon: 2, time: 2000});
+                    $('#company_address').focus();
+                }
+                else if (!isPhone(company_tel)) {
+                    layer.msg('请输入正确的注册电话', {icon: 2, time: 2000});
+                    $('#company_tel').focus();
+                }
+                else if (!bank) {
+                    layer.msg('请输入开户银行', {icon: 2, time: 2000});
+                    $('#bank').focus();
+                }
+                else if (!number) {
+                    layer.msg('请输入银行账号', {icon: 2, time: 2000});
+                    $('#number').focus();
+                }
+                else if (!special_name) {
+                    layer.msg('请输入收票人姓名', {icon: 2, time: 2000});
+                    $('#special_name').focus();
+                }
+                else if (!isPhone(special_phonenum)) {
+                    layer.msg('请输入正确的收票人电话', {icon: 2, time: 2000});
+                    $('#special_phonenum').focus();
+                }
+                else if (!special_address) {
+                    layer.msg('请输入收票人地址', {icon: 2, time: 2000});
+                    $('#special_address').focus();
+                }
+                else {
+                    if((!business_license||!account_opening_permit||!tax_registration_certificate)&&licence==0){
+                        layer.msg('请上传三证', {icon: 2, time: 2000});
+                    }
+                    else if(!business_license&&licence==1){
+                        layer.msg('请上传三证合一的营业执照', {icon: 2, time: 2000});
+                    }
+                    else{
                         $(form).ajaxSubmit({
                             type: 'POST',
                             url: "{{ URL::asset('center/invoice')}}",
@@ -529,15 +559,8 @@
                             }
                         });
                     }
-                    else{
-                        layer.msg('请填写正确的电话号码', {icon: 2, time: 2000});
-                    }
-                }
-                else{
-                    layer.msg('请正确填写注册电话', {icon: 2, time: 2000});
                 }
             }
-
         });
     });
     //删除
