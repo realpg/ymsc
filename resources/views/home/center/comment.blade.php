@@ -70,9 +70,9 @@
                             </tr>
                             <tr>
                                 <td colspan="6" class="border-bottom-attribute">
-                                    <textarea name="content" id="content_{{$suborder['goods_id']}}" class="form-control" rows="3" style="resize: none;" placeholder="请对此商品添加评论"></textarea>
+                                    <textarea name="content" id="content_{{$suborder['goods_id']}}" class="form-control" rows="3" style="resize: none;" placeholder="请对此商品添加评价"></textarea>
                                     <div class="margin-top-10">
-                                        <button type="button" onclick="submitComment(this,'{{$suborder['goods_id']}}')" class="btn btn-info border-radius-0 float-right">提 交 评 论</button>
+                                        <button type="button" onclick="submitComment(this,'{{$suborder['goods_id']}}')" class="btn btn-info border-radius-0 float-right">提 交 评 价</button>
                                     </div>
                                 </td>
                             </tr>
@@ -106,7 +106,7 @@
             })
         });
     }
-    //提交评论
+    //提交评价
     function submitComment(obj,goods_id){
         var content=$('#content_'+goods_id).val()
         if(content){

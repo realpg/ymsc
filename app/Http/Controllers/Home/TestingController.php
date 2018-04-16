@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Home;
 use App\Components\CartManager;
 use App\Components\AttributeManager;
 use App\Components\BannerManager;
+use App\Components\CommentManager;
 use App\Components\GoodsManager;
 use App\Components\MenuManager;
 use App\Components\ServiceManager;
@@ -185,6 +186,7 @@ class TestingController extends Controller
         $channel=MenuManager::getMenuById($goods['menu_id']);
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
+        $comments=CommentManager::getGoodsCommentsByGoodsId($goods['id']);
         //QQ客服
         $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
@@ -197,7 +199,8 @@ class TestingController extends Controller
                 'channel'=>$channel,
                 'goods'=>$goods,
                 'carts'=>$carts,
-                'service'=>$service
+                'service'=>$service,
+                'comments'=>$comments
             );
         }
         else{
@@ -207,7 +210,8 @@ class TestingController extends Controller
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,
-                'service'=>$service
+                'service'=>$service,
+                'comments'=>$comments
             );
         }
         return view('home.testing.detail',$param);

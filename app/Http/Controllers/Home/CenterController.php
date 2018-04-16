@@ -914,13 +914,14 @@ class CenterController extends Controller
         $return=null;
         if($user){
             $user=MemberManager::getUserInfoByIdWithNotToken($user['id']);
+            $data['user_id']=$user['id'];
             if(array_key_exists('goods_id',$data)&&array_key_exists('content',$data)){
                 $comment=new CommentModel();
                 $commont=CommentManager::setComment($comment,$data);
                 $comment=$comment->save();
                 if($comment){
                     $return['result']=true;
-                    $return['msg']='评价成功';
+                    $return['msg']='评价成功，等待管理员进行审核';
                 }
                 else{
                     $return['result']=false;

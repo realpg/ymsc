@@ -193,6 +193,7 @@ class MachiningController extends Controller
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $goods['cases']=GoodsManager::getGoodsCaseByGoodsId($goods_id);
+        $comments=CommentManager::getGoodsCommentsByGoodsId($goods_id);
         //QQ客服
         $service=ServiceManager::getServiceById(self::SERVICE_ID);
         if($user) {
@@ -205,7 +206,8 @@ class MachiningController extends Controller
                 'channel'=>$channel,
                 'goods'=>$goods,
                 'carts'=>$carts,
-                'service'=>$service
+                'service'=>$service,
+                'comments'=>$comments
             );
         }
         else{
@@ -215,7 +217,8 @@ class MachiningController extends Controller
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,
-                'service'=>$service
+                'service'=>$service,
+                'comments'=>$comments
             );
         }
         return view('home.machining.detail_machining',$param);

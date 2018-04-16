@@ -42,7 +42,7 @@
         <ul class="line-height-40 border-bottom-navy-blue row common-text-align-center" id="tab">
             <li class="tab_active col-md-12 col-lg-2 background-detail">案 例 展 示</li>
             <li class="col-md-12 col-lg-2 background-detail">设 备 详 情</li>
-            {{--<li class="col-md-12 col-lg-2 background-detail">客 户 评 价</li>--}}
+            <li class="col-md-12 col-lg-2 background-detail">客 户 评 价</li>
             <li class="col-md-12 col-lg-2 background-detail">开 发 和 收 费 情 况</li>
         </ul>
         <ul class="tab_content">
@@ -93,16 +93,51 @@
                     </div>
                 @endif
             </li>
-            {{--<li>--}}
-                {{--@if(empty($goods['comments']))--}}
-                    {{--<div class="margin-top-20 margin-right-10 margin-left-10 text-center">--}}
-                        {{--<img src="{{ URL::asset('img/nothing.png') }}"  />--}}
-                    {{--</div>--}}
-                    {{--<div class="margin-top-20 text-center index-font">--}}
-                        {{--还没有人对此商品进行评价--}}
-                    {{--</div>--}}
-                {{--@endif--}}
-            {{--</li>--}}
+            <li>
+                @if(count($comments)==0)
+                    <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
+                        <img src="{{ URL::asset('img/nothing.png') }}"  />
+                    </div>
+                    <div class="margin-top-20 text-center index-font">
+                        还没有人对此商品进行评价!
+                    </div>
+                @else
+                    @foreach($comments as $comment)
+                        <div class="row goods-lists-card margin-bottom-20 margin-top-10 letter-spacing-2 border-div min-height-content" style="min-height: 100px;">
+                            <div class="col-md-2 col-lg-2 padding-10">
+                                <div class="common-text-align-center">
+                                    <img src="{{$comment['user']['avatar']}}" class="width-50px height-50 border-radius-100" />
+                                </div>
+                                <div class="common-text-align-center margin-top-10 text-oneline">
+                                    {{$comment['user']['nick_name']}}
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-lg-10 padding-10">
+                                <div class="text-grey">
+                                    {{$comment['created_at']}}
+                                </div>
+                                <div>
+                                    {{$comment['content']}}
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    @endforeach
+                    @if(count($comments)>=20)
+                        <a href="{{URL::asset('comment/'.$goods['id'])}}">
+                            <div class="line-height-30 row common-text-align-center background-detail">
+                                查看更多
+                            </div>
+                        </a>
+                    @endif
+                @endif
+                <div class="border-top-attribute row padding-top-20 margin-top-20">
+                    <textarea name="content" id="content" class="form-control" rows="3" style="resize: none;" placeholder="请对此商品添加评价"></textarea>
+                    <div class="margin-top-10">
+                        <button type="button" onclick="submitComment(this,'{{$goods['id']}}')" class="btn btn-info border-radius-0 float-right">提 交 评 价</button>
+                    </div>
+                </div>
+            </li>
             <li>
                 @if($goods['attribute']['explain'])
                     {{$goods['attribute']['explain']}}
@@ -130,5 +165,28 @@
             $('.tab_content').find('li').eq(index).show().siblings().hide();
         })
     })
+    //提交评论
+    function submitComment(obj,goods_id){
+        var content=$('#content').val()
+        if(content){
+            var param = {
+                goods_id: goods_id,
+                content: content,
+                _token: "{{ csrf_token() }}"
+            }
+            editComment('{{URL::asset('')}}', param, function (ret) {
+                console.log('editComment is : '+JSON.stringify(ret))
+                if (ret.result == true) {
+                    $('#content').val('')
+                    layer.msg(ret.msg, {icon: 1, time: 3000});
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
+            })
+        }
+        else{
+            layer.msg('请对商品进行评价', {icon: 2, time: 1000})
+        }
+    }
 </script>
 @endsection
