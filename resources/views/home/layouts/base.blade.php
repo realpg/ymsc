@@ -489,25 +489,26 @@
 <script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
 <script>
     $("#form-advice").validate({
-        rules: {
-            advice_content:{
-                required:true,
-            },
-            advice_phonenum:{
-                required:true,
-                maxlength:11,
-                minlength:11,
-            },
-            advice_name:{
-                required:true,
-            },
-        },
         onkeyup: false,
         focusCleanup: false,
         success: "valid",
         submitHandler: function (form) {
-            var phonenum=$('#advice_phonenum').val();
-            if(isPoneAvailable(phonenum)){
+            var advice_content=$('#advice_content').val();
+            var advice_phonenum=$('#advice_phonenum').val();
+            var advice_name=$('#advice_name').val();
+            if(!advice_content){
+                layer.msg('请填写问题描述', {icon: 2, time: 2000});
+                $('#advice_content').focus();
+            }
+            else if(!isPoneAvailable(advice_phonenum)){
+                layer.msg('请填写正确的手机号', {icon: 2, time: 2000});
+                $('#advice_phonenum').focus();
+            }
+            else if(!advice_name){
+                layer.msg('请填写联系人', {icon: 2, time: 2000});
+                $('#advice_name').focus();
+            }
+            else{
                 $(form).ajaxSubmit({
                     type: 'POST',
                     url: "{{ URL::asset('advice')}}",
@@ -528,27 +529,10 @@
                     }
                 });
             }
-            else{
-                layer.msg('请填写正确的手机号', {icon: 2, time: 2000});
-            }
         }
 
     });
     $("#form-searching").validate({
-        // rules: {
-        //     searching_goods:{
-        //         required:true,
-        //     },
-        //     searching_count:{
-        //         required:true,
-        //         number:true
-        //     },
-        //     searching_phonenum:{
-        //         required:true,
-        //         maxlength:11,
-        //         minlength:11,
-        //     },
-        // },
         onkeyup: false,
         focusCleanup: false,
         success: "valid",
@@ -559,6 +543,7 @@
             var searching_phonenum=$('#searching_phonenum').val();
             var searching_province=$('#searching_province').val();
             var searching_city=$('#searching_city').val();
+            var searching_address=$('#searching_address').val();
             if(!searching_goods){
                 layer.msg('请填写需要采购的商品', {icon: 2, time: 2000});
                 $('#searching_goods').focus();
@@ -582,6 +567,10 @@
             else if(!searching_city){
                 layer.msg('请选择城市', {icon: 2, time: 2000});
                 $('#searching_city').focus();
+            }
+            else if(!searching_address){
+                layer.msg('请填写公司/单位', {icon: 2, time: 2000});
+                $('#searching_address').focus();
             }
             else{
                 $(form).ajaxSubmit({
