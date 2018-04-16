@@ -103,34 +103,36 @@
             //获取七牛token
             initQNUploader();
             $("#form-center-edit").validate({
-                rules: {
-                    nick_name:{
-                        required:true,
-                    },
-                },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        type: 'POST',
-                        url: "{{ URL::asset('center/base')}}",
-                        success: function (ret) {
-                            console.log(JSON.stringify(ret));
-                            if (ret.result) {
-                                layer.msg(ret.msg, {icon: 1, time: 2000});
-                                window.location.reload()
-                            } else {
-                                layer.msg(ret.msg, {icon: 2, time: 2000});
+                    var nick_name=$('#nick_name').val();
+                    if(!nick_name){
+                        layer.msg('请输入昵称', {icon: 2, time: 2000});
+                        $('#nick_name').focus();
+                    }
+                    else{
+                        $(form).ajaxSubmit({
+                            type: 'POST',
+                            url: "{{ URL::asset('center/base')}}",
+                            success: function (ret) {
+                                console.log(JSON.stringify(ret));
+                                if (ret.result) {
+                                    layer.msg(ret.msg, {icon: 1, time: 2000});
+                                    window.location.reload()
+                                } else {
+                                    layer.msg(ret.msg, {icon: 2, time: 2000});
+                                }
+                            },
+                            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                                layer.msg('保存失败', {icon: 2, time: 2000});
+                                console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                                console.log("textStatus:" + textStatus);
+                                console.log("errorThrown:" + errorThrown);
                             }
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('保存失败', {icon: 2, time: 2000});
-                            console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
-                            console.log("textStatus:" + textStatus);
-                            console.log("errorThrown:" + errorThrown);
-                        }
-                    });
+                        });
+                    }
                 }
 
             });

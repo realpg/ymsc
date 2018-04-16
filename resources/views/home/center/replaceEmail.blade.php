@@ -43,37 +43,43 @@
     <script type="text/javascript">
         $(function () {
             $("#form-email-edit").validate({
-                rules: {
-                    email:{
-                        required:true,
-                        email:true
-                    },
-                },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        type: 'POST',
-                        url: "{{ URL::asset('center/edit')}}",
-                        success: function (ret) {
-                            console.log(JSON.stringify(ret));
-                            if (ret.result) {
-                                layer.msg(ret.msg, {icon: 1, time: 2000});
-                                setTimeout(function () {
-                                    location.href="{{ URL::asset('center')}}";
-                                }, 1000)
-                            } else {
-                                layer.msg(ret.msg, {icon: 2, time: 2000});
+                    var email=$('#email').val();
+                    var verificationCode=$('#verificationCode').val();
+                    if(!isEmail(email)){
+                        layer.msg('请输入正确的邮箱', {icon: 2, time: 2000});
+                        $('#email').focus();
+                    }
+                    else if(!verificationCode){
+                        layer.msg('请输入验证码', {icon: 2, time: 2000});
+                        $('#verificationCode').focus();
+                    }
+                    else{
+                        $(form).ajaxSubmit({
+                            type: 'POST',
+                            url: "{{ URL::asset('center/edit')}}",
+                            success: function (ret) {
+                                console.log(JSON.stringify(ret));
+                                if (ret.result) {
+                                    layer.msg(ret.msg, {icon: 1, time: 2000});
+                                    setTimeout(function () {
+                                        location.href="{{ URL::asset('center')}}";
+                                    }, 1000)
+                                } else {
+                                    layer.msg(ret.msg, {icon: 2, time: 2000});
+                                }
+                            },
+                            error: function (XmlHttpRequest, textStatus, errorThrown) {
+                                layer.msg('操作失败', {icon: 2, time: 2000});
+                                console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                                console.log("textStatus:" + textStatus);
+                                console.log("errorThrown:" + errorThrown);
                             }
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('操作失败', {icon: 2, time: 2000});
-                            console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
-                            console.log("textStatus:" + textStatus);
-                            console.log("errorThrown:" + errorThrown);
-                        }
-                    });
+                        });
+                    }
                 }
 
             });

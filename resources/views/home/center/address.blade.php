@@ -181,53 +181,60 @@
 <script type="text/javascript">
     $(function () {
         $("#form-center-address-edit").validate({
-            rules: {
-                name:{
-                    required:true,
-                },
-                phonenum:{
-                    required:true,
-                    maxlength:11,
-                    minlength:11,
-                },
-                address_province:{
-                    required:true,
-                },
-                address_city:{
-                    required:true,
-                },
-                address_town:{
-                    required:true,
-                },
-                address_address:{
-                    required:true,
-                },
-                address_detail:{
-                    required:true,
-                },
-            },
             onkeyup: false,
             focusCleanup: false,
             success: "valid",
             submitHandler: function (form) {
-                $(form).ajaxSubmit({
-                    type: 'POST',
-                    url: "{{ URL::asset('center/address')}}",
-                    success: function (ret) {
-                        if (ret.result) {
-                            layer.msg(ret.msg, {icon: 1, time: 2000});
-                            window.location.reload()
-                        } else {
-                            layer.msg(ret.msg, {icon: 2, time: 2000});
+                var name=$('#name').val();
+                var phonenum=$('#phonenum').val();
+                var address_province=$('#address_province').val();
+                var address_city=$('#address_city').val();
+                var address_town=$('#address_town').val();
+                var address_detail=$('#address_detail').val();
+                if(!name){
+                    layer.msg('请输入收货人', {icon: 2, time: 2000});
+                    $('#name').focus();
+                }
+                else if(!address_province){
+                    layer.msg('请选择省份', {icon: 2, time: 2000});
+                    $('#address_province').focus();
+                }
+                else if(!address_city){
+                    layer.msg('请选择城市', {icon: 2, time: 2000});
+                    $('#address_city').focus();
+                }
+                else if(!address_town){
+                    layer.msg('请选择区域', {icon: 2, time: 2000});
+                    $('#address_town').focus();
+                }
+                else if(!address_detail){
+                    layer.msg('请输入详细地址', {icon: 2, time: 2000});
+                    $('#address_detail').focus();
+                }
+                else if(!isPoneAvailable(phonenum)){
+                    layer.msg('请输入正确的电话', {icon: 2, time: 2000});
+                    $('#phonenum').focus();
+                }
+                else{
+                    $(form).ajaxSubmit({
+                        type: 'POST',
+                        url: "{{ URL::asset('center/address')}}",
+                        success: function (ret) {
+                            if (ret.result) {
+                                layer.msg(ret.msg, {icon: 1, time: 2000});
+                                window.location.reload()
+                            } else {
+                                layer.msg(ret.msg, {icon: 2, time: 2000});
+                            }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('操作失败', {icon: 2, time: 2000});
+                            console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                            console.log("textStatus:" + textStatus);
+                            console.log("errorThrown:" + errorThrown);
                         }
-                    },
-                    error: function (XmlHttpRequest, textStatus, errorThrown) {
-                        layer.msg('操作失败', {icon: 2, time: 2000});
-                        console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
-                        console.log("textStatus:" + textStatus);
-                        console.log("errorThrown:" + errorThrown);
-                    }
-                });
+                    });
+                }
             }
 
         });
