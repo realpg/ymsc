@@ -8,7 +8,7 @@
             {{csrf_field()}}
             <input type="hidden" name="chem_class_id" id="chem_class_id" value="{{$chem_class_id}}" />
             <input type="hidden" name="menu_id" id="menu_id" value="{{$menu_id}}" />
-            <input id="search" name="search" type="text" class="input-text" style="width:300px" placeholder="商品货号">
+            <input id="search" name="search" type="text" class="input-text" style="width:300px" placeholder="商品货号" value="{{$search}}">
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -72,6 +72,9 @@
             @endforeach
             </tbody>
         </table>
+        <div id="callBackPager">
+            {{ $datas->appends(['search' => $search,'chem_class_id'=>$chem_class_id,'menu_id'=>$menu_id])->links() }}
+        </div>
     </div>
 </div>
 
@@ -79,17 +82,17 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 1, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,10]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[0,10]}// 不参与排序的列
+    //     ]
+    // });
 
     /*查看商品详情*/
     function chem_edit(title, url, id) {

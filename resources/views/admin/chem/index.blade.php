@@ -18,7 +18,7 @@
                   @endforeach
               </select>
             </span>
-            <input id="search" name="search" type="text" class="input-text" style="width:300px" placeholder="商品名称/商品别名/商品英文名称/CAS">
+            <input id="search" name="search" type="text" class="input-text" style="width:300px" placeholder="商品名称/商品别名/商品英文名称/CAS" value="{{$search}}">
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -76,6 +76,10 @@
             @endforeach
             </tbody>
         </table>
+        <div id="callBackPager">
+            {{ $datas->appends(['search' => $search,'menu_id'=>$menu_id])->links() }}
+        </div>
+        <div class="clear"></div>
     </div>
 </div>
 
@@ -83,18 +87,6 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 0, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[8]}// 不参与排序的列
-        ]
-    });
-
     /*查看商品列表*/
     function chem_selectGoodses(title, url, id) {
         // console.log("chem_selectGoodses url:" + url);

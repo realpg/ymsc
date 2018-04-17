@@ -46,7 +46,8 @@ class ChemController
             $search='';
         }
         //获取化学商品大类列表
-        $chem_classes=GoodsManager::getAllChemClassesByMenuId($search,$menu_id);
+//        $chem_classes=GoodsManager::getAllChemClassesByMenuId($search,$menu_id);  //没有分页
+        $chem_classes=GoodsManager::getAllChemClassesByMenuIdWithPage($search,$menu_id);  //有分页
         //获取栏目信息
         $menu_info=MenuManager::getMenuById($menu_id);
         $param=array(
@@ -54,7 +55,8 @@ class ChemController
             'menu_lists'=>$menu_lists,
             'datas'=>$chem_classes,
             'menu_id'=>$menu_id,
-            'menu_info'=>$menu_info
+            'menu_info'=>$menu_info,
+            'search'=>$search
         );
         return view('admin.chem.index', $param);
     }
@@ -167,18 +169,20 @@ class ChemController
                     $search='';
                 }
                 //获取商品列表
-                $chems=GoodsManager::getAllChemGoodsListsByChemClassId($search,$chem_class_id);
+//                $datas=GoodsManager::getAllChemGoodsListsByChemClassId($search,$chem_class_id);  //没有分页
+                $datas=GoodsManager::getAllChemGoodsListsByChemClassIdWithPage($search,$chem_class_id);  //分页
                 //获取栏目信息
                 $menu_info=MenuManager::getMenuById($menu_id);
                 //获取商品大类信息
                 $class_info=GoodsManager::getAllChemClassByChemClassId($chem_class_id);
                 $param=array(
                     'admin'=>$admin,
-                    'datas'=>$chems,
+                    'datas'=>$datas,
                     'menu_id'=>$menu_id,
                     'chem_class_id'=>$chem_class_id,
                     'class_info'=>$class_info,
-                    'menu_info'=>$menu_info
+                    'menu_info'=>$menu_info,
+                    'search'=>$search
                 );
                 return view('admin.chem.select', $param);
             }
