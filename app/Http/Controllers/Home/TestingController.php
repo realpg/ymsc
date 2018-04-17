@@ -135,40 +135,45 @@ class TestingController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getTestingClassBysearch($goods_param);
-        //QQ客服
-        $service=ServiceManager::getServiceById(self::SERVICE_ID);
-        if($user) {
-            //购物车信息
-            $carts = CartManager::getCartsByUserId($user['id']);
-            $param=array(
-                'common'=>$common,
-                'column'=>$column,
-                'user'=>$user,
-                'channel'=>$channel,
-                'attributes'=>$attributes,
-                'goodses'=>$goodses,
-                'f_attribute_id'=>$f_attribute_id,
-                's_attribute_id'=>$s_attribute_id,
-                'search'=>$search,
-                'carts'=>$carts,
-                'service'=>$service
-            );
+        if(count($goodses)>0){
+            //QQ客服
+            $service=ServiceManager::getServiceById(self::SERVICE_ID);
+            if($user) {
+                //购物车信息
+                $carts = CartManager::getCartsByUserId($user['id']);
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'channel'=>$channel,
+                    'attributes'=>$attributes,
+                    'goodses'=>$goodses,
+                    'f_attribute_id'=>$f_attribute_id,
+                    's_attribute_id'=>$s_attribute_id,
+                    'search'=>$search,
+                    'carts'=>$carts,
+                    'service'=>$service
+                );
+            }
+            else{
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'channel'=>$channel,
+                    'attributes'=>$attributes,
+                    'goodses'=>$goodses,
+                    'f_attribute_id'=>$f_attribute_id,
+                    's_attribute_id'=>$s_attribute_id,
+                    'search'=>$search,
+                    'service'=>$service
+                );
+            }
+            return view('home.testing.search',$param);
         }
         else{
-            $param=array(
-                'common'=>$common,
-                'column'=>$column,
-                'user'=>$user,
-                'channel'=>$channel,
-                'attributes'=>$attributes,
-                'goodses'=>$goodses,
-                'f_attribute_id'=>$f_attribute_id,
-                's_attribute_id'=>$s_attribute_id,
-                'search'=>$search,
-                'service'=>$service
-            );
+            return redirect('missing');
         }
-        return view('home.testing.search',$param);
     }
     /*
      * 商品详情页

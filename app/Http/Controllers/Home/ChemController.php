@@ -124,36 +124,41 @@ class ChemController extends Controller
             's_attribute_id'=>$s_attribute_id
         );
         $goodses=GoodsManager::getChemClassBySearch($goods_param);
-        if($user) {
-            //购物车信息
-            $carts = CartManager::getCartsByUserId($user['id']);
-            $param=array(
-                'common'=>$common,
-                'column'=>$column,
-                'user'=>$user,
-                'channel'=>$channel,
-                'attributes'=>$attributes,
-                'goodses'=>$goodses,
-                'f_attribute_id'=>$f_attribute_id,
-                's_attribute_id'=>$s_attribute_id,
-                'search'=>$search,
-                'carts'=>$carts
-            );
+        if(count($goodses)){
+            if($user) {
+                //购物车信息
+                $carts = CartManager::getCartsByUserId($user['id']);
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'channel'=>$channel,
+                    'attributes'=>$attributes,
+                    'goodses'=>$goodses,
+                    'f_attribute_id'=>$f_attribute_id,
+                    's_attribute_id'=>$s_attribute_id,
+                    'search'=>$search,
+                    'carts'=>$carts
+                );
+            }
+            else{
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'channel'=>$channel,
+                    'attributes'=>$attributes,
+                    'goodses'=>$goodses,
+                    'f_attribute_id'=>$f_attribute_id,
+                    's_attribute_id'=>$s_attribute_id,
+                    'search'=>$search
+                );
+            }
+            return view('home.chem.search',$param);
         }
         else{
-            $param=array(
-                'common'=>$common,
-                'column'=>$column,
-                'user'=>$user,
-                'channel'=>$channel,
-                'attributes'=>$attributes,
-                'goodses'=>$goodses,
-                'f_attribute_id'=>$f_attribute_id,
-                's_attribute_id'=>$s_attribute_id,
-                'search'=>$search
-            );
+            return redirect('missing');
         }
-        return view('home.chem.search',$param);
     }
     /*
      * 大类页
