@@ -487,7 +487,7 @@
 <script type="text/javascript" src="{{URL::asset('js/loading/main.js')}}"></script>
 {{--common.js--}}
 <script type="text/javascript" src="{{ URL::asset('/js/common.js') }}"></script>
-<script>
+<script type="text/javascript">
     $("#form-advice").validate({
         onkeyup: false,
         focusCleanup: false,
