@@ -264,28 +264,43 @@ class IndexController extends Controller
         $common=$data['common'];
         $search=$data['search'];
         $goodses=GoodsManager::getGoodsesByName($search);
-        $menus=MenuManager::getClassAMenuListswhichCanShow();
-        if($user) {
-            $carts = CartManager::getCartsByUserId($user['id']);
-            $param=array(
-                'common'=>$common,
-                'column'=>$column,
-                'user'=>$user,
-                'goodses'=>$goodses,
-                'menus'=>$menus,
-                'carts'=>$carts
-            );
+//        $menus=MenuManager::getClassAMenuListswhichCanShow();
+        //判断查询是否有结果，如果有结果显示出来，如果没有结果转向特定页面
+        $show_count=0;
+        foreach ($goodses as $k=>$goods){
+            if(count($goods['goodses'])>0){
+                $show_count++;
+            }
+            else{
+                //过滤掉没有搜索到商品的结果集和栏目集
+                unset($goodses[$k]);
+            }
+        }
+        $goodses=array_merge($goodses);  //对搜索结果重新排序
+        if($show_count>0){
+            if($user) {
+                $carts = CartManager::getCartsByUserId($user['id']);
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'goodses'=>$goodses,
+                    'carts'=>$carts
+                );
+            }
+            else{
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'goodses'=>$goodses,
+                );
+            }
+            return view('home.index.search',$param);
         }
         else{
-            $param=array(
-                'common'=>$common,
-                'column'=>$column,
-                'user'=>$user,
-                'goodses'=>$goodses,
-                'menus'=>$menus
-            );
+            return redirect('missing');
         }
-        return view('home.index.search',$param);
     }
 
     /*
@@ -369,7 +384,34 @@ class IndexController extends Controller
             return view('home.index.comment',$param);
         }
         else{
-            echo "参数无效";
+            return redirect('missing');
         }
+    }
+
+    /*
+     * 因参数错误没有找到商品时的页面
+     */
+    public function missing(Request $request,$goods_id=''){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='index';
+        if($user){
+            $carts=CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>$carts,
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'column'=>$column,
+                'user'=>$user,
+            );
+        }
+        return view('home.index.missing',$param);
     }
 }

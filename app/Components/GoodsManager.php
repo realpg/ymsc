@@ -1253,7 +1253,8 @@ class GoodsManager
         //机加工
         $machining_menu_id=MachiningController::MENU_ID;
         $machining_column=MachiningController::COLUMN;
-        $menus=MenuManager::getClassAMenuLists();
+//        $menus=MenuManager::getClassAMenuLists();
+        $menus=MenuManager::getClassAMenuListswhichCanShow();
         foreach ($menus as $k=>$menu){
             if($menu['id']==$chem_menu_id){
                 $chem_goodses=self::getAllChemClassesByMenuId($search,$chem_menu_id);
@@ -1289,6 +1290,7 @@ class GoodsManager
                 $menu=MenuManager::getMenuById($machining_menu_id);
                 $goodses[$k]['column_status']=$menu['status'];
             }
+            $goodses[$k]['menu']=$menu;
         }
         $goods_lists=array();
         foreach($goodses as $k=>$goods){

@@ -196,6 +196,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::post('searching', 'Home\IndexController@searching');        //提交帮你找货
     Route::get('index/search', 'Home\IndexController@search');        //商城搜索商品
     Route::get('comment/{goods_id}', 'Home\IndexController@comment');        //评价
+    Route::get('missing', 'Home\IndexController@missing');        //因参数错误没有找到商品时的页面
 
     Route::get('signUp', 'Home\SignController@signUp');        //注册
     Route::post('signUp', 'Home\SignController@signUpDo');      //通过手机注册
