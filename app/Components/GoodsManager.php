@@ -464,7 +464,7 @@ class GoodsManager
      */
     public static function getAllChemGoodsListsByChemClassIdWithPage($search,$chem_class_id){
         //分页数目
-        $paginate=10;
+        $paginate=20;
         $get=array(
             'goods_info.id as id',
             'goods_info.menu_id as menu_id',
