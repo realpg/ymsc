@@ -40,7 +40,7 @@ class GoodsManager
     }
 
     /*
-     * 通过模糊搜索获取商品
+     * 通过模糊搜索获取商品（无分页）
      *
      * By zm
      *
@@ -68,6 +68,45 @@ class GoodsManager
                 $goodses->where('name'  , 'like', '%'.$search.'%')
                     ->orwhere('number', 'like', '%'.$search.'%');
             })->orderBy('sort','desc')->get();
+        }
+        foreach ($goodses as $goods){
+            $menu_id=$goods['menu_id'];
+            $goods['menu']=MenuManager::getMenuById($menu_id);
+        }
+        return $goodses;
+    }
+
+    /*
+     * 通过模糊搜索获取商品（有分页）
+     *
+     * By zm
+     *
+     * 2018-04-17
+     *
+     */
+    public static function getAllGoodsListsByMenuIdWithPage($search ,$menu_id )
+    {
+        //分页数目
+        $paginate=10;
+        //判断menu_id是否为一级栏目
+        $menu=MenuManager::getMenuById($menu_id);
+        if($menu['menu_id']){
+            $goodses = GoodsModel::where('menu_id',$menu_id)->where(function ($goodses) use ($search) {
+                $goodses->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('region', 'like', '%'.$search.'%')
+                    ->orwhere('number', 'like', '%'.$search.'%');
+            })->orderBy('sort','desc')->paginate($paginate);
+        }
+        else{
+            $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
+            $menu_id_array=null;
+            foreach ($menus as $k=>$menu){
+                $menu_id_array[$k]=$menu['id'];
+            }
+            $goodses = GoodsModel::whereIn('menu_id',$menu_id_array)->where(function ($goodses) use ($search) {
+                $goodses->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('number', 'like', '%'.$search.'%');
+            })->orderBy('sort','desc')->paginate($paginate);
         }
         foreach ($goodses as $goods){
             $menu_id=$goods['menu_id'];

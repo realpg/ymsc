@@ -48,7 +48,8 @@ class TestingController
             $search='';
         }
         //获取商品列表
-        $goodses=GoodsManager::getAllGoodsListsByMenuId($search,$menu_id);
+//        $goodses=GoodsManager::getAllGoodsListsByMenuId($search,$menu_id);  //没有分页
+        $goodses=GoodsManager::getAllGoodsListsByMenuIdWithPage($search,$menu_id);  //有分页
         //获取栏目信息
         $menu_info=MenuManager::getMenuById($menu_id);
         $param=array(
@@ -56,7 +57,8 @@ class TestingController
             'menu_lists'=>$menu_lists,
             'datas'=>$goodses,
             'menu_id'=>$menu_id,
-            'menu_info'=>$menu_info
+            'menu_info'=>$menu_info,
+            'search'=>$search
         );
         return view('admin.testing.index', $param);
     }

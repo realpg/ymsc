@@ -49,7 +49,8 @@ class MachiningController
             $search='';
         }
         //获取商品列表
-        $goodses=GoodsManager::getAllGoodsListsByMenuId($search,$menu_id);
+//        $goodses=GoodsManager::getAllGoodsListsByMenuId($search,$menu_id);  //无分页
+        $goodses=GoodsManager::getAllGoodsListsByMenuIdWithPage($search,$menu_id);  //有分页
         foreach ($goodses as $goods){
             $goods_id=$goods['id'];
             $attribute=GoodsManager::getGoodsMachiningAttributeByGoodsId($goods_id);
@@ -67,7 +68,8 @@ class MachiningController
             'menu_lists'=>$menu_lists,
             'datas'=>$goodses,
             'menu_id'=>$menu_id,
-            'menu_info'=>$menu_info
+            'menu_info'=>$menu_info,
+            'search'=>$search
         );
         return view('admin.machining.index', $param);
     }
