@@ -47,6 +47,9 @@ class Utils
     //提示语
     const UNSIGN_WORD = "请先登录";   //未登录提示语
 
+    //邮费
+    const POSTAGE = 0;  //邮费
+
     /*
      * 判断一个对象是不是空
      *

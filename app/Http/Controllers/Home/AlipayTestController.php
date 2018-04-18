@@ -60,6 +60,7 @@ class AlipayTestController
             $addresses=AddressManager::getAddressListsByUserId($user['id']);
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
+            $postage=Utils::POSTAGE;  //邮费
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
@@ -68,7 +69,8 @@ class AlipayTestController
                 'carts'=>$carts,
                 'addresses'=>$addresses,
                 'invoices'=>$invoices,
-                'order'=>$order
+                'order'=>$order,
+                'postage'=>$postage
             );
             return view('home.alipay.edit',$param);
         }

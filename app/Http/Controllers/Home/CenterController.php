@@ -688,13 +688,15 @@ class CenterController extends Controller
             }
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
+            $postage=Utils::POSTAGE;
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
                 'user'=>$user,
                 'orders'=>$orders,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'postage'=>$postage
             );
             return view('home.center.order',$param);
         }
@@ -860,13 +862,15 @@ class CenterController extends Controller
             }
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
+            $postage=Utils::POSTAGE;  //邮费
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
                 'column_child'=>$column_child,
                 'user'=>$user,
                 'orders'=>$orders,
-                'carts'=>$carts
+                'carts'=>$carts,
+                'postage'=>$postage
             );
             return view('home.center.refundOrder',$param);
         }

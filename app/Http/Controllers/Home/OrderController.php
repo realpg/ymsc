@@ -82,7 +82,7 @@ class OrderController
                 $order_data['user_id']=$user['id'];
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
 //                $order_data['count']=$data['count'];
-                $postage=self::POSTAGE;   //邮费
+                $postage=Utils::POSTAGE;   //邮费
 //                $order_data['total_fee']=$data['total']*100+$postage;
                 $order_data['total_fee']=$postage;
                 $order=OrderManager::setOrder($order,$order_data);
@@ -200,7 +200,7 @@ class OrderController
                         $order_data['user_id']=$user['id'];
                         $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
                         $order_data['count']=$data['count'];
-                        $postage=self::POSTAGE;   //邮费
+                        $postage=Utils::POSTAGE;   //邮费
                         $order_data['total_fee']=$data['total']*$order_data['count']*100+$postage;
                         $order=OrderManager::setOrder($order,$order_data);
                         $order_result=$order->save();
@@ -277,6 +277,7 @@ class OrderController
             $addresses=AddressManager::getAddressListsByUserId($user['id']);
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
+            $postage=Utils::POSTAGE;   //邮费
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
@@ -285,7 +286,8 @@ class OrderController
                 'carts'=>$carts,
                 'addresses'=>$addresses,
                 'invoices'=>$invoices,
-                'order'=>$order
+                'order'=>$order,
+                'postage'=>$postage
             );
             return view('home.order.edit',$param);
         }

@@ -118,7 +118,7 @@
                                     共<span>{{$order['count']}}</span>件商品
                                 </td>
                                 <td class="text-right width-250 border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
-                                    总价（包含<span>￥10.00</span> 邮费）
+                                    总价（包含<span>￥{{$postage}}</span> 邮费）
                                 </td>
                                 <td class="text-center width-150 text-red border-bottom-attribute" style="display:table-cell;vertical-align:middle;">
                                     ￥<span id="total_all">{{$order['total_fee']/100}}</span>
