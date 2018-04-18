@@ -77,7 +77,7 @@ class CartController
         }
         else{
             $return['result']=false;
-            $return['msg']='请先登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -116,7 +116,7 @@ class CartController
         }
         else{
             $return['result']=false;
-            $return['msg']='删除购物车失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -156,7 +156,7 @@ class CartController
         }
         else{
             $return['result']=false;
-            $return['msg']='删除购物车失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }

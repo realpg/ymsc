@@ -11,17 +11,16 @@ namespace App\Components;
 
 class Utils
 {
-//    const PAGE_SIZE = 15;
+    const PRO_CODE='Hh58wm8f51QGjsYxlnJhDbethlJu3nxB';   //项目pro_code应该统一管理
+    const TEMPLATE_ID='198609885'; //短信模板id
 
+    //支付流程状态
     const ORDER_WAITFORPAY = "1";   //待支付
     const ORDER_PAYSUCCESS = "2";    //支付成功
     const ORDER_CLOSED = "3";    //已关闭（交易成功）
     const ORDER_REFUNDING = "4";    //退款中
     const ORDER_REFUNDSUCCESS = "5";    //退款成功
     const ORDER_REFUNDFAILED = "6";    //退款失败
-
-    const PRO_CODE='Hh58wm8f51QGjsYxlnJhDbethlJu3nxB';   //项目pro_code应该统一管理
-    const TEMPLATE_ID='198609885'; //短信模板id
 
     //支付部分的参数
     //微信支付
@@ -44,6 +43,9 @@ class Utils
     const ALIPAY_PRIVATE_KEY= 'MIIEowIBAAKCAQEApVtiVVrGOKwpiMpWpw4QMc+BHlMzQoBiMOJFfNFyhYjgA2KsZN9MqwlzmaQLYS/H2U7ahAqIv6qcMTIbaGLYi15xqdZUkqjBXRCFpcC4H/7tEMvFT2h3WpR6iCG6OPc99TdprLwJQkqK/9ZYs6TuyA/gOMboCYrGRXS85sR2U0yfNSBWzDMzgYCINrjGcEARG/gjo5aIR380a3Xmc2it5bl9E9HMrmqWL6GamNlHeeDCz/Vj5MaaAB3uDijpJxWcjmUvJTDIIApc7YO96iASZFaVlXuKo5/GekfCKHGDuzzsLeEQ7PiLMAcIMjxy4mcHmoqHow+zpO4GVP7nMMiHqwIDAQABAoIBAQCKWssNJdWjB5H9DWexgVfVhYzAhdbm9qqxwjFn/Yt35Y2h54bdI+VvWoop7JNE7wilb4/wWSwQSr1DgGxkTAhpnE04UMgUqjSYHMHmbTjiNJfArO7bwUnUNVXM34OENILX0VSPHgoVOG/THlK7hO3x4S638t2lVkMNTF7eK1Xh3WsHBnKQvK8UXpJ2C/MwcUnhu6dxV2hc07AXAVcth5HN2VnvNiXu+sZHrsq6KMr63PXyaglIEe7xkMf9jqZSeNtgd4hXHCkatZAz0sZmCEHD+ErnIEqJZ0PqsqhlvN/jPkpFRyDR/luU7d0Blc4SA8yM8Ab6FO4yUDtD/t9eSHoRAoGBANQTFozX8YcEy7Ej0KXUclvD3mQE0ARBTDep6KjGO57LdcAfDVdfBEymxUHyV2PnNbVEY1n68ca2YTue6/Xz0lwqjWa5zVLbTH1m8REPpr3QxN3t1YIEXbvatixPCMxi3K+mciwYAGZN34vWFjUH9RShROMJQtyWf3A6YX8u86NZAoGBAMebK8EnLg/ij9LwddN93KVvAbRkcoB5mwMq27RUC5MYNuHGPE8BDHL4dRqiNIj7NhjluZUwlj9+TmeRbEL8NwjdjDuNYyFaF6/oyQ2vSpz2Fa8WDK/2i/sDCL64d2tRO3Ij2LEu47KjUXE99qIidnmXtewJ11VrPaN4DiZsMPajAoGAZrjYM2BlnQC1qRev+KLuwYQeNFQgbe8y+8NQ7m8WcdQbNPPVgnyDmJ0u7sJzkfBsE2EMvojOk3HDpx1TLc7sFbiGxTs6OOgAJL24BouOOGLm+Jg60r9Kp7NIii2+FUHNo0b8Bl+Z0fPmU9Ve7FDuZQ+4TkAuIqrDD5k3oGMdoAECgYAdSl7sVCSFPjjeulx/8Xs8Z4K3hvnqcm3V1CczWhXsuuPq050r9rpt8Jm2k9DjvQFeO++0vdF+dblpp0RcvAgTa/dVEdVXIpJRRPaj5HItgEsES1cHR0WZSwOwgP89J0ly4WG99mSBZUfhNzeG6Um7ZBDVF0ibB0afQ1HIP54bwwKBgA38rcC67IY8Hby82ws8jYvUJki77Q4voWUxuiKrn1MIfFProfVVZmLCyfQQXmpy94Ml8lBYaPYSUPQzbmZG025KSCxKCaytdi5kOofQnqeuHwXfdNC6UzTOkz8EltqvQkGZLTm4CVs6Bjz9kOA6Wps12ewNYa4Hc4Ukm1cLEjLj';        // 自己的私钥，1行填写
     const ALIPAY_LOG_FILE = '/../storage/logs/ali.log';   //log的位置
     const ALIPAY_LOG_LEVEL = 'debug';
+
+    //提示语
+    const UNSIGN_WORD = "请先登录";   //未登录提示语
 
     /*
      * 判断一个对象是不是空

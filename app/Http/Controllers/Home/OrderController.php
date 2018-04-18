@@ -178,7 +178,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='结算失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -257,7 +257,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='结算失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -354,7 +354,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='支付失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -421,7 +421,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='支付失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -463,7 +463,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='支付失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -501,7 +501,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='查询失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -557,7 +557,7 @@ class OrderController
         }
         else{
             $return['result']=false;
-            $return['msg']='跳转失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }

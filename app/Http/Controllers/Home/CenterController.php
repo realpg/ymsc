@@ -76,7 +76,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='编辑个人信息失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -245,7 +245,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='验证失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -330,7 +330,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='绑定失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -407,7 +407,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='编辑地址失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -442,7 +442,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='删除地址失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -485,7 +485,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='设置默认地址失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -584,7 +584,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='编辑发票失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -618,7 +618,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='删除发票失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -661,7 +661,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='设置默认地址失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -755,7 +755,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='删除订单失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -795,7 +795,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='确认收货失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -835,7 +835,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='申请退款失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
@@ -939,7 +939,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
-            $return['msg']='评价失败，用户信息已过期或已经被清除，请重新登录';
+            $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
     }
