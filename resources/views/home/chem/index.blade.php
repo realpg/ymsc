@@ -12,6 +12,7 @@
     @include('home.layouts.banner')
     <div class="container margin-bottom-20" id="goods_lists">
         @foreach($menus as $menu)
+            @if(count($menu['chem_classes'])>0)
             <div class="margin-top-10 line-height-30">
                 <div class="col-xs-6 col-sm-8 padding-left-0 letter-spacing-2">
                     <span class="font-size-18 border-bottom-title">
@@ -47,6 +48,7 @@
                     </div>
                 @endforeach
             </div>
+            @endif
         @endforeach
     </div>
 </div>
