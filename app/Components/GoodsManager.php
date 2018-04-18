@@ -863,6 +863,78 @@ class GoodsManager
     }
 
     /*
+     * 化学商城根据menu_id获取商品列表（改）
+     *
+     * by zm
+     *
+     * 2018-04-18
+     */
+    public static function newGetChemClassByMenuId($data){
+        $paginate=self::PAGINATE;
+        $menu_id=$data['menu_id'];
+        $f_attribute_id=$data['f_attribute_id']?$data['f_attribute_id']:'';
+        $s_attribute_id=$data['s_attribute_id']?$data['s_attribute_id']:'';
+        $chem_classes=ChemClassModel::where('menu_id',$menu_id)->orderBy('sort','desc')->orderBy('id','desc')->paginate($paginate);
+        $goods_paginate=7;
+        if(empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'goods_info.menu_id'=>$menu_id,
+            );
+        }
+        else if(!empty($f_attribute_id)&&empty($s_attribute_id)){
+            $where=array(
+                'goods_info.menu_id'=>$menu_id,
+                'goods_info.f_attribute_id'=>$f_attribute_id
+            );
+        }
+        else if(empty($f_attribute_id)&&!empty($s_attribute_id)){
+            $where=array(
+                'goods_info.menu_id'=>$menu_id,
+                'goods_info.s_attribute_id'=>$s_attribute_id
+            );
+        }
+        else{
+            $where=array(
+                'goods_info.menu_id'=>$menu_id,
+                'goods_info.f_attribute_id'=>$f_attribute_id,
+                'goods_info.s_attribute_id'=>$s_attribute_id
+            );
+        }
+        $select=array(
+            'chem_class_info.id as id',
+            'chem_class_info.name as name',
+            'chem_class_info.sub_name as sub_name',
+            'chem_class_info.english_name as english_name',
+            'chem_class_info.menu_id as menu_id',
+            'chem_class_info.picture as picture',
+            'chem_class_info.cas as cas',
+            'chem_class_info.molecule as molecule',
+            'goods_info.id as goods_id',
+            'goods_info.number as number',
+            'goods_info.price as price',
+            'goods_info.unit as unit',
+            'goods_info.f_attribute_id as f_attribute_id',
+            'goods_info.s_attribute_id as s_attribute_id',
+            'goods_chem_attribute_info.spec as spec',
+            'goods_chem_attribute_info.delivery as delivery',
+            'f_attribute.name as f_attribute',
+            's_attribute.name as s_attribute',
+        );
+        foreach ($chem_classes as $k=>$chem_class){
+            $chem_class_id=$chem_class['id'];
+            $chem_class['goodses']=GoodsModel::join('goods_chem_attribute_info','goods_chem_attribute_info.goods_id','=','goods_info.id')
+                ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
+                ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
+                ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
+                ->where($where)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->orderBy('goods_info.sort','desc')->orderBy('goods_info.id','desc')->select($select)->paginate($goods_paginate);
+            if(count($chem_class['goodses'])==0){
+                unset($chem_classes[$k]);
+            }
+        }
+        return $chem_classes;
+    }
+
+    /*
      * 化学商城模糊搜索
      *
      * by zm

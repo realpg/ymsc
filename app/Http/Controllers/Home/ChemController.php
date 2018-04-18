@@ -62,6 +62,7 @@ class ChemController extends Controller
      * 列表页
      */
     public function lists(Request $request, $menu_id, $f_attribute_id='', $s_attribute_id=''){
+        set_time_limit(0);
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
@@ -75,7 +76,8 @@ class ChemController extends Controller
             'f_attribute_id'=>$f_attribute_id,
             's_attribute_id'=>$s_attribute_id
         );
-        $goodses=GoodsManager::getChemClassByMenuId($goods_param);
+        $goodses=GoodsManager::getChemClassByMenuId($goods_param);  //原
+//        $goodses=GoodsManager::newGetChemClassByMenuId($goods_param);  //改
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -88,7 +90,7 @@ class ChemController extends Controller
                 'goodses'=>$goodses,
                 'f_attribute_id'=>$f_attribute_id,
                 's_attribute_id'=>$s_attribute_id,
-                'carts'=>$carts
+                'carts'=>$carts,
             );
         }
         else{
@@ -109,6 +111,7 @@ class ChemController extends Controller
      * 搜索
      */
     public function search(Request $request, $f_attribute_id='', $s_attribute_id=''){
+        set_time_limit(0);
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
@@ -164,6 +167,7 @@ class ChemController extends Controller
      * 大类页
      */
     public function classlists(Request $request, $class_id, $f_attribute_id='', $s_attribute_id=''){
+        set_time_limit(0);
         $data=$request->all();
         $user=$request->cookie('user');
         $common=$data['common'];
