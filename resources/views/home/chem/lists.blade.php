@@ -22,7 +22,7 @@
                                 <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">
                             </div>
                             <h4 class="style-ellipsis-1">CAS号：{{$goods['cas']}}</h4>
-                            <h4 class="style-ellipsis-1">分子式：{{$goods['molecule']}}</h4>
+                            <h4 class="style-ellipsis-1">分子式：{!! $goods['molecule'] !!}</h4>
                         </div>
                     </a>
                 </div>

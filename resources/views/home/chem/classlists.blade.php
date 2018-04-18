@@ -24,7 +24,7 @@
                         <img class="img-circle" src="{{$chem_class['picture']}}" alt="{{$chem_class['name']}}">
                     </div>
                     <h4 class="style-ellipsis-1">CAS号：{{$chem_class['cas']}}</h4>
-                    <h4 class="style-ellipsis-1">分子式：{{$chem_class['molecule']}}</h4>
+                    <h4 class="style-ellipsis-1">分子式：{!! $chem_class['molecule'] !!}</h4>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-9 padding-10 min-height-content">

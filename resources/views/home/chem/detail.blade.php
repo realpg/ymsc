@@ -175,7 +175,7 @@
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
                     <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">分 子 式</div>
-                    <div class="col-xs-12 col-sm-10 border-detail border-left-0 border-right-0">{{$goods['chem_class']['molecule']}}</div>
+                    <div class="col-xs-12 col-sm-10 border-detail border-left-0 border-right-0">{!! $goods['chem_class']['molecule'] !!}</div>
                 </div>
             </div>
         </div>
