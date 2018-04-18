@@ -25,6 +25,7 @@ use App\Models\MenuModel;
 class GoodsManager
 {
     const PAGINATE = 20;  //分页数目
+    const PAGINATE_ADMIN = 10;  //后台分页数目
     /*
      * 按menu_id获取商品
      *
@@ -87,7 +88,7 @@ class GoodsManager
     public static function getAllGoodsListsByMenuIdWithPage($search ,$menu_id )
     {
         //分页数目
-        $paginate=10;
+        $paginate=self::PAGINATE_ADMIN;
         //判断menu_id是否为一级栏目
         $menu=MenuManager::getMenuById($menu_id);
         if($menu['menu_id']){
@@ -358,7 +359,7 @@ class GoodsManager
     public static function getAllChemClassesByMenuIdWithPage($search ,$menu_id )
     {
         //分页数目
-        $paginate=10;
+        $paginate=self::PAGINATE_ADMIN;
         //判断menu_id是否为一级栏目
         $menu=MenuManager::getMenuById($menu_id);
         if($menu['menu_id']){
@@ -503,7 +504,7 @@ class GoodsManager
      */
     public static function getAllChemGoodsListsByChemClassIdWithPage($search,$chem_class_id){
         //分页数目
-        $paginate=10;
+        $paginate=self::PAGINATE_ADMIN;
         $get=array(
             'goods_info.id as id',
             'goods_info.menu_id as menu_id',

@@ -13,6 +13,7 @@ use App\Models\InvoiceModel;
 
 class InvoiceManager
 {
+    const PAGINATE_ADMIN = 10;  //后台分页数目
     /*
          * 配置发票参数
          *
@@ -119,7 +120,7 @@ class InvoiceManager
     }
 
     /*
-     * 模糊查询获取增值税专用发票列表
+     * 模糊查询获取增值税专用发票列表（无分页）
      *
      * By zm
      *
@@ -131,6 +132,32 @@ class InvoiceManager
             $invoices->where('name','like','%'.$search.'%')
                 ->where('phonenum','like','%'.$search.'%');
             })->where('type',1)->orderBy('examine','asc')->orderBy('id','asc')->get();
+        return $invoices;
+    }
+
+    /*
+     * 模糊查询获取增值税专用发票列表（有分页）
+     *
+     * By zm
+     *
+     * 2018-04-18
+     *
+     */
+    public static function getSpecialInvoiceListsBySearchWithPage($search,$examine){
+        //分页数目
+        $paginate=self::PAGINATE_ADMIN;
+        if($examine==''){
+            $invoices=InvoiceModel::where(function($invoices)use($search){
+                $invoices->where('name','like','%'.$search.'%')
+                    ->where('phonenum','like','%'.$search.'%');
+            })->where('type',1)->orderBy('examine','asc')->orderBy('id','asc')->paginate($paginate);
+        }
+        else{
+            $invoices=InvoiceModel::where(function($invoices)use($search){
+                $invoices->where('name','like','%'.$search.'%')
+                    ->where('phonenum','like','%'.$search.'%');
+            })->where('type',1)->where('examine',$examine)->orderBy('examine','asc')->orderBy('id','asc')->paginate($paginate);
+        }
         return $invoices;
     }
 }

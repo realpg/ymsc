@@ -16,6 +16,7 @@ use App\Models\CommentReplie;
 class CommentManager
 {
     const PAGEINATE = 20;  //分页数目
+    const PAGINATE_ADMIN=10;  //后台的分页数目
     /*
      * 获取产品的评论的总数
      *
@@ -75,7 +76,7 @@ class CommentManager
     }
 
     /*
-     * 获取所有评论详情
+     * 获取所有评论详情（无分页）
      *
      * by zm
      *
@@ -88,6 +89,31 @@ class CommentManager
         }
         else{
             $comments=CommentModel::where('content','like','%'.$search.'%')->where('status',$status)->orderBy('id','desc')->get();
+        }
+        foreach ($comments as $comment){
+            //获取评论用户信息
+            $comment['user_id']=MemberManager::getUserInfoByIdWithNotToken($comment['user_id']);
+            //获取产品信息
+            $comment['goods_id']=GoodsManager::getGoodsById($comment['goods_id']);
+        }
+        return $comments;
+    }
+
+    /*
+     * 获取所有评论详情（有分页）
+     *
+     * by zm
+     *
+     * 2018-01-24
+     *
+     */
+    public static function getAllCommentListsWithPage($search,$status){
+        $paginate=self::PAGINATE_ADMIN;
+        if($status==''){
+            $comments=CommentModel::where('content','like','%'.$search.'%')->orderBy('id','desc')->paginate($paginate);
+        }
+        else{
+            $comments=CommentModel::where('content','like','%'.$search.'%')->where('status',$status)->orderBy('id','desc')->paginate($paginate);
         }
         foreach ($comments as $comment){
             //获取评论用户信息

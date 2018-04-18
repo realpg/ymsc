@@ -6,7 +6,15 @@
     <div class="text-c">
         <form action="{{URL::asset('/admin/invoice/index')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
-            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="增值税专用发票昵称/电话">
+            <span class="select-box" style="width:150px;">
+              <select class="select" size="1" name="examine">
+                  <option value="" >全部</option>
+                  <option value="0" {{$examine==='0'?'selected':''}}>待审核</option>
+                  <option value="1" {{$examine==='1'?'selected':''}}>已通过</option>
+                  <option value="2" {{$examine==='2'?'selected':''}}>未通过</option>
+              </select>
+            </span>
+            <input id="search" name="search" type="text" class="input-text" style="width:350px" placeholder="增值税专用发票昵称/电话">
             <button type="submit" class="btn btn-success" id="" name="">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -51,6 +59,9 @@
             @endforeach
             </tbody>
         </table>
+        <div id="callBackPager">
+            {{ $datas->appends(['search' => $search,'examine'=>$examine])->links() }}
+        </div>
     </div>
 </div>
 
@@ -58,17 +69,17 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 1, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,1,6]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[0,1,6]}// 不参与排序的列
+    //     ]
+    // });
 
     /*查看增值税专用发票详情*/
     function invoice_edit(title, url, id) {

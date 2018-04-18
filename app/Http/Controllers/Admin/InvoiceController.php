@@ -18,13 +18,19 @@ class InvoiceController
     {
         $data = $request->all();
         $admin = $request->session()->get('admin');
+        if(!array_key_exists('examine',$data)){
+            $data['examine']="";
+        }
         if(!array_key_exists('search',$data)){
             $data['search']="";
         }
-        $invoices = InvoiceManager::getSpecialInvoiceListsBySearch($data['search']);
+//        $invoices = InvoiceManager::getSpecialInvoiceListsBySearch($data['search']);  //无分页
+        $invoices = InvoiceManager::getSpecialInvoiceListsBySearchWithPage($data['search'],$data['examine']);
         $param=array(
             'admin'=>$admin,
-            'datas'=>$invoices
+            'datas'=>$invoices,
+            'search'=>$data['search'],
+            'examine'=>$data['examine']
         );
         return view('admin.invoice.index', $param);
     }

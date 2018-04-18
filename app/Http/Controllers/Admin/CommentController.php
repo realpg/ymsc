@@ -31,7 +31,8 @@ class CommentController
         else{
             $status='';
         }
-        $comments = CommentManager::getAllCommentLists($search,$status);
+//        $comments = CommentManager::getAllCommentLists($search,$status);  //无分页
+        $comments = CommentManager::getAllCommentListsWithPage($search,$status);  //有分页
         $param=array(
             'admin'=>$admin,
             'datas'=>$comments,

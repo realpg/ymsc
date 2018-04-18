@@ -12,6 +12,7 @@ use App\Models\UserModel;
 
 class MemberManager
 {
+    const PAGINATE_ADMIN = 10;  //后台分页数目
     /*
      * 配置用户信息，用于更新用户信息和新建用户信息
      *
@@ -270,7 +271,7 @@ class MemberManager
     }
 
     /*
-     * 根据name搜索用户
+     * 根据name搜索用户（无分页）
      *
      * By zm
      *
@@ -282,6 +283,26 @@ class MemberManager
                 ->orwhere('phonenum','like','%'.$search.'%')
                 ->orwhere('email','like','%'.$search.'%');
         })->orderBy('id','desc')->get();
+//        $sql = UserModel::query()->where('id','14')->toSql();   //此方法可以打印sql语句
+//        dd($sql);
+        return $users;
+    }
+
+    /*
+     * 根据name搜索用户（有分页）
+     *
+     * By zm
+     *
+     * 2018-04-18
+     */
+    public static function getUsersByNameWithPage($search){
+        //分页数目
+        $paginate=self::PAGINATE_ADMIN;
+        $users=UserModel::where(function($users)use($search){
+            $users->where('nick_name','like','%'.$search.'%')
+                ->orwhere('phonenum','like','%'.$search.'%')
+                ->orwhere('email','like','%'.$search.'%');
+        })->orderBy('id','desc')->paginate($paginate);
 //        $sql = UserModel::query()->where('id','14')->toSql();   //此方法可以打印sql语句
 //        dd($sql);
         return $users;

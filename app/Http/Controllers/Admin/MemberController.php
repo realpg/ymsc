@@ -24,10 +24,12 @@ class MemberController
         else{
             $search='';
         }
-        $members = MemberManager::getUsersByName($search);
+//        $members = MemberManager::getUsersByName($search);  //无分页
+        $members = MemberManager::getUsersByNameWithPage($search);  //有分页
         $param=array(
             'admin'=>$admin,
             'datas'=>$members,
+            'search'=>$search
         );
         return view('admin.member.index', $param);
     }

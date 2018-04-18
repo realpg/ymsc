@@ -24,7 +24,7 @@
                   <option value="2" {{$logistics==2?'selected':''}}>待发货</option>
               </select>
             </span>
-            <input id="search" name="search" type="text" class="input-text" style="width:200px" placeholder="订单号">
+            <input id="search" name="search" type="text" class="input-text" style="width:200px" placeholder="订单号" value="{{$search}}">
             <button type="submit" class="btn btn-success" id="" name="">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -163,6 +163,9 @@
             @endforeach
             </tbody>
         </table>
+        <div id="callBackPager">
+            {{ $datas->appends(['search' => $search,'status'=>$status,'logistics'=>$logistics])->links() }}
+        </div>
     </div>
 </div>
 
@@ -170,17 +173,17 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 0, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[4,8]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 0, "desc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[4,8]}// 不参与排序的列
+    //     ]
+    // });
 
     /*查看订单详情*/
     function order_edit(title, url, id) {

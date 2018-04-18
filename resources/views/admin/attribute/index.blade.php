@@ -43,22 +43,7 @@
             </thead>
             <tbody>
             @foreach($datas as $data)
-                @if($data['attribute_id']!=0)
-                    <tr class="text-c">
-                        <td>{{$data['id']}}</td>
-                        <td class="text-l">{{$data['name']}}</td>
-                        <td class="text-l">{{$data['attribute_father']['name']}}</td>
-                        <td>{{$data['updated_at']}}</td>
-                        <td class="td-manage">
-                            <a title="编辑" href="javascript:;" onclick="attribute_edit('编辑','{{URL::asset('/admin/attribute/edit')}}?id={{$data['id']}}&menu_id={{$data['menu_id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
-                                <i class="Hui-iconfont">&#xe6df;</i>
-                            </a>
-                            <a title="删除" href="javascript:;" onclick="attribute_del(this,'{{$data['id']}}')" class="ml-5" style="text-decoration:none">
-                                <i class="Hui-iconfont">&#xe6e2;</i>
-                            </a>
-                        </td>
-                    </tr>
-                @else
+                @if($data['attribute_id']==0)
                     <tr class="text-c">
                         <td style="background-color: #eeeeee;">{{$data['id']}}</td>
                         <td class="text-l" style="background-color: #eeeeee;">{{$data['name']}}</td>
@@ -70,6 +55,24 @@
                             </a>
                         </td>
                     </tr>
+                    @foreach($datas as $data_f)
+                        @if($data_f['attribute_id']==$data['id'])
+                        <tr class="text-c">
+                            <td>{{$data_f['id']}}</td>
+                            <td class="text-l">{{$data_f['name']}}</td>
+                            <td class="text-l">{{$data_f['attribute_father']['name']}}</td>
+                            <td>{{$data_f['updated_at']}}</td>
+                            <td class="td-manage">
+                                <a title="编辑" href="javascript:;" onclick="attribute_edit('编辑','{{URL::asset('/admin/attribute/edit')}}?id={{$data_f['id']}}&menu_id={{$data_f['menu_id']}}',{{$data_f['id']}})" class="ml-5" style="text-decoration:none">
+                                    <i class="Hui-iconfont">&#xe6df;</i>
+                                </a>
+                                <a title="删除" href="javascript:;" onclick="attribute_del(this,'{{$data_f['id']}}')" class="ml-5" style="text-decoration:none">
+                                    <i class="Hui-iconfont">&#xe6e2;</i>
+                                </a>
+                            </td>
+                        </tr>
+                        @endif
+                    @endforeach
                 @endif
             @endforeach
             </tbody>
@@ -81,17 +84,17 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 2, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[4]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 2, "desc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[4]}// 不参与排序的列
+    //     ]
+    // });
 
     /*查看搜索属性详情*/
     function attribute_edit(title, url, id) {

@@ -20,6 +20,7 @@ use App\Models\OrderModel;
 class OrderManager
 {
     const PAGINATE=5;  //分页数目
+    const PAGINATE_ADMIN=10;  //后台的分页数目
     /*
      * 配置主订单参数
      *
@@ -256,7 +257,7 @@ class OrderManager
 
 
     /*
-     * 根据search获取订单列表
+     * 根据search获取订单列表（没有分页）
      *
      * By zm
      *
@@ -268,6 +269,24 @@ class OrderManager
         }
         else{
             $orders=OrderModel::where('trade_no','like','%'.$search.'%')->orderBy('id','desc')->get();
+        }
+        return $orders;
+    }
+
+    /*
+     * 根据search获取订单列表（有分页）
+     *
+     * By zm
+     *
+     * 2018-04-18
+     */
+    public static function getOrdersBySearchWithPage($status,$logistics,$search){
+        $paginate=self::PAGINATE_ADMIN;
+        if($status){
+            $orders=OrderModel::where('trade_no','like','%'.$search.'%')->where('status',$status)->orderBy('id','desc')->paginate($paginate);
+        }
+        else{
+            $orders=OrderModel::where('trade_no','like','%'.$search.'%')->orderBy('id','desc')->paginate($paginate);
         }
         return $orders;
     }

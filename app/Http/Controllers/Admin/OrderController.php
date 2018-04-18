@@ -40,12 +40,14 @@ class OrderController
         else{
             $search='';
         }
-        $orders = OrderManager::getOrdersBySearch($status,$logistics,$search);
+//        $orders = OrderManager::getOrdersBySearch($status,$logistics,$search);  //无分页
+        $orders = OrderManager::getOrdersBySearchWithPage($status,$logistics,$search);  //有分页
         $param=array(
             'admin'=>$admin,
             'datas'=>$orders,
             'status'=>$status,
-            'logistics'=>$logistics
+            'logistics'=>$logistics,
+            'search'=>$search
         );
         return view('admin.order.index', $param);
     }
