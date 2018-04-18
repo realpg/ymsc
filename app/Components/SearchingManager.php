@@ -12,8 +12,9 @@ use App\Models\SearchingModel;
 
 class SearchingManager
 {
+    const PAGINATE_ADMIN=10;  //后台的分页数目
     /*
-     * 根据条件搜索信息
+     * 根据条件搜索信息（无分页）
      *
      * by zm
      *
@@ -25,6 +26,32 @@ class SearchingManager
                 ->orwhere('name'  , 'like', '%'.$search.'%')
                 ->orwhere('phonenum', 'like', '%'.$search.'%');
         })->orderBy('id','asc')->get();
+        return $searchings;
+    }
+
+    /*
+     * 根据条件搜索信息（有分页）
+     *
+     * by zm
+     *
+     * 2018-01-27
+     */
+    public static function getAllSearchingListsWithPage($search,$status){
+        $paginate=self::PAGINATE_ADMIN;
+        if($status==""){
+            $searchings = SearchingModel::where(function ($searchings) use ($search) {
+                $searchings->where('goods'  , 'like', '%'.$search.'%')
+                    ->orwhere('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('phonenum', 'like', '%'.$search.'%');
+            })->orderBy('id','asc')->paginate($paginate);
+        }
+        else{
+            $searchings = SearchingModel::where(function ($searchings) use ($search) {
+                $searchings->where('goods'  , 'like', '%'.$search.'%')
+                    ->orwhere('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('phonenum', 'like', '%'.$search.'%');
+            })->where('status',$status)->orderBy('id','asc')->paginate($paginate);
+        }
         return $searchings;
     }
 

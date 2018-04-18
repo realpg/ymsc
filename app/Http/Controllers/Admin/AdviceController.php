@@ -19,13 +19,19 @@ class AdviceController
     {
         $data = $request->all();
         $admin = $request->session()->get('admin');
+        if(!array_key_exists('status',$data)){
+            $data['status']="";
+        }
         if(!array_key_exists('search',$data)){
             $data['search']="";
         }
-        $advices = AdviceManager::getAllAdviceLists($data['search']);
+//        $advices = AdviceManager::getAllAdviceLists($data['search']);  //无分页
+        $advices = AdviceManager::getAllAdviceListsWithPage($data['search'],$data['status']);  //有分页
         $param=array(
             'admin'=>$admin,
-            'datas'=>$advices
+            'datas'=>$advices,
+            'search'=>$data['search'],
+            'status'=>$data['status']
         );
         return view('admin.advice.index', $param);
     }

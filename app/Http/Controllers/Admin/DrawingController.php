@@ -20,13 +20,19 @@ class DrawingController
     {
         $data = $request->all();
         $admin = $request->session()->get('admin');
+        if(!array_key_exists('status',$data)){
+            $data['status']="";
+        }
         if(!array_key_exists('search',$data)){
             $data['search']="";
         }
-        $drawings = DrawingManager::getAllDrawingLists($data['search']);
+//        $drawings = DrawingManager::getAllDrawingLists($data['search']);  //未分页
+        $drawings = DrawingManager::getAllDrawingListsWithPage($data['search'],$data['status']);  //有分页
         $param=array(
             'admin'=>$admin,
-            'datas'=>$drawings
+            'datas'=>$drawings,
+            'search'=>$data['search'],
+            'status'=>$data['status']
         );
         return view('admin.drawing.index', $param);
     }

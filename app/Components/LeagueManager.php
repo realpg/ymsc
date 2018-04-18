@@ -12,8 +12,9 @@ use App\Models\LeagueModel;
 
 class LeagueManager
 {
+    const PAGINATE_ADMIN=10;  //后台的分页数目
     /*
-     * 根据条件搜索信息
+     * 根据条件搜索信息（无分页）
      *
      * by zm
      *
@@ -24,6 +25,30 @@ class LeagueManager
             $leagues->where('name'  , 'like', '%'.$search.'%')
                 ->orwhere('phonenum', 'like', '%'.$search.'%');
         })->orderBy('id','asc')->get();
+        return $leagues;
+    }
+
+    /*
+     * 根据条件搜索信息（有分页）
+     *
+     * by zm
+     *
+     * 2018-04-18
+     */
+    public static function getAllLeagueListsWithPage($search,$status){
+        $paginate=self::PAGINATE_ADMIN;
+        if($status==""){
+            $leagues = LeagueModel::where(function ($leagues) use ($search) {
+                $leagues->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('phonenum', 'like', '%'.$search.'%');
+            })->orderBy('id','asc')->paginate($paginate);
+        }
+        else{
+            $leagues = LeagueModel::where(function ($leagues) use ($search) {
+                $leagues->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('phonenum', 'like', '%'.$search.'%');
+            })->where('status',$status)->orderBy('id','asc')->paginate($paginate);
+        }
         return $leagues;
     }
 

@@ -12,8 +12,10 @@ use App\Models\AdviceModel;
 
 class AdviceManager
 {
+    const PAGINATE_ADMIN=10;  //后台的分页数目
+
     /*
-     * 根据条件搜索信息
+     * 根据条件搜索信息（无分页）
      *
      * by zm
      *
@@ -24,6 +26,30 @@ class AdviceManager
             $advices->where('name'  , 'like', '%'.$search.'%')
                 ->orwhere('phonenum', 'like', '%'.$search.'%');
         })->orderBy('id','asc')->get();
+        return $advices;
+    }
+
+    /*
+     * 根据条件搜索信息（有分页）
+     *
+     * by zm
+     *
+     * 2018-04-18
+     */
+    public static function getAllAdviceListsWithPage($search,$status){
+        $paginate=self::PAGINATE_ADMIN;
+        if($status==""){
+            $advices = AdviceModel::where(function ($advices) use ($search) {
+                $advices->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('phonenum', 'like', '%'.$search.'%');
+            })->orderBy('id','asc')->paginate($paginate);
+        }
+        else{
+            $advices = AdviceModel::where(function ($advices) use ($search) {
+                $advices->where('name'  , 'like', '%'.$search.'%')
+                    ->orwhere('phonenum', 'like', '%'.$search.'%');
+            })->where('status',$status)->orderBy('id','asc')->paginate($paginate);
+        }
         return $advices;
     }
 

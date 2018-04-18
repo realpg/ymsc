@@ -19,13 +19,19 @@ class SearchingController
     {
         $data = $request->all();
         $admin = $request->session()->get('admin');
+        if(!array_key_exists('status',$data)){
+            $data['status']="";
+        }
         if(!array_key_exists('search',$data)){
             $data['search']="";
         }
-        $searchings = SearchingManager::getAllSearchingLists($data['search']);
+//        $searchings = SearchingManager::getAllSearchingLists($data['search']);  //无分页
+        $searchings = SearchingManager::getAllSearchingListsWithPage($data['search'],$data['status']);  //有分页
         $param=array(
             'admin'=>$admin,
-            'datas'=>$searchings
+            'datas'=>$searchings,
+            'search'=>$data['search'],
+            'status'=>$data['status']
         );
         return view('admin.searching.index', $param);
     }

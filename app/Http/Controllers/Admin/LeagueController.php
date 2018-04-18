@@ -19,13 +19,19 @@ class LeagueController
     {
         $data = $request->all();
         $admin = $request->session()->get('admin');
+        if(!array_key_exists('status',$data)){
+            $data['status']="";
+        }
         if(!array_key_exists('search',$data)){
             $data['search']="";
         }
-        $leagues = LeagueManager::getAllLeagueLists($data['search']);
+//        $leagues = LeagueManager::getAllLeagueLists($data['search']);  //无分页
+        $leagues = LeagueManager::getAllLeagueListsWithPage($data['search'],$data['status']);  //有分页
         $param=array(
             'admin'=>$admin,
-            'datas'=>$leagues
+            'datas'=>$leagues,
+            'search'=>$data['search'],
+            'status'=>$data['status']
         );
         return view('admin.league.index', $param);
     }

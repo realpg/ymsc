@@ -6,7 +6,14 @@
     <div class="text-c">
         <form action="{{URL::asset('/admin/advice/index')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
-            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="姓名\手机号码">
+            <span class="select-box" style="width:150px;">
+              <select class="select" size="1" name="status">
+                  <option value=""  >全部</option>
+                  <option value="0" {{$status==='0'?'selected':''}}>待定</option>
+                  <option value="1" {{$status==='1'?'selected':''}}>已处理</option>
+              </select>
+            </span>
+            <input id="search" name="search" type="text" class="input-text" style="width:350px" placeholder="姓名\手机号码" value="{{$search}}">
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -64,6 +71,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div id="callBackPager">
+                {{ $datas->appends(['search' => $search,'status'=>$status])->links() }}
+            </div>
         </div>
     </from>
 </div>
@@ -72,17 +82,17 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 2, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,7]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 2, "desc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[0,7]}// 不参与排序的列
+    //     ]
+    // });
 
     /*查看加盟信息详情*/
     function advice_edit(title, url, id) {

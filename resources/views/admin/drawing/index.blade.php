@@ -6,7 +6,16 @@
     <div class="text-c">
         <form action="{{URL::asset('/admin/drawing/index')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
-            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="会员名称">
+            <span class="select-box" style="width:150px;">
+              <select class="select" size="1" name="status">
+                  <option value=""  >全部</option>
+                  <option value="0" {{$status==='0'?'selected':''}}>待定</option>
+                  <option value="1" {{$status==='1'?'selected':''}}>已联系</option>
+                  <option value="2" {{$status==='2'?'selected':''}}>处理中</option>
+                  <option value="3" {{$status==='3'?'selected':''}}>已处理</option>
+              </select>
+            </span>
+            <input id="search" name="search" type="text" class="input-text" style="width:350px" placeholder="会员名称">
             <button type="submit" class="btn btn-success">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -66,6 +75,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div id="callBackPager">
+                {{ $datas->appends(['search' => $search,'status'=>$status])->links() }}
+            </div>
         </div>
     </from>
 </div>
@@ -74,17 +86,17 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 1, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
+    //     ]
+    // });
 
     /*查看图纸信息详情*/
     function drawing_edit(title, url, id) {
