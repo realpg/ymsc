@@ -9,6 +9,7 @@
                 <span>首页SEO设置</span>
                 <span>系统设置</span>
                 <span>补差价商品链接</span>
+                <span>用户服务协议</span>
             </div>
             <div class="tabCon">
                 <form class="form form-horizontal" method="post" id="form-baseInfo-edit">
@@ -100,7 +101,6 @@
                     <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-                            <button onClick="layer_close();" class="btn btn-default radius" type="button">取消</button>
                         </div>
                     </div>
                 </form>
@@ -129,7 +129,6 @@
                     <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-                            <button onClick="layer_close();" class="btn btn-default radius" type="button">取消</button>
                         </div>
                     </div>
                 </form>
@@ -175,7 +174,6 @@
                     <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-                            <button onClick="layer_close();" class="btn btn-default radius" type="button">取消</button>
                         </div>
                     </div>
                 </form>
@@ -186,6 +184,22 @@
                         <label class="form-label col-xs-4 col-sm-2">商品链接：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <input type="text" readonly class="input-text no_click" value="http://{{$_SERVER['SERVER_NAME']}}/differenceGoods" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="tabCon">
+                <form class="form form-horizontal" method="post" id="form-baseAgreement-edit">
+                    {{csrf_field()}}
+                    <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>协议内容：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <textarea  id="agreement" name="agreement" wrap="\n" class="textarea" style="resize:vertical;height:400px;" placeholder="请填写协议内容" dragonfly="true" nullmsg="协议内容不能为空！">{{ isset($data['agreement']) ? $data['agreement'] : '' }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                            <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
                         </div>
                     </div>
                 </form>
@@ -343,6 +357,38 @@
                     $(form).ajaxSubmit({
                         type: 'POST',
                         url: "{{ URL::asset('/admin/baseSetting/edit')}}",
+                        success: function (ret) {
+                            console.log(JSON.stringify(ret));
+                            if (ret.result) {
+                                layer.msg(ret.msg, {icon: 1, time: 2000});
+                            } else {
+                                layer.msg(ret.msg, {icon: 2, time: 2000});
+                            }
+                        },
+                        error: function (XmlHttpRequest, textStatus, errorThrown) {
+                            layer.msg('保存失败', {icon: 1, time: 2000});
+                            console.log("XmlHttpRequest:" + JSON.stringify(XmlHttpRequest));
+                            console.log("textStatus:" + textStatus);
+                            console.log("errorThrown:" + errorThrown);
+                        }
+                    });
+                }
+
+            });
+            //编辑用户服务协议
+            $("#form-baseAgreement-edit").validate({
+                rules: {
+                    agreement:{
+                        required:true,
+                    }
+                },
+                onkeyup: false,
+                focusCleanup: false,
+                success: "valid",
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        type: 'POST',
+                        url: "{{ URL::asset('/admin/baseAgreement/edit')}}",
                         success: function (ret) {
                             console.log(JSON.stringify(ret));
                             if (ret.result) {

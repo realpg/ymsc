@@ -99,4 +99,22 @@ class BaseController
         }
         return $return;
     }
+    //编辑用户服务协议
+    public function baseAgreementDo(Request $request){
+        $data = $request->all();
+        $admin = $request->session()->get('admin');
+        $return=null;
+        $base = BaseManager::getBaseInfo();
+        $base = BaseManager::setBase($base,$data);
+        $result=$base->save();
+        if($result){
+            $return['result']=true;
+            $return['msg']='编辑用户服务协议成功';
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='编辑用户服务协议失败';
+        }
+        return $return;
+    }
 }

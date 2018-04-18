@@ -77,6 +77,9 @@ class BaseManager
         if (array_key_exists('picture', $data)) {
             $banner->picture = array_get($data, 'picture');
         }
+        if (array_key_exists('agreement', $data)) {
+            $banner->agreement = array_get($data, 'agreement');
+        }
         if (array_key_exists('seo_title', $data)) {
             $banner->seo_title = array_get($data, 'seo_title');
         }

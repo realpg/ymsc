@@ -53,7 +53,7 @@
                     <h4 class="modal-title" id="myModalLabel">用户服务协议</h4>
                 </div>
                 <div class="modal-body max-height-modal overflow-y-scroll">
-                    我是内容
+                    {!! nl2br($common['base']['agreement']) !!}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
