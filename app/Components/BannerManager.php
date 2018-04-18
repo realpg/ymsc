@@ -12,8 +12,9 @@ use App\Models\BannerModel;
 
 class BannerManager
 {
+    const PAGINATE_ADMIN = 5;  //后台分页数目
     /*
-     * 模糊查询Banner列表
+     * 模糊查询Banner列表（无分页）
      *
      * By zm
      *
@@ -23,6 +24,31 @@ class BannerManager
     public static function getAllBannerLists($search)
     {
         $banners = BannerModel::where('name'  , 'like', '%'.$search.'%')->orderBy('sort','desc')->get();
+        foreach ($banners as $banner){
+            $menu=MenuManager::getMenuById($banner['menu_id']);
+            $banner['menu_name']=$menu['name'];
+        }
+        return $banners;
+    }
+
+    /*
+     * 模糊查询Banner列表（有分页）
+     *
+     * By zm
+     *
+     * 2018-04-18
+     *
+     */
+    public static function getAllBannerListsWithPage($search,$menu_id)
+    {
+        //分页数目
+        $paginate=self::PAGINATE_ADMIN;
+        if($menu_id){
+            $banners = BannerModel::where('name'  , 'like', '%'.$search.'%')->where('menu_id',$menu_id)->orderBy('sort','desc')->paginate($paginate);
+        }
+        else{
+            $banners = BannerModel::where('name'  , 'like', '%'.$search.'%')->orderBy('sort','desc')->paginate($paginate);
+        }
         foreach ($banners as $banner){
             $menu=MenuManager::getMenuById($banner['menu_id']);
             $banner['menu_name']=$menu['name'];

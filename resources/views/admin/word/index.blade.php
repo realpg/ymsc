@@ -6,7 +6,7 @@
     <div class="text-c">
         <form action="{{URL::asset('/admin/word/index')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
-            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="关键字名称">
+            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="关键字名称" value="{{$search}}">
             <button type="submit" class="btn btn-success" id="" name="">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -47,6 +47,9 @@
             @endforeach
             </tbody>
         </table>
+        <div id="callBackPager">
+            {{ $datas->appends(['search' => $search])->links() }}
+        </div>
     </div>
 </div>
 
@@ -54,18 +57,19 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 1, "desc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "word" : false, //去掉搜索框
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[3]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "word" : false, //去掉搜索框
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[3]}// 不参与排序的列
+    //     ]
+    // });
+
     /*搜索关键字-编辑*/
     function word_edit(title, url, id) {
         console.log("word_edit url:" + url);

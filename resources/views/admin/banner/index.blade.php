@@ -6,7 +6,15 @@
     <div class="text-c">
         <form action="{{URL::asset('/admin/banner/index')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
-            <input id="search" name="search" type="text" class="input-text" style="width:450px" placeholder="标题">
+            <span class="select-box" style="width:150px;">
+              <select class="select" size="1" name="menu_id">
+                  <option value=""  >全部</option>
+                  @foreach($menus as $menu)
+                      <option value="{{$menu['id']}}" {{$menu_id==$menu['id']?'selected':''}}>{{$menu['name']}}</option>
+                  @endforeach
+              </select>
+            </span>
+            <input id="search" name="search" type="text" class="input-text" style="width:350px" placeholder="标题" value="{{$search}}">
             <button type="submit" class="btn btn-success" id="" name="">
                 <i class="Hui-iconfont">&#xe665;</i> 搜索
             </button>
@@ -59,6 +67,9 @@
             @endforeach
             </tbody>
         </table>
+        <div id="callBackPager">
+            {{ $datas->appends(['search' => $search,'menu_id'=>$menu_id])->links() }}
+        </div>
     </div>
 </div>
 
@@ -66,17 +77,17 @@
 
 @section('script')
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "aaSorting": [[ 0, "asc" ]],//默认第几个排序
-        "bStateSave": true,//状态保存
-        "pading":false,
-        "searching" : false, //去掉搜索框
-        "bLengthChange": false,   //去掉每页显示多少条数据方法
-        "aoColumnDefs": [
-            //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-            {"orderable":false,"aTargets":[2,6]}// 不参与排序的列
-        ]
-    });
+    // $('.table-sort').dataTable({
+    //     "aaSorting": [[ 0, "asc" ]],//默认第几个排序
+    //     "bStateSave": true,//状态保存
+    //     "pading":false,
+    //     "searching" : false, //去掉搜索框
+    //     "bLengthChange": false,   //去掉每页显示多少条数据方法
+    //     "aoColumnDefs": [
+    //         //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+    //         {"orderable":false,"aTargets":[2,6]}// 不参与排序的列
+    //     ]
+    // });
 
     /*Banner-添加*/
     function banner_edit(title,url){

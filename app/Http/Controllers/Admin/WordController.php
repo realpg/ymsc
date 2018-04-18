@@ -25,10 +25,12 @@ class WordController
         else{
             $search='';
         }
-        $words = WordManager::getAllWordLists($search);
+//        $words = WordManager::getAllWordLists($search);  //无分页
+        $words = WordManager::getAllWordListsWithPage($search);  //有分页
         $param=array(
             'admin'=>$admin,
-            'datas'=>$words
+            'datas'=>$words,
+            'search'=>$search
         );
         return view('admin.word.index', $param);
     }

@@ -21,16 +21,27 @@ class BannerController
     {
         $data = $request->all();
         $admin = $request->session()->get('admin');
+        if(array_key_exists('menu_id',$data)){
+            $menu_id=$data['menu_id'];
+        }
+        else{
+            $menu_id='';
+        }
         if(array_key_exists('search',$data)){
             $search=$data['search'];
         }
         else{
             $search='';
         }
-        $banners = BannerManager::getAllBannerLists($search);
+        $menus=MenuManager::getMenuLists();
+//        $banners = BannerManager::getAllBannerLists($search);  //无分页
+        $banners = BannerManager::getAllBannerListsWithPage($search,$menu_id);  //有分页
         $param=array(
             'admin'=>$admin,
-            'datas'=>$banners
+            'datas'=>$banners,
+            'search'=>$search,
+            'menu_id'=>$menu_id,
+            'menus'=>$menus
         );
         return view('admin.banner.index', $param);
     }

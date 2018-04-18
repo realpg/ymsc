@@ -12,6 +12,7 @@ use App\Models\WordModel;
 
 class WordManager
 {
+    const PAGINATE_ADMIN = 10;  //后台分页数目
     /*
      * 配置关键字参数
      *
@@ -44,7 +45,7 @@ class WordManager
     }
 
     /*
-     * 查找关键字
+     * 查找关键字（无分页）
      *
      * By zm
      *
@@ -53,6 +54,21 @@ class WordManager
     public static function getAllWordLists($search)
     {
         $words = WordModel::where('name','like','%'.$search.'%')->orderBy('sort','desc')->get();
+        return $words;
+    }
+
+    /*
+     * 查找关键字（有分页）
+     *
+     * By zm
+     *
+     * 2018-03-06
+     */
+    public static function getAllWordListsWithPage($search)
+    {
+        //分页数目
+        $paginate=self::PAGINATE_ADMIN;
+        $words = WordModel::where('name','like','%'.$search.'%')->orderBy('sort','desc')->paginate($paginate);
         return $words;
     }
 
