@@ -33,6 +33,7 @@
                     </a>
                 </div>
             @endforeach
+            <div class="clear"></div>
             @if(count($goodses)==0)
                 <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                     <img src="{{ URL::asset('img/nothing.png') }}"  />
@@ -40,11 +41,11 @@
                 <div class="margin-top-20 text-center index-font">
                     没有您要找的商品！
                 </div>
+            @else
+                <div class="common-text-align-center margin-top-20">
+                    {!! $goodses->links() !!}
+                </div>
             @endif
-            <div class="clear"></div>
-            <div class="common-text-align-center">
-                {!! $goodses->links() !!}
-            </div>
         </div>
     </div>
 </div>

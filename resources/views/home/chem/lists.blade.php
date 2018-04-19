@@ -21,7 +21,7 @@
                             <div class="goods-lists-picture">
                                 <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">
                             </div>
-                            <h4 class="style-ellipsis-1">CAS号：{{$goods['cas']}}</h4>
+                            <h4 class="style-ellipsis-1">CAS号：{{$goods['cas']?$goods['cas']:'暂无'}}</h4>
                             <h4 class="style-ellipsis-1">分子式：{!! $goods['molecule'] !!}</h4>
                         </div>
                     </a>
@@ -79,6 +79,10 @@
                 </div>
                 <div class="margin-top-20 text-center index-font">
                     没有您要找的商品！
+                </div>
+            @else
+                <div class="common-text-align-center margin-top-20">
+                    {!! $goodses->links() !!}
                 </div>
             @endif
             <div class="clear"></div>

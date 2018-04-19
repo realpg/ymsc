@@ -108,6 +108,10 @@ function delChem(url, param, callBack) {
 function delMoreChem(url, param, callBack) {
     ajaxRequest(url + "admin/chem/delMore", param, "GET", callBack);
 }
+//删除化学商品大类的标签
+function delChemClassAttribute(url, param, callBack) {
+    ajaxRequest(url + "admin/chem/delAttribute", param, "GET", callBack);
+}
 //删除第三方检测商品
 function delTesting(url, param, callBack) {
     ajaxRequest(url + "admin/testing/del", param, "GET", callBack);

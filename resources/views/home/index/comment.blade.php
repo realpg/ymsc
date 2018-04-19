@@ -10,7 +10,7 @@
         <div class="height-80"></div>
         @include('home.layouts.search')
         <div class="border-bottom-attribute">
-            <div class="container line-height-40">
+            <div class="container line-height-40 style-ellipsis-1">
                 <div class="float-left">
                     <a href="{{URL::asset('/')}}">商城</a> >
                     @if($goods['goods_menu']['menu_id']==1)

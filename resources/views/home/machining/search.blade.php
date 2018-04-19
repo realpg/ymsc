@@ -59,11 +59,11 @@
                 <div class="margin-top-20 text-center index-font">
                     没有您要找的商品！
                 </div>
+            @else
+                <div class="common-text-align-center margin-top-20">
+                    {!! $goodses->appends(['search' => $search])->links() !!}
+                </div>
             @endif
-            <div class="clear"></div>
-            <div class="common-text-align-center">
-                {!! $goodses->links() !!}
-            </div>
         </div>
     </div>
 </div>

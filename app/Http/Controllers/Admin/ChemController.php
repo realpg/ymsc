@@ -323,6 +323,42 @@ class ChemController
                 $goods = GoodsManager::setGoods($goods,$data);
                 $result=$goods->save();
                 if($result){
+                    //商品编辑成功后判断商品大类是否需要添加新属性
+                    $chem_class=ChemClassModel::find($data['chem_class_id']);
+                    $status_f=true;
+                    $status_s=true;
+                    if($chem_class['f_attribute_ids']){
+                        $f_attribute_ids=explode(',',$chem_class['f_attribute_ids']);
+                        foreach ($f_attribute_ids as $f_attribute_id){
+                            if($f_attribute_id==$data['f_attribute_id']){
+                                $status_f=false;
+                            }
+                        }
+                        if($status_f){
+                            $data_class['f_attribute_ids']=$chem_class['f_attribute_ids'].','.$data['f_attribute_id'];
+                        }
+                    }
+                    else{
+                        $data_class['f_attribute_ids']=$data['f_attribute_id'];
+                    }
+                    if($chem_class['s_attribute_ids']){
+                        $s_attribute_ids=explode(',',$chem_class['s_attribute_ids']);
+                        foreach ($s_attribute_ids as $s_attribute_id){
+                            if($s_attribute_id==$data['s_attribute_id']){
+                                $status_s=false;
+                            }
+                        }
+                        if($status_s){
+                            $data_class['s_attribute_ids']=$chem_class['s_attribute_ids'].','.$data['s_attribute_id'];
+                        }
+                    }
+                    else{
+                        $data_class['s_attribute_ids']=$data['s_attribute_id'];
+                    }
+                    if($status_f||$status_s){
+                        $chem_class=GoodsManager::setChemClass($chem_class,$data_class);
+                        $chem_class->save();
+                    }
                     //配置属性参数
                     $data_attribute['goods_id']=$goods->id;
                     $data_attribute['spec']=$data['spec'];
@@ -367,5 +403,190 @@ class ChemController
         $prefix=$menu['prefix'];
         $number=$prefix.time().rand(100,1000);
         return $number;
+    }
+
+    //标签管理
+    public function attribute(Request $request){
+        $data = $request->all();
+        $admin = $request->session()->get('admin');
+        if(array_key_exists('chem_class_id', $data)&&array_key_exists('menu_id', $data)){
+            if(empty($data['chem_class_id'])||empty($data['menu_id'])){
+                $param=array(
+                    'msg'=>'合规校验失败，缺少参数'
+                );
+                return view('admin.index.error500', $param);
+            }
+            else{
+                $chem_class = GoodsManager::getAllChemClassByChemClassId($data['chem_class_id']);
+                $attributes=AttributeManager::getClassAAttributeLists(self::MENU_ID);
+                $all_attributes=AttributeManager::getClassAAttributeLists(self::MENU_ID);
+                foreach ($all_attributes as $all_attribute){
+                    $all_attribute['attributes']=AttributeManager::getAttributeByAttributeId($all_attribute['id']);
+                }
+                //属性一
+                if($chem_class['f_attribute_ids']){
+                    $f_attribute_ids=explode(',',$chem_class['f_attribute_ids']);
+                    $f_attribute_array=array();
+                    foreach ($f_attribute_ids as $f_attribute_id){
+                        $attribute=AttributeManager::getAttributeById($f_attribute_id);
+                        array_push($f_attribute_array,$attribute);
+                    }
+                    $attributes[0]['attributes']=$f_attribute_array;
+                }
+                //属性二
+                if($chem_class['s_attribute_ids']){
+                    $s_attribute_ids=explode(',',$chem_class['s_attribute_ids']);
+                    $s_attribute_array=array();
+                    foreach ($s_attribute_ids as $s_attribute_id){
+                        $attribute=AttributeManager::getAttributeById($s_attribute_id);
+
+                        array_push($s_attribute_array,$attribute);
+                    }
+                    $attributes[1]['attributes']=$s_attribute_array;
+                }
+                $param=array(
+                    'admin'=>$admin,
+                    'menu_id'=>$data['menu_id'],
+                    'chem_class_id'=>$data['chem_class_id'],
+                    'data'=>$chem_class,
+                    'attributes'=>$attributes,
+                    'all_attributes'=>$all_attributes
+                );
+                return view('admin.chem.attribute', $param);
+            }
+        }
+        else{
+            $param=array(
+                'msg'=>'合规校验失败，缺少参数'
+            );
+            return view('admin.index.error500', $param);
+        }
+    }
+    //删除化学商品大类标签
+    public function delAttribute(Request $request)
+    {
+        $data=$request->all();
+        if(array_key_exists('class_id',$data)&&array_key_exists('attribute_id',$data)&&array_key_exists('index',$data)){
+            $class_id=$data['class_id'];
+            $attribute_id=$data['attribute_id'];
+            $index=$data['index'];
+            if (is_numeric($class_id) !== true&&is_numeric($attribute_id) !== true) {
+                $return['result']=false;
+                $return['msg']='合规校验失败，参数类型不正确';
+            }
+            else{
+                $chem_class = ChemClassModel::find($class_id);
+                if($index==0){
+                    $f_attribute_ids=$chem_class['f_attribute_ids'];
+                    $ids='';
+                    $f_attribute_ids=explode(',',$f_attribute_ids);
+                    foreach ($f_attribute_ids as $f_attribute_id){
+                        if($f_attribute_id!=$attribute_id){
+                            $ids.=$f_attribute_id.',';
+                        }
+                    }
+                    $param['f_attribute_ids']=rtrim($ids, ',');
+                }
+                else if($index==1){
+                    $s_content_ids=$chem_class['s_attribute_ids'];
+                    $ids='';
+                    $s_content_ids=explode(',',$s_content_ids);
+                    foreach ($s_content_ids as $s_content_id){
+                        if($s_content_id!=$attribute_id){
+                            $ids.=$s_content_id.',';
+                        }
+                    }
+                    $param['s_attribute_ids']=rtrim($ids, ',');
+                }
+                $chem_class=GoodsManager::setChemClass($chem_class,$param);
+                $result=$chem_class->save();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='删除成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='删除失败';
+                }
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='合规校验失败，缺少参数';
+        }
+        return $return;
+    }
+    //添加化学商品大类标签
+    public function addAttribute(Request $request)
+    {
+        $data=$request->all();
+        if(array_key_exists('class_id',$data)&&array_key_exists('attribute_id',$data)&&array_key_exists('index',$data)){
+            $class_id=$data['class_id'];
+            $attribute_id=$data['attribute_id'];
+            $index=$data['index'];
+            if (is_numeric($class_id) !== true&&is_numeric($attribute_id) !== true) {
+                $return['result']=false;
+                $return['msg']='合规校验失败，参数类型不正确';
+            }
+            else{
+                $chem_class = ChemClassModel::find($class_id);
+                $status=true;
+                if($index==0){
+                    $f_attribute_ids=$chem_class['f_attribute_ids'];
+                    $f_attribute_ids=explode(',',$f_attribute_ids);
+                    foreach ($f_attribute_ids as $f_attribute_id){
+                        if($f_attribute_id==$attribute_id){
+                            $status=false;
+                        }
+                    }
+                    if($status){
+                        if($chem_class['f_attribute_ids']){
+                            $param['f_attribute_ids']=$chem_class['f_attribute_ids'].','.$attribute_id;
+                        }
+                        else{
+                            $param['f_attribute_ids']=$attribute_id;
+                        }
+                    }
+                }
+                else if($index==1){
+                    $s_content_ids=$chem_class['s_attribute_ids'];
+                    $s_content_ids=explode(',',$s_content_ids);
+                    foreach ($s_content_ids as $s_content_id){
+                        if($s_content_id==$attribute_id){
+                            $status=false;
+                        }
+                    }
+                    if($status){
+                        if($chem_class['s_attribute_ids']){
+                            $param['s_attribute_ids']=$chem_class['s_attribute_ids'].','.$attribute_id;
+                        }
+                        else{
+                            $param['s_attribute_ids']=$attribute_id;
+                        }
+                    }
+                }
+                if($status){
+                    $chem_class=GoodsManager::setChemClass($chem_class,$param);
+                    $result=$chem_class->save();
+                    if($result){
+                        $return['result']=true;
+                        $return['msg']='添加成功';
+                    }
+                    else{
+                        $return['result']=false;
+                        $return['msg']='添加失败';
+                    }
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='该属性已存在，不可重复添加';
+                }
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='合规校验失败，缺少参数';
+        }
+        return $return;
     }
 }

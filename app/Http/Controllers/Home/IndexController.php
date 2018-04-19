@@ -255,7 +255,7 @@ class IndexController extends Controller
         return $return;
     }
     /*
-     * 搜索商品
+     * 搜索商品（原）
      */
     public function search(Request $request){
         $data=$request->all();
@@ -263,7 +263,8 @@ class IndexController extends Controller
         $column='index';
         $common=$data['common'];
         $search=$data['search'];
-        $goodses=GoodsManager::getGoodsesByName($search);
+//        $goodses=GoodsManager::getGoodsesByName($search);  //原
+        $goodses=GoodsManager::newGetGoodsesByName($search);  //改
 //        $menus=MenuManager::getClassAMenuListswhichCanShow();
         //判断查询是否有结果，如果有结果显示出来，如果没有结果转向特定页面
         $show_count=0;
@@ -300,6 +301,55 @@ class IndexController extends Controller
         }
         else{
             return redirect('missing');
+        }
+    }
+    /*
+     * 搜索商品（新）
+     */
+    public function searchByMenu(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $column='index';
+        $common=$data['common'];
+        $search=$data['search'];
+        if(array_key_exists('menu_id',$data)){
+            $menu_id=$data['menu_id'];
+        }
+        else{
+            $menu_id='';
+        }
+        $goodses=GoodsManager::newGetGoodsesByNameWithPage($search,$menu_id);  //改
+        $menus=MenuManager::getClassAMenuListswhichCanShow();
+        //判断查询是否有结果，如果有结果显示出来，如果没有结果转向特定页面
+        if(count($goodses)==0&&$menu_id==''){
+            return redirect('missing');
+        }
+        else{
+            if($user) {
+                $carts = CartManager::getCartsByUserId($user['id']);
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'menus'=>$menus,
+                    'goodses'=>$goodses,
+                    'carts'=>$carts,
+                    'search'=>$search,
+                    'menu_id'=>$menu_id
+                );
+            }
+            else{
+                $param=array(
+                    'common'=>$common,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'menus'=>$menus,
+                    'goodses'=>$goodses,
+                    'search'=>$search,
+                    'menu_id'=>$menu_id
+                );
+            }
+            return view('home.index.newsearch',$param);
         }
     }
 

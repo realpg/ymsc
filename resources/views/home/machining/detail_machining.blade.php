@@ -10,7 +10,7 @@
     <div class="height-80"></div>
     @include('home.layouts.search')
     <div class="border-bottom-attribute">
-        <div class="container line-height-40">
+        <div class="container line-height-40 style-ellipsis-1">
             <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['parent_channel']['name']}}</a> >  <a href="{{URL::asset($column.'/lists/'.$goods['menu_id'])}}">{{$channel['name']}}</a> >{{$goods['name']}}
         </div>
     </div>

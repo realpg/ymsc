@@ -1,4 +1,4 @@
-<div class="container line-height-40">
+<div class="container line-height-40 style-ellipsis-1">
     <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a>
 </div>
 <div class="border-top-attribute">

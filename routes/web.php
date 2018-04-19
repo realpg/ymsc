@@ -133,6 +133,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::get('/chem/delMore', 'Admin\ChemController@delMore');  //批量删除化学商品
     Route::get('/chem/edit', 'Admin\ChemController@edit');  //创建或编辑化学商品
     Route::post('/chem/edit', 'Admin\ChemController@editDo');  //创建或编辑化学商品
+    Route::get('/chem/attribute', 'Admin\ChemController@attribute');  //化学商品大类标签管理
+    Route::get('/chem/delAttribute', 'Admin\ChemController@delAttribute');  //删除化学商品大类标签
+    Route::post('/chem/addAttribute', 'Admin\ChemController@addAttribute');  //添加化学商品大类标签
 
     //第三方检测商品
     Route::get('/testing/index', 'Admin\TestingController@index');  //第三方检测商品管理首页
@@ -195,7 +198,8 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('about', 'Home\IndexController@about');        //关于我们
     Route::post('advice', 'Home\IndexController@advice');        //提交意见反馈
     Route::post('searching', 'Home\IndexController@searching');        //提交帮你找货
-    Route::get('index/search', 'Home\IndexController@search');        //商城搜索商品
+//    Route::get('index/search', 'Home\IndexController@search');        //商城搜索商品（原）
+    Route::get('index/search', 'Home\IndexController@searchByMenu');        //商城搜索商品（新）
     Route::get('comment/{goods_id}', 'Home\IndexController@comment');        //评价
     Route::get('missing', 'Home\IndexController@missing');        //因参数错误没有找到商品时的页面
 
@@ -304,7 +308,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
 
 
     //支付测试
-//    Route::get('alipay/alipay', 'Home\AlipayTestController@aliPayDo');        //支付宝付款
+    Route::get('alipay/alipay', 'Home\AlipayTestController@aliPayDo');        //支付宝付款
 
 
 });

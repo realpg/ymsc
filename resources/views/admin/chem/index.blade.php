@@ -65,6 +65,9 @@
                         <a title="商品管理" href="javascript:;" onclick="chem_selectGoodses('商品管理','{{URL::asset('/admin/chem/select')}}?chem_class_id={{$data['id']}}&menu_id={{$data['menu_id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
                             <i class="Hui-iconfont">&#xe620;</i>
                         </a>
+                        <a title="属性管理" href="javascript:;" onclick="chem_selectAttribute('属性管理','{{URL::asset('/admin/chem/attribute')}}?chem_class_id={{$data['id']}}&menu_id={{$data['menu_id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
+                            <i class="Hui-iconfont">&#xe64b;</i>
+                        </a>
                         <a title="编辑" href="javascript:;" onclick="chem_editClass('编辑','{{URL::asset('/admin/chem/editClass')}}?id={{$data['id']}}&menu_id={{$data['menu_id']}}',{{$data['id']}})" class="ml-5" style="text-decoration:none">
                             <i class="Hui-iconfont">&#xe6df;</i>
                         </a>
@@ -89,6 +92,17 @@
 <script type="text/javascript">
     /*查看商品列表*/
     function chem_selectGoodses(title, url, id) {
+        // console.log("chem_selectGoodses url:" + url);
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+    /*查看标签管理*/
+    function chem_selectAttribute(title, url, id) {
         // console.log("chem_selectGoodses url:" + url);
         var index = layer.open({
             type: 2,

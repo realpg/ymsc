@@ -76,8 +76,8 @@ class ChemController extends Controller
             'f_attribute_id'=>$f_attribute_id,
             's_attribute_id'=>$s_attribute_id
         );
-        $goodses=GoodsManager::getChemClassByMenuId($goods_param);  //原
-//        $goodses=GoodsManager::newGetChemClassByMenuId($goods_param);  //改
+//        $goodses=GoodsManager::getChemClassByMenuId($goods_param);  //原
+        $goodses=GoodsManager::newGetChemClassByMenuId($goods_param);  //改
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -126,7 +126,8 @@ class ChemController extends Controller
             'f_attribute_id'=>$f_attribute_id,
             's_attribute_id'=>$s_attribute_id
         );
-        $goodses=GoodsManager::getChemClassBySearch($goods_param);
+//        $goodses=GoodsManager::getChemClassBySearch($goods_param);  //原
+        $goodses=GoodsManager::newGetChemClassBySearch($goods_param);  //改
         if(count($goodses)){
             if($user) {
                 //购物车信息

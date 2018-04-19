@@ -10,7 +10,7 @@
     <div class="height-80"></div>
     @include('home.layouts.search')
     <div class="border-bottom-attribute">
-        <div class="container line-height-40">
+        <div class="container line-height-40 style-ellipsis-1">
             <a href="{{URL::asset('/')}}">商城</a> > <a href="{{URL::asset($column)}}">{{$channel['name']}}</a> > {{$chem_class['name']}}
         </div>
     </div>
@@ -23,7 +23,7 @@
                     <div class="goods-lists-picture">
                         <img class="img-circle" src="{{$chem_class['picture']}}" alt="{{$chem_class['name']}}">
                     </div>
-                    <h4 class="style-ellipsis-1">CAS号：{{$chem_class['cas']}}</h4>
+                    <h4 class="style-ellipsis-1">CAS号：{{$chem_class['cas']?$chem_class['cas']:'暂无'}}</h4>
                     <h4 class="style-ellipsis-1">分子式：{!! $chem_class['molecule'] !!}</h4>
                 </div>
             </div>

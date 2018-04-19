@@ -34,9 +34,9 @@
                 <th width="80">ID</th>
                 {{--<th width="150">名称</th>--}}
                 <th width="150">货号</th>
-                <th width="150">品牌</th>
+                <th width="100s">品牌</th>
                 <th width="100">纯度</th>
-                <th width="100">规格</th>
+                <th width="80">规格</th>
                 <th width="100">价格</th>
                 <th width="100">库存</th>
                 <th width="100">栏目</th>
