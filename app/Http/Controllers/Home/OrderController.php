@@ -206,6 +206,7 @@ class OrderController
                         $order_data['count']=$data['count'];
 //                        $postage=Utils::POSTAGE;   //邮费（代码）
                         $postage=$common['base']['postage'];   //邮费（数据库）
+                        $order_data['postage']=$postage;
                         $order_data['total_fee']=$data['total']*$order_data['count']*100+$postage;
                         $order=OrderManager::setOrder($order,$order_data);
                         $order_result=$order->save();
