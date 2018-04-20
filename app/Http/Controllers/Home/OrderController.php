@@ -324,10 +324,10 @@ class OrderController
                     $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
                     $data['invoice_type']=$invoice['type'];
                 }
-                if($order['postage']==''){
-                    $data['postage']=$common['base']['postage'];
-                    $data['total_fee']=$data['total_fee']+$data['postage'];
-                }
+//                if($order['postage']==''){
+//                    $data['postage']=$common['base']['postage'];
+//                    $data['total_fee']=$data['total_fee']+$data['postage'];
+//                }
                 $order=OrderManager::setOrder($order,$data);
                 unset($order['suborders']);
                 $result=$order->save();
