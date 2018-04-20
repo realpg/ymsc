@@ -286,6 +286,10 @@ class OrderController
 //            $postage=Utils::POSTAGE;   //邮费（代码）
             if($order['postage']==''){
                 $postage=$common['base']['postage'];   //邮费（数据库）
+                $data_order['postage']=$postage;
+                $data_order['total_fee']=$order['total_fee']+$postage;
+                $order=OrderManager::setOrder($order,$data_order);
+                $order->save();
             }
             else{
                 $postage=$order['postage'];
@@ -324,10 +328,6 @@ class OrderController
                     $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
                     $data['invoice_type']=$invoice['type'];
                 }
-//                if($order['postage']==''){
-//                    $data['postage']=$common['base']['postage'];
-//                    $data['total_fee']=$data['total_fee']+$data['postage'];
-//                }
                 $order=OrderManager::setOrder($order,$data);
                 unset($order['suborders']);
                 $result=$order->save();
