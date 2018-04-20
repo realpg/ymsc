@@ -198,6 +198,7 @@ class MachiningController extends Controller
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
         $goods['cases']=GoodsManager::getGoodsCaseByGoodsId($goods_id);
+        $goods['explains']=GoodsManager::getGoodsExplainByGoodsId($goods_id);
         $comments=CommentManager::getGoodsCommentsByGoodsId($goods_id);
         //QQ客服
         $service=ServiceManager::getServiceById(self::SERVICE_ID);

@@ -139,9 +139,34 @@
                 </div>
             </li>
             <li>
-                @if($goods['attribute']['explain'])
-                    {{$goods['attribute']['explain']}}
-                @else
+                {{--@if($goods['attribute']['explain'])--}}
+                    {{--{{$goods['attribute']['explain']}}--}}
+                {{--@else--}}
+                    {{--<div class="margin-top-20 margin-right-10 margin-left-10 text-center">--}}
+                        {{--<img src="{{ URL::asset('img/nothing.png') }}"  />--}}
+                    {{--</div>--}}
+                    {{--<div class="margin-top-20 text-center index-font">--}}
+                        {{--商家太懒了，没有设置此项，详细信息请咨询客服--}}
+                    {{--</div>--}}
+                {{--@endif--}}
+                @foreach($goods['explains'] as $goods['explain'])
+                    @if($goods['explain']['type']==0)
+                        <div>
+                            {{$goods['explain']['content']}}
+                        </div>
+                    @elseif($goods['explain']['type']==1)
+                        <div>
+                            <img src="{{$goods['explain']['content']}}" style="width:100%;" />
+                        </div>
+                    @elseif($goods['explain']['type']==2)
+                        <div>
+                            <video src="{{$goods['explain']['content']}}" controls="controls" style="width:100%;">
+                                您的浏览器不支持 video 标签。
+                            </video>
+                        </div>
+                    @endif
+                @endforeach
+                @if(count($goods['explains'])==0)
                     <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                         <img src="{{ URL::asset('img/nothing.png') }}"  />
                     </div>
