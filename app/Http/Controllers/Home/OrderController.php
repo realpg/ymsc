@@ -284,11 +284,11 @@ class OrderController
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
 //            $postage=Utils::POSTAGE;   //邮费（代码）
-            if($order['postage']==''){
-                $postage=$order['postage'];
+            if($order['postage']!=''){
+                $postage=$common['base']['postage'];   //邮费（数据库）
             }
             else{
-                $postage=$common['base']['postage']/100;   //邮费（数据库）
+                $postage=$order['postage'];
             }
             $param=array(
                 'common'=>$common,
@@ -313,6 +313,7 @@ class OrderController
      */
     public function payDo(Request $request){
         $data=$request->all();
+        $common=$data['common'];
         unset($data['common']);
         $user=$request->cookie('user');
         $return=null;
@@ -322,6 +323,10 @@ class OrderController
                 if($data['invoice_id']){
                     $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
                     $data['invoice_type']=$invoice['type'];
+                }
+                if($order['postage']==''){
+                    $data['postage']=$common['base']['postage'];
+                    $data['total_fee']=$data['total_fee']+$data['postage'];
                 }
                 $order=OrderManager::setOrder($order,$data);
                 unset($order['suborders']);

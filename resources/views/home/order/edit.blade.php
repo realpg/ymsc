@@ -544,10 +544,14 @@
                                共<span class="text-red">{{$order['count']}}</span>件商品
                             </td>
                             <td class="text-right width-250" style="display:table-cell;vertical-align:middle;border:0px;">
-                                总价（包含<span class="text-red">￥{{$postage}}</span> 邮费）
+                                总价（包含<span class="text-red">￥{{$postage/100}}</span> 邮费）
                             </td>
                             <td class="text-center width-150 text-red" style="display:table-cell;vertical-align:middle;border:0px;">
-                                ￥<span id="total_all">{{$order['total_fee']/100}}</span>
+                                @if($postage=='')
+                                    ￥<span id="total_all">{{$order['total_fee']/100+$postage/100}}</span>
+                                @else
+                                    ￥<span id="total_all">{{$order['total_fee']/100}}</span>
+                                @endif
                             </td>
                             <td class="width-110 text-white background-blue cart-settlement" style="display:table-cell;vertical-align:middle;border:0px;padding:0px;" >
                                 <a href="javascript:" onclick="pay()" class="line-height-40">
