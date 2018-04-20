@@ -284,7 +284,7 @@ class OrderController
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
 //            $postage=Utils::POSTAGE;   //邮费（代码）
-            if($order['postage']!=''){
+            if($order['postage']==''){
                 $postage=$common['base']['postage'];   //邮费（数据库）
             }
             else{
