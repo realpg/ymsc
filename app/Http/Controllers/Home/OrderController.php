@@ -73,6 +73,7 @@ class OrderController
      */
     public function addDo(Request $request){
         $data=$request->all();
+        $common=$data['common'];
         $user=$request->cookie('user');
         $return=null;
         if($user){
@@ -82,9 +83,11 @@ class OrderController
                 $order_data['user_id']=$user['id'];
                 $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
 //                $order_data['count']=$data['count'];
-                $postage=Utils::POSTAGE;   //邮费
+//                $postage=Utils::POSTAGE;   //邮费（代码）
+                $postage=$common['base']['postage'];   //邮费（数据库）
 //                $order_data['total_fee']=$data['total']*100+$postage;
                 $order_data['total_fee']=$postage;
+                $order_data['postage']=$postage;
                 $order=OrderManager::setOrder($order,$order_data);
                 $order_result=$order->save();
                 if($order_result){
@@ -188,6 +191,7 @@ class OrderController
      */
     public function addGoodsDo(Request $request){
         $data=$request->all();
+        $common=$data['common'];
         $user=$request->cookie('user');
         $return=null;
         if($user){
@@ -200,7 +204,8 @@ class OrderController
                         $order_data['user_id']=$user['id'];
                         $order_data['trade_no']=self::ProduceOrderNumber($user['id']);
                         $order_data['count']=$data['count'];
-                        $postage=Utils::POSTAGE;   //邮费
+//                        $postage=Utils::POSTAGE;   //邮费（代码）
+                        $postage=$common['base']['postage'];   //邮费（数据库）
                         $order_data['total_fee']=$data['total']*$order_data['count']*100+$postage;
                         $order=OrderManager::setOrder($order,$order_data);
                         $order_result=$order->save();
@@ -277,7 +282,13 @@ class OrderController
             $addresses=AddressManager::getAddressListsByUserId($user['id']);
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
-            $postage=Utils::POSTAGE;   //邮费
+//            $postage=Utils::POSTAGE;   //邮费（代码）
+            if($order['postage']==''){
+                $postage=$order['postage'];
+            }
+            else{
+                $postage=$common['base']['postage']/100;   //邮费（数据库）
+            }
             $param=array(
                 'common'=>$common,
                 'column'=>$column,

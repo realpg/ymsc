@@ -87,6 +87,14 @@ class BaseController
         $admin = $request->session()->get('admin');
         $return=null;
         $base = BaseManager::getBaseInfo();
+        if(array_key_exists('postage',$data)){
+            if($data['postage']){
+                $data['postage']=$data['postage']*100;
+            }
+            else{
+                $data['postage']=0;
+            }
+        }
         $base = BaseManager::setBase($base,$data);
         $result=$base->save();
         if($result){

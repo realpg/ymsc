@@ -172,6 +172,12 @@
                         </div>
                     </div>
                     <div class="row cl">
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>邮费（元）：</label>
+                        <div class="formControls col-xs-8 col-sm-9">
+                            <input id="postage" name="postage" type="text" class="input-text" value="{{ isset($data['postage']) ? $data['postage']/100 : '' }}" placeholder="请输入邮费（单位“元”）">
+                        </div>
+                    </div>
+                    <div class="row cl">
                         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
                             <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
                         </div>
@@ -348,7 +354,11 @@
                 rules: {
                     sms_phone:{
                         required:true,
-                    }
+                    },
+                    postage:{
+                        required:true,
+                        number:true,
+                    },
                 },
                 onkeyup: false,
                 focusCleanup: false,

@@ -60,7 +60,7 @@ class AlipayTestController
             $addresses=AddressManager::getAddressListsByUserId($user['id']);
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
-            $postage=Utils::POSTAGE;  //邮费
+            $postage=$common['base']['postage'];
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
