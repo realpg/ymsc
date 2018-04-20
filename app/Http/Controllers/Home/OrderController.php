@@ -283,19 +283,19 @@ class OrderController
             $addresses=AddressManager::getAddressListsByUserId($user['id']);
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             //邮费校验
-            $order=OrderManager::getOrderByUserIdAndTradeNoWithSuborder($user['id'],$trade_no);
-//            $postage=Utils::POSTAGE;   //邮费（代码）
-            if($order['postage']==''){
-                $postage=$common['base']['postage'];   //邮费（数据库）
-                $data_order['postage']=$postage;
-                $data_order['total_fee']=$order['total_fee']+$postage;
-                $order=OrderManager::setOrder($order,$data_order);
-                $order->save();
-            }
-            else{
-                $postage=$order['postage'];
-            }
+//            $order=OrderManager::getOrderByUserIdAndTradeNoWithSuborder($user['id'],$trade_no);
+//            if($order['postage']==null&&$order['postage']!=0){
+//                $postage=$common['base']['postage'];   //邮费（数据库）
+//                $data_order['postage']=$postage;
+//                $data_order['total_fee']=$order['total_fee']+$postage;
+//                $order=OrderManager::setOrder($order,$data_order);
+//                $order->save();
+//            }
+//            else{
+//                $postage=$order['postage'];
+//            }
             $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
+            $postage=$order['postage'];
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
@@ -325,13 +325,14 @@ class OrderController
         $return=null;
         if($user){
             if (array_key_exists('trade_no', $data)&&$data['trade_no']) {
-                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+//                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$data['trade_no']);
+                $order=OrderManager::getOrderByUserIdAndTradeNoWithSuborder($user['id'],$data['trade_no']);
                 if($data['invoice_id']){
                     $invoice=InvoiceManager::getInvoiceById($data['invoice_id']);
                     $data['invoice_type']=$invoice['type'];
                 }
                 $order=OrderManager::setOrder($order,$data);
-                unset($order['suborders']);
+//                unset($order['suborders']);
                 $result=$order->save();
 //                dd($result);
                 $suborders=SuborderManager::getSubordersByTradeNo($order->trade_no);
