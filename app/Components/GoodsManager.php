@@ -16,6 +16,7 @@ use App\Models\ChemClassModel;
 use App\Models\GoodsCaseModel;
 use App\Models\GoodsChemAttributeModel;
 use App\Models\GoodsDetailModel;
+use App\Models\GoodsExplainModel;
 use App\Models\GoodsMachiningAttributeModel;
 use App\Models\GoodsModel;
 use App\Models\GoodsStandardAttributeModel;
@@ -254,8 +255,8 @@ class GoodsManager
      *
      */
     public static function getGoodsDetailByGoodsId($goods_id){
-        $dtails=GoodsDetailModel::where('goods_id',$goods_id)->orderBy('sort','asc')->get();
-        return $dtails;
+        $details=GoodsDetailModel::where('goods_id',$goods_id)->orderBy('sort','asc')->get();
+        return $details;
     }
 
     /*
@@ -267,8 +268,8 @@ class GoodsManager
      *
      */
     public static function getGoodsDetailById($id){
-        $dtail=GoodsDetailModel::where('id',$id)->first();
-        return $dtail;
+        $detail=GoodsDetailModel::where('id',$id)->first();
+        return $detail;
     }
 
     /*
@@ -1757,5 +1758,58 @@ class GoodsManager
             }
         }
         return $goodses;
+    }
+
+
+
+
+    /*
+     * 根据goods_id获取商品开发和收费详情
+     *
+     * By zm
+     *
+     * 2018-04-20
+     *
+     */
+    public static function getGoodsExplainByGoodsId($goods_id){
+        $explains=GoodsExplainModel::where('goods_id',$goods_id)->orderBy('sort','asc')->get();
+        return $explains;
+    }
+
+    /*
+     * 根据id获取商品开发和收费详情
+     *
+     * By zm
+     *
+     * 2018-04-20
+     *
+     */
+    public static function getGoodsExplainById($id){
+        $explain=GoodsExplainModel::where('id',$id)->first();
+        return $explain;
+    }
+
+    /*
+     * 配置商品开发和收费详情的参数
+     *
+     * By zm
+     *
+     * 2018-04-20
+     *
+     */
+    public static function setGoodsExplain($goods_explain, $data){
+        if (array_key_exists('goods_id', $data)) {
+            $goods_explain->goods_id = array_get($data, 'goods_id');
+        }
+        if (array_key_exists('content', $data)) {
+            $goods_explain->content = array_get($data, 'content');
+        }
+        if (array_key_exists('type', $data)) {
+            $goods_explain->type = array_get($data, 'type');
+        }
+        if (array_key_exists('sort', $data)) {
+            $goods_explain->sort = array_get($data, 'sort');
+        }
+        return $goods_explain;
     }
 }

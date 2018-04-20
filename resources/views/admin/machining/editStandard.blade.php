@@ -833,11 +833,11 @@
                 detail['content']=add_text;
                 detail['type']=0;
                 detail['sort']=jsonObj.length;
-                jsonObj.push(detail);
                 addTestingDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#add_text').val('')
+                        jsonObj.push(ret.ret);
                         refresh(jsonObj)
                     } else {
                         layer.msg(ret.msg, {icon: 2, time: 1000})
@@ -863,11 +863,11 @@
                 detail['content']=add_image;
                 detail['type']=1;
                 detail['sort']=jsonObj.length;
-                jsonObj.push(detail);
                 addTestingDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
                         $('#add_image').val('')
+                        jsonObj.push(ret.ret);
                         $("#imagePrv_image").attr('src', '{{ URL::asset('/img/add_image.png') }}')
                         refresh(jsonObj)
                     } else {
@@ -894,7 +894,6 @@
                 detail['content']=add_video;
                 detail['type']=2;
                 detail['sort']=jsonObj.length;
-                jsonObj.push(detail);
                 addTestingDetailList(detail,function(ret){
                     if (ret.result == true) {
                         //重新展示
@@ -903,6 +902,7 @@
                         $('#videoPrv').hide()
                         $('#imagePrv_video').show()
                         $('.sr-only').css('width','0%');
+                        jsonObj.push(ret.ret);
                         refresh(jsonObj)
                     } else {
                         layer.msg(ret.msg, {icon: 2, time: 1000})

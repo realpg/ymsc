@@ -146,6 +146,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/testing/edit', 'Admin\TestingController@editDo');  //创建或编辑第三方检测商品
     Route::get('/testingdetail/del', 'Admin\TestingController@delDetail');  //删除第三方检测商品详情信息
     Route::post('/testingdetail/edit', 'Admin\TestingController@editDoDetail');  //编辑第三方检测商品详情信息
+    Route::get('/testingexplain/del', 'Admin\TestingController@delExplain');  //删除第三方检测商品开发和收费详情信息
+    Route::post('/testingexplain/edit', 'Admin\TestingController@editDoExplain');  //编辑第三方检测商品开发和收费详情信息
 
     //机加工商品
     Route::get('/machining/index', 'Admin\MachiningController@index');  //机加工商品管理首页
@@ -162,6 +164,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin.login']], function ()
     Route::post('/machiningdetail/edit', 'Admin\MachiningController@editDoDetail');  //编辑机加工商品商品详情信息（机加工一级栏目下的商品公用）
     Route::get('/machiningcase/del', 'Admin\MachiningController@delCase');  //删除机加工商品案例信息
     Route::post('/machiningcase/edit', 'Admin\MachiningController@editDoCase');  //编辑机加工商品案例信息
+    Route::get('/machiningexplain/del', 'Admin\MachiningController@delExplain');  //删除第三方检测商品开发和收费详情信息
+    Route::post('/machiningexplain/edit', 'Admin\MachiningController@editDoExplain');  //编辑第三方检测商品开发和收费详情信息
 
     //会员管理
     Route::get('/member/index', 'Admin\MemberController@index');  //会员管理首页

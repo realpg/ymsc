@@ -128,6 +128,14 @@ function delTestingDetail(url, param, callBack) {
 function editTestingDetail(url, param, callBack) {
     $.post(url + "admin/testingdetail/edit",param,callBack);
 }
+//删除第三方检测商品开发和收费详情
+function delTestingExplain(url, param, callBack) {
+    ajaxRequest(url + "admin/testingexplain/del", param, "GET", callBack);
+}
+//修改第三方检测商品开发和收费详情
+function editTestingExplain(url, param, callBack) {
+    $.post(url + "admin/testingexplain/edit",param,callBack);
+}
 //删除机加工商品
 function delMachining(url, param, callBack) {
     ajaxRequest(url + "admin/machining/del", param, "GET", callBack);
@@ -151,6 +159,14 @@ function delMachiningCase(url, param, callBack) {
 //修改加工商品案例
 function editMachiningCase(url, param, callBack) {
     $.post(url + "admin/machiningcase/edit",param,callBack);
+}
+//删除第三方检测商品开发和收费详情
+function delMachiningExplain(url, param, callBack) {
+    ajaxRequest(url + "admin/machiningexplain/del", param, "GET", callBack);
+}
+//修改第三方检测商品开发和收费详情
+function editMachiningExplain(url, param, callBack) {
+    $.post(url + "admin/machiningexplain/edit",param,callBack);
 }
 //审核增值税专用发票
 function examineInvoice(url, param, callBack) {

@@ -14,6 +14,7 @@ use App\Components\MenuManager;
 use App\Components\QNManager;
 use App\Models\GoodsCaseModel;
 use App\Models\GoodsDetailModel;
+use App\Models\GoodsExplainModel;
 use App\Models\GoodsMachiningAttributeModel;
 use App\Models\GoodsModel;
 use App\Models\GoodsStandardAttributeModel;
@@ -225,6 +226,9 @@ class MachiningController
             //获取商品的案例
             $goods_cases=GoodsManager::getGoodsCaseByGoodsId($data['id']);
             $goods['cases']=$goods_cases;
+            //获取商品开发和收费详情
+            $goods_explains=GoodsManager::getGoodsExplainByGoodsId($data['id']);
+            $goods['explains']=$goods_explains;
         }
         else{
             $goods=new GoodsModel();
@@ -416,6 +420,7 @@ class MachiningController
         $result=$goods_detail->save();
         if($result){
             $return['result']=true;
+            $return['ret']=GoodsManager::getGoodsDetailById($goods_detail->id);
             $return['msg']='编辑商品详情成功';
         }
         else{
@@ -475,6 +480,61 @@ class MachiningController
         else{
             $return['result']=false;
             $return['msg']='编辑商品案例失败';
+        }
+        return $return;
+    }
+
+    //删除商品开发和收费详情
+    public function delExplain(Request $request)
+    {
+        $data=$request->all();
+        if(array_key_exists('id',$data)){
+            $id=$data['id'];
+            if (is_numeric($id) !== true) {
+                $return['result']=false;
+                $return['msg']='合规校验失败，参数类型不正确';
+            }
+            else{
+                $goods_detail = GoodsExplainModel::find($id);
+                $return=null;
+                $result=$goods_detail->delete();
+                if($result){
+                    $return['result']=true;
+                    $return['msg']='删除成功';
+                }
+                else{
+                    $return['result']=false;
+                    $return['msg']='删除失败';
+                }
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='合规校验失败，缺少参数';
+        }
+        return $return;
+    }
+    //编辑商品开发和收费详情执行
+    public function editDoExplain(Request $request){
+        $data = $request->all();
+        $admin = $request->session()->get('admin');
+        $return=null;
+        if(array_key_exists('id', $data)){
+            $goods_explain = GoodsManager::getGoodsExplainById($data['id']);
+        }
+        else{
+            $goods_explain=new GoodsExplainModel();
+        }
+        $goods_explain = GoodsManager::setGoodsExplain($goods_explain,$data);
+        $result=$goods_explain->save();
+        if($result){
+            $return['result']=true;
+            $return['ret']=GoodsManager::getGoodsExplainById($goods_explain->id);
+            $return['msg']='编辑商品开发和收费详情成功';
+        }
+        else{
+            $return['result']=false;
+            $return['msg']='编辑商品开发和收费详情失败';
         }
         return $return;
     }

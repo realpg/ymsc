@@ -38,10 +38,6 @@
                     <div class="col-xs-6 col-sm-6 padding-0">联系人：{{$goods['attribute']['contacts']}}</div>
                     <div class="col-xs-6 col-sm-6 padding-0">地域：{{$goods['attribute']['region']}}</div>
                 </h4>
-                {{--<h4 class="style-ellipsis-1 line-height-30">应用领域：{{$goods['f_attribute']['name']}}</h4>--}}
-                {{--<h4 class="style-ellipsis-1 line-height-30">仪器分类：{{$goods['s_attribute']['name']}}</h4>--}}
-                {{--<h4 class="style-ellipsis-1 line-height-30">联系人：{{$goods['attribute']['contacts']}}</h4>--}}
-                {{--<h4 class="style-ellipsis-1 line-height-30">地域：{{$goods['attribute']['region']}}</h4>--}}
                 <h4 class="style-ellipsis-1 line-height-30">地址：{{$goods['attribute']['address']}}</h4>
                 <div class="row margin-top-10 margin-bottom-20">
                     <div class="col-xs-6 col-sm-3">
@@ -132,9 +128,34 @@
                 </div>
             </li>
             <li>
-                @if($goods['attribute']['explain'])
-                    {{$goods['attribute']['explain']}}
-                @else
+                {{--@if($goods['attribute']['explain'])--}}
+                    {{--{{$goods['attribute']['explain']}}--}}
+                {{--@else--}}
+                    {{--<div class="margin-top-20 margin-right-10 margin-left-10 text-center">--}}
+                        {{--<img src="{{ URL::asset('img/nothing.png') }}"  />--}}
+                    {{--</div>--}}
+                    {{--<div class="margin-top-20 text-center index-font">--}}
+                        {{--商家太懒了，没有设置此项，详细信息请咨询客服--}}
+                    {{--</div>--}}
+                {{--@endif--}}
+                @foreach($goods['explains'] as $goods['explain'])
+                    @if($goods['explain']['type']==0)
+                        <div>
+                            {{$goods['explain']['content']}}
+                        </div>
+                    @elseif($goods['explain']['type']==1)
+                        <div>
+                            <img src="{{$goods['explain']['content']}}" style="width:100%;" />
+                        </div>
+                    @elseif($goods['explain']['type']==2)
+                        <div>
+                            <video src="{{$goods['explain']['content']}}" controls="controls" style="width:100%;">
+                                您的浏览器不支持 video 标签。
+                            </video>
+                        </div>
+                    @endif
+                @endforeach
+                @if(count($goods['explains'])==0)
                     <div class="margin-top-20 margin-right-10 margin-left-10 text-center">
                         <img src="{{ URL::asset('img/nothing.png') }}"  />
                     </div>

@@ -191,6 +191,7 @@ class TestingController extends Controller
         $channel=MenuManager::getMenuById($goods['menu_id']);
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['details']=GoodsManager::getGoodsDetailByGoodsId($goods_id);
+        $goods['explains']=GoodsManager::getGoodsExplainByGoodsId($goods_id);
         $comments=CommentManager::getGoodsCommentsByGoodsId($goods['id']);
         //QQ客服
         $service=ServiceManager::getServiceById(self::SERVICE_ID);
