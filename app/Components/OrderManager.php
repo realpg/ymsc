@@ -75,6 +75,9 @@ class OrderManager
         if (array_key_exists('delete', $data)) {
             $order->delete = array_get($data, 'delete');
         }
+        if (array_key_exists('postage', $data)) {
+            $order->postage = array_get($data, 'postage');
+        }
         return $order;
     }
 
