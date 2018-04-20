@@ -282,7 +282,8 @@ class OrderController
             $carts = CartManager::getCartsByUserId($user['id']);
             $addresses=AddressManager::getAddressListsByUserId($user['id']);
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
-            $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
+            //邮费校验
+            $order=OrderManager::getOrderByUserIdAndTradeNoWithoutSuborderForPay($user['id'],$trade_no);
 //            $postage=Utils::POSTAGE;   //邮费（代码）
             if($order['postage']==''){
                 $postage=$common['base']['postage'];   //邮费（数据库）
@@ -294,6 +295,7 @@ class OrderController
             else{
                 $postage=$order['postage'];
             }
+            $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
