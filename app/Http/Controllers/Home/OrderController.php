@@ -283,7 +283,7 @@ class OrderController
             $addresses=AddressManager::getAddressListsByUserId($user['id']);
             $invoices=InvoiceManager::getInvoiceListsByUserId($user['id']);
             //邮费校验
-            $order=OrderManager::getOrderByUserIdAndTradeNoWithoutSuborderForPay($user['id'],$trade_no);
+            $order=OrderManager::getOrderByUserIdAndTradeNoWithSuborder($user['id'],$trade_no);
 //            $postage=Utils::POSTAGE;   //邮费（代码）
             if($order['postage']==''){
                 $postage=$common['base']['postage'];   //邮费（数据库）
