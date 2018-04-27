@@ -55,9 +55,9 @@ class OrderController
     private function getConfigForAli()
     {
         $config = [
-            'appid' => Utils::ALIPAY_APPID, // APP APPID
+            'app_id' => Utils::ALIPAY_APPID, // APP APPID
             'notify_url' => Utils::ALIPAY_NOTIFY_URL,
-//            'return_url' => "http://localhost/ymsc/public/api/order/aliReturn",
+            'return_url' => Utils::ALIPAY_RETRUN_URL,
             'ali_public_key' => Utils::ALIPAY_PUBLIC_KEY,     // 支付宝公钥，1行填写
             'private_key' => Utils::ALIPAY_PRIVATE_KEY,        // 自己的私钥，1行填写
             'log' => [ // optional
@@ -411,17 +411,14 @@ class OrderController
                 $pay_order = [
                     'out_trade_no' => $order->trade_no,
                     'total_amount' => ($order->total_fee)/100,    //支付宝以“元”为单位
-                    'subject' => '优迈商城订单',
+                    'subject' => '优迈商城订单支付',
                 ];
                 //配置config
                 $config = self::getConfigForAli();
                 $result = Pay::alipay($config)->scan($pay_order);
-//                return $result;
 
-                if($result['return_code']){
-//                    设置微信预付订单id（prepay_id）
-                    $order->prepay_id = $result['prepay_id'];
-                    $order->code_url = $result['code_url'];
+                if($result['code']=='10000'){
+                    $order->code_url = $result['qr_code'];
                     $order->save();
 //                    //更改会员积分
 //                    $member=MemberManager::getUserInfoByIdWithNotToken($user['id']);
@@ -449,7 +446,7 @@ class OrderController
     }
 
     /*
-     * 扫描支付二维码
+     * 扫描支付二维码（微信）
      */
     public function qrcode(Request $request, $trade_no=''){
         $data = $request->all();
@@ -473,6 +470,48 @@ class OrderController
                         'order'=>$order
                     );
                     return view('home.order.qrcode',$param);
+                }
+                else{
+                    return redirect('center/order');
+                }
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='校验失败，缺少参数';
+            }
+        }
+        else{
+            $return['result']=false;
+            $return['msg']=Utils::UNSIGN_WORD;
+        }
+        return $return;
+    }
+
+    /*
+     * 扫描支付二维码（支付宝）
+     */
+    public function aliqrcode(Request $request, $trade_no=''){
+        $data = $request->all();
+        $user = $request->cookie('user');
+        $common=$data['common'];
+        $return = null;
+        if ($user) {
+            $column='cart';
+            $progress=2;
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            if(!empty($trade_no)){
+                $order=OrderManager::getOrderByUserIdAndTradeNo($user['id'],$trade_no);
+                if(count($order['suborders'])>0){
+                    $param=array(
+                        'common'=>$common,
+                        'column'=>$column,
+                        'progress'=>$progress,
+                        'user'=>$user,
+                        'carts'=>$carts,
+                        'order'=>$order
+                    );
+                    return view('home.order.aliqrcode',$param);
                 }
                 else{
                     return redirect('center/order');

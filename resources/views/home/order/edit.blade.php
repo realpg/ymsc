@@ -735,31 +735,31 @@
             payOrderByAli('{{URL::asset('')}}', param, function (ret) {
                 console.log('payOrderByAli is : '+JSON.stringify(ret))
                 // console.log('payOrderByAli ret is : '+JSON.stringify(ret))
-                {{--if (ret.result == true) {--}}
-                    {{--window.location.href = "{{URL::asset('order/pay/qrcode')}}"+"/"+trade_no;--}}
-                {{--} else {--}}
-                    {{--layer.msg(ret.msg, {icon: 2, time: 3000})--}}
-                {{--}--}}
+                if (ret.result == true) {
+                    window.location.href = "{{URL::asset('order/alipay/qrcode')}}"+"/"+trade_no;
+                } else {
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
             })
         }
     }
 
     //切换支付方式
     function switchPaymentMethod(method){
-        if(method=='ali'){
-            layer.msg('此功能还在开发中...', {icon: 2, time: 3000})
-        }
-        else{
-            $('.border-box-active').removeClass('border-box-active');
-            $('#'+method).addClass('border-box-active');
-            $('#pay_type').val(method)
-        }
+        // if(method=='ali'){
+        //     layer.msg('此功能还在开发中...', {icon: 2, time: 3000})
+        // }
+        // else{
+        //     $('.border-box-active').removeClass('border-box-active');
+        //     $('#'+method).addClass('border-box-active');
+        //     $('#pay_type').val(method)
+        // }
 
 
 
-        // $('.border-box-active').removeClass('border-box-active');
-        // $('#'+method).addClass('border-box-active');
-        // $('#pay_type').val(method)
+        $('.border-box-active').removeClass('border-box-active');
+        $('#'+method).addClass('border-box-active');
+        $('#pay_type').val(method)
     }
 </script>
 @endsection

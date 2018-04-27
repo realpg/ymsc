@@ -11,12 +11,12 @@
                         <h5>距离二维码过期还剩<span class="font-size-18 text-red" id="time">45</span>秒，过期后请重新刷新页面进行支付</h5>
                         <div id="output" class="margin-top-20 margin-bottom-20"></div>
                         <div style="width:256px;margin:0 auto;">
-                            <h4>请打开微信扫一扫</h4>
+                            <h4>请打开支付宝扫一扫</h4>
                             <h4>扫描图中二维码进行支付</h4>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6">
-                        <img src="{{URL::asset('img/pay_ts.png')}}"class="height-100" />
+                        <img src="{{URL::asset('img/pay_alits.jpg')}}"class="height-100 width-100" />
                     </div>
                     <div class="clear"></div>
                 </div>

@@ -303,8 +303,9 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('order', 'Home\OrderController@edit');        //编辑订单
     Route::get('order/{trade_no}', 'Home\OrderController@edit');        //编辑订单
     Route::post('order/pay', 'Home\OrderController@payDo');        //微信付款
+    Route::get('order/pay/qrcode/{trade_no}', 'Home\OrderController@qrcode');        //微信二维码付款
     Route::post('order/alipay', 'Home\OrderController@aliPayDo');        //支付宝付款
-    Route::get('order/pay/qrcode/{trade_no}', 'Home\OrderController@qrcode');        //二维码付款
+    Route::get('order/alipay/qrcode/{trade_no}', 'Home\OrderController@aliqrcode');        //支付宝二维码付款
     Route::get('order/pay/orderStatus', 'Home\OrderController@getOrderState');        //查询支付状态（后加的，为了保证之前的程序也能运行，没有更改之前的接口）
     Route::get('order/pay/result', 'Home\OrderController@result');        //支付结果
     Route::get('order/pay/success', 'Home\OrderController@success');        //付款成功
