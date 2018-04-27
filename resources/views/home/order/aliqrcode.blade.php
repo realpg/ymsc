@@ -63,21 +63,21 @@
                 return;
             }
             if(time%5==0){
-                var param={
-                    trade_no: '{{$order['trade_no']}}',
-                    _token: "{{ csrf_token() }}"
-                }
-                getOrderState('{{URL::asset('')}}', param, function (ret) {
-                    console.log('getOrderState is : '+JSON.stringify(ret))
-                    if (ret.result == true) {
-                        if(ret.code==2){
-                            location.href="{{URL::asset('order/pay/success')}}"
-                        }
-                    }
-                    else {
-                        layer.msg(ret.msg, {icon: 2, time: 2000})
-                    }
-                })
+                {{--var param={--}}
+                    {{--trade_no: '{{$order['trade_no']}}',--}}
+                    {{--_token: "{{ csrf_token() }}"--}}
+                {{--}--}}
+                {{--getOrderState('{{URL::asset('')}}', param, function (ret) {--}}
+                    {{--console.log('getOrderState is : '+JSON.stringify(ret))--}}
+                    {{--if (ret.result == true) {--}}
+                        {{--if(ret.code==2){--}}
+                            {{--location.href="{{URL::asset('order/pay/success')}}"--}}
+                        {{--}--}}
+                    {{--}--}}
+                    {{--else {--}}
+                        {{--layer.msg(ret.msg, {icon: 2, time: 2000})--}}
+                    {{--}--}}
+                {{--})--}}
             }
             time--;
             $("#time").text(time);
