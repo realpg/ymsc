@@ -37,7 +37,8 @@ class OrderController
             'miniapp_id' => Utils::WECHAT_MINIAPP_ID, // 小程序 APPID
             'mch_id' => Utils::WECHAT_MCH_ID, //微信商户号
             'key' => Utils::WECHAT_KEY,  // 微信支付签名秘钥
-            'notify_url' => Utils::WECHAT_NOTIFY_URL,
+//            'notify_url' => Utils::WECHAT_NOTIFY_URL,
+            'notify_url' => 'http://'.$_SERVER['SERVER_NAME'].Utils::WECHAT_NOTIFY_URL,
             'trade_type'=>Utils::WECHAT_TRADE_TYPE,
             'cert_client' => app_path() . Utils::WECHAT_CERT_CLIENT,        // 客户端证书路径，退款时需要用到
             'cert_key' => app_path() . Utils::WECHAT_CERT_KEY,             // 客户端秘钥路径，退款时需要用到

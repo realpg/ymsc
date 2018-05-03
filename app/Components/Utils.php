@@ -29,7 +29,8 @@ class Utils
     const WECHAT_MINIAPP_ID = "";   //小程序 APPID
     const WECHAT_MCH_ID = "1497102892";   //微信商户号
     const WECHAT_KEY = "dm0ZHUfYJxOIVnajfCA4ZFZHrcLqqCFk";   //微信支付签名秘钥
-    const WECHAT_NOTIFY_URL = "http://umylab.com/api/order/notify";   //微信支付回调链接
+//    const WECHAT_NOTIFY_URL = "http://umylab.com/api/order/notify";   //微信支付回调链接
+    const WECHAT_NOTIFY_URL = "/api/order/notify";   //微信支付回调链接
     const WECHAT_TRADE_TYPE = "NATIVE";   //微信支付类型
     const WECHAT_CERT_CLIENT = '/cert/apiclient_cert.pem';   //客户端证书路径，退款时需要用到
     const WECHAT_CERT_KEY = '/cert/apiclient_key.pem';  // 客户端秘钥路径，退款时需要用到
