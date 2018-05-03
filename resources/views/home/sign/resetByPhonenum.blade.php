@@ -98,7 +98,12 @@
                                     location.href="{{ URL::asset('signIn')}}"
                                 } else {
                                     $("#password").val('');
-                                    layer.msg(ret.msg, {icon: 2, time: 2000});
+                                    if(ret.code==9999){
+                                        location.href='{{URL::asset('signIn')}}';
+                                    }
+                                    else{
+                                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                                    }
                                 }
                             },
                             error: function (XmlHttpRequest, textStatus, errorThrown) {
@@ -126,7 +131,12 @@
                             layer.msg(ret.msg, {icon: 1, time: 2000});
                         }
                         else{
-                            layer.msg(ret.msg, {icon: 2, time: 2000});
+                            if(ret.code==9999){
+                                location.href='{{URL::asset('signIn')}}';
+                            }
+                            else{
+                                layer.msg(ret.msg, {icon: 2, time: 3000})
+                            }
                         }
                     })
                     //倒计时

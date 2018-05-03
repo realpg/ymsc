@@ -411,7 +411,12 @@
                     layer.msg(ret.msg, {icon: 1, time: 1000});
                     $(obj).parents("table").remove();
                 } else {
-                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                    if(ret.code==9999){
+                        location.href='{{URL::asset('signIn')}}';
+                    }
+                    else{
+                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                    }
                 }
             })
         });
@@ -428,9 +433,16 @@
             confirmOrder('{{URL::asset('')}}', param, function (ret) {
                 if (ret.result == true) {
                     layer.msg(ret.msg, {icon: 1, time: 1000});
-                    window.location.reload();
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000)
                 } else {
-                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                    if(ret.code==9999){
+                        location.href='{{URL::asset('signIn')}}';
+                    }
+                    else{
+                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                    }
                 }
             })
         });
@@ -447,9 +459,16 @@
             refundOrder('{{URL::asset('')}}', param, function (ret) {
                 if (ret.result == true) {
                     layer.msg(ret.msg, {icon: 1, time: 1000});
-                    window.location.reload();
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000)
                 } else {
-                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                    if(ret.code==9999){
+                        location.href='{{URL::asset('signIn')}}';
+                    }
+                    else{
+                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                    }
                 }
             })
         });

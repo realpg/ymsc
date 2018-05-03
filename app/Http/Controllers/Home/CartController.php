@@ -12,6 +12,7 @@ use App\Components\CartManager;
 use App\Components\MemberManager;
 use App\Models\CartModel;
 use Illuminate\Http\Request;
+use App\Components\Utils;
 
 class CartController
 {
@@ -77,6 +78,7 @@ class CartController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -116,6 +118,7 @@ class CartController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -156,6 +159,7 @@ class CartController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;

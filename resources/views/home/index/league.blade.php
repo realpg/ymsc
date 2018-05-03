@@ -112,7 +112,9 @@
                                 // console.log(JSON.stringify(ret));
                                 if (ret.result) {
                                     layer.msg(ret.msg, {icon: 1, time: 3000});
-                                    window.location.reload();
+                                    setTimeout(function () {
+                                        window.location.reload();
+                                    }, 3000)
                                 } else {
                                     layer.msg(ret.msg, {icon: 2, time: 3000});
                                 }

@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'CheckToken' => \App\Http\Middleware\CheckToken::class,
         'admin.login' => \App\Http\Middleware\CheckAdminLogin::class,//后台登录中间件
         'WebBase' => \App\Http\Middleware\WebBase::class,
+        'CheckCookie' => \App\Http\Middleware\CheckCookie::class,  //前台验证用户是否登录
     ];
 }

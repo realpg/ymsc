@@ -222,7 +222,7 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('differenceGoods', 'Home\IndexController@differenceGoods');        //补差价商品
 
     //化学商城
-    Route::get('chem', 'Home\ChemController@index');        //化学商城首页
+    Route::get('chem', 'Home\ChemController@index');       //化学商城首页
     Route::get('chem/lists/{menu_id}', 'Home\ChemController@lists');        //化学商城列表页
     Route::get('chem/lists/{menu_id}/f/{f_attribute_id}', 'Home\ChemController@lists');        //化学商城列表页
     Route::get('chem/lists/{menu_id}/s/{s_attribute_id}', 'Home\ChemController@lists');        //化学商城列表页
@@ -264,57 +264,52 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::get('machining/detail/standard/{goods_id}', 'Home\MachiningController@standardDetail');        //机加工标品库商品详情页
 
     //个人中心
-    Route::get('center', 'Home\CenterController@index');        //个人中心首页
+    Route::get('center', 'Home\CenterController@index')->middleware('CheckCookie');        //个人中心首页
     Route::post('center/base', 'Home\CenterController@baseDo');        //编辑基本信息
-    Route::get('center/email/check', 'Home\CenterController@checkEmail');        //验证原邮箱
-    Route::get('center/email/replace', 'Home\CenterController@replaceEmail');        //修改绑定的邮箱
-    Route::get('center/phonenum/check', 'Home\CenterController@checkPhonenum');        //验证原手机号
-    Route::get('center/phonenum/replace', 'Home\CenterController@replacePhonenum');        //修改绑定的手机号
-    Route::post('center/check', 'Home\CenterController@check');        //修改手机号或邮箱验证
+    Route::get('center/email/check', 'Home\CenterController@checkEmail')->middleware('CheckCookie');        //验证原邮箱
+    Route::get('center/email/replace', 'Home\CenterController@replaceEmail')->middleware('CheckCookie');        //修改绑定的邮箱
+    Route::get('center/phonenum/check', 'Home\CenterController@checkPhonenum')->middleware('CheckCookie');        //验证原手机号
+    Route::get('center/phonenum/replace', 'Home\CenterController@replacePhonenum')->middleware('CheckCookie');        //修改绑定的手机号
+    Route::post('center/check', 'Home\CenterController@check')->middleware('CheckCookie');        //修改手机号或邮箱验证
     Route::post('center/edit', 'Home\CenterController@editDo');        //修改手机号或邮箱
-    Route::get('center/address', 'Home\CenterController@address');        //地址管理
+    Route::get('center/address', 'Home\CenterController@address')->middleware('CheckCookie');        //地址管理
     Route::post('center/address', 'Home\CenterController@addressDo');        //编辑地址管理
     Route::get('center/address/del', 'Home\CenterController@addressDel');        //删除地址
     Route::get('center/address/default', 'Home\CenterController@addressDefault');        //修改默认地址
-    Route::get('center/invoice', 'Home\CenterController@invoice');        //发票管理
+    Route::get('center/invoice', 'Home\CenterController@invoice')->middleware('CheckCookie');        //发票管理
     Route::post('center/invoice', 'Home\CenterController@invoiceDo');        //编辑地址管理
     Route::get('center/invoice/del', 'Home\CenterController@invoiceDel');        //删除发票
     Route::get('center/invoice/default', 'Home\CenterController@invoiceDefault');        //修改默认发票
-    Route::get('center/order', 'Home\CenterController@order');        //订单管理
+    Route::get('center/order', 'Home\CenterController@order')->middleware('CheckCookie');        //订单管理
     Route::get('center/order/del', 'Home\CenterController@orderDel');        //删除订单
-    Route::get('center/order/confirm', 'Home\CenterController@orderConfirm');        //订单确认收货
-    Route::get('center/order/refund', 'Home\CenterController@orderRefund');        //订单申请退款
-    Route::get('center/refundorder', 'Home\CenterController@refundOrder');        //退款单管理
-    Route::get('center/comment/{order_id}', 'Home\CenterController@comment');        //评价
+    Route::get('center/order/confirm', 'Home\CenterController@orderConfirm')->middleware('CheckCookie');        //订单确认收货
+    Route::get('center/order/refund', 'Home\CenterController@orderRefund')->middleware('CheckCookie');        //订单申请退款
+    Route::get('center/refundorder', 'Home\CenterController@refundOrder')->middleware('CheckCookie');        //退款单管理
+    Route::get('center/comment/{order_id}', 'Home\CenterController@comment')->middleware('CheckCookie');        //评价
     Route::post('center/comment/edit', 'Home\CenterController@commentDo');        //编辑评价
 
     //评价
     Route::post('comment/edit', 'Home\CommentController@editDo');        //编辑评价
 
     //购物车
-    Route::get('cart', 'Home\CartController@index');        //购物车页面
+    Route::get('cart', 'Home\CartController@index')->middleware('CheckCookie');        //购物车页面
     Route::post('cart/edit', 'Home\CartController@editDo');        //编辑购物车
-    Route::get('cart/del', 'Home\CartController@del');        //删除购物车
+    Route::get('cart/del', 'Home\CartController@del')->middleware('CheckCookie');        //删除购物车
     Route::get('cart/delMore', 'Home\CartController@delMore');  //批量删除购物车
 
     //订单
     Route::post('order/add', 'Home\OrderController@addDo');        //添加订单
     Route::post('order/addGoods', 'Home\OrderController@addGoodsDo');        //添加订单（商品页立即支付）
-    Route::get('order', 'Home\OrderController@edit');        //编辑订单
-    Route::get('order/{trade_no}', 'Home\OrderController@edit');        //编辑订单
+    Route::get('order', 'Home\OrderController@edit')->middleware('CheckCookie');        //编辑订单
+    Route::get('order/{trade_no}', 'Home\OrderController@edit')->middleware('CheckCookie');        //编辑订单
     Route::post('order/pay', 'Home\OrderController@payDo');        //微信付款
-    Route::get('order/pay/qrcode/{trade_no}', 'Home\OrderController@qrcode');        //微信二维码付款
+    Route::get('order/pay/qrcode/{trade_no}', 'Home\OrderController@qrcode')->middleware('CheckCookie');        //微信二维码付款
     Route::post('order/alipay', 'Home\OrderController@aliPayDo');        //支付宝付款
-    Route::get('order/alipay/qrcode/{trade_no}', 'Home\OrderController@aliqrcode');        //支付宝二维码付款
+    Route::get('order/alipay/qrcode/{trade_no}', 'Home\OrderController@aliqrcode')->middleware('CheckCookie');        //支付宝二维码付款
     Route::get('order/pay/orderStatus', 'Home\OrderController@getOrderState');        //查询支付状态（后加的，为了保证之前的程序也能运行，没有更改之前的接口）
-    Route::get('order/pay/result', 'Home\OrderController@result');        //支付结果
-    Route::get('order/pay/success', 'Home\OrderController@success');        //付款成功
-    Route::get('order/pay/fail/{trade_no}', 'Home\OrderController@fail');        //付款失败
-
-
-    //支付测试
-    Route::get('alipay/alipay', 'Home\AlipayTestController@aliPayDo');        //支付宝付款
-
+    Route::get('order/pay/result', 'Home\OrderController@result')->middleware('CheckCookie');        //支付结果
+    Route::get('order/pay/success', 'Home\OrderController@success')->middleware('CheckCookie');        //付款成功
+    Route::get('order/pay/fail/{trade_no}', 'Home\OrderController@fail')->middleware('CheckCookie');        //付款失败
 
 });
 

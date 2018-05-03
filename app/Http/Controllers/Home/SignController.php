@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use App\Components\Utils;
 
 class SignController extends Controller
 {

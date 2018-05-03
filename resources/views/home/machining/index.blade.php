@@ -206,9 +206,16 @@
         uploadMachiningImages('{{URL::asset('')}}', param, function (ret) {
             if (ret.result == true) {
                 layer.msg(ret.msg, {icon: 1, time: 1000});
-                window.location.reload();
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1000)
             } else {
-                layer.msg(ret.msg, {icon: 2, time: 2000})
+                if(ret.code==9999){
+                    location.href='{{URL::asset('signIn')}}';
+                }
+                else{
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
             }
         })
     })

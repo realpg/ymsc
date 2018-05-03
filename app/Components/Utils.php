@@ -48,6 +48,7 @@ class Utils
 
     //提示语
     const UNSIGN_WORD = "请先登录";   //未登录提示语
+    const UNSIGN_CODE = 9999;   //未登录编码
 
     //邮费
     const POSTAGE = 0;  //邮费

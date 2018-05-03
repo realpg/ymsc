@@ -181,6 +181,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -263,6 +264,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -376,6 +378,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -440,6 +443,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -482,6 +486,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -524,6 +529,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -562,6 +568,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -618,6 +625,7 @@ class OrderController
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;

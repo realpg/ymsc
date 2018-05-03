@@ -76,6 +76,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -245,6 +246,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -330,6 +332,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -407,6 +410,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -442,6 +446,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -485,6 +490,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -584,6 +590,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -618,6 +625,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -661,6 +669,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -756,6 +765,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -796,6 +806,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -836,6 +847,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
@@ -941,6 +953,7 @@ class CenterController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;

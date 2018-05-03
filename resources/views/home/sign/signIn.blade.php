@@ -102,11 +102,13 @@
                             success: function (ret) {
                                 if (ret.result) {
                                     layer.msg(ret.msg, {icon: 1, time: 2000});
-                                    location.href="{{ URL::asset('index')}}"
+                                    {{--location.href="{{ URL::asset('index')}}"--}}
+                                    // window.history.go(-1);
+                                    window.location.href = document.referrer;//返回上一页并刷新
                                 } else {
                                     $("#password").val('');
                                     $("#verifyimage").click();
-                                    layer.msg(ret.msg, {icon: 2, time: 2000});
+                                    layer.msg(ret.msg, {icon: 2, time: 3000});
                                 }
                             },
                             error: function (XmlHttpRequest, textStatus, errorThrown) {

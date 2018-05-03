@@ -15,6 +15,7 @@ use App\Components\GoodsManager;
 use App\Components\MenuManager;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Components\Utils;
 
 class ChemController extends Controller
 {

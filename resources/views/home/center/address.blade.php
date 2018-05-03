@@ -224,7 +224,12 @@
                                 layer.msg(ret.msg, {icon: 1, time: 2000});
                                 window.location.reload()
                             } else {
-                                layer.msg(ret.msg, {icon: 2, time: 2000});
+                                if(ret.code==9999){
+                                    location.href='{{URL::asset('signIn')}}';
+                                }
+                                else{
+                                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                                }
                             }
                         },
                         error: function (XmlHttpRequest, textStatus, errorThrown) {
@@ -252,7 +257,12 @@
                     layer.msg(ret.msg, {icon: 1, time: 1000});
                     window.location.reload()
                 } else {
-                    layer.msg(ret.msg, {icon: 2, time: 1000})
+                    if(ret.code==9999){
+                        location.href='{{URL::asset('signIn')}}';
+                    }
+                    else{
+                        layer.msg(ret.msg, {icon: 2, time: 3000})
+                    }
                 }
             })
         });
@@ -268,7 +278,12 @@
                 layer.msg(ret.msg, {icon: 1, time: 1000});
                 window.location.reload()
             } else {
-                layer.msg(ret.msg, {icon: 2, time: 1000})
+                if(ret.code==9999){
+                    location.href='{{URL::asset('signIn')}}';
+                }
+                else{
+                    layer.msg(ret.msg, {icon: 2, time: 3000})
+                }
             }
         })
     }

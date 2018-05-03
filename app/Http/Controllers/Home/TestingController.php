@@ -17,6 +17,7 @@ use App\Components\MenuManager;
 use App\Components\ServiceManager;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Components\Utils;
 
 class TestingController extends Controller
 {

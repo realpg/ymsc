@@ -24,6 +24,7 @@ use App\Models\GoodsMachiningAttributeModel;
 use App\Models\LeagueModel;
 use App\Models\SearchingModel;
 use Illuminate\Http\Request;
+use App\Components\Utils;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;

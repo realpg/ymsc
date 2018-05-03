@@ -20,6 +20,7 @@ use App\Components\ServiceManager;
 use App\Http\Controllers\Controller;
 use App\Models\DrawingModel;
 use Illuminate\Http\Request;
+use App\Components\Utils;
 
 class MachiningController extends Controller
 {
@@ -301,6 +302,7 @@ class MachiningController extends Controller
         }
         else{
             $return['result']=false;
+            $return['code']=Utils::UNSIGN_CODE;
             $return['msg']=Utils::UNSIGN_WORD;
         }
         return $return;
