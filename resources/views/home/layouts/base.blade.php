@@ -34,6 +34,7 @@
     @show
 </head>
 <body>
+@if($column=='index')
 <div id="loading">
     <div id="loading-center">
         <div id="loading-center-absolute">
@@ -48,6 +49,7 @@
         </div>
     </div>
 </div>
+@endif
 @section('header')
     <header class="navbar navbar-inverse navbar-fixed-top style-home-nav-background">
         <div class="container">
