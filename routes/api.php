@@ -21,7 +21,7 @@ Route::group(['prefix' => '', 'middleware' => ['BeforeRequest']], function () {
     //微信支付结果通知    请勿调用
     Route::any('order/notify', 'API\WechatController@wechatNotify');
     //支付宝支付结果通知    请勿调用
-    Route::any('aliNotify', 'API\AliController@aliNotify');
+    Route::any('aliNotify/', 'API\AliController@aliNotify');
     //支付宝支付回调通知    请勿调用
-    Route::any('aliReturn', 'API\AliController@aliReturn');
+    Route::any('aliReturn/', 'API\AliController@aliReturn');
 });
