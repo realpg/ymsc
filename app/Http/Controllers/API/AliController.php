@@ -27,9 +27,9 @@ class AliController extends Controller
     private function getConfigForAli()
     {
         $config = [
-            'appid' => Utils::ALIPAY_APPID, // APP APPID
+            'app_id' => Utils::ALIPAY_APPID, // APP APPID
             'notify_url' => Utils::ALIPAY_NOTIFY_URL,
-//            'return_url' => Utils::ALIPAY_RETRUN_URL,
+            'return_url' => Utils::ALIPAY_RETRUN_URL,
             'ali_public_key' => Utils::ALIPAY_PUBLIC_KEY,     // 支付宝公钥，1行填写
             'private_key' => Utils::ALIPAY_PRIVATE_KEY,        // 自己的私钥，1行填写
             'log' => [ // optional
@@ -52,7 +52,7 @@ class AliController extends Controller
         Log::info('Ali config : ', $config);
         $ali = new Pay($config);
         $user=$request->cookie('user');
-        Log::info('Ali user : ', $user);
+//        Log::info('Ali user : ', $user);
         try {
             $data = Pay::alipay($config)->verify(); // 是的，验签就这么简单！
             Log::info('Ali notify', $data->all());
@@ -89,7 +89,7 @@ class AliController extends Controller
 
     public function aliReturn(Request $request)
     {
-        $config = $this->getConfigForAli();
+        $config = self::getConfigForAli();
 
         return Pay::alipay($config)->verify(); // 是的，验签就这么简单！;
     }

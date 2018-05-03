@@ -766,20 +766,20 @@
 
     //切换支付方式
     function switchPaymentMethod(method){
-        if(method=='ali'){
-            layer.msg('此功能还在开发中...', {icon: 2, time: 3000})
-        }
-        else{
-            $('.border-box-active').removeClass('border-box-active');
-            $('#'+method).addClass('border-box-active');
-            $('#pay_type').val(method)
-        }
+        // if(method=='ali'){
+        //     layer.msg('此功能还在开发中...', {icon: 2, time: 3000})
+        // }
+        // else{
+        //     $('.border-box-active').removeClass('border-box-active');
+        //     $('#'+method).addClass('border-box-active');
+        //     $('#pay_type').val(method)
+        // }
 
 
 
-        // $('.border-box-active').removeClass('border-box-active');
-        // $('#'+method).addClass('border-box-active');
-        // $('#pay_type').val(method)
+        $('.border-box-active').removeClass('border-box-active');
+        $('#'+method).addClass('border-box-active');
+        $('#pay_type').val(method)
     }
 </script>
 @endsection
