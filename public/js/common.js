@@ -434,6 +434,20 @@ function Text2Html(str) {
     return str;
 }
 
+//textarea换行转换成html标签
+function transformationRow(str){
+    str = str.replace(/\r\n/g, '<br/>'); //IE9、FF、chrome
+    str = str.replace(/\n/g, '<br/>'); //IE7-8
+    return str;
+}
+//html标签转换成textarea识别标签
+function reverseRow(str){
+    str=str.replace(/&lt;br\/&gt;/g,"\n"); //IE7-8
+    str = str.replace(/<br\/>/g, '\n'); //IE7-8
+    console.log('reverseRow str : '+JSON.stringify(str))
+    return str;
+}
+
 //null变为空str
 function nullToEmptyStr(str) {
     if (judgeIsNullStr(str)) {

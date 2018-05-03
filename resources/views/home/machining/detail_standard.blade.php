@@ -77,7 +77,7 @@
                         @foreach($goods['details'] as $goods['detail'])
                             @if($goods['detail']['type']==0)
                                 <div>
-                                    {{$goods['detail']['content']}}
+                                    {!! $goods['detail']['content'] !!}
                                 </div>
                             @elseif($goods['detail']['type']==1)
                                 <div>

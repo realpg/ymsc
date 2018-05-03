@@ -269,17 +269,18 @@
                                 </div>
                                 <div id="add_detail_image" style="text-align: center;" hidden >
                                     <img id="imagePrv_image" src="{{ URL::asset('/img/add_image.png') }}" />
+                                    <div class="progress-bar"><span class="sr-only" id="details-image"></span></div>
                                     <input id="add_image" type="hidden" />
                                     <a href="javascript:" onclick="submitDetailImage()">
                                         <div id="standard_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
                                     </a>
                                 </div>
                                 <div id="add_detail_video" style="text-align: center;" hidden >
-                                    <img id="imagePrv_video" src="{{ URL::asset('/img/add_image.png') }}" />
+                                    <img id="imagePrv_video" src="{{ URL::asset('/img/add_video.png') }}" />
                                     <video src="" id="videoPrv" controls="controls" hidden>
                                         您的浏览器不支持 video 标签。
                                     </video>
-                                    <div class="progress-bar"><span class="sr-only"></span></div>
+                                    <div class="progress-bar"><span class="sr-only" id="details-video"></span></div>
                                     <input id="add_video" type="hidden" />
                                     <a href="javascript:" onclick="submitDetailVideo()">
                                         <div id="standard_details_content" class="formControls col-xs-12 col-sm-12 detail_add_button">确认添加</div>
@@ -591,6 +592,8 @@
                     'UploadProgress': function (up, file) {
                         // 每个文件上传时，处理相关的事情
 //                        console.log("UploadProgress up:" + up + " file:" + JSON.stringify(file));
+                        $('#details-image').css('width',file.percent+'%');
+                        $('#details-image').css('float','left');
                     },
                     'FileUploaded': function (up, file, info) {
                         // 每个文件上传成功后，处理相关的事情
@@ -677,8 +680,8 @@
                     },
                     'UploadProgress': function (up, file) {
                         // 每个文件上传时，处理相关的事情
-                        $('.sr-only').css('width',file.percent+'%');
-                        $('.sr-only').css('float','left');
+                        $('#details-video').css('width',file.percent+'%');
+                        $('#details-video').css('float','left');
                         console.log("UploadProgress up:" + up + " file:" + JSON.stringify(file));
                     },
                     'FileUploaded': function (up, file, info) {
@@ -729,15 +732,28 @@
         // 内容详情页编辑
         function LoadDetailsHtml(data){
             // console.log("data is : "+JSON.stringify(data))
+            var data_text=data
             for(var i=0;i<data.length;i++){
                 data[i]['index']=i
                 // console.log('LoadDetailsHtml data['+i+'] is : ' + JSON.stringify((data[i])))
-                //编辑
-                var interText = doT.template($("#standard_details_content_template").text())
-                $("#standard_details_content").append(interText(data[i]))
-                //展示
-                var interText = doT.template($("#standard_details_show_content_template").text())
-                $("#standard_details_show_content").append(interText(data[i]))
+                if(data[i]['type']==0){
+                    data_text[i]['content']=reverseRow(data[i]['content']);
+                    //编辑
+                    var interText = doT.template($("#standard_details_content_template").text())
+                    $("#standard_details_content").append(interText(data_text[i]))
+                    data_text[i]['content']=transformationRow(data_text[i]['content']);
+                    //展示
+                    var interText = doT.template($("#standard_details_show_content_template").text())
+                    $("#standard_details_show_content").append(interText(data_text[i]))
+                }
+                else{
+                    //编辑
+                    var interText = doT.template($("#standard_details_content_template").text())
+                    $("#standard_details_content").append(interText(data[i]))
+                    //展示
+                    var interText = doT.template($("#standard_details_show_content_template").text())
+                    $("#standard_details_show_content").append(interText(data[i]))
+                }
             }
         }
         //点击排序-上升
@@ -808,6 +824,7 @@
         //提交修改后的文本
         function updateTextDetial(index){
             var content=$('#text_detail_'+index).val();
+            content=transformationRow(content)
             jsonObj[index]['content']=content;
             for(var i=0;i<jsonObj.length;i++){
                 editTestingDetailList(jsonObj[i])
@@ -867,6 +884,7 @@
                     if (ret.result == true) {
                         //重新展示
                         $('#add_image').val('')
+                        $('#details-image').css('width','0%');
                         jsonObj.push(ret.ret);
                         $("#imagePrv_image").attr('src', '{{ URL::asset('/img/add_image.png') }}')
                         refresh(jsonObj)
@@ -901,7 +919,7 @@
                         $('#videoPrv').attr('src', '')
                         $('#videoPrv').hide()
                         $('#imagePrv_video').show()
-                        $('.sr-only').css('width','0%');
+                        $('#details-video').css('width','0%');
                         jsonObj.push(ret.ret);
                         refresh(jsonObj)
                     } else {
@@ -936,6 +954,9 @@
         }
         //提交后台添加数据
         function addTestingDetailList(detail,callBack){
+            if(detail['type']==0){
+                detail['content']=transformationRow(detail['content'])
+            }
             var param={
                 _token: "{{ csrf_token() }}",
                 goods_id:detail['goods_id'],

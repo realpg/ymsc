@@ -70,7 +70,7 @@
                 @foreach($goods['details'] as $goods['detail'])
                     @if($goods['detail']['type']==0)
                         <div>
-                            {{$goods['detail']['content']}}
+                            {!! $goods['detail']['content'] !!}
                         </div>
                     @elseif($goods['detail']['type']==1)
                         <div>
@@ -139,20 +139,10 @@
                 </div>
             </li>
             <li>
-                {{--@if($goods['attribute']['explain'])--}}
-                    {{--{{$goods['attribute']['explain']}}--}}
-                {{--@else--}}
-                    {{--<div class="margin-top-20 margin-right-10 margin-left-10 text-center">--}}
-                        {{--<img src="{{ URL::asset('img/nothing.png') }}"  />--}}
-                    {{--</div>--}}
-                    {{--<div class="margin-top-20 text-center index-font">--}}
-                        {{--商家太懒了，没有设置此项，详细信息请咨询客服--}}
-                    {{--</div>--}}
-                {{--@endif--}}
                 @foreach($goods['explains'] as $goods['explain'])
                     @if($goods['explain']['type']==0)
                         <div>
-                            {{$goods['explain']['content']}}
+                            {!! $goods['explain']['content'] !!}
                         </div>
                     @elseif($goods['explain']['type']==1)
                         <div>
