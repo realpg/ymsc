@@ -1737,6 +1737,8 @@ class GoodsManager
                 $goods['column_code']=$chem_column;
                 $menu=MenuManager::getMenuById($chem_menu_id);
                 $goods['column']=$menu;
+                $attribute=GoodsChemAttributeModel::where('goods_id',$goods['id'])->first();
+                $goods['chem_class_id']=$attribute['chem_class_id'];
             }
             else if($goods['column_id']==$testing_menu_id){
                 $goods['column_code']=$testing_column;
