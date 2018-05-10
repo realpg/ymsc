@@ -26,7 +26,7 @@
                                 @foreach($goods['goodses'] as $goods_info)
                                     <div class="col-xs-12 col-sm-3 padding-top-10 padding-right-10 padding-left-10">
                                         @if($goods['column_id']==1)
-                                            <a href="{{URL::asset($goods['column'].'/classlists/'.$goods_info['chem_class_id'])}}">
+                                            <a href="{{URL::asset($goods['column'].'/classlists/'.$goods_info['id'])}}">
                                                 <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
                                                     <h3 class="style-ellipsis-1">{{$goods_info['name']}}</h3>
                                                     <div class="goods-lists-picture">
