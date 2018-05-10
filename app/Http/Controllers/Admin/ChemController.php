@@ -138,6 +138,15 @@ class ChemController
             $chem_class = GoodsManager::setChemClass($chem_class,$data);
             $result=$chem_class->save();
             if($result){
+                $goodses=GoodsManager::getAllChemGoodsByChemClassId($chem_class['id']);
+                foreach ($goodses as $goods){
+                    $goods_id=$goods['id'];
+                    $chem_goods=GoodsModel::find($goods_id);
+                    $goods_data['name']=$chem_class['name'];
+                    $goods_data['picture']=$chem_class['picture'];
+                    $chem_goods=GoodsManager::setGoods($chem_goods,$goods_data);
+                    $chem_goods->save();
+                }
                 $return['result']=true;
                 $return['msg']='编辑商品大类成功';
             }
