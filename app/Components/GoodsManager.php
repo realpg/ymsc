@@ -1728,12 +1728,28 @@ class GoodsManager
             'menu_info.menu_id as column_id',
         );
         if($menu_id){
-            $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')
-                ->where(function($goodses) use ($search){
-                $goodses->where('goods_info.name','like','%'.$search.'%')
-                    ->orwhere('goods_info.cas','like','%'.$search.'%')
-                    ->orwhere('goods_info.number','like','%'.$search.'%');})
-                ->where('menu_info.menu_id',$menu_id)->orderBy('id','desc')->paginate($paginate,$get);
+            if($menu_id==$chem_menu_id){
+                $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')
+                    ->join('goods_chem_attribute_info','goods_chem_attribute_info.goods_id','=','goods_info.id')
+                    ->where(function($goodses) use ($search){
+                        $goodses->where('goods_info.name','like','%'.$search.'%')
+                            ->orwhere('goods_info.cas','like','%'.$search.'%')
+                            ->orwhere('goods_info.number','like','%'.$search.'%');})
+                    ->where('menu_info.menu_id',$menu_id)
+                    ->groupBy('goods_chem_attribute_info.chem_class_id')
+                    ->orderBy('goods_info.id','desc')
+                    ->paginate($paginate,$get);
+            }
+            else{
+                $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')
+                    ->where(function($goodses) use ($search){
+                        $goodses->where('goods_info.name','like','%'.$search.'%')
+                            ->orwhere('goods_info.cas','like','%'.$search.'%')
+                            ->orwhere('goods_info.number','like','%'.$search.'%');})
+                    ->where('menu_info.menu_id',$menu_id)
+                    ->orderBy('goods_info.id','desc')
+                    ->paginate($paginate,$get);
+            }
         }
         else{
             $goodses=GoodsModel::join('menu_info','menu_info.id','=','goods_info.menu_id')
@@ -1741,7 +1757,8 @@ class GoodsManager
                     $goodses->where('goods_info.name','like','%'.$search.'%')
                         ->orwhere('goods_info.cas','like','%'.$search.'%')
                         ->orwhere('goods_info.number','like','%'.$search.'%');})
-                ->orderBy('id','desc')->paginate($paginate,$get);
+                ->groupBy('goods_info.menu_id','goods_info.name')
+                ->orderBy('goods_info.id','desc')->paginate($paginate,$get);
         }
         foreach ($goodses as $goods){
             if($goods['column_id']==$chem_menu_id){

@@ -312,12 +312,18 @@ class IndexController extends Controller
         $user=$request->cookie('user');
         $column='index';
         $common=$data['common'];
-        $search=$data['search'];
+//        $search=$data['search'];
         if(array_key_exists('menu_id',$data)){
             $menu_id=$data['menu_id'];
         }
         else{
             $menu_id='';
+        }
+        if(array_key_exists('search',$data)){
+            $search=$data['search'];
+        }
+        else{
+            $search='';
         }
         $goodses=GoodsManager::newGetGoodsesByNameWithPage($search,$menu_id);  //改
         $menus=MenuManager::getClassAMenuListswhichCanShow();
