@@ -949,7 +949,15 @@ class GoodsManager
                     ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
                     ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
                     ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
-                    ->where($where)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->orderBy('goods_info.sort','desc')->orderBy('goods_info.id','desc')->select($select)->paginate($goods_paginate);
+                    ->where($where)
+                    ->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)
+                    ->orderBy('goods_info.sort','desc')
+                    ->orderBy('goods_info.id','desc')
+                    ->offset(0)
+                    ->limit($goods_paginate)
+                    ->get($select);
+//                    ->select($select)
+//                    ->paginate($goods_paginate);
             }
         }
         return $chem_classes;
@@ -1038,8 +1046,7 @@ class GoodsManager
      * 2018-04-19
      */
     public static function newGetChemClassBySearch($data){
-//        $paginate=self::PAGINATE;
-        $paginate=1;
+        $paginate=self::PAGINATE;
         $goods_paginate=7;
         //查询满足条件的商品大类
         $search=$data['search'];
@@ -1110,10 +1117,14 @@ class GoodsManager
                     ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
                     ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
                     ->join('menu_info','menu_info.id','=','chem_class_info.menu_id')
-                    ->where($where)->where('menu_info.status',1)->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)->orderBy('goods_info.sort','desc')->orderBy('goods_info.id','desc')->select($select)->paginate($goods_paginate);
-//                if(count($chem_class['goodses'])==0){
-//                    unset($chem_classes[$k]);
-//                }
+                    ->where($where)
+                    ->where('menu_info.status',1)
+                    ->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)
+                    ->orderBy('goods_info.sort','desc')
+                    ->orderBy('goods_info.id','desc')
+                    ->offset(0)
+                    ->limit($goods_paginate)
+                    ->get($select);
             }
         }
         return $chem_classes;
