@@ -273,7 +273,6 @@ class MachiningController
             $data_attribute['accuracy']=$data['accuracy'];
             $data_attribute['service']=$data['service'];
             $data_attribute['material']=$data['material'];
-            $data_attribute['explain']=$data['explain'];
             if(!$goods_attribute){
                 $goods_attribute=new GoodsTestingAttributeModel();
             }

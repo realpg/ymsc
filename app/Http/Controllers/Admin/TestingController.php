@@ -184,7 +184,7 @@ class TestingController
             $data_attribute['lab']=$data['lab'];
             $data_attribute['contacts']=$data['contacts'];
             $data_attribute['address']=$data['address'];
-            $data_attribute['explain']=$data['explain'];
+//            $data_attribute['explain']=$data['explain'];
             if(!$goods_attribute){
                 $goods_attribute=new GoodsTestingAttributeModel();
             }

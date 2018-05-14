@@ -69,7 +69,7 @@
                     <div class="clear"></div>
                 </div>
                 <ul class="line-height-40 border-bottom-navy-blue row common-text-align-center" id="tab">
-                    <li class="col-md-12 col-lg-2 background-detail tab_active">设 备 详 情</li>
+                    <li class="col-md-12 col-lg-2 background-detail tab_active">标 品 详 情</li>
                     <li class="col-md-12 col-lg-2 background-detail">客 户 评 价</li>
                 </ul>
                 <ul class="tab_content">
