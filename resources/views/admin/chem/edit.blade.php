@@ -38,12 +38,14 @@
                     <input id="name" name="name" type="text" class="input-text no_click" readonly value="{{ isset($chem_class['name']) ? $chem_class['name'] : '' }}" placeholder="请输入商品名称">
                 </div>
             </div>
+            @if($chem_class['cas'])
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>CAS：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="cas" name="cas" type="text" class="input-text no_click" readonly value="{{ isset($chem_class['cas']) ? $chem_class['cas'] : '' }}" placeholder="请输入CAS">
                 </div>
             </div>
+            @endif
             <div class="row cl" id="container">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>图片：</label>
                 <div class="formControls col-xs-8 col-sm-9">
@@ -189,9 +191,6 @@
             $("#form-testing-edit").validate({
                 rules: {
                     name: {
-                        required: true,
-                    },
-                    cas: {
                         required: true,
                     },
                     price: {

@@ -144,6 +144,7 @@ class ChemController
                     $chem_goods=GoodsModel::find($goods_id);
                     $goods_data['name']=$chem_class['name'];
                     $goods_data['picture']=$chem_class['picture'];
+                    $goods_data['cas']=$chem_class['cas'];
                     $chem_goods=GoodsManager::setGoods($chem_goods,$goods_data);
                     $chem_goods->save();
                 }
