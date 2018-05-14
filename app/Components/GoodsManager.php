@@ -528,8 +528,8 @@ class GoodsManager
         $goodses=GoodsChemAttributeModel::join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
             ->join('goods_info','goods_info.id','=','goods_chem_attribute_info.goods_id')
             ->join('menu_info','menu_info.id','=','chem_class_info.menu_id')
-            ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
-            ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
+            ->leftjoin('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
+            ->leftjoin('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
             ->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)
             ->where(function ($goodses) use ($search) {
                 $goodses->where('goods_info.name'  , 'like', '%'.$search.'%')
@@ -947,8 +947,8 @@ class GoodsManager
                 $chem_class_id=$chem_class['id'];
                 $chem_class['goodses']=GoodsModel::join('goods_chem_attribute_info','goods_chem_attribute_info.goods_id','=','goods_info.id')
                     ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
-                    ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
-                    ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
+                    ->leftjoin('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
+                    ->leftjoin('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
                     ->where($where)
                     ->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)
                     ->orderBy('goods_info.sort','desc')
@@ -1114,8 +1114,8 @@ class GoodsManager
                 $chem_class_id=$chem_class['id'];
                 $chem_class['goodses']=GoodsModel::join('goods_chem_attribute_info','goods_chem_attribute_info.goods_id','=','goods_info.id')
                     ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
-                    ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
-                    ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
+                    ->leftjoin('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
+                    ->leftjoin('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
                     ->join('menu_info','menu_info.id','=','chem_class_info.menu_id')
                     ->where($where)
                     ->where('menu_info.status',1)
@@ -1189,8 +1189,8 @@ class GoodsManager
         $chem_class=ChemClassModel::find($chem_class_id);
         $chem_class['goodses']=GoodsModel::join('goods_chem_attribute_info','goods_chem_attribute_info.goods_id','=','goods_info.id')
             ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
-            ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
-            ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
+            ->leftjoin('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
+            ->leftjoin('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
             ->where($where)->orderBy('goods_info.sort','desc')->orderBy('goods_info.id','desc')->select($select)->paginate($paginate);
         return $chem_class;
     }
@@ -1227,8 +1227,8 @@ class GoodsManager
         );
         $chem_class=GoodsModel::join('goods_chem_attribute_info','goods_chem_attribute_info.goods_id','=','goods_info.id')
             ->join('chem_class_info','chem_class_info.id','=','goods_chem_attribute_info.chem_class_id')
-            ->join('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
-            ->join('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
+            ->leftjoin('attribute_info as f_attribute','f_attribute.id','=','goods_info.f_attribute_id')
+            ->leftjoin('attribute_info as s_attribute','s_attribute.id','=','goods_info.s_attribute_id')
             ->where('goods_chem_attribute_info.chem_class_id',$chem_class_id)
             ->where(function($chem_class) use ($data){
                 $chem_class->where('goods_info.f_attribute_id',$data['f_attribute_id'])

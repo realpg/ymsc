@@ -98,7 +98,7 @@
                                     {{$chem_class['goods']['f_attribute']}}
                                     </a>
                                 </td>
-                                <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['s_attribute']}}</td>
+                                <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['s_attribute']?$chem_class['goods']['s_attribute']:'-'}}</td>
                                 <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['spec']}}</td>
                                 <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['delivery']}}</td>
                                 <td class="line-height-40 border-bottom-attribute text-center text-red">￥{{$chem_class['goods']['price']/100}}/{{$chem_class['goods']['unit']}}</td>

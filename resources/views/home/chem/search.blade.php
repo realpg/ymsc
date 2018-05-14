@@ -54,7 +54,7 @@
                                         {{$goods['goods']['f_attribute']}}
                                         </a>
                                     </td>
-                                    <td style="border-top:0;">{{$goods['goods']['s_attribute']}}</td>
+                                    <td style="border-top:0;">{{$goods['goods']['s_attribute']?$goods['goods']['s_attribute']:'-'}}</td>
                                     <td style="border-top:0;">{{$goods['goods']['spec']}}</td>
                                     <td style="border-top:0;">{{$goods['goods']['delivery']}}</td>
                                     <td style="border-top:0;">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</td>

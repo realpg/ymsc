@@ -54,7 +54,7 @@
                     {{--<td class="text-l">{{$data['name']}}</td>--}}
                     <td>{{$data['number']}}</td>
                     <td>{{$data['brand']}}</td>
-                    <td>{{$data['purity']}}</td>
+                    <td>{{$data['purity']?$data['purity']:'-'}}</td>
                     <td>{{$data['spec']}}</td>
                     <td>￥{{$data['price']/100}}&nbsp;/{{$data['unit']}}</td>
                     <td>{{$data['stock']}}</td>

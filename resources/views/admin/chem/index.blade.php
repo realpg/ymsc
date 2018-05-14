@@ -58,7 +58,7 @@
                     @endif
                     <td class="text-l">{{$data['sub_name']}}</td>
                     <td class="text-l">{{$data['english_name']}}</td>
-                    <td>{{$data['cas']}}</td>
+                    <td>{{$data['cas']?$data['cas']:'-'}}</td>
                     <td>{{$data['menu']['name']}}</td>
                     <td>{{$data['updated_at']}}</td>
                     <td class="td-manage">

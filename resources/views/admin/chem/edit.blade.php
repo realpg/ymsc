@@ -96,17 +96,18 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>纯度：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                        <span class="select-box">
-                            <select id="s_attribute_id" name="s_attribute_id" class="select">
-                                @foreach($purities as $purity)
-                                    @if($purity['id']==$data['s_attribute_id'])
-                                        <option value="{{$purity['id']}}" selected >{{$purity['name']}}</option>
-                                    @else
-                                        <option value="{{$purity['id']}}" >{{$purity['name']}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </span>
+                    <span class="select-box">
+                        <select id="s_attribute_id" name="s_attribute_id" class="select">
+                            @foreach($purities as $purity)
+                                @if($purity['id']==$data['s_attribute_id'])
+                                    <option value="{{$purity['id']}}" selected >{{$purity['name']}}</option>
+                                @else
+                                    <option value="{{$purity['id']}}" >{{$purity['name']}}</option>
+                                @endif
+                            @endforeach
+                            <option value="0" {{$data['s_attribute_id']==''?'selected':''}}  >无</option>
+                        </select>
+                    </span>
                 </div>
             </div>
             <div class="row cl">

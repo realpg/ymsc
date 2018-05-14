@@ -31,7 +31,9 @@
                 @endif
                 <h4 class="style-ellipsis-1 line-height-30">
                     <div class="col-xs-6 col-sm-2 padding-0">规格：{{$goods['attribute']['spec']}}</div>
+                    @if($goods['s_attribute']['name'])
                     <div class="col-xs-6 col-sm-2 padding-0">纯度：{{$goods['s_attribute']['name']}}</div>
+                    @endif
                 </h4>
                 <h4 class="style-ellipsis-1 line-height-30">
                     <div class="col-xs-6 col-sm-2 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
@@ -106,9 +108,13 @@
                                 </a>
                             </td>
                             <td class="col-xs-0 col-sm-2">
+                                @if($goods['other_goods']['s_attribute'])
                                 <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
                                     {{$goods['other_goods']['s_attribute']}}
                                 </a>
+                                @else
+                                    -
+                                @endif
                             </td>
                             <td class="col-xs-0 col-sm-2">
                                 <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
