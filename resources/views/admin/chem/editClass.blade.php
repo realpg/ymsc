@@ -42,13 +42,13 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>CAS：</label>
+                <label class="form-label col-xs-4 col-sm-2">CAS：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="cas" name="cas" type="text" class="input-text" value="{{ isset($data['cas']) ? $data['cas'] : '' }}" placeholder="请输入CAS">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分子式：</label>
+                <label class="form-label col-xs-4 col-sm-2">分子式：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="molecule" name="molecule" type="text" class="input-text" value="{{ isset($data['molecule']) ? $data['molecule'] : '' }}" placeholder="请输入分子式">
                 </div>
@@ -120,16 +120,7 @@
                     name: {
                         required: true,
                     },
-                    sub_name: {
-                        required: true,
-                    },
                     english_name: {
-                        required: true,
-                    },
-                    cas: {
-                        required: true,
-                    },
-                    molecule: {
                         required: true,
                     },
                     sort: {

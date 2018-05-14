@@ -21,8 +21,12 @@
                             <div class="goods-lists-picture">
                                 <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">
                             </div>
+                            @if($goods['cas'])
                             <h4 class="style-ellipsis-1">CAS号：{{$goods['cas']?$goods['cas']:'暂无'}}</h4>
+                            @endif
+                            @if($goods['molecule'])
                             <h4 class="style-ellipsis-1">分子式：{!! $goods['molecule'] !!}</h4>
+                            @endif
                         </div>
                     </a>
                 </div>

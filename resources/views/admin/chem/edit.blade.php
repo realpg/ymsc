@@ -132,13 +132,13 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分子量：</label>
+                <label class="form-label col-xs-4 col-sm-2">分子量：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="molecular" name="molecular" type="text" class="input-text"  value="{{ isset($data['attribute']['molecular']) ? $data['attribute']['molecular'] : '' }}" placeholder="请输入分子量">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>精确质量：</label>
+                <label class="form-label col-xs-4 col-sm-2">精确质量：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="accurate" name="accurate" type="text" class="input-text"  value="{{ isset($data['attribute']['accurate']) ? $data['attribute']['accurate'] : '' }}" placeholder="请输入精确质量">
                 </div>
@@ -220,12 +220,6 @@
                         required: true,
                     },
                     merchant: {
-                        required: true,
-                    },
-                    molecular: {
-                        required: true,
-                    },
-                    accurate: {
                         required: true,
                     },
                 },

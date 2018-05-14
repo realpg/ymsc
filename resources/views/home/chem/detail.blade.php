@@ -26,10 +26,14 @@
             <div class="col-xs-12 col-sm-9 padding-10">
                 <h3 class="style-ellipsis-1 line-height-30">{{$goods['name']}}</h3>
                 <h4 class="style-ellipsis-1 line-height-30">商品货号：{{$goods['number']}}</h4>
+                @if($goods['chem_class']['cas'])
                 <h4 class="style-ellipsis-1 line-height-30">CAS号：{{$goods['chem_class']['cas']}}</h4>
+                @endif
                 <h4 class="style-ellipsis-1 line-height-30">
                     <div class="col-xs-6 col-sm-2 padding-0">规格：{{$goods['attribute']['spec']}}</div>
                     <div class="col-xs-6 col-sm-2 padding-0">纯度：{{$goods['s_attribute']['name']}}</div>
+                </h4>
+                <h4 class="style-ellipsis-1 line-height-30">
                     <div class="col-xs-6 col-sm-2 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
                     <div class="col-xs-6 col-sm-2 padding-0">分类：{{$goods['f_attribute']['name']}}</div>
                 </h4>
@@ -151,32 +155,42 @@
                     <div class="col-xs-12 col-sm-1 padding-0"></div>
                 </div>
                 <div class="line-height-40 row background-detail">
-                    <div class="col-xs-12 col-sm-2 common-text-align-center">化 合 物 信 息</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center">详 细 信 息</div>
                 </div>
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 英 文 学 名</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">英 文 学 名</div>
                     <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['english_name']}}</div>
                 </div>
+                @if($goods['chem_class']['sub_name'])
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">化 合 物 中 文 学 名</div>
+                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">中 文 学 名</div>
                     <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['sub_name']}}</div>
                 </div>
+                @endif
+                @if($goods['chem_class']['cas'])
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
                     <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">C A S 号</div>
                     <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['chem_class']['cas']?$goods['chem_class']['cas']:'暂无'}}</div>
                 </div>
+                @endif
+                @if($goods['attribute']['molecular'])
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
                     <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">分 子 量</div>
                     <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['molecular']}}</div>
                 </div>
+                @endif
+                @if($goods['attribute']['accurate'])
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
                     <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">精 准 质 量</div>
                     <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{{$goods['attribute']['accurate']}}</div>
                 </div>
+                @endif
+                @if($goods['chem_class']['molecule'])
                 <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
                     <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">分 子 式</div>
                     <div class="col-xs-12 col-sm-10 border-detail border-left-0 border-right-0">{!! $goods['chem_class']['molecule'] !!}</div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
