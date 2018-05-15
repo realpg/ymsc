@@ -66,7 +66,11 @@
                         <td class="text-l">{{$data['name']}} <span class="label label-danger radius">热销</span></td>
                     @endif
                     <td>{{$data['number']}}</td>
-                    <td>￥{{$data['price']/100}}&nbsp;/{{$data['unit']}}</td>
+                    @if($data['type']==0)
+                        <td>-</td>
+                    @else
+                        <td>￥{{$data['price']/100}}&nbsp;/{{$data['unit']}}</td>
+                    @endif
                     @if($data['type']==0)
                         <td>机加工类型</td>
                     @else
