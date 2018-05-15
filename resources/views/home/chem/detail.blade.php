@@ -32,12 +32,12 @@
                 <h4 class="style-ellipsis-1 line-height-30">
                     <div class="col-xs-6 col-sm-4 padding-0">规格：{{$goods['attribute']['spec']}}</div>
                     @if($goods['s_attribute']['name'])
-                    <div class="col-xs-6 col-sm-4 padding-0">{{$goods['s_attribute']['father']['name']}}：{{$goods['s_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-4 padding-0">{{$attributes[1]['name']}}：{{$goods['s_attribute']['name']}}</div>
                     @endif
                 </h4>
                 <h4 class="style-ellipsis-1 line-height-30">
                     <div class="col-xs-6 col-sm-4 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
-                    <div class="col-xs-6 col-sm-4 padding-0">{{$goods['f_attribute']['father']['name']}}：{{$goods['f_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-4 padding-0">{{$attributes[0]['name']}}：{{$goods['f_attribute']['name']}}</div>
                 </h4>
                 <h4 class="style-ellipsis-1 line-height-30">{{$goods['other']}}</h4>
                 <div class="style-ellipsis-1">
@@ -90,8 +90,8 @@
                 <table class="table border-0">
                     <tr class="line-height-40 border-bottom-attribute row common-text-align-center">
                         <td class="col-xs-2 col-sm-2">货号</td>
-                        <td class="col-xs-2 col-sm-2">品牌</td>
-                        <td class="col-xs-2 col-sm-2">纯度</td>
+                        <td class="col-xs-2 col-sm-2">{{$attributes[0]['name']}}</td>
+                        <td class="col-xs-2 col-sm-2">{{$attributes[1]['name']}}</td>
                         <td class="col-xs-2 col-sm-2">规格</td>
                         <td class="col-xs-2 col-sm-2">货期</td>
                         <td class="col-xs-2 col-sm-2 text-red">优迈价</td>
