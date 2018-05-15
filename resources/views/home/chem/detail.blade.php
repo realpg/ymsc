@@ -30,14 +30,14 @@
                 <h4 class="style-ellipsis-1 line-height-30">CAS号：{{$goods['chem_class']['cas']}}</h4>
                 @endif
                 <h4 class="style-ellipsis-1 line-height-30">
-                    <div class="col-xs-6 col-sm-2 padding-0">规格：{{$goods['attribute']['spec']}}</div>
+                    <div class="col-xs-6 col-sm-4 padding-0">规格：{{$goods['attribute']['spec']}}</div>
                     @if($goods['s_attribute']['name'])
-                    <div class="col-xs-6 col-sm-2 padding-0">纯度：{{$goods['s_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-4 padding-0">{{$goods['s_attribute']['father']['name']}}：{{$goods['s_attribute']['name']}}</div>
                     @endif
                 </h4>
                 <h4 class="style-ellipsis-1 line-height-30">
-                    <div class="col-xs-6 col-sm-2 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
-                    <div class="col-xs-6 col-sm-2 padding-0">分类：{{$goods['f_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-4 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
+                    <div class="col-xs-6 col-sm-4 padding-0">{{$goods['f_attribute']['father']['name']}}：{{$goods['f_attribute']['name']}}</div>
                 </h4>
                 <div class="style-ellipsis-1">
                     <div class="col-xs-6 col-sm-4 padding-0 line-height-40 font-size-24">

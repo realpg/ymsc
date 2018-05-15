@@ -228,7 +228,13 @@ class ChemController extends Controller
         $goods['attribute']=GoodsManager::getGoodsChemAttributeByGoodsId($goods_id);
         $goods['chem_class']=GoodsManager::getAllChemClassByChemClassId($goods['attribute']['chem_class_id']);
         $goods['f_attribute']=AttributeManager::getAttributeById($goods['f_attribute_id']);
+        if($goods['f_attribute']){
+            $goods['f_attribute']['father']=AttributeManager::getAttributeById($goods['f_attribute']['attribute_id']);
+        }
         $goods['s_attribute']=AttributeManager::getAttributeById($goods['s_attribute_id']);
+        if($goods['s_attribute']){
+            $goods['s_attribute']['father']=AttributeManager::getAttributeById($goods['s_attribute']['attribute_id']);
+        }
         $channel=MenuManager::getMenuById($goods['menu_id']);
         $channel['parent_channel']=MenuManager::getMenuById($menu_id);
         $goods['other_goodses']=GoodsManager::getChemClassByAttribute($goods);

@@ -78,13 +78,13 @@
                 <div class="table-responsive">
                     <table class="table border-0">
                         <tr>
-                            <th class="background-navy-blue text-white text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">货 号</th>
-                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">品 牌</th>
-                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">纯 度</th>
-                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">规 格</th>
-                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">货 期</th>
-                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">优 迈 价</th>
-                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;">操 作</th>
+                            <th class="background-navy-blue text-white text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">货号</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">{{$attributes[0]['name']}}</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">{{$attributes[1]['name']}}</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">规格</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">货期</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">优迈价</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">操作</th>
                         </tr>
                         @foreach($chem_class['goodses'] as $chem_class['goods'])
                             <tr>

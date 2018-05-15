@@ -34,13 +34,13 @@
                     <div class="table-responsive">
                         <table class="table border-0">
                             <tr class="line-height-40 border-bottom-navy-blue row common-text-align-center">
-                                <td class="background-navy-blue text-white" style="border-top:0;">货 号</td>
-                                <td style="border-top:0;">品 牌</td>
-                                <td style="border-top:0;">纯 度</td>
-                                <td style="border-top:0;">规 格</td>
-                                <td style="border-top:0;">货 期</td>
-                                <td style="border-top:0;">优 迈 价</td>
-                                <td style="border-top:0;">操 作</td>
+                                <td class="background-navy-blue text-white" style="border-top:0;letter-spacing: 10px;">货号</td>
+                                <td style="border-top:0;letter-spacing: 10px;">{{$attributes[0]['name']}}</td>
+                                <td style="border-top:0;letter-spacing: 10px;">{{$attributes[1]['name']}}</td>
+                                <td style="border-top:0;letter-spacing: 10px;">规格</td>
+                                <td style="border-top:0;letter-spacing: 10px;">货期</td>
+                                <td style="border-top:0;letter-spacing: 10px;">优迈价</td>
+                                <td style="border-top:0;letter-spacing: 10px;">操作</td>
                             </tr>
                             @foreach($goods['goodses'] as $goods['goods'])
                                 <tr class="line-height-40 border-bottom-attribute row common-text-align-center">
