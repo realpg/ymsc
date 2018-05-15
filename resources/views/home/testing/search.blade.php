@@ -28,7 +28,7 @@
                             @else
                                 <h4 class="style-ellipsis-1">&nbsp;</h4>
                             @endif
-                            <h4 class="style-ellipsis-1">应用领域：{{$goods['f_attribute']['name']}}</h4>
+                            <h4 class="style-ellipsis-1">{{$attributes[0]['name']}}：{{$goods['f_attribute']['name']}}</h4>
                         </div>
                     </a>
                 </div>

@@ -129,6 +129,7 @@ class TestingController
         $admin = $request->session()->get('admin');
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //获取此栏目的搜索属性
         $fields=AttributeManager::getAttributeByAttributeId(self::F_ATTRIBUTE_ID);
         $instruments=AttributeManager::getAttributeByAttributeId(self::S_ATTRIBUTE_ID);
         if (array_key_exists('id', $data)) {
@@ -154,6 +155,7 @@ class TestingController
             'admin'=>$admin,
             'data'=>$goods,
             'menus'=>$menus,
+            'attributes'=>$attributes,
             'fields'=>$fields,
             'instruments'=>$instruments,
             'upload_token'=>$upload_token

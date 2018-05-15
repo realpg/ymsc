@@ -39,6 +39,7 @@ class TestingController extends Controller
         }
         //QQ客服
         $service=ServiceManager::getServiceById(self::SERVICE_ID);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //搜索属性
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
@@ -47,6 +48,7 @@ class TestingController extends Controller
                 'column'=>$column,
                 'user'=>$user,
                 'menus'=>$menus,
+                'attributes'=>$attributes,
                 'channel'=>$channel,
                 'banners'=>$banners,
                 'carts'=>$carts,
@@ -59,6 +61,7 @@ class TestingController extends Controller
                 'column'=>$column,
                 'user'=>$user,
                 'menus'=>$menus,
+                'attributes'=>$attributes,
                 'channel'=>$channel,
                 'banners'=>$banners,
                 'service'=>$service
@@ -77,7 +80,7 @@ class TestingController extends Controller
         $channel=MenuManager::getMenuById($menu_id);
         $parant_menu_id=self::MENU_ID;
         $channel['parent_channel']=MenuManager::getMenuById($parant_menu_id);
-        $attributes=AttributeManager::getClassAAttributeListsByMenuId($parant_menu_id);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId($parant_menu_id);  //搜索属性
         $goods_param=array(
             'menu_id'=>$menu_id,
             'f_attribute_id'=>$f_attribute_id,
@@ -196,12 +199,14 @@ class TestingController extends Controller
         $comments=CommentManager::getGoodsCommentsByGoodsId($goods['id']);
         //QQ客服
         $service=ServiceManager::getServiceById(self::SERVICE_ID);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //搜索属性
         if($user) {
             //购物车信息
             $carts = CartManager::getCartsByUserId($user['id']);
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
+                'attributes'=>$attributes,
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,
@@ -214,6 +219,7 @@ class TestingController extends Controller
             $param=array(
                 'common'=>$common,
                 'column'=>$column,
+                'attributes'=>$attributes,
                 'user'=>$user,
                 'channel'=>$channel,
                 'goods'=>$goods,

@@ -140,6 +140,7 @@ class MachiningController
         $admin = $request->session()->get('admin');
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //获取此栏目的搜索属性
         $manufactures=AttributeManager::getAttributeByAttributeId(self::F_ATTRIBUTE_ID);
         if (array_key_exists('id', $data)) {
             $goods = GoodsManager::getGoodsById($data['id']);
@@ -153,6 +154,7 @@ class MachiningController
             'admin'=>$admin,
             'data'=>$goods,
             'menus'=>$menus,
+            'attributes'=>$attributes,
             'manufactures'=>$manufactures,
             'upload_token'=>$upload_token
         );
@@ -213,6 +215,7 @@ class MachiningController
         $admin = $request->session()->get('admin');
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //获取此栏目的搜索属性
         $manufactures=AttributeManager::getAttributeByAttributeId(self::F_ATTRIBUTE_ID);
         if (array_key_exists('id', $data)) {
             $goods['type']=0;
@@ -239,6 +242,7 @@ class MachiningController
             'admin'=>$admin,
             'data'=>$goods,
             'menus'=>$menus,
+            'attributes'=>$attributes,
             'manufactures'=>$manufactures,
             'upload_token'=>$upload_token
         );
@@ -301,6 +305,7 @@ class MachiningController
         $admin = $request->session()->get('admin');
         $menu_id=self::MENU_ID;
         $menus=MenuManager::getAllMenuListsByMenuId($menu_id);
+        $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //获取此栏目的搜索属性
         $manufactures=AttributeManager::getAttributeByAttributeId(self::F_ATTRIBUTE_ID);
         if (array_key_exists('id', $data)) {
             $goods['type']=1;
@@ -321,6 +326,7 @@ class MachiningController
             'admin'=>$admin,
             'data'=>$goods,
             'menus'=>$menus,
+            'attributes'=>$attributes,
             'manufactures'=>$manufactures,
             'upload_token'=>$upload_token
         );

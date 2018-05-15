@@ -31,14 +31,20 @@
                     参考价格：<span class="text-red font-size-24">￥{{$goods['price']/100}} / {{$goods['unit']}}</span>
                 </h4>
                 <h4 class="style-ellipsis-1 line-height-30">
-                    <div class="col-xs-6 col-sm-6 padding-0">应用领域：{{$goods['f_attribute']['name']}}</div>
-                    <div class="col-xs-6 col-sm-6 padding-0">仪器分类：{{$goods['s_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-6 padding-0">{{$attributes[0]['name']}}：{{$goods['f_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-6 padding-0">{{$attributes[1]['name']}}：{{$goods['s_attribute']['name']}}</div>
                 </h4>
                 <h4 class="style-ellipsis-1 line-height-30">
+                    @if($goods['attribute']['contacts'])
                     <div class="col-xs-6 col-sm-6 padding-0">联系人：{{$goods['attribute']['contacts']}}</div>
+                    @endif
+                    @if($goods['attribute']['region'])
                     <div class="col-xs-6 col-sm-6 padding-0">地域：{{$goods['attribute']['region']}}</div>
+                    @endif
                 </h4>
+                @if($goods['attribute']['address'])
                 <h4 class="style-ellipsis-1 line-height-30">地址：{{$goods['attribute']['address']}}</h4>
+                @endif
                 <div class="row margin-top-10 margin-bottom-20">
                     <div class="col-xs-6 col-sm-3">
                         <a href="tencent://message/?Menu=yes&uin={{$service['qq']}}&Service=300&sigT=45a1e5847943b64c6ff3990f8a9e644d2b31356cb0b4ac6b24663a3c8dd0f8aa12a595b1714f9d45">

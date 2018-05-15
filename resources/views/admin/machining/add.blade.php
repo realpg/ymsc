@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="row cl">
-                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>制造工业分类：</label>
+                        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>{{$attributes[0]['name']}}：</label>
                         <div class="formControls col-xs-8 col-sm-9">
                             <span class="select-box">
                                 <select id="f_attribute_id" name="f_attribute_id" class="select">
