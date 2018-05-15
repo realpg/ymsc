@@ -441,7 +441,7 @@
                     layer.msg('请输入收票人姓名', {icon: 2, time: 2000});
                     $('#name').focus();
                 }
-                else if(!isPhone(phonenum)){
+                else if(!isPoneAvailable(phonenum)){
                     layer.msg('请输入正确的收票人电话', {icon: 2, time: 2000});
                     $('#phonenum').focus();
                 }
@@ -512,7 +512,7 @@
                     layer.msg('请输入注册地址', {icon: 2, time: 2000});
                     $('#company_address').focus();
                 }
-                else if (!isPhone(company_tel)) {
+                else if (!isPoneAvailable(company_tel)) {
                     layer.msg('请输入正确的注册电话', {icon: 2, time: 2000});
                     $('#company_tel').focus();
                 }
