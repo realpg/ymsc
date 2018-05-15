@@ -39,6 +39,7 @@
                     <div class="col-xs-6 col-sm-4 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
                     <div class="col-xs-6 col-sm-4 padding-0">{{$goods['f_attribute']['father']['name']}}：{{$goods['f_attribute']['name']}}</div>
                 </h4>
+                <h4 class="style-ellipsis-1 line-height-30">{{$goods['other']}}</h4>
                 <div class="style-ellipsis-1">
                     <div class="col-xs-6 col-sm-4 padding-0 line-height-40 font-size-24">
                         价 格：<span class="text-red">￥<span id="total">{{$goods['price']/100}}</span> / {{$goods['unit']}}</span>

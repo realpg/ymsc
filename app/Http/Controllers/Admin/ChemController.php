@@ -181,6 +181,7 @@ class ChemController
                 //获取商品列表
 //                $datas=GoodsManager::getAllChemGoodsListsByChemClassId($search,$chem_class_id);  //没有分页
                 $datas=GoodsManager::getAllChemGoodsListsByChemClassIdWithPage($search,$chem_class_id);  //分页
+                $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //获取此栏目的搜索属性
                 //获取栏目信息
                 $menu_info=MenuManager::getMenuById($menu_id);
                 //获取商品大类信息
@@ -188,6 +189,7 @@ class ChemController
                 $param=array(
                     'admin'=>$admin,
                     'datas'=>$datas,
+                    'attributes'=>$attributes,
                     'menu_id'=>$menu_id,
                     'chem_class_id'=>$chem_class_id,
                     'class_info'=>$class_info,
@@ -286,6 +288,7 @@ class ChemController
                 $chem_class=GoodsManager::getAllChemClassByChemClassId($chem_class_id);
                 $brands = AttributeManager::getAttributeByAttributeId(self::F_ATTRIBUTE_ID);
                 $purities = AttributeManager::getAttributeByAttributeId(self::S_ATTRIBUTE_ID);
+                $attributes=AttributeManager::getClassAAttributeListsByMenuId(self::MENU_ID);  //获取此栏目的搜索属性
                 if (array_key_exists('id', $data)) {
                     $chem = GoodsManager::getGoodsById($data['id']);
                     $chem['attribute']=GoodsManager::getGoodsChemAttributeByGoodsId($data['id']);
@@ -299,7 +302,8 @@ class ChemController
                     'chem_class_id' => $chem_class_id,
                     'brands' => $brands,
                     'purities' => $purities,
-                    'chem_class' => $chem_class
+                    'chem_class' => $chem_class,
+                    'attributes'=>$attributes
                 );
                 return view('admin.chem.edit', $param);
             }

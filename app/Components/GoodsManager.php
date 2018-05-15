@@ -243,6 +243,9 @@ class GoodsManager
         if (array_key_exists('cas', $data)) {
             $goods->cas = array_get($data, 'cas');
         }
+        if (array_key_exists('other', $data)) {
+            $goods->other = array_get($data, 'other');
+        }
         return $goods;
     }
 

@@ -34,8 +34,8 @@
                 <th width="80">ID</th>
                 {{--<th width="150">名称</th>--}}
                 <th width="150">货号</th>
-                <th width="100s">品牌</th>
-                <th width="100">纯度</th>
+                <th width="100s">{{$attributes[0]['name']}}</th>
+                <th width="100">{{$attributes[1]['name']}}</th>
                 <th width="80">规格</th>
                 <th width="100">价格</th>
                 <th width="100">库存</th>
