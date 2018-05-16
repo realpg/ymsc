@@ -35,21 +35,17 @@
                 @foreach($menu['chem_classes'] as $chem_class)
                     <div class="col-xs-12 col-sm-3 padding-top-10 padding-right-10 padding-left-10">
                         <a href="{{URL::asset($column.'/classlists/'.$chem_class['id'])}}">
-                            <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
+                            <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box height-345">
                                 <h3 class="style-ellipsis-1">{{$chem_class['name']}}</h3>
                                 <h4 class="style-ellipsis-1">{{$chem_class['english_name']}}</h4>
-                                <div class="goods-lists-picture">
+                                <div class="goods-lists-picture margin-bottom-20">
                                     <img class="img-circle" src="{{$chem_class['picture']}}" alt="{{$chem_class['name']}}">
                                 </div>
                                 @if($chem_class['cas'])
                                 <h4 class="style-ellipsis-1">CAS号：{{$chem_class['cas']?$chem_class['cas']:'暂无'}}</h4>
-                                @else
-                                <h4 class="style-ellipsis-1">&nbsp;</h4>
                                 @endif
                                 @if($chem_class['molecule'])
                                 <h4 class="style-ellipsis-1">分子式：{!! $chem_class['molecule'] !!}</h4>
-                                @else
-                                <h4 class="style-ellipsis-1">&nbsp;</h4>
                                 @endif
                             </div>
                         </a>

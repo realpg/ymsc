@@ -123,19 +123,19 @@
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>货期：</label>
+                <label class="form-label col-xs-4 col-sm-2">属性：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input id="delivery" name="delivery" type="text" class="input-text"  value="{{ isset($data['attribute']['delivery']) ? $data['attribute']['delivery'] : '' }}" placeholder="请输入货期">
+                    <input id="delivery" name="delivery" type="text" class="input-text"  value="{{ isset($data['attribute']['delivery']) ? $data['attribute']['delivery'] : '' }}" placeholder="请输入属性">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>仓库：</label>
+                <label class="form-label col-xs-4 col-sm-2">仓库：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="depot" name="depot" type="text" class="input-text"  value="{{ isset($data['attribute']['depot']) ? $data['attribute']['depot'] : '' }}" placeholder="请输入仓库">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>品牌商货号：</label>
+                <label class="form-label col-xs-4 col-sm-2">品牌商货号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input id="merchant" name="merchant" type="text" class="input-text"  value="{{ isset($data['attribute']['merchant']) ? $data['attribute']['merchant'] : '' }}" placeholder="请输入品牌商户号">
                 </div>
@@ -217,15 +217,6 @@
                         digits:true,
                     },
                     spec: {
-                        required: true,
-                    },
-                    delivery: {
-                        required: true,
-                    },
-                    depot: {
-                        required: true,
-                    },
-                    merchant: {
                         required: true,
                     },
                 },

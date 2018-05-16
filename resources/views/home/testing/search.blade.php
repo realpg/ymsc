@@ -15,7 +15,7 @@
             @foreach($goodses as $goods)
                 <div class="col-xs-12 col-sm-3 padding-10">
                     <a href="{{URL::asset($column.'/detail/'.$goods['id'])}}">
-                        <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box">
+                        <div class="text-center padding-bottom-10 padding-right-10 padding-left-10 border-box height-400">
                             <h3 class="style-ellipsis-2 font-size-20 line-height-25 height-50">{{$goods['name']}}</h3>
                             <div class="goods-lists-picture">
                                 <img class="img-circle" src="{{$goods['picture']}}" alt="{{$goods['name']}}">
@@ -25,8 +25,6 @@
                             </a>
                             @if($goods['goods_attribute']['lab'])
                                 <h4 class="style-ellipsis-1">实验室：{{$goods['goods_attribute']['lab']}}</h4>
-                            @else
-                                <h4 class="style-ellipsis-1">&nbsp;</h4>
                             @endif
                             <h4 class="style-ellipsis-1">{{$attributes[0]['name']}}：{{$goods['f_attribute']['name']}}</h4>
                         </div>

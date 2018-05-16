@@ -82,7 +82,7 @@
                             <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">{{$attributes[0]['name']}}</th>
                             <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">{{$attributes[1]['name']}}</th>
                             <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">规格</th>
-                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">货期</th>
+                            <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">属性</th>
                             <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">优迈价</th>
                             <th class=" text-center line-height-40 border-bottom-navy-blue" style="border-top:0;letter-spacing: 10px;">操作</th>
                         </tr>
@@ -98,7 +98,7 @@
                                     {{$chem_class['goods']['f_attribute']}}
                                     </a>
                                 </td>
-                                <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['s_attribute']?$chem_class['goods']['s_attribute']:'-'}}</td>
+                                <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['s_attribute']?$chem_class['goods']['s_attribute']:''}}</td>
                                 <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['spec']}}</td>
                                 <td class="line-height-40 border-bottom-attribute text-center">{{$chem_class['goods']['delivery']}}</td>
                                 <td class="line-height-40 border-bottom-attribute text-center text-red">￥{{$chem_class['goods']['price']/100}}/{{$chem_class['goods']['unit']}}</td>

@@ -29,17 +29,19 @@
                 @if($goods['chem_class']['cas'])
                 <h4 class="style-ellipsis-1 line-height-30">CAS号：{{$goods['chem_class']['cas']}}</h4>
                 @endif
-                <h4 class="style-ellipsis-1 line-height-30">
-                    <div class="col-xs-6 col-sm-4 padding-0">规格：{{$goods['attribute']['spec']}}</div>
+                <h4 class="style-ellipsis-1 line-height-40">
+                    <div class="col-xs-6 col-sm-6 padding-0">规格：{{$goods['attribute']['spec']}}</div>
                     @if($goods['s_attribute']['name'])
-                    <div class="col-xs-6 col-sm-4 padding-0">{{$attributes[1]['name']}}：{{$goods['s_attribute']['name']}}</div>
+                    <div class="col-xs-6 col-sm-6 padding-0">{{$attributes[1]['name']}}：{{$goods['s_attribute']['name']}}</div>
+                    @endif
+                    <div class="col-xs-6 col-sm-6 padding-0">{{$attributes[0]['name']}}：{{$goods['f_attribute']['name']}}</div>
+                    @if($goods['attribute']['delivery'])
+                    <div class="col-xs-6 col-sm-6 padding-0">属性：{{$goods['attribute']['delivery']}}</div>
+                    @endif
+                    @if($goods['other'])
+                        <div class="col-xs-6 col-sm-6 padding-0">{{$goods['other']}}</div>
                     @endif
                 </h4>
-                <h4 class="style-ellipsis-1 line-height-30">
-                    <div class="col-xs-6 col-sm-4 padding-0">货期：{{$goods['attribute']['delivery']}}</div>
-                    <div class="col-xs-6 col-sm-4 padding-0">{{$attributes[0]['name']}}：{{$goods['f_attribute']['name']}}</div>
-                </h4>
-                <h4 class="style-ellipsis-1 line-height-30">{{$goods['other']}}</h4>
                 <div class="style-ellipsis-1">
                     <div class="col-xs-6 col-sm-4 padding-0 line-height-40 font-size-24">
                         价 格：<span class="text-red">￥<span id="total">{{$goods['price']/100}}</span> / {{$goods['unit']}}</span>
@@ -89,12 +91,12 @@
             <div class="table-responsive">
                 <table class="table border-0">
                     <tr class="line-height-40 border-bottom-attribute row common-text-align-center">
-                        <td class="col-xs-2 col-sm-2">货号</td>
-                        <td class="col-xs-2 col-sm-2">{{$attributes[0]['name']}}</td>
-                        <td class="col-xs-2 col-sm-2">{{$attributes[1]['name']}}</td>
-                        <td class="col-xs-2 col-sm-2">规格</td>
-                        <td class="col-xs-2 col-sm-2">货期</td>
-                        <td class="col-xs-2 col-sm-2 text-red">优迈价</td>
+                        <td class="col-xs-2 col-sm-2" style="letter-spacing: 10px;">货号</td>
+                        <td class="col-xs-2 col-sm-2" style="letter-spacing: 10px;">{{$attributes[0]['name']}}</td>
+                        <td class="col-xs-2 col-sm-2" style="letter-spacing: 10px;">{{$attributes[1]['name']}}</td>
+                        <td class="col-xs-2 col-sm-2" style="letter-spacing: 10px;">规格</td>
+                        <td class="col-xs-2 col-sm-2" style="letter-spacing: 10px;">属性</td>
+                        <td class="col-xs-2 col-sm-2 text-red" style="letter-spacing: 10px;">优迈价</td>
                     </tr>
                     @foreach($goods['other_goodses'] as $goods['other_goods'])
                         <tr class="line-height-40 border-bottom-attribute row common-text-align-center">
@@ -109,13 +111,9 @@
                                 </a>
                             </td>
                             <td class="col-xs-0 col-sm-2">
-                                @if($goods['other_goods']['s_attribute'])
                                 <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
                                     {{$goods['other_goods']['s_attribute']}}
                                 </a>
-                                @else
-                                    -
-                                @endif
                             </td>
                             <td class="col-xs-0 col-sm-2">
                                 <a href="{{URL::asset($column.'/detail/'.$goods['other_goods']['goods_id'])}}">
@@ -145,21 +143,23 @@
                 <div class="line-height-40 row" style="background: #E7E7E7;">
                     <div class="col-xs-12 col-sm-2 common-text-align-center">商 品 信 息</div>
                 </div>
-                <div class="line-height-40 row border-detail border-bottom-0">
-                    <div class="col-xs-12 col-sm-1 padding-0"></div>
-                    <div class="col-xs-12 col-sm-3 padding-0">名 称：{{$goods['name']}}</div>
-                    <div class="col-xs-12 col-sm-2 padding-0">品 牌：{{$goods['f_attribute']['name']}}</div>
-                    <div class="col-xs-12 col-sm-3 padding-0">纯 度：{{$goods['s_attribute']['name']}}</div>
-                    <div class="col-xs-12 col-sm-3 padding-0">规 格：{{$goods['attribute']['spec']}}</div>
-                    <div class="col-xs-12 col-sm-1 padding-0"></div>
-                </div>
-                <div class="line-height-40 border-bottom-attribute row border-detail border-top-0">
-                    <div class="col-xs-12 col-sm-1 padding-0"></div>
-                    <div class="col-xs-12 col-sm-3 padding-0">货 号：{{$goods['number']}}</div>
-                    <div class="col-xs-12 col-sm-2 padding-0">货 期：{{$goods['attribute']['delivery']}}</div>
-                    <div class="col-xs-12 col-sm-3 padding-0">仓 库：{{$goods['attribute']['depot']}}</div>
-                    <div class="col-xs-12 col-sm-3 padding-0">品 牌 商 货 号：{{$goods['attribute']['merchant']}}</div>
-                    <div class="col-xs-12 col-sm-1 padding-0"></div>
+                <div class="line-height-40 row border-detail border-bottom-0" style="padding-left:60px;padding-right: 60px;">
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">名称：</span>{{$goods['name']}}</div>
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">{{$attributes[0]['name']}}：</span>{{$goods['f_attribute']['name']}}</div>
+                    @if($goods['s_attribute']['name'])
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">{{$attributes[1]['name']}}：</span>{{$goods['s_attribute']['name']}}</div>
+                    @endif
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">规格：</span>{{$goods['attribute']['spec']}}</div>
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">货号：</span>{{$goods['number']}}</div>
+                    @if($goods['attribute']['delivery'])
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">属性：</span>{{$goods['attribute']['delivery']}}</div>
+                    @endif
+                    @if($goods['attribute']['depot'])
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">仓库：</span>{{$goods['attribute']['depot']}}</div>
+                    @endif
+                    @if($goods['attribute']['merchant'])
+                    <div class="col-xs-12 col-sm-3 padding-0"><span style="letter-spacing: 10px;">品牌商货号：</span>{{$goods['attribute']['merchant']}}</div>
+                    @endif
                 </div>
                 <div class="line-height-40 row background-detail">
                     <div class="col-xs-12 col-sm-2 common-text-align-center">详 细 信 息</div>
@@ -193,10 +193,16 @@
                 </div>
                 @endif
                 @if($goods['chem_class']['molecule'])
-                <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
-                    <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">分 子 式</div>
-                    <div class="col-xs-12 col-sm-10 border-detail border-left-0 border-right-0">{!! $goods['chem_class']['molecule'] !!}</div>
-                </div>
+                    <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                        <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">分 子 式</div>
+                        <div class="col-xs-12 col-sm-10 border-detail border-bottom-0 border-left-0 border-right-0">{!! $goods['chem_class']['molecule'] !!}</div>
+                    </div>
+                @endif
+                @if($goods['other'])
+                    <div class="line-height-40 border-bottom-attribute row border-detail border-bottom-0 border-top-0">
+                        <div class="col-xs-12 col-sm-2 common-text-align-center border-top-white background-detail">其 他 属 性 描 述</div>
+                        <div class="col-xs-12 col-sm-10 border-detail border-left-0 border-right-0">{{$goods['other']}}</div>
+                    </div>
                 @endif
             </div>
         </div>

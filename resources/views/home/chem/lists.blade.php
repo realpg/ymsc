@@ -38,7 +38,7 @@
                                 <td style="border-top:0;letter-spacing: 10px;">{{$attributes[0]['name']}}</td>
                                 <td style="border-top:0;letter-spacing: 10px;">{{$attributes[1]['name']}}</td>
                                 <td style="border-top:0;letter-spacing: 10px;">规格</td>
-                                <td style="border-top:0;letter-spacing: 10px;">货期</td>
+                                <td style="border-top:0;letter-spacing: 10px;">属性</td>
                                 <td style="border-top:0;letter-spacing: 10px;">优迈价</td>
                                 <td style="border-top:0;letter-spacing: 10px;">操作</td>
                             </tr>
@@ -54,7 +54,7 @@
                                             {{$goods['goods']['f_attribute']}}
                                         </a>
                                     </td>
-                                    <td style="border-top:0;">{{$goods['goods']['s_attribute']?$goods['goods']['s_attribute']:'-'}}</td>
+                                    <td style="border-top:0;">{{$goods['goods']['s_attribute']?$goods['goods']['s_attribute']:''}}</td>
                                     <td style="border-top:0;">{{$goods['goods']['spec']}}</td>
                                     <td style="border-top:0;">{{$goods['goods']['delivery']}}</td>
                                     <td class="text-red" style="border-top:0;">￥{{$goods['goods']['price']/100}}/{{$goods['goods']['unit']}}</td>
