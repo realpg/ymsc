@@ -24,12 +24,12 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-9 padding-10">
-                <h3 class="style-ellipsis-1 line-height-30">{{$goods['name']}}</h3>
-                <h4 class="style-ellipsis-1 line-height-30">商品货号：{{$goods['number']}}</h4>
+                <h3 class="style-ellipsis-1 line-height-40 margin-bottom-0">{{$goods['name']}}</h3>
+                <h4 class="style-ellipsis-1 line-height-40 margin-top-0 margin-bottom-0">商品货号：{{$goods['number']}}</h4>
                 @if($goods['chem_class']['cas'])
-                <h4 class="style-ellipsis-1 line-height-30">CAS号：{{$goods['chem_class']['cas']}}</h4>
+                <h4 class="style-ellipsis-1 line-height-40 margin-top-0 margin-bottom-0">CAS号：{{$goods['chem_class']['cas']}}</h4>
                 @endif
-                <h4 class="style-ellipsis-1 line-height-40">
+                <h4 class="style-ellipsis-1 line-height-40 margin-top-0 margin-bottom-0">
                     <div class="col-xs-6 col-sm-6 padding-0">规格：{{$goods['attribute']['spec']}}</div>
                     @if($goods['s_attribute']['name'])
                     <div class="col-xs-6 col-sm-6 padding-0">{{$attributes[1]['name']}}：{{$goods['s_attribute']['name']}}</div>
@@ -43,15 +43,15 @@
                     @endif
                 </h4>
                 <div class="style-ellipsis-1">
-                    <div class="col-xs-6 col-sm-4 padding-0 line-height-40 font-size-24">
+                    <div class="col-xs-6 col-sm-6 padding-0 line-height-40 font-size-24">
                         价 格：<span class="text-red">￥<span id="total">{{$goods['price']/100}}</span> / {{$goods['unit']}}</span>
                     </div>
-                    <div class="col-xs-6 col-sm-4 padding-0 line-height-40 font-size-18">
+                    <div class="col-xs-6 col-sm-6 padding-0 line-height-40 font-size-18">
                         库 存：{{$goods['stock']}} {{$goods['unit']}}
                     </div>
                 </div>
                 @if($goods['stock']>0)
-                    <h4 class="style-ellipsis-1 line-height-30 margin-top-20">
+                    <h4 class="style-ellipsis-1 line-height-30">
                         数量：
                         <input id="min" name="" type="button" value="-" class="background-none border-div" />
                         <input id="text_box" name="" type="text" value="1" class="border-div width-50px common-text-align-center"/>

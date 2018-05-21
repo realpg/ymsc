@@ -174,6 +174,10 @@ input button{
     margin-right: 50px;
 }
 
+.margin-top-0 {
+    margin-top: 0px;
+}
+
 .margin-top-2 {
     margin-top: 2px;
 }
