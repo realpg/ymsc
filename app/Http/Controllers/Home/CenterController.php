@@ -939,7 +939,7 @@ class CenterController extends Controller
                 $comment=$comment->save();
                 if($comment){
                     $return['result']=true;
-                    $return['msg']='评价成功，等待管理员进行审核';
+                    $return['msg']='评价成功';
                 }
                 else{
                     $return['result']=false;

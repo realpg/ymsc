@@ -29,7 +29,7 @@
                 @if($goods['chem_class']['cas'])
                 <h4 class="style-ellipsis-1 line-height-40 margin-top-0 margin-bottom-0">CAS号：{{$goods['chem_class']['cas']}}</h4>
                 @endif
-                <h4 class="style-ellipsis-1 line-height-40 margin-top-0 margin-bottom-0">
+                <h4 class="style-ellipsis-1 line-height-40 margin-top-0 margin-bottom-0 width-70">
                     <div class="col-xs-6 col-sm-6 padding-0">规格：{{$goods['attribute']['spec']}}</div>
                     @if($goods['s_attribute']['name'])
                     <div class="col-xs-6 col-sm-6 padding-0">{{$attributes[1]['name']}}：{{$goods['s_attribute']['name']}}</div>
@@ -38,11 +38,13 @@
                     @if($goods['attribute']['delivery'])
                     <div class="col-xs-6 col-sm-6 padding-0">属性：{{$goods['attribute']['delivery']}}</div>
                     @endif
-                    @if($goods['other'])
-                        <div class="col-xs-6 col-sm-6 padding-0">{{$goods['other']}}</div>
-                    @endif
                 </h4>
-                <div class="style-ellipsis-1">
+                @if($goods['other'])
+                    <h4 class="style-ellipsis-1 line-height-40 margin-top-0 margin-bottom-0 width-70">
+                        <div class="col-xs-12 col-sm-12 padding-0">{{$goods['other']}}</div>
+                    </h4>
+                @endif
+                <div class="style-ellipsis-1 width-70">
                     <div class="col-xs-6 col-sm-6 padding-0 line-height-40 font-size-24">
                         价 格：<span class="text-red">￥<span id="total">{{$goods['price']/100}}</span> / {{$goods['unit']}}</span>
                     </div>
