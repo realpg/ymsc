@@ -231,11 +231,11 @@ class MemberManager
                     }
                     //判断是否获取微信中的基本信息
                     if(!$user['nick_name']){
-                        $data['nick_name']=$data['nickname'];
+                        $data['nick_name']=$data['nick_name'];
                     }
-                    $data['gender']=$data['sex'];
+                    $data['gender']=$data['gender'];
                     if(!$user['avatar']){
-                        $data['avatar']=$data['headimgurl'];
+                        $data['avatar']=$data['avatar'];
                     }
                     return self::saveUser($user,$data);
                 }
@@ -260,6 +260,10 @@ class MemberManager
                     }
                 }
             }
+            $request->session()->forget('signInBinding');
+        }
+        else{
+            return false;
         }
     }
     //搭配微信扫码绑定环节

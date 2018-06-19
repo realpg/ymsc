@@ -245,7 +245,7 @@ class SignController extends Controller
     public function signInBinding(Request $request){
         $data=$request->all();
         $request->session()->put('signInBinding', $data['signInBinding']);//写入session
-        dd($request->session()->get('signInBinding'));
+//        dd($request->session()->get('signInBinding'));
         $user=$request->cookie('user');
         if($user){
             return redirect('center');
@@ -302,6 +302,12 @@ class SignController extends Controller
         }
         else{
             unset($data['common']);
+            //微信中的基本信息
+            $signInBinding=$request->session()->get('signInBinding');
+            $data['web_openid']=$signInBinding['openid'];
+            $data['nick_name']=$signInBinding['nickname'];
+            $data['gender']=$signInBinding['sex'];
+            $data['avatar']=$signInBinding['headimgurl'];
             $user=MemberManager::binding($data);
             if($user){
                 $cookie['id']=$user['id'];
