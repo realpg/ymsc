@@ -57,7 +57,7 @@ class Utils
     //微信登录
     const WECHAT_LOGIN_APP_ID='wxe6deb72d8381e0f2';
     const WECHAT_LOGIN_APP_SECRET='';
-    const WECHAT_LOGIN_REDIRECT_URL='/api/wechatLogincallback';
+    const WECHAT_LOGIN_REDIRECT_URL='http://umylab.com/api/wechatLogincallback';
 
 
 
