@@ -244,51 +244,56 @@ class SignController extends Controller
      */
     public function signInBinding(Request $request){
         $data=$request->all();
-        $signInBinding=$request->session()->get('signInBinding');
-        if(!$signInBinding){
-            $request->session()->put('signInBinding', $data['signInBinding']);//写入session
-        }
+        if(array_key_exists('signInBinding',$data)){
+            $signInBinding=$request->session()->get('signInBinding');
+            if(!$signInBinding){
+                $request->session()->put('signInBinding', $data['signInBinding']);//写入session
+            }
 //        dd($request->session()->get('signInBinding'));
-        $user=$request->cookie('user');
-        if($user){
-            return redirect('center');
+            $user=$request->cookie('user');
+            if($user){
+                return redirect('center');
+            }
+            else{
+                $common=$data['common'];
+                $column='signIn';
+                $menus=MenuManager::getClassAMenuLists();
+                //二次验证（确保不出BUG）
+                if($user){
+                    //购物车信息
+                    $carts = CartManager::getCartsByUserId($user['id']);
+                    $param=array(
+                        'common'=>$common,
+                        'menus'=>$menus,
+                        'column'=>$column,
+                        'user'=>$user,
+                        'carts'=>$carts
+                    );
+                }
+                else{
+                    $param=array(
+                        'common'=>$common,
+                        'menus'=>$menus,
+                        'column'=>$column,
+                        'user'=>$user,
+                    );
+                }
+                if(array_key_exists('type',$data)){
+                    $type=$data['type'];
+                }
+                else{
+                    $type=0;
+                }
+                if($type==1){
+                    return view('home.sign.signInBindingByEmail',$param);
+                }
+                else{
+                    return view('home.sign.signInBindingByPhonenum',$param);
+                }
+            }
         }
         else{
-            $common=$data['common'];
-            $column='signIn';
-            $menus=MenuManager::getClassAMenuLists();
-            //二次验证（确保不出BUG）
-            if($user){
-                //购物车信息
-                $carts = CartManager::getCartsByUserId($user['id']);
-                $param=array(
-                    'common'=>$common,
-                    'menus'=>$menus,
-                    'column'=>$column,
-                    'user'=>$user,
-                    'carts'=>$carts
-                );
-            }
-            else{
-                $param=array(
-                    'common'=>$common,
-                    'menus'=>$menus,
-                    'column'=>$column,
-                    'user'=>$user,
-                );
-            }
-            if(array_key_exists('type',$data)){
-                $type=$data['type'];
-            }
-            else{
-                $type=0;
-            }
-            if($type==1){
-                return view('home.sign.signInBindingByEmail',$param);
-            }
-            else{
-                return view('home.sign.signInBindingByPhonenum',$param);
-            }
+            return redirect()->action('Home\SignController@signIn', ['msg'=>Utils::FAIL_SIGNIN_WECHAT]);
         }
     }
 

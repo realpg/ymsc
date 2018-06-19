@@ -53,6 +53,7 @@ class Utils
     //提示语
     const UNSIGN_WORD = "请先登录";   //未登录提示语
     const UNSIGN_CODE = 9999;   //未登录编码
+    const FAIL_SIGNIN_WECHAT = '微信登录失败';   //微信登录失败
 
     //微信登录
     const WECHAT_LOGIN_APP_ID='wxe6deb72d8381e0f2';
