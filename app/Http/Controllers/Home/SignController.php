@@ -244,7 +244,10 @@ class SignController extends Controller
      */
     public function signInBinding(Request $request){
         $data=$request->all();
-        $request->session()->put('signInBinding', $data['signInBinding']);//写入session
+        $signInBinding=$request->session()->get('signInBinding');
+        if(!$signInBinding){
+            $request->session()->put('signInBinding', $data['signInBinding']);//写入session
+        }
 //        dd($request->session()->get('signInBinding'));
         $user=$request->cookie('user');
         if($user){
