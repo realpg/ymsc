@@ -33,6 +33,7 @@ class WechatScavengingController extends Controller
         $json =  curl_exec($ch);
         curl_close($ch);
         $arr=json_decode($json,1);
+        dd($arr);
         //用获取到的access_token调用接口
 
 //拼接URL的参数也不需要赘述了
