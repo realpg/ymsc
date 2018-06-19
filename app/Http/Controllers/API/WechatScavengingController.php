@@ -51,7 +51,8 @@ class WechatScavengingController extends Controller
 
 //        dd($userinfo);
             if(array_key_exists('openid',$userinfo)){
-                return redirect('signInBinding')->with($userinfo);
+                $data['signInBinding']=$userinfo;
+                return redirect('signInBinding')->with($data);
             }
             else{
 
