@@ -229,6 +229,14 @@ class MemberManager
                     if(!$user){
                         $user=new UserModel();
                     }
+                    //判断是否获取微信中的基本信息
+                    if(!$user['nick_name']){
+                        $data['nick_name']=$data['nickname'];
+                    }
+                    $data['gender']=$data['sex'];
+                    if(!$user['avatar']){
+                        $data['avatar']=$data['headimgurl'];
+                    }
                     return self::saveUser($user,$data);
                 }
                 else{
@@ -236,6 +244,14 @@ class MemberManager
                         $user=UserModel::where('email',$data['email'])->first();
                         if(!$user){
                             $user=new UserModel();
+                        }
+                        //判断是否获取微信中的基本信息
+                        if(!$user['nick_name']){
+                            $data['nick_name']=$data['nickname'];
+                        }
+                        $data['gender']=$data['sex'];
+                        if(!$user['avatar']){
+                            $data['avatar']=$data['headimgurl'];
                         }
                         return self::saveUser($user,$data);
                     }

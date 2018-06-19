@@ -10,6 +10,7 @@ namespace App\Http\Controllers\API;
 
 use App\Components\Utils;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class WechatScavengingController extends Controller
 {
@@ -18,7 +19,7 @@ class WechatScavengingController extends Controller
      *
      * @return string
      */
-    public function logincallback()
+    public function logincallback(Request $request)
     {
         $app_id = Utils::WECHAT_LOGIN_APP_ID;
         $app_secret = Utils::WECHAT_LOGIN_APP_SECRET;
@@ -33,21 +34,32 @@ class WechatScavengingController extends Controller
         $json =  curl_exec($ch);
         curl_close($ch);
         $arr=json_decode($json,1);
+        if(array_key_exists('access_token',$arr)){
 //        dd($arr);
-        //用获取到的access_token调用接口
+            //用获取到的access_token调用接口
 
-//拼接URL的参数也不需要赘述了
+            //拼接URL的参数也不需要赘述了
 //        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
-        $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $json =  curl_exec($ch);
-        curl_close($ch);
-        $userinfo=json_decode($json,1);
+            $url='https://api.weixin.qq.com/sns/userinfo?access_token='.$arr['access_token'].'&openid='.$arr['openid'].'&lang=zh_CN';
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $json =  curl_exec($ch);
+            curl_close($ch);
+            $userinfo=json_decode($json,1);
 
-        dd($userinfo);
+//        dd($userinfo);
+            if(array_key_exists('openid',$userinfo)){
+                $request->session()->put('wuser', $userinfo);//写入session
+                return redirect('signInBinding');
+            }
+            else{
 
+            }
+        }
+        else{
+            
+        }
     }
 }
