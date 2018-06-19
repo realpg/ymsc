@@ -18,6 +18,9 @@
                                         </a>
                                     </li>
                                 </ul>
+                                @if($msg)
+                                <h4 class="text-red">{{$msg}}</h4>
+                                @endif
                                 <form method="post" id="form-signIn" name="signIn">
                                     {{ csrf_field() }}
                                     <p class="position-relative margin-top-40">

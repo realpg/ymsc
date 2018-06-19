@@ -185,6 +185,13 @@ class SignController extends Controller
                     'user'=>$user,
                 );
             }
+            if(array_key_exists('msg',$data)){
+                $msg=$data['msg'];
+            }
+            else{
+                $msg='';
+            }
+            $param['msg']=$msg;
             if(array_key_exists('type',$data)){
                 $type=$data['type'];
             }
