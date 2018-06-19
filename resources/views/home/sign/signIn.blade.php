@@ -11,7 +11,12 @@
                             <div class="panel-body">
                                 <ul class="nav nav-tabs">
                                     <li role="presentation" class="active"><a href="{{ URL::asset('signIn') }}?type=0">账号登录</a></li>
-                                    <li role="presentation"><a href="{{ URL::asset('signIn') }}?type=1">微信登录</a></li>
+                                    {{--<li role="presentation"><a href="{{ URL::asset('signIn') }}?type=1">微信登录</a></li>--}}
+                                    <li role="presentation">
+                                        <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxe6deb72d8381e0f2&scope=snsapi_login&redirect_uri=http://umylab.com/api/wechatLogincallback&state=1529379474&login_type=jssdk&self_redirect=default">
+                                            微信登录
+                                        </a>
+                                    </li>
                                 </ul>
                                 <form method="post" id="form-signIn" name="signIn">
                                     {{ csrf_field() }}

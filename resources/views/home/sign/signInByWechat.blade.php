@@ -46,7 +46,6 @@
             }
         });
         window.onload=function(){
-
             var obj = new WxLogin({
                 id: "qrCode",
                 appid: "{{$appid}}",

@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Components\Utils;
+use App\Http\Controllers\Controller;
 
 class WechatScavengingController extends Controller
 {
