@@ -476,4 +476,32 @@ function getQueryString(name) {
 
 
 
+//设置cookie
+function setCookie(name,value,day){
+    var date = new Date();
+    date.setDate(date.getDate() + day);
+    document.cookie = name + '=' + value + ';expires='+ date;
+
+    // $.cookie(name, value);
+};
+//获取cookie
+function getCookie(name){
+    var reg = RegExp(name+'=([^;]+)');
+    var arr = document.cookie.match(reg);
+    if(arr){
+        return arr[1];
+    }else{
+        return '';
+    }
+
+    // $.cookie(name);
+};
+//删除cookie
+function delCookie(name){
+    setCookie(name,null,-1);
+    // $.cookie(name, null);
+};
+
+
+
 

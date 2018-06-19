@@ -180,6 +180,8 @@ return [
 
         Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
 
+        // 微信扫码登录
+        Overtrue\LaravelWeChat\ServiceProvider::class,
     ],
 
     /*
@@ -229,6 +231,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // 微信扫码登录
+        'EasyWeChat' => Overtrue\LaravelWeChat\Facade::class,
     ],
 
 ];

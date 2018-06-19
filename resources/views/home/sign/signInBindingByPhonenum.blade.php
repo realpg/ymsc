@@ -10,16 +10,15 @@
                         <div class="panel panel-default" style="height:413px;">
                             <div class="panel-body">
                                 <ul class="nav nav-tabs">
-                                    <li role="presentation" class="active"><a href="{{ URL::asset('signIn') }}?type=0">账号登录</a></li>
-                                    <li role="presentation"><a href="{{ URL::asset('signIn') }}?type=1">微信登录</a></li>
+                                    <li role="presentation" class="active"><a href="{{ URL::asset('signInBinding') }}?type=0">手机绑定</a></li>
+                                    <li role="presentation"><a href="{{ URL::asset('signInBinding') }}?type=1">邮箱绑定</a></li>
                                 </ul>
-                                <form method="post" id="form-signIn" name="signIn">
+                                <h3>微信授权成功</h3>
+                                <h4 class="text-red">请输入要绑定的邮箱，下次可以直接登录</h4>
+                                <form method="post" id="form-signIn-bindiing" name="signIn">
                                     {{ csrf_field() }}
                                     <p class="position-relative margin-top-40">
-                                        <input type="text" name="phonenum" id="phonenum" class="form-control" placeholder="请输入手机号\邮箱">
-                                    </p>
-                                    <p class="position-relative margin-top-30">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码6-12字符、数字组成">
+                                        <input type="text" name="phonenum" id="phonenum" class="form-control" placeholder="请输入要绑定的手机号">
                                     </p>
                                     <p class="position-relative form-group margin-top-30">
                                         <input type="text" name="verificationCode" id="verificationCode" class="form-control width-55 float-left" placeholder="请输入验证码">
@@ -27,10 +26,7 @@
                                     </p>
                                     <p class="clear"></p>
                                     <p class="margin-top-30">
-                                        <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
-                                    </p>
-                                    <p class="position-relative form-group margin-top-30 text-right">
-                                        <a href="{{ URL::asset('reset') }}"><span class="text-blue">忘记密码？</span></a>
+                                        <button class="btn btn-lg btn-primary btn-block" type="submit">确 认</button>
                                     </p>
                                 </form>
                             </div>
@@ -45,12 +41,6 @@
 @section('script')
     <script type="text/javascript">
         $(function () {
-            //获取上一页链接
-            var before_url=document.referrer
-            var domain=document.domain
-            if(domain+'/signInBindingFail'!=before_url){
-                setCookie('before_url',document.referrer,1); //保存链接到cookie，有效期1天
-            }
             //初始化画布的size
             var winWidth=$(window).width();
             var winHeight=$(window).height();
@@ -67,38 +57,33 @@
                 $('#sign-form').css('padding-top','180px');
             }
             //编辑网站基本信息
-            $("#form-signIn").validate({
+            $("#form-signIn-bindiing").validate({
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",
                 submitHandler: function (form) {
                     var phonenum=$('#phonenum').val();
-                    var password=$('#password').val();
                     var verificationCode=$('#verificationCode').val();
                     if(!phonenum){
-                        layer.msg('请输入手机号或邮箱', {icon: 2, time: 2000});
+                        layer.msg('请输入需要绑定的手机号', {icon: 2, time: 2000});
                         $('#phonenum').focus();
                     }
-                    else if(!password){
-                        layer.msg('请输入密码', {icon: 2, time: 2000});
-                        $('#password').focus();
-                    }
-                    else if(password.length<6||password.length>12){
-                        layer.msg('请输入6-12位密码', {icon: 2, time: 2000});
-                        $('#password').focus();
+                    else if(!isPoneAvailable(phonenum)){
+                        layer.msg('请输入正确的手机号', {icon: 2, time: 2000});
+                        $('#phonenum').focus();
                     }
                     else if(!verificationCode){
-                        layer.msg('登录失败，请填写验证码', {icon: 2, time: 2000});
+                        layer.msg('绑定失败，请填写验证码', {icon: 2, time: 2000});
                     }
                     else{
-                        $("#password").val(hex_md5(password));
                         $(form).ajaxSubmit({
                             type: 'POST',
-                            url: "{{ URL::asset('signIn')}}",
+                            url: "{{ URL::asset('signInBinding')}}",
                             success: function (ret) {
                                 if (ret.result) {
                                     layer.msg(ret.msg, {icon: 1, time: 2000});
-                                    delCookie('before_url')
+                                    location.href="{{ URL::asset('index')}}"
+                                    // window.history.go(-1);
                                     window.location.href = document.referrer;//返回上一页并刷新
                                 } else {
                                     $("#password").val('');

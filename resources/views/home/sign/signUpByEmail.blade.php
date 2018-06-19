@@ -83,17 +83,6 @@
             }
             //编辑网站基本信息
             $("#form-signUp-email").validate({
-                // rules: {
-                //     email:{
-                //         required:true,
-                //         email:true
-                //     },
-                //     password:{
-                //         required:true,
-                //         minlength:6,
-                //         maxlength:12
-                //     },
-                // },
                 onkeyup: false,
                 focusCleanup: false,
                 success: "valid",

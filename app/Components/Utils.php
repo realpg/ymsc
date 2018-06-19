@@ -22,6 +22,9 @@ class Utils
     const ORDER_REFUNDSUCCESS = "5";    //退款成功
     const ORDER_REFUNDFAILED = "6";    //退款失败
 
+    //邮费
+    const POSTAGE = 0;  //邮费
+
     //支付部分的参数
     //微信支付
     const WECHAT_APPID = "";   //APP APPID
@@ -36,7 +39,6 @@ class Utils
     const WECHAT_CERT_KEY = '/cert/apiclient_key.pem';  // 客户端秘钥路径，退款时需要用到
     const WECHAT_LOG_FILE = '/../storage/logs/wechat.log';   //log的位置
     const WECHAT_LOG_LEVEL = 'debug';
-
     //支付宝支付
     const ALIPAY_APPID = "2018040802517697";   //APP APPID
 //    const ALIPAY_NOTIFY_URL = "http://ymsc.isart.me/api/aliNotify/";   //支付宝回调链接
@@ -52,8 +54,12 @@ class Utils
     const UNSIGN_WORD = "请先登录";   //未登录提示语
     const UNSIGN_CODE = 9999;   //未登录编码
 
-    //邮费
-    const POSTAGE = 0;  //邮费
+    //微信登录
+    const WECHAT_LOGIN_APP_ID='wxe6deb72d8381e0f2';
+    const WECHAT_LOGIN_APP_SECRET='';
+    const WECHAT_LOGIN_REDIRECT_URL='/api/wechatLogincallback';
+
+
 
     /*
      * 判断一个对象是不是空

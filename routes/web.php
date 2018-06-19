@@ -211,6 +211,10 @@ Route::group(['prefix' => '', 'middleware' => ['WebBase']], function () {
     Route::post('signUp', 'Home\SignController@signUpDo');      //通过手机注册
     Route::get('signIn', 'Home\SignController@signIn');        //登录
     Route::post('signIn', 'Home\SignController@signInDo');        //登录
+    Route::get('signInBinding', 'Home\SignController@signInBinding');        //微信扫码成功后绑定用户信息
+    Route::post('signInBinding', 'Home\SignController@signInBindingDo');        //微信扫码成功后绑定用户信息
+    Route::get('signInBindingSuccess', 'Home\SignController@signInBindingSuccess');        //微信扫码成功后绑定用户信息成功
+    Route::get('signInBindingFail', 'Home\SignController@signInBindingFail');        //微信扫码成功后绑定用户信息失败
     Route::get('signOut', 'Home\SignController@signOut');        //安全退出
     Route::get('reset', 'Home\SignController@reset');        //找回密码
     Route::post('reset', 'Home\SignController@resetDo');        //找回密码

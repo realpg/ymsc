@@ -185,18 +185,22 @@ class SignController extends Controller
                     'user'=>$user,
                 );
             }
-//        if(array_key_exists('type',$data)){
-//            $type=$data['type'];
-//        }
-//        else{
-//            $type=0;
-//        }
-//        if($type==1){
-//            return view('home.sign.signInByWechat',$param);
-//        }
-//        else{
-            return view('home.sign.signIn',$param);
-//        }
+            if(array_key_exists('type',$data)){
+                $type=$data['type'];
+            }
+            else{
+                $type=0;
+            }
+            if($type==1){
+                $time=time();
+                $param['appid']=Utils::WECHAT_LOGIN_APP_ID;
+                $param['callbackUrl']=Utils::WECHAT_LOGIN_REDIRECT_URL;
+                $param['time']=$time;
+                return view('home.sign.signInByWechat',$param);
+            }
+            else{
+                return view('home.sign.signIn',$param);
+            }
         }
     }
 
@@ -233,6 +237,145 @@ class SignController extends Controller
             $return=$check_return;
         }
         return $return;
+    }
+
+    /*
+     * 微信扫码成功后绑定用户信息
+     */
+    public function signInBinding(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        if($user){
+            return redirect('center');
+        }
+        else{
+            $common=$data['common'];
+            $column='signIn';
+            $menus=MenuManager::getClassAMenuLists();
+            //二次验证（确保不出BUG）
+            if($user){
+                //购物车信息
+                $carts = CartManager::getCartsByUserId($user['id']);
+                $param=array(
+                    'common'=>$common,
+                    'menus'=>$menus,
+                    'column'=>$column,
+                    'user'=>$user,
+                    'carts'=>$carts
+                );
+            }
+            else{
+                $param=array(
+                    'common'=>$common,
+                    'menus'=>$menus,
+                    'column'=>$column,
+                    'user'=>$user,
+                );
+            }
+            if(array_key_exists('type',$data)){
+                $type=$data['type'];
+            }
+            else{
+                $type=0;
+            }
+            if($type==1){
+                return view('home.sign.signInBindingByEmail',$param);
+            }
+            else{
+                return view('home.sign.signInBindingByPhonenum',$param);
+            }
+        }
+    }
+
+    /*
+     * 执行微信扫码成功后绑定用户信息
+     */
+    public function signInBindingDo(Request $request){
+        $data=$request->all();
+        $return=null;
+        $verificationCode=$request->session()->get('verificationCode');
+        if ($verificationCode!=$data['verificationCode']) {
+            $return['result']=false;
+            $return['msg']='验证码错误';
+        }
+        else{
+            unset($data['common']);
+            $user=MemberManager::binding($data);
+            if($user){
+                $cookie['id']=$user['id'];
+                $cookie['nick_name']=$user['nick_name'];
+                Cookie::queue('user', $cookie);
+                $return['result']=true;
+                $return['msg']='登录成功';
+            }
+            else{
+                $return['result']=false;
+                $return['msg']='登录失败';
+            }
+        }
+        return $return;
+    }
+
+    /*
+     * 微信绑定用户成功
+     */
+    public function signInBindingSuccess(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='signUp';
+        $menus=MenuManager::getClassAMenuLists();
+        if($user){
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+            );
+        }
+        return view('home.sign.signInBindingSuccess',$param);
+    }
+
+    /*
+     * 微信绑定用户失败
+     */
+    public function signInBindingFail(Request $request){
+        $data=$request->all();
+        $user=$request->cookie('user');
+        $common=$data['common'];
+        $column='signUp';
+        $menus=MenuManager::getClassAMenuLists();
+        if($user){
+            //购物车信息
+            $carts = CartManager::getCartsByUserId($user['id']);
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>$carts
+            );
+        }
+        else{
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+            );
+        }
+        return view('home.sign.signInBindingFail',$param);
     }
 
     /*

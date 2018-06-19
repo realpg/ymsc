@@ -164,6 +164,15 @@
     </footer>
     <footer class="style-home-footer text-center">
         {{$common['base']['copyright']}}&nbsp;{{$common['base']['number']}}
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?b804c645e0c44c1da9e6074ee465b539";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
     </footer>
 @show
 <div id='style-home-right'>
@@ -460,6 +469,7 @@
 <script type="text/javascript" src="{{ URL::asset('dist/lib/jquery/1.9.1/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('dist/lib/layer/2.4/layer.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/bootstrap/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/jquery.cookie.js') }}"></script>
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->

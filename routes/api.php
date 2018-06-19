@@ -24,4 +24,7 @@ Route::group(['prefix' => '', 'middleware' => ['BeforeRequest']], function () {
     Route::any('aliNotify', 'API\AliController@aliNotify');
     //支付宝支付回调通知    请勿调用
     Route::any('aliReturn', 'API\AliController@aliReturn');
+
+    //微信扫码登录的回调地址   请勿调用
+    Route::any('wechatLogincallback', 'API\WechatScavengingController@logincallback');
 });
