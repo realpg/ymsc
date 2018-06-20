@@ -19,11 +19,15 @@
                                     </li>
                                 </ul>
                                 @if($msg)
-                                <h4 class="text-red">{{$msg}}</h4>
+                                <h4 class="text-red margin-top-20">{{$msg}}</h4>
                                 @endif
                                 <form method="post" id="form-signIn" name="signIn">
                                     {{ csrf_field() }}
-                                    <p class="position-relative margin-top-40">
+                                    @if($msg)
+                                        <p class="position-relative margin-top-20">
+                                    @else
+                                        <p class="position-relative margin-top-40">
+                                    @endif
                                         <input type="text" name="phonenum" id="phonenum" class="form-control" placeholder="请输入手机号\邮箱">
                                     </p>
                                     <p class="position-relative margin-top-30">
