@@ -119,7 +119,12 @@
                                 if (ret.result) {
                                     layer.msg(ret.msg, {icon: 1, time: 2000});
                                     delCookie('before_url')
-                                    window.location.href = document.referrer;//返回上一页并刷新
+                                    if(before_url){
+                                        window.location.href = document.referrer;//返回上一页并刷新
+                                    }
+                                    else{
+                                        window.location.href = "{{URL::asset('/')}}";//返回首页
+                                    }
                                 } else {
                                     $("#password").val('');
                                     $("#verifyimage").click();

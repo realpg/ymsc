@@ -8,10 +8,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Components\MenuManager;
+use app\Components\MemberManager;
 use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 
 class WechatScavengingController extends Controller
 {
@@ -54,18 +55,23 @@ class WechatScavengingController extends Controller
             if(array_key_exists('openid',$userinfo)){
 //                $request->session()->put('signInBinding', $userinfo);//写入session
 //                return redirect()->action('Home\SignController@signInBinding');
-                $data=$request->all();
-                $common=$data['common'];
-                $column='signIn';
-                $menus=MenuManager::getClassAMenuLists();
-                $param=array(
-                    'common'=>$common,
-                    'menus'=>$menus,
-                    'column'=>$column,
-                    'user'=>array(),
-                    'userinfo'=>$userinfo
-                );
-                return view('home.sign.signInBindingByPhonenum',$param);
+                    $user=MemberManager::wechatSignUp($userinfo);
+                    if($user){
+                        $cookie['id']=$user['id'];
+                        $cookie['nick_name']=$user['nick_name'];
+                        Cookie::queue('user', $cookie);
+                        $before_url=$request->cookie('before_url');
+                        if($before_url){
+                            setcookie('before_url', '', -1, '/');
+                            return redirect($before_url);
+                        }
+                        else{
+                            return redirect('/');
+                        }
+                    }
+                    else{
+                        return redirect()->action('Home\SignController@signIn', ['msg'=>Utils::FAIL_SIGNIN_WECHAT]);
+                    }
             }
             else{
                 return redirect()->action('Home\SignController@signIn', ['msg'=>Utils::FAIL_SIGNIN_WECHAT]);

@@ -266,6 +266,29 @@ class MemberManager
             return false;
         }
     }
+
+    /*
+     * 微信扫码后验证用户是否存在，如果存在返回用户信息，如果不存在进行用户绑定或注册
+     *
+     * by Amy
+     *
+     * 2018-05-28
+     *
+     */
+    public static function wechatSignUp($data){
+        if(array_key_exists('openid',$data)){
+            $user=UserModel::where('web_openid',$data['openid'])->first();
+            $data['web_openid']=$data['openid'];
+            $data['nick_name']=$data['nickname'];
+            $data['gender']=$data['sex'];
+            $data['avatar']=$data['headimgurl'];
+            return self::saveUser($user,$data);
+        }
+        else{
+            return false;
+        }
+    }
+
     //搭配微信扫码绑定环节
     function saveUser($user,$data){
         if(!$user){
