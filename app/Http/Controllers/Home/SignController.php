@@ -412,7 +412,8 @@ class SignController extends Controller
             'common'=>$common,
             'menus'=>$menus,
             'column'=>$column,
-            'user'=>$user
+            'user'=>$user,
+            'carts'=>array()
         );
         if(array_key_exists('type',$data)){
             $type=$data['type'];
