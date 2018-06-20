@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Components\MenuManager;
 use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +22,6 @@ class WechatScavengingController extends Controller
      */
     public function logincallback(Request $request)
     {
-        dd($request->all());
         $app_id = Utils::WECHAT_LOGIN_APP_ID;
         $app_secret = Utils::WECHAT_LOGIN_APP_SECRET;
 
@@ -52,8 +52,20 @@ class WechatScavengingController extends Controller
 
 //        dd($userinfo);
             if(array_key_exists('openid',$userinfo)){
-                $request->session()->put('signInBinding', $userinfo);//写入session
-                return redirect()->action('Home\SignController@signInBinding');
+//                $request->session()->put('signInBinding', $userinfo);//写入session
+//                return redirect()->action('Home\SignController@signInBinding');
+                $data=$request->all();
+                $common=$data['common'];
+                $column='signIn';
+                $menus=MenuManager::getClassAMenuLists();
+                $param=array(
+                    'common'=>$common,
+                    'menus'=>$menus,
+                    'column'=>$column,
+                    'user'=>array(),
+                    'userinfo'=>$userinfo
+                );
+                return view('home.sign.signInBindingByPhonenum',$param);
             }
             else{
                 return redirect()->action('Home\SignController@signIn', ['msg'=>Utils::FAIL_SIGNIN_WECHAT]);
