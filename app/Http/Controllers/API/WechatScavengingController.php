@@ -22,7 +22,7 @@ class WechatScavengingController extends Controller
     public function logincallback(Request $request)
     {
         $app_id = Utils::WECHAT_LOGIN_APP_ID;
-//        $app_secret = Utils::WECHAT_LOGIN_APP_SECRET;
+        $app_secret = Utils::WECHAT_LOGIN_APP_SECRET;
 
         //这里需要拼接一个url 获取 access_token
         //appid app_secret不做赘述  code为微信服务器返回的code  grant_type参数写法固定
@@ -52,7 +52,7 @@ class WechatScavengingController extends Controller
 //        dd($userinfo);
             if(array_key_exists('openid',$userinfo)){
                 $request->session()->put('signInBinding', $userinfo);//写入session
-                return redirect()->action('Home\SignController@signIn');
+                return redirect()->action('Home\SignController@signInBinding');
             }
             else{
                 return redirect()->action('Home\SignController@signIn', ['msg'=>Utils::FAIL_SIGNIN_WECHAT]);
