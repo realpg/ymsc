@@ -21,6 +21,7 @@ class WechatScavengingController extends Controller
      */
     public function logincallback(Request $request)
     {
+        dd($request->all());
         $app_id = Utils::WECHAT_LOGIN_APP_ID;
         $app_secret = Utils::WECHAT_LOGIN_APP_SECRET;
 
