@@ -405,27 +405,32 @@ class SignController extends Controller
     public function reset(Request $request){
         $data=$request->all();
         $user=$request->cookie('user');
-        $common=$data['common'];
-        $column='signIn';
-        $menus=MenuManager::getClassAMenuLists();
-        $param=array(
-            'common'=>$common,
-            'menus'=>$menus,
-            'column'=>$column,
-            'user'=>$user,
-            'carts'=>array()
-        );
-        if(array_key_exists('type',$data)){
-            $type=$data['type'];
+        if($user){
+            return redirect('/');
         }
         else{
-            $type=0;
-        }
-        if($type==1){
-            return view('home.sign.resetByEmail',$param);
-        }
-        else{
-            return view('home.sign.resetByPhonenum',$param);
+            $common=$data['common'];
+            $column='signIn';
+            $menus=MenuManager::getClassAMenuLists();
+            $param=array(
+                'common'=>$common,
+                'menus'=>$menus,
+                'column'=>$column,
+                'user'=>$user,
+                'carts'=>array()
+            );
+            if(array_key_exists('type',$data)){
+                $type=$data['type'];
+            }
+            else{
+                $type=0;
+            }
+            if($type==1){
+                return view('home.sign.resetByEmail',$param);
+            }
+            else{
+                return view('home.sign.resetByPhonenum',$param);
+            }
         }
     }
 
