@@ -282,7 +282,17 @@ class MemberManager
             $data['nick_name']=$data['nickname'];
             $data['gender']=$data['sex'];
             $data['avatar']=$data['headimgurl'];
-            return self::saveUser($user,$data);
+            if(!$user){
+                $user=new UserModel();
+            }
+            $user=self::setUser($user,$data);
+            $result=$user->save();
+            if($result){
+                return $user;
+            }
+            else{
+                return false;  //操作失败
+            }
         }
         else{
             return false;

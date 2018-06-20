@@ -61,7 +61,7 @@ class WechatScavengingController extends Controller
                         $cookie['nick_name']=$user['nick_name'];
                         Cookie::queue('user', $cookie);
                         $before_url=$request->cookie('before_url');
-                        
+
                         if($before_url){
                             setcookie('before_url', '', -1, '/');
                             return redirect($before_url);
