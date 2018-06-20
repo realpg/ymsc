@@ -215,7 +215,7 @@ class MemberManager
      * 2018-05-28
      *
      */
-    public static function wechatSignUp($data){
+    public static function wechatLogin($data){
         if(array_key_exists('openid',$data)){
             $user=UserModel::where('web_openid',$data['openid'])->first();
             $data['web_openid']=$data['openid'];
