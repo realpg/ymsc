@@ -68,7 +68,6 @@
             //获取上一页链接
             var before_url=document.referrer
             var domain=document.domain
-            alert(before_url)
             if(domain+'/signInBindingFail'!=before_url&&domain+'/reset'!=before_url){
                 setCookie('before_url',document.referrer,1); //保存链接到cookie，有效期1天
             }

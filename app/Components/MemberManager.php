@@ -215,66 +215,6 @@ class MemberManager
      * 2018-05-28
      *
      */
-    public static function binding($data){
-        if(array_key_exists('web_openid',$data)){
-            $user=UserModel::where('web_openid',$data['web_openid'])->first();
-            if($user){
-                //如果用户存在返回用户信息
-                return $user;
-            }
-            else{
-                //如果用户不存在查找用户要绑定的手机号或邮箱，如果存在直接绑定，如果不存在创建用户，并返回信息
-                if(array_key_exists('phonenum',$data)){
-                    $user=UserModel::where('phonenum',$data['phonenum'])->first();
-                    if(!$user){
-                        $user=new UserModel();
-                    }
-                    //判断是否获取微信中的基本信息
-                    if(!$user['nick_name']){
-                        $data['nick_name']=$data['nick_name'];
-                    }
-                    $data['gender']=$data['gender'];
-                    if(!$user['avatar']){
-                        $data['avatar']=$data['avatar'];
-                    }
-                    return self::saveUser($user,$data);
-                }
-                else{
-                    if(array_key_exists('email',$data)){
-                        $user=UserModel::where('email',$data['email'])->first();
-                        if(!$user){
-                            $user=new UserModel();
-                        }
-                        //判断是否获取微信中的基本信息
-                        if(!$user['nick_name']){
-                            $data['nick_name']=$data['nickname'];
-                        }
-                        $data['gender']=$data['sex'];
-                        if(!$user['avatar']){
-                            $data['avatar']=$data['headimgurl'];
-                        }
-                        return self::saveUser($user,$data);
-                    }
-                    else{
-                        return false;  //如果是扫描环节是判断此微信是否绑定过，如果为false，为没绑定进入绑定状态；如果是绑定环节中结果为此处的false为缺少参数
-                    }
-                }
-            }
-            $request->session()->forget('signInBinding');
-        }
-        else{
-            return false;
-        }
-    }
-
-    /*
-     * 微信扫码后验证用户是否存在，如果存在返回用户信息，如果不存在进行用户绑定或注册
-     *
-     * by Amy
-     *
-     * 2018-05-28
-     *
-     */
     public static function wechatSignUp($data){
         if(array_key_exists('openid',$data)){
             $user=UserModel::where('web_openid',$data['openid'])->first();
@@ -296,21 +236,6 @@ class MemberManager
         }
         else{
             return false;
-        }
-    }
-
-    //搭配微信扫码绑定环节
-    function saveUser($user,$data){
-        if(!$user){
-            $user=new UserModel();
-        }
-        $user=self::setUser($user,$data);
-        $result=$user->save();
-        if($result){
-            return $user;
-        }
-        else{
-            return false;  //操作失败
         }
     }
 
