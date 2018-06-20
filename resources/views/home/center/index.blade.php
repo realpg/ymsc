@@ -44,14 +44,6 @@
                             @endif
                         </div>
                     </div>
-                    @if(!$user['web_openid'])
-                        <div class="row position-relative margin-top-20">
-                            <div class="col-xs-6 col-sm-3 text-right" style="line-height: 34px;">微 信 绑 定：</div>
-                            <div class="col-xs-6 col-sm-8">
-                                绑定微信后，可以通过微信扫描二维码进行登录。
-                            </div>bang
-                        </div>
-                    @endif
                     <div class="row position-relative margin-top-20">
                         <div class="col-xs-6 col-sm-3 text-right">Q Q：</div>
                         <div class="col-xs-6 col-sm-8">
