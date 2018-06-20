@@ -8,7 +8,7 @@
 
 namespace App\Http\Controllers\API;
 
-use app\Components\MemberManager;
+use App\Components\MemberManager;
 use App\Components\Utils;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -61,6 +61,7 @@ class WechatScavengingController extends Controller
                         $cookie['nick_name']=$user['nick_name'];
                         Cookie::queue('user', $cookie);
                         $before_url=$request->cookie('before_url');
+                        
                         if($before_url){
                             setcookie('before_url', '', -1, '/');
                             return redirect($before_url);
