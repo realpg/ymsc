@@ -19,7 +19,7 @@
                                     </li>
                                 </ul>
                                 @if($msg)
-                                <h4 class="text-red margin-top-20">{{$msg}}</h4>
+                                <h5 class="text-red margin-top-20">{{$msg}}</h5>
                                 @endif
                                 <form method="post" id="form-signIn" name="signIn">
                                     {{ csrf_field() }}
@@ -28,15 +28,23 @@
                                     @else
                                         <p class="position-relative margin-top-40">
                                     @endif
-                                        <input type="text" name="phonenum" id="phonenum" class="form-control" placeholder="请输入手机号\邮箱">
-                                    </p>
-                                    <p class="position-relative margin-top-30">
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码6-12字符、数字组成">
-                                    </p>
-                                    <p class="position-relative form-group margin-top-30">
-                                        <input type="text" name="verificationCode" id="verificationCode" class="form-control width-55 float-left" placeholder="请输入验证码">
-                                        <img src="{{ URL::asset('code') }}" class="form-control width-40 float-right padding-0 border-0 border-radius-0 cursor-pointer"  id="verifyimage"  onclick="this.src='{{ url('code') }}?r='+Math.random();" alt="验证码" />
-                                    </p>
+                                            <input type="text" name="phonenum" id="phonenum" class="form-control" placeholder="请输入手机号\邮箱">
+                                        </p>
+                                    @if($msg)
+                                        <p class="position-relative margin-top-25">
+                                    @else
+                                        <p class="position-relative margin-top-30">
+                                    @endif
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码6-12字符、数字组成">
+                                        </p>
+                                    @if($msg)
+                                        <p class="position-relative form-group margin-top-25">
+                                    @else
+                                        <p class="position-relative form-group margin-top-30">
+                                    @endif
+                                            <input type="text" name="verificationCode" id="verificationCode" class="form-control width-55 float-left" placeholder="请输入验证码">
+                                            <img src="{{ URL::asset('code') }}" class="form-control width-40 float-right padding-0 border-0 border-radius-0 cursor-pointer"  id="verifyimage"  onclick="this.src='{{ url('code') }}?r='+Math.random();" alt="验证码" />
+                                        </p>
                                     <p class="clear"></p>
                                     <p class="margin-top-30">
                                         <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
