@@ -22,7 +22,7 @@
     <script type="text/javascript" src="{{ URL::asset('dist/lib/DD_belatedPNG_0.0.8a-min.js') }}"></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>优迈商城-管理后台</title>
+    <title>优迈科研服务平台-管理后台</title>
 </head>
 <body>
 

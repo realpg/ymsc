@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>优迈商城 | 管理后台</title>
+    <title>优迈科研服务平台 | 管理后台</title>
     <link href="{{ URL::asset('img/favor.ico') }}" rel="shortcut icon" type="image/x-icon"/>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -37,7 +37,7 @@
 </head>
 <body>
 <div class="login">
-    <div class="message font-size-22 text-white">优迈商城-后台登录</div>
+    <div class="message font-size-22 text-white">优迈科研服务平台-后台登录</div>
     <div id="darkbannerwrap"></div>
 
     <form action="" method="post" onsubmit="return checkValid()" >
@@ -58,8 +58,7 @@
 </div>
 
 <div class="copyright">© 2018-2019 by
-    <a href="#" target="_blank" style=" color: rgba(255, 255, 255, 0.85);">
-        优迈商城</a>
+    <a href="#" target="_blank" style=" color: rgba(255, 255, 255, 0.85);">优迈科研服务平台</a>
 </div>
 
 </body>

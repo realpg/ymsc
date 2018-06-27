@@ -353,7 +353,7 @@ class OrderController
                 $pay_order = [
                     'out_trade_no' => $order->trade_no,
                     'total_fee' => $order->total_fee,
-                    'body' => '优迈商城支付',
+                    'body' => '优迈科研服务平台支付',
                     'spbill_create_ip' => $_SERVER['HTTP_HOST'],
                     'product_id' => $goods_ids,            // 订单商品 ID
                 ];
@@ -417,7 +417,7 @@ class OrderController
                 $pay_order = [
                     'out_trade_no' => $order->trade_no,
                     'total_amount' => ($order->total_fee)/100,    //支付宝以“元”为单位
-                    'subject' => '优迈商城订单支付',
+                    'subject' => '优迈科研服务平台订单支付',
                 ];
                 //配置config
                 $config = self::getConfigForAli();
