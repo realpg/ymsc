@@ -34,7 +34,7 @@
                                         <button class="btn btn-lg btn-primary btn-block" type="submit">注 册</button>
                                     </p>
                                     <p class="position-relative form-group margin-top-20 text-right">
-                                        <a href=""><span class="text-blue">我已有账号</span></a>
+                                        <a href="{{ URL::asset('signIn') }}"><span class="text-blue">我已有账号</span></a>
                                     </p>
                                 </form>
                             </div>
