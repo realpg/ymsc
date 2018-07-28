@@ -714,6 +714,7 @@
     function pay(){
         var address_id=$("input[name='address_id']:checked").val();
         var invoice_id=$("input[name='invoice_id']:checked").val();
+        invoice_id=invoice_id?invoice_id:'';
         var trade_no=$('#trade_no').text();
         var content=$('#content').val();
         var pay_type=$('#pay_type').val();
