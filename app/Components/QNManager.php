@@ -9,7 +9,6 @@
 
 namespace App\Components;
 
-use Illuminate\Support\Facades\Storage;
 use Qiniu\Auth;
 
 class QNManager
@@ -23,8 +22,11 @@ class QNManager
      */
     public static function uploadToken()
     {
-        $disk = Storage::disk('qiniu');
-        $token = $disk->getUploadToken();
-        return $token;
+        $accessKey = 'JXanCoTnAoyJd4WclS-zPhA8JmWooPTqvK5RCHXb';
+        $secretKey = 'ouc-dLEY42KijHeUaTzTBzFeM2Q1mKk_M_3vNpmT';
+        $auth = new Auth($accessKey, $secretKey);
+        $bucket = 'dsyy';
+        $upToken = $auth->uploadToken($bucket);
+        return $upToken;
     }
 }
