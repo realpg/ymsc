@@ -182,6 +182,8 @@ return [
 
         // 微信扫码登录
         Overtrue\LaravelWeChat\ServiceProvider::class,
+        //七牛
+        Overtrue\LaravelFilesystem\Qiniu\QiniuStorageServiceProvider::class,
     ],
 
     /*

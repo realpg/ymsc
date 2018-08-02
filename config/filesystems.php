@@ -62,6 +62,14 @@ return [
             'region' => env('AWS_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+        //七牛配置
+        'qiniu' => [
+            'driver'     => 'qiniu',
+            'access_key' => env('QINIU_ACCESS_KEY', 'JXanCoTnAoyJd4WclS-zPhA8JmWooPTqvK5RCHXb'),
+            'secret_key' => env('QINIU_SECRET_KEY', 'ouc-dLEY42KijHeUaTzTBzFeM2Q1mKk_M_3vNpmT'),
+            'bucket'     => env('QINIU_BUCKET', 'dsyy'),
+            'domain'     => env('QINIU_DOMAIN', 'dsyy.isart.me/'), // or host: https://xxxx.clouddn.com
+        ],
 
     ],
 
