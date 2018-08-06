@@ -635,7 +635,9 @@
             });
 
             //规定banner的高度
-            $('#banner').height('450');
+            $('#banner').height('450')
+            $('#banner').width('1140');
+            $('#banner').css('margin','auto');
             var bannerHeight=$('#banner').height();
             $('#side_bar_menus').css('margin-top',-bannerHeight);
         }

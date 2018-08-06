@@ -1,4 +1,4 @@
-<div class="carousel-content" >
+<div class="carousel-content">
     <ul class="carousel" id="banner">
         @foreach($banners as $banner)
            <li>
