@@ -1,4 +1,5 @@
 <div class="carousel-content">
+    @if(count($banners)>1)
     <ul class="carousel" id="banner">
         @foreach($banners as $banner)
            <li>
@@ -7,6 +8,11 @@
         @endforeach
     </ul>
     <ul class="img-index"></ul>
+    @elseif(count($banners)==1)
+        <img src="{{$banners[0]['picture']}}" class="style-banner-image" />
+    @else
+        <div class="style-banner-site"></div>
+    @endif
     {{--<div class="carousel-prev"><img src="{{URL::asset('img/left_btn1.png')}}"></div>--}}
     {{--<div class="carousel-next"><img src="{{URL::asset('img/right_btn1.png')}}"></div>--}}
 </div>

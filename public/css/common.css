@@ -1407,3 +1407,14 @@ label.error {
     background-color: #1A1D30;
     border-color: #1A1D30;
 }
+.style-banner-image{
+    position: absolute;
+    height: 450px;
+    width:100%;
+}
+.style-banner-site{
+    position: absolute;
+    height: 450px;
+    width:100%;
+    background-color: #011931;
+}
