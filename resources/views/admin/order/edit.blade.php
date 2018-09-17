@@ -140,6 +140,7 @@
                         </div>
                     </div>
                 </div>
+                @if($data['status']!=1)
                 <div class="tabCon">
                     <div class="row cl">
                         <label class="form-label col-xs-4 col-sm-2">收货人：</label>
@@ -187,7 +188,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="tabCon">
+                    @if($data['invoice_id'])
+                        <div class="tabCon">
                     @if($data['invoice']['type']==0)
                         <div class="row cl">
                             <label class="form-label col-xs-4 col-sm-2">发票类型：</label>
@@ -293,7 +295,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="tabCon">
+                    @endif
+                    @if($data['status']==2||$data['status']==6)
+                        <div class="tabCon">
                     <div class="row cl hidden">
                         <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>id：</label>
                         <div class="formControls col-xs-8 col-sm-9">
@@ -349,6 +353,8 @@
                         </div>
                     </div>
                 </div>
+                    @endif
+                @endif
             </div>
         </form>
     </div>
