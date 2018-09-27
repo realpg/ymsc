@@ -70,6 +70,9 @@
                         </a>
                         <ul class="dropdown-menu" style="background-color: #01061a;">
                             <li style="border-bottom: 0px;padding:0;"><a href="{{ URL::asset('index') }}">首页</a></li>
+                            @foreach($common['links'] as $link)
+                                <li style="border-bottom: 0px;"><a href="{{URL::asset($link['link'])}}">{{$link['name']}}</a></li>
+                            @endforeach
                             @foreach($common['cartes'] as $carte)
                             <li style="border-bottom: 0px;"><a href="{{URL::asset($carte['route'])}}">{{$carte['name']}}</a></li>
                             @endforeach
